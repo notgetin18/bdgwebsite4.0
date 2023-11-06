@@ -2,26 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: NunitoSans-Regular;
+  src: url(../../public/font/NunitoSans_Regular.ttf);
+}
+@font-face {
+  font-family: NunitoSans-Regular;
+  src: url(../../public/font/NunitoSans_Regular.ttf) format("truetype");
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: NunitoSans-Light;
+  src: url(../../public/font/NunitoSans_Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NunitoSans-ExtraBold;
+  src: url(../../public/font/NunitoSans_ExtraBold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NunitoSans-Bold;
+  src: url(../../public/font/NunitoSans_Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: NunitoSans-SemiBold;
+  src: url(../../public/font/NunitoSans_SemiBold.ttf) format("truetype");
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: NunitoSans-Regular;
+}
+
+.bold {
+  font-family: NunitoSans-Bold;
+}
+
+.extrabold {
+  font-family: NunitoSans-ExtraBold;
+}
+
+.regular {
+  font-family: NunitoSans-Regular;
+}
+
+.semibold {
+  font-family: NunitoSans-SemiBold;
+}
+
+.bg-theme {
+  background: #092637;
+}
+
+.bg-header {
+  background: #081a24;
+}
+
+.text-gold {
+  color: #fef468;
+}
+
+.border-gold {
+  border: 1px solid #fef468;
 }
