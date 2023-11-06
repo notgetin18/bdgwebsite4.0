@@ -1,4 +1,4 @@
 import Footer from "./footer";
 import Navbar from "./navbar";
-
-export { Footer, Navbar };
+import HeroSection from "./homepage/heroSection";
+export { Footer, Navbar, HeroSection };
