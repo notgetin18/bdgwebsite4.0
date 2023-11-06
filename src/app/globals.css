@@ -167,3 +167,98 @@ input[type="number"] {
 .theme-btn:hover:before {
   width: 100%;
 }
+
+
+/* coin transasition */
+.coin_transition {
+  transition: transform 0.7s ease;
+}
+
+.gold_coin {
+  transition: transform 1.2s ease;
+  transform: rotateX(0deg);
+}
+
+.silver_coin {
+  transition: transform 1.2s ease;
+  transform: rotateY(360deg);
+}
+
+/* toggle button */
+.toggle-button {
+  position: relative;
+  display: inline-block;
+  width: 180px;
+  height: 60px;
+  margin-left: 10px;
+}
+
+.toggle-button input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f9cd23;
+  /* background-color: ; */
+  transition: 0.5s;
+  border-radius: 34px;
+  overflow: hidden;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 55px;
+  width: 55px;
+  left: 4px;
+  bottom: 3px;
+  background-color: #ffffff; /* Set initial color to Silver */
+  transition: 0.5s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #c0c0c0; /* Change background color to Silver when checked */
+}
+
+input:checked + .slider:before {
+  transform: translateX(118px);
+}
+
+.text-silver,
+.text-gold {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.text-silver {
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.text-gold {
+  opacity: 0;
+  transition: 0.4s;
+}
+
+input:checked + .slider ~ .text-silver {
+  opacity: 0;
+}
+
+input:checked + .slider ~ .text-gold {
+  opacity: 1;
+}
