@@ -54,7 +54,9 @@ body {
 .bg-theme {
   background: #092637;
 }
-
+.bg-themeLight {
+  background: rgba(44, 123, 172, 0.2);
+}
 .bg-header {
   background: #081a24;
 }
@@ -62,7 +64,106 @@ body {
 .text-gold {
   color: #fef468;
 }
+.text-gold01 {
+  color: #ffd835;
+}
 
 .border-gold {
   border: 1px solid #fef468;
+}
+.tab-bg {
+  background: #11354b;
+}
+.tab-activeBg {
+  background: rgb(23 67 94);
+}
+
+.timer {
+  background: linear-gradient(
+    89.97deg,
+    rgba(215, 66, 66, 0.2) 0.02%,
+    rgba(215, 66, 66, 0) 84.56%
+  );
+  color: #ff6b6b;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.theme-btn {
+  display: inline-block;
+  border-radius: 8px;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.15rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.theme-btn:after {
+  width: 100%;
+  background: linear-gradient(
+    90.12deg,
+    #eac954 0.1%,
+    #f6e472 12.05%,
+    #eac954 22.45%,
+    #d7b344 33.88%,
+    #c09832 41.16%,
+    #b28726 47.4%,
+    #bc932e 56.75%,
+    #c5a643 68.19%,
+    #c5a643 74.43%,
+    #ae8323 89.5%,
+    #eac954 99.9%
+  );
+  z-index: -2;
+}
+
+.theme-btn:after,
+.theme-btn:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.theme-btn:before {
+  width: 0;
+  background: linear-gradient(
+    90.12deg,
+    #c5a643 0.1%,
+    #ae8323 12.05%,
+    #c5a643 22.45%,
+    #cea83d 33.88%,
+    #bc932e 41.16%,
+    #b28726 47.4%,
+    #c09832 56.75%,
+    #d7b344 68.19%,
+    #eac954 74.43%,
+    #f6e472 89.5%,
+    #eac954 99.9%
+  );
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.theme-btn:hover {
+  color: #fff;
+}
+
+.theme-btn:hover:before {
+  width: 100%;
 }
