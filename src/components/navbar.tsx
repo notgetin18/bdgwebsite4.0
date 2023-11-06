@@ -5,24 +5,8 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Coins", href: "/coins", current: false },
-  { name: "About", href: "/about", current: false },
-  { name: "Contact", href: "/contact", current: false },
-];
-const navigationAfter = [
-  { name: "Home", href: "/", current: true },
-  { name: "Coins", href: "/coins", current: true },
-  { name: "About", href: "/about", current: false },
-  { name: "Contact", href: "/contact", current: false },
-  { name: "Dashboard", href: "/dashboard", current: false },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "./helperFunctions";
+import { navigation, navigationAfter } from "@/constants";
 
 const Navbar = () => {
   const router = useRouter();

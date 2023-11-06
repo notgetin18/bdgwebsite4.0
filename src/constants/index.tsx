@@ -1,8 +1,13 @@
 export const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Home", href: "/", current: true },
+  { name: "Coins", href: "/coins", current: false },
+  { name: "About", href: "/about", current: false },
+  { name: "Contact", href: "/contact", current: false },
 ];
-
-
+export const navigationAfter = [
+  { name: "Home", href: "/", current: true },
+  { name: "Coins", href: "/coins", current: true },
+  { name: "About", href: "/about", current: false },
+  { name: "Contact", href: "/contact", current: false },
+  { name: "Dashboard", href: "/dashboard", current: false },
+];
