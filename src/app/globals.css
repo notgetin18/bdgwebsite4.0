@@ -61,7 +61,7 @@ body {
   background: #081a24;
 }
 
-.text-gold {
+.text-goldTheme {
   color: #fef468;
 }
 .text-gold01 {
@@ -168,7 +168,6 @@ input[type="number"] {
   width: 100%;
 }
 
-
 /* coin transasition */
 .coin_transition {
   transition: transform 0.7s ease;
@@ -261,4 +260,49 @@ input:checked + .slider ~ .text-silver {
 
 input:checked + .slider ~ .text-gold {
   opacity: 1;
+}
+
+.imageContainer {
+  background: linear-gradient(0.69deg, #e1f2f9 0.62%, #a6d7f1 101.27%);
+}
+
+.backSlider {
+  background-image: url(/images/wave1.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50%;
+}
+
+.client_grad {
+  background: linear-gradient(178deg, #fff, hsla(0, 0%, 100%, 0.71));
+}
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after {
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+
+.swiper-button-prev,
+.swiper-rtl .swiper-button-next {
+  left: 1px !important;
+  background: rgba(44, 123, 172, 0.2);
+  border-radius: 50%;
+  height: 30px !important;
+  width: 30px !important;
+  right: auto;
+}
+.swiper-button-next,
+.swiper-rtl .swiper-button-prev {
+  right: 1px !important;
+  background: rgba(44, 123, 172, 0.2);
+  border-radius: 50%;
+  height: 30px !important;
+  width: 30px !important;
+  right: auto;
+}
+
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+  font-size: 12px !important;
+  font-weight: bold !important;
 }
