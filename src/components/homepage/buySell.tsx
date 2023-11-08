@@ -3,15 +3,12 @@ import { ArrowUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Switch } from "@headlessui/react";
-import { AesDecrypt, classNames, funcForDecrypt } from "../helperFunctions";
 import Image from "next/image";
-import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { metalPrice } from "@/api/DashboardServices";
 import { useDispatch, useSelector } from "react-redux";
-
 import { setGoldData, setSilverData } from '../../redux/goldSlice';
 import { RootState } from "@/redux/store";
+import { decrementSecond, setInitialAPICallCompleted } from "@/redux/timerSlice";
 const tabs = [
   { name: "Buy", href: "#", current: true },
   { name: "Sell", href: "#", current: false },
@@ -20,17 +17,17 @@ const tabs = [
 const BuySell = () => {
   const [isgold, setIsGold] = useState(true);
   const [activeTab, setActiveTab] = useState('buy');
-
-  const handleTabClick = (tab: 'buy' | 'sell') => {
-    setActiveTab(tab);
-  };
   const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
-
-
+  const { minutes, seconds, hasInitialAPICallCompleted } = useSelector((state: RootState) => state.globalTimer);
+  
   const toggleGold = () => {
     setIsGold(!isgold);
+  };
+
+  const handleTabClick = (tab: 'buy' | 'sell') => {
+    setActiveTab(tab);
   };
 
 
@@ -39,8 +36,6 @@ const BuySell = () => {
     try {
       const response: any = await metalPrice();
       const metalPriceOfGoldSilver = await JSON.parse(response);
-
-      // Dispatch the action to update goldData in Redux
       dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
       dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]))
     } catch (error) {
@@ -48,9 +43,36 @@ const BuySell = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData()
-  }, []);
+  useEffect(() => {  
+    // Define a flag to track whether the initial API call has been made
+    let initialAPICallMade = false;
+  
+    const timerInterval = setInterval(() => {
+      dispatch(decrementSecond());
+  
+      if (minutes === 0 && seconds === 0) {
+        // Timer has reached 0:00
+  
+        if (!initialAPICallMade || !hasInitialAPICallCompleted) {
+          // Initial API call
+          fetchData(); // Make sure you import your API call function
+          dispatch(setInitialAPICallCompleted()); // Set the flag
+          initialAPICallMade = true; // Set the initial API call flag
+        }
+      }
+    }, 1000);
+  
+    // Call fetchData once when the component mounts
+    if (!initialAPICallMade) {
+      fetchData();
+      initialAPICallMade = true; // Set the initial API call flag
+    }
+  
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, [dispatch, minutes, seconds, hasInitialAPICallCompleted]);
+  
 
 
   return (
@@ -152,16 +174,20 @@ const BuySell = () => {
                     24k 99.9% Pure Gold
                   </p>
                   <p className="text-xs font-base pl-6">
-                    <span className="text-green-500">
-                      {/* {isgold ? } */}
-                      <ArrowUpIcon className="h-4 inline-block" />0 %
-                    </span>
+                    {isgold ? <span className={`${goldData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {goldData.percentage >= 0 ? <ArrowUpIcon className="h-4 inline-block text-green-500" /> : <ChevronDownIcon className="h-4 inline-block text-red-500" />}
+                      {goldData.percentage} %
+                    </span> : <span className={`${silverData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                      {silverData.percentage >= 0 ? <ArrowUpIcon className="h-4 inline-block" /> : <ChevronDownIcon className="h-4 inline-block" />}
+                      {silverData.percentage} %
+                    </span>}
+
                     <span className="text-white ml-2">Since Yesterday</span>
                   </p>
-                  {/* 
+
                   <p className="timer mt-4 text-xs py-1 pl-6">
-                    Gold rate expires in 2:20
-                  </p> */}
+                    Gold rate expires in {minutes} : {seconds}
+                  </p>
                 </div>
               </div>
               <div className=" flex justify-end items-center pr-12">

@@ -1,15 +1,28 @@
 'use client'
-import React from "react";
+import React, { useEffect } from "react";
 import BuySell from "./buySell";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { decrementSecond } from "@/redux/timerSlice";
 
 const HeroSection = () => {
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
+  const dispatch = useDispatch();
+ 
 
-  console.log('goldData', goldData);
-  console.log('goldData', silverData);
+  // useEffect(() => {
+  //   const timerInterval = setInterval(() => {
+  //     dispatch(decrementSecond());
+  //   }, 1000);
+
+  //   return () => {
+  //     clearInterval(timerInterval);
+  //   };
+  // }, [dispatch]);
+
+  // console.log('goldData', goldData);
+  // console.log('silverData', silverData);
 
   return (
     <div className="bg-theme py-10">
