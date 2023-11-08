@@ -1,27 +1,20 @@
 import React from "react";
-import BuySell from "./buySell";
+// import BuySell from "./buySell";
 // import { goldP}
 
 const HeroSection = () => {
   return (
-    <div className="bg-theme py-10">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
+    <div className="bg-theme py-10 pt-36">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="hidden md:block">
             <h1 className="text-5xl text-white font-semibold leading-tight mb-12 extrabold">
               Invest Your Savings
               <br /> Just a click away
             </h1>
             <div className="flex items-center">
-              {/* <img
-                className="h-12"
-                src={new URL(
-                  "../../../public/gold-bars.svg",
-                  import.meta.url
-                ).toString()}
-                alt="Your Company"
-              /> */}
-              <p className="text-gold p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
+              <img className="h-12" src="/gold-bars.svg" alt="Your Company" />
+              <p className="text-gold01 p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
                 Invest or sell 24 karat Gold from the comfort of your home.
               </p>
             </div>
@@ -51,8 +44,14 @@ const HeroSection = () => {
             </div>
           </div>
           {/* <CustomButton title="Invest now" /> */}
-          <div>
-            <BuySell />
+          <div>{/* <BuySell /> */}</div>
+          <div className=" md:hidden grid grid-cols-2 gap-4">
+            <img
+              className="w-full"
+              src="/Startup India.svg"
+              alt="Your Company"
+            />
+            <img className="w-full" src="/brinks.svg" alt="Your Company" />
           </div>
         </div>
       </div>

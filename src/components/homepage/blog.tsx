@@ -55,10 +55,12 @@ export default function Blog() {
             Latest Update
           </h1>
           <Swiper
-            slidesPerView={4}
-            spaceBetween={5}
             loop={true}
             breakpoints={{
+              460: {
+                slidesPerView: 2,
+                spaceBetween: 5,
+              },
               640: {
                 slidesPerView: 2,
                 spaceBetween: 5,
@@ -86,7 +88,7 @@ export default function Blog() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4 pt-10"
               >
-                <div className="bg-themeLight rounded-2xl h-64 relative">
+                <div className="bg-themeLight rounded-2xl relative">
                   <div className=" flex justify-center">
                     <img
                       src={feature.img}
@@ -94,7 +96,9 @@ export default function Blog() {
                       alt="insite"
                     />
                   </div>
-                  <p className="mt-4 text-white text-sm px-4">{feature.name}</p>
+                  <p className="mt-4 text-white text-sm px-4 h-24">
+                    {feature.name}
+                  </p>
                 </div>
               </SwiperSlide>
             ))}

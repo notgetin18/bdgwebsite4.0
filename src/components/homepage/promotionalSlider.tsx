@@ -26,12 +26,9 @@ export default function Promotional() {
       <div className="bg-yellow-50">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-8">
           <Swiper
-            slidesPerView={2}
-            spaceBetween={30}
-            // centeredSlides={true}
             breakpoints={{
               640: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 20,
               },
               768: {
@@ -57,7 +54,7 @@ export default function Promotional() {
               >
                 <img
                   src={feature.img}
-                  className="my-2 w-full rounded-lg"
+                  className="w-full rounded-lg"
                   alt="insite"
                 />
               </SwiperSlide>

@@ -50,12 +50,14 @@ export default function ClientSlider() {
               Trusted And Secured By
             </h1>
             <Swiper
-              slidesPerView={5}
-              spaceBetween={10}
               loop={true}
               breakpoints={{
-                640: {
+                480: {
                   slidesPerView: 2,
+                  spaceBetween: 10,
+                },
+                640: {
+                  slidesPerView: 3,
                   spaceBetween: 10,
                 },
                 768: {

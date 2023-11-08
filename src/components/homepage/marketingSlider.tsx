@@ -47,7 +47,7 @@ export default function Marketing() {
   return (
     <>
       <div className="bg-theme">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
           <Swiper
             spaceBetween={30}
             autoplay={{
@@ -62,21 +62,23 @@ export default function Marketing() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4"
               >
-                <div className="backSlider grid grid-cols-2 gap-20 place-items-center">
+                <div className="backSlider grid md:grid-cols-2 gap-20 place-items-center">
                   <div>
                     <img
                       alt="stories img"
-                      className="mx-auto h-96"
+                      className="mx-auto w-full md:w-auto md:h-60 lg:96"
                       src={item.img}
                     />
                   </div>
                   <div>
-                    <h1 className="text-white text-3xl extrabold mb-12">
+                    <h1 className="text-white text-3xl extrabold mb-12 text-center md:text-left">
                       {item.name}
                     </h1>
-                    <p className="w-3/4 text-white">{item.pera}</p>
+                    <p className="w-full md:w-3/4 text-white text-center md:text-left">
+                      {item.pera}
+                    </p>
                     <Link
-                      className="theme-btn py-3 px-8 mt-12 text-center"
+                      className="theme-btn py-3 px-8 mt-12 text-center w-full md:w-auto"
                       href={item.href}
                     >
                       {item.linkName}

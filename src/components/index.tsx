@@ -6,6 +6,7 @@ import Products from "./homepage/products";
 import ImageContainer from "./homepage/imageContainer";
 import Marketing from "./homepage/marketingSlider";
 import SuccessInvestment from "./homepage/successInvestment";
+import DownloadApplication from "./homepage/downloadApp";
 import ClientSlider from "./homepage/clientSlider";
 import Review from "./homepage/reviews";
 import Blog from "./homepage/blog";
@@ -20,6 +21,7 @@ export {
   ImageContainer,
   Marketing,
   SuccessInvestment,
+  DownloadApplication,
   ClientSlider,
   Review,
   Blog,

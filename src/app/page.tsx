@@ -1,6 +1,7 @@
 import {
   Blog,
   ClientSlider,
+  DownloadApplication,
   HeroSection,
   ImageContainer,
   Marketing,
@@ -9,7 +10,6 @@ import {
   Review,
   SuccessInvestment,
 } from "@/components";
-import DownloadApplication from "@/components/homepage/downloadApp";
 // import Image from "next/image";
 
 export default function Home() {
@@ -20,9 +20,9 @@ export default function Home() {
       <Products />
       <ImageContainer />
       <Marketing />
+      <DownloadApplication />
       <SuccessInvestment />
       <ClientSlider />
-      <DownloadApplication />
       <Review />
       <Blog />
     </main>

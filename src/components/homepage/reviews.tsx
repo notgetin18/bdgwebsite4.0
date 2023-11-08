@@ -48,8 +48,6 @@ export default function Review() {
             Testimonials
           </h1>
           <Swiper
-            slidesPerView={3}
-            spaceBetween={10}
             loop={true}
             breakpoints={{
               640: {

@@ -3,7 +3,7 @@ import React from "react";
 const SuccessInvestment = () => {
   return (
     <div className="bg-theme">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-16 grid grid-cols-2 gap-20 place-items-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-20 place-items-center">
         <div>
           <h1 className="text-3xl extrabold text-white mb-12">
             Succession Of Gold
@@ -24,7 +24,7 @@ const SuccessInvestment = () => {
 
         <div className="flex justify-center">
           <object
-            className="h-96"
+            className="w-full"
             type="image/svg+xml"
             data="/images/growth_v1.svg"
           >
