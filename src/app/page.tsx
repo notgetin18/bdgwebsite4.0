@@ -9,6 +9,7 @@ import {
   Review,
   SuccessInvestment,
 } from "@/components";
+import DownloadApplication from "@/components/homepage/downloadApp";
 // import Image from "next/image";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <Marketing />
       <SuccessInvestment />
       <ClientSlider />
+      <DownloadApplication />
       <Review />
       <Blog />
     </main>

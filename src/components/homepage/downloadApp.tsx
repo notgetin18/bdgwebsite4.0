@@ -1,10 +1,11 @@
+'use client'
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
+// import { Router, useRouter } from "next/router";
 
 const DownloadApplication = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [activeItem, setActiveItem] = React.useState(0);
 
   const handleClick = (index: any) => {
@@ -12,28 +13,37 @@ const DownloadApplication = () => {
   };
   function scrollToElement1() {
     const element = document.getElementById("selectedApp");
-    element.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    if (element) {
+      element.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
   }
+
   function scrollToElement2() {
     const element = document.getElementById("selectedApp");
-    element.scrollTo({
-      top: 300,
-      left: 0,
-      behavior: "smooth",
-    });
+    if (element) {
+      element.scrollTo({
+        top: 300,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
   }
+
   function scrollToElement3() {
     const element = document.getElementById("selectedApp");
-    element.scrollTo({
-      top: 600,
-      left: 0,
-      behavior: "smooth",
-    });
+    if (element) {
+      element.scrollTo({
+        top: 600,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
   }
+
   return (
     <div>
       <div className="mobile_google_application">

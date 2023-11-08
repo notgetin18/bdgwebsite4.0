@@ -8,6 +8,16 @@ import { AesDecrypt, classNames, funcForDecrypt } from "../helperFunctions";
 import Image from "next/image";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { metalPrice } from "@/api/DashboardServices";
+import { useAppDispatch } from "@/redux/hooks";
+import {
+  setAmountForShop,
+  setGoldPriceForShop,
+  setMetalForShop,
+  setSilverPriceForShop,
+} from "../../redux/shopSlice";
+import { setGoldPrice } from "@/redux/rootSlice";
+
+// import { setMetalForShop } from '../../redux/shopSlice'
 
 const tabs = [
   { name: "Buy", href: "#", current: true },
@@ -17,14 +27,76 @@ const tabs = [
 const BuySell = () => {
   const [enabled, setMetal] = useState(false);
   const [isgold, setIsGold] = useState(true);
+  const dispatch = useAppDispatch();
 
   const toggleGold = () => {
     setIsGold(!isgold);
   };
 
+  const [metalData, setMetalData] = useState();
+  const [goldData, setGoldData] = useState({
+    mcx: 9229,
+    parity: 92,
+    percentage: 0.909,
+    saleParity: 91,
+    salePrice: 9898,
+    totalPrice: 6767,
+    up: true,
+  });
+
   useEffect(() => {
-    metalPrice();
+    const fetchData = async () => {
+      try {
+        const result1: any = await metalPrice();
+        // setMetalData(JSON.parse(result.data.gold[0]));
+        const result = await JSON.parse(result1);
+        setMetalData(result.data.gold[0]);
+        setGoldData({
+          mcx: result.data.gold[0].mcx,
+          parity: result.data.gold[0].parity,
+          percentage: result.data.gold[0].percentage,
+          saleParity: result.data.gold[0].saleParity,
+          salePrice: result.data.gold[0].salePrice,
+          totalPrice: result.data.gold[0].totalPrice,
+          up: result.data.gold[0].up,
+        })
+      } catch (error) {
+        console.error("Error fetching metal data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+
+  dispatch(
+    setGoldPrice({
+      isLoading: false,
+      title: "Live Price",
+      increment: true,
+      percentage: 5,
+      btn: "",
+      price: 9000,
+      mcxPrice: 5000,
+      sellPrice: 30000,
+    })
+  );
+
+  dispatch(
+    setGoldPriceForShop({
+      isLoading: false,
+      title: "Live Price",
+      increment: true,
+      percentage: 5,
+      btn: "",
+      price: 9000,
+      mcxPrice: 5000,
+      sellPrice: 30000,
+    })
+  );
+  // console.log('metalData', metalData)
+  console.log('goldData', goldData)
+  // console.log("goldData mcx",  goldData.mcx)
 
   return (
     <>
@@ -99,9 +171,8 @@ const BuySell = () => {
               </div>
               <div className=" flex justify-end items-center pr-12">
                 <Image
-                  className={`coin_transition ${
-                    isgold ? "gold_coin" : "silver_coin"
-                  }`}
+                  className={`coin_transition ${isgold ? "gold_coin" : "silver_coin"
+                    }`}
                   src={
                     isgold
                       ? "/goldbar.png"
@@ -140,7 +211,7 @@ const BuySell = () => {
                     className=" bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
                     max={9}
                     placeholder="000"
-                    // value=""
+                  // value=""
                   />
                 </div>
                 <div className="relative rounded-md shadow-sm">
@@ -149,7 +220,7 @@ const BuySell = () => {
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
                     max={9}
                     placeholder="000"
-                    // value=""
+                  // value=""
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
                     gm

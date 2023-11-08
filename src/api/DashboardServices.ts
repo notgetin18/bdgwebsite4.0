@@ -1,14 +1,22 @@
 import { funcForDecrypt } from "@/components/helperFunctions";
 
 export const metalPrice = async () => {
-  const price = await fetch(`${process.env.baseUrl}/public/metal/price`, {
-    headers: { "content-type": "application/json" },
-  })
-    .then((response) => response.json())
-    .then(async (data) => {
-      const decryptedData = await funcForDecrypt(data.payload);
-      console.log("JSON.parse(decryptedData)", JSON.parse(decryptedData));
+  try {
+    const response = await fetch(`${process.env.baseUrl}/public/metal/price`, {
+      headers: { "content-type": "application/json" },
     });
 
-  console.log("price ====> ", price);
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch metal price. Status: ${response.status}`
+      );
+    }
+
+    const data = await response.json();
+    const decryptedData = await funcForDecrypt(data.payload);
+    // console.log("JSON.parse(decryptedData)", JSON.parse(decryptedData));
+    return decryptedData;
+  } catch (error) {
+    console.error("Error fetching metal price:", error);
+  }
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import BuySell from "./buySell";
+// import { goldP}
 
 const HeroSection = () => {
   return (
