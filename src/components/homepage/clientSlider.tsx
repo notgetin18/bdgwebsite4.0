@@ -29,9 +29,9 @@ const features = [
   {
     img: "https://d2fbpyhlah02sy.cloudfront.net/banner/startup registration_bg.png",
   },
-  {
-    img: "https://d2fbpyhlah02sy.cloudfront.net/banner/razorpayx.svg",
-  },
+  //   {
+  //     img: "https://d2fbpyhlah02sy.cloudfront.net/banner/razorpayx.svg",
+  //   },
 ];
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
@@ -79,12 +79,8 @@ export default function ClientSlider() {
                   key={`${index}-Slider`}
                   className="relative swiper-slide p-4"
                 >
-                  <div className="px-10 py-6 rounded-lg client_grad">
-                    <img
-                      src={feature.img}
-                      className="my-2 w-full rounded-lg h-10"
-                      alt="insite"
-                    />
+                  <div className="px-10 py-6 rounded-lg client_grad flex justify-center">
+                    <img src={feature.img} className="h-10" alt="insite" />
                   </div>
                 </SwiperSlide>
               ))}
