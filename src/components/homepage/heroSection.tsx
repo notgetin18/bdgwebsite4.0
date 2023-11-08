@@ -20,8 +20,13 @@ const HeroSection = () => {
                   import.meta.url
                 ).toString()}
                 alt="Your Company"
+<<<<<<< HEAD
               /> */}
               <p className="text-gold p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
+=======
+              />
+              <p className="text-goldTheme p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
+>>>>>>> 40d01d86119527af260953ae095833f9c141da61
                 Invest or sell 24 karat Gold from the comfort of your home.
               </p>
             </div>
