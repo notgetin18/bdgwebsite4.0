@@ -13,14 +13,14 @@ const HeroSection = () => {
               <br /> Just a click away
             </h1>
             <div className="flex items-center">
-              <img
+              {/* <img
                 className="h-12"
                 src={new URL(
                   "../../../public/gold-bars.svg",
                   import.meta.url
                 ).toString()}
                 alt="Your Company"
-              />
+              /> */}
               <p className="text-gold p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
                 Invest or sell 24 karat Gold from the comfort of your home.
               </p>
@@ -34,18 +34,18 @@ const HeroSection = () => {
             </p>
             <div className="flex items-center">
               <p className="text-xl font-bold text-white">Secured with</p>
-              <img
+              {/* <img
                 className="h-6 ml-4"
                 src={new URL(
                   "../../../public/brinks.svg",
                   import.meta.url
                 ).toString()}
                 alt="Your Company"
-              />
+              /> */}
             </div>
 
             <div className="grid grid-cols-2 gap-4 mt-10">
-              <img
+              {/* <img
                 className="h-28"
                 src={new URL(
                   "../../../public/playstore.svg",
@@ -61,17 +61,17 @@ const HeroSection = () => {
                   import.meta.url
                 ).toString()}
                 alt="Your Company"
-              />
+              /> */}
             </div>
             <div className="flex justify-center mt-4">
-              <img
+              {/* <img
                 className="h-12"
                 src={new URL(
                   "../../../public/Startup India.svg",
                   import.meta.url
                 ).toString()}
                 alt="Your Company"
-              />
+              /> */}
             </div>
           </div>
           {/* <CustomButton title="Invest now" /> */}

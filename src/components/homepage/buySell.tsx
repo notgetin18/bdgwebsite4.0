@@ -1,12 +1,13 @@
 "use client";
 import { ArrowUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
-import { classNames } from "../helperFunctions";
+import { AesDecrypt, classNames, funcForDecrypt } from "../helperFunctions";
 import Image from "next/image";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
+import { metalPrice } from "@/api/DashboardServices";
 
 const tabs = [
   { name: "Buy", href: "#", current: true },
@@ -20,6 +21,10 @@ const BuySell = () => {
   const toggleGold = () => {
     setIsGold(!isgold);
   };
+
+  useEffect(() => {
+    metalPrice();
+  }, []);
 
   return (
     <>
