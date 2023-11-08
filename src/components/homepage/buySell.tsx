@@ -4,16 +4,9 @@ import Link from "next/link";
 import React, { useEffect, useMemo } from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { metalPrice } from "@/api/DashboardServices";
 import { useDispatch, useSelector } from "react-redux";
-import { setGoldData, setSilverData } from '../../redux/goldSlice';
 import { RootState } from "@/redux/store";
-import { decrementSecond, setInitialAPICallCompleted } from "@/redux/timerSlice";
 import { setAppliedCoupon, setAppliedCouponCode, setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
-const tabs = [
-  { name: "Buy", href: "#", current: true },
-  { name: "Sell", href: "#", current: false },
-];
 
 const BuySell = () => {
   const [isgold, setIsGold] = useState(true);
@@ -33,9 +26,6 @@ const BuySell = () => {
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const couponCode = useSelector((state: RootState) => state.shop.couponCode);
-
-
-
 
   console.table({ couponCode, purchaseType, actualAmount, gst, metalType, extraGold, totalGold, transactionType, metalPricePerGram, enteredAmount })
 
@@ -67,16 +57,7 @@ const BuySell = () => {
     console.log('clicked!!!', CouponCode);
     dispatch(setAppliedCouponCode(CouponCode));
   };
-  const fetchData = async () => {
-    try {
-      const response: any = await metalPrice();
-      const metalPriceOfGoldSilver = await JSON.parse(response);
-      dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
-      dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]))
-    } catch (error) {
-      console.error('Error fetching metal data:', error);
-    }
-  };
+
   useEffect(() => {
     if (isgold && activeTab == 'buy') {
       dispatch(setMetalPrice(goldData.totalPrice))
@@ -90,76 +71,12 @@ const BuySell = () => {
   }, [isgold, activeTab])
 
 
-  useEffect(() => {
-    // Define a flag to track whether the initial API call has been made
-    let initialAPICallMade = false;
-
-    const timerInterval = setInterval(() => {
-      dispatch(decrementSecond());
-
-      if (minutes === 0 && seconds === 0) {
-        // Timer has reached 0:00
-
-        if (!initialAPICallMade || !hasInitialAPICallCompleted) {
-          // Initial API call
-          fetchData(); // Make sure you import your API call function
-          dispatch(setInitialAPICallCompleted()); // Set the flag
-          initialAPICallMade = true; // Set the initial API call flag
-        }
-      }
-    }, 1000);
-
-    // Call fetchData once when the component mounts
-    if (!initialAPICallMade) {
-      fetchData();
-      initialAPICallMade = true; // Set the initial API call flag
-    }
-
-    return () => {
-      clearInterval(timerInterval);
-    };
-  }, [minutes, seconds, hasInitialAPICallCompleted]);
-
-
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, [])
 
 
   return (
     <>
       <div>
         <div className="block pl-32">
-          <nav className="isolate flex shadow" aria-label="Tabs">
-            {/* {tabs.map((tab, tabIdx) => (
-              <a
-                key={tab.name}
-                href={tab.href}
-                className={classNames(
-                  tab.current
-                    ? "text-white tab-activeBg"
-                    : "text-gray-500 tab-bg",
-                  tabIdx === 0 ? "rounded-tl-lg" : "",
-                  tabIdx === tabs.length - 1 ? " rounded-tr-lg" : "",
-                  "group relative min-w-0 flex-1 overflow-hidden py-4 px-4 text-center text-lg font-medium focus:z-10"
-                )}
-                aria-current={tab.current ? "page" : undefined}
-              >
-                <span>{tab.name}</span>
-                <span
-                  aria-hidden="true"
-                  className={classNames(
-                    tab.current ? "" : "bg-transparent",
-                    "absolute inset-x-0 bottom-0 h-0.5"
-                  )}
-                />
-              </a>
-            ))} */}
-
-
-          </nav>
-
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
