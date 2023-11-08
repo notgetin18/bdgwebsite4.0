@@ -1,7 +1,6 @@
 import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Footer = () => {
   return (
     <div className="bg-theme">
