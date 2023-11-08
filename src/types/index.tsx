@@ -10,3 +10,23 @@ export interface customButtonProps {
   isDisabled?: boolean;
 }
 
+export interface GoldData {
+  mcx: number;
+  parity: number;
+  percentage: number;
+  saleParity: number;
+  salePrice: number;
+  totalPrice: number;
+  up: boolean;
+}
+
+export interface SilverData {
+  mcx: number;
+  parity: number;
+  percentage: number;
+  saleParity: number;
+  salePrice: number;
+  totalPrice: number;
+  up: boolean;
+}
+

@@ -8,102 +8,57 @@ import { AesDecrypt, classNames, funcForDecrypt } from "../helperFunctions";
 import Image from "next/image";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { metalPrice } from "@/api/DashboardServices";
-import { useAppDispatch } from "@/redux/hooks";
-import {
-  setAmountForShop,
-  setGoldPriceForShop,
-  setMetalForShop,
-  setSilverPriceForShop,
-} from "../../redux/shopSlice";
-import { setGoldPrice } from "@/redux/rootSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-// import { setMetalForShop } from '../../redux/shopSlice'
-
+import { setGoldData, setSilverData } from '../../redux/goldSlice';
+import { RootState } from "@/redux/store";
 const tabs = [
   { name: "Buy", href: "#", current: true },
   { name: "Sell", href: "#", current: false },
 ];
 
 const BuySell = () => {
-  const [enabled, setMetal] = useState(false);
   const [isgold, setIsGold] = useState(true);
-  const dispatch = useAppDispatch();
+  const [activeTab, setActiveTab] = useState('buy');
+
+  const handleTabClick = (tab: 'buy' | 'sell') => {
+    setActiveTab(tab);
+  };
+  const dispatch = useDispatch();
+  const goldData = useSelector((state: RootState) => state.gold);
+  const silverData = useSelector((state: RootState) => state.silver);
+
 
   const toggleGold = () => {
     setIsGold(!isgold);
   };
 
-  const [metalData, setMetalData] = useState();
-  const [goldData, setGoldData] = useState({
-    mcx: 9229,
-    parity: 92,
-    percentage: 0.909,
-    saleParity: 91,
-    salePrice: 9898,
-    totalPrice: 6767,
-    up: true,
-  });
+
+
+  const fetchData = async () => {
+    try {
+      const response: any = await metalPrice();
+      const metalPriceOfGoldSilver = await JSON.parse(response);
+
+      // Dispatch the action to update goldData in Redux
+      dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
+      dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]))
+    } catch (error) {
+      console.error('Error fetching metal data:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result1: any = await metalPrice();
-        // setMetalData(JSON.parse(result.data.gold[0]));
-        const result = await JSON.parse(result1);
-        setMetalData(result.data.gold[0]);
-        setGoldData({
-          mcx: result.data.gold[0].mcx,
-          parity: result.data.gold[0].parity,
-          percentage: result.data.gold[0].percentage,
-          saleParity: result.data.gold[0].saleParity,
-          salePrice: result.data.gold[0].salePrice,
-          totalPrice: result.data.gold[0].totalPrice,
-          up: result.data.gold[0].up,
-        })
-      } catch (error) {
-        console.error("Error fetching metal data:", error);
-      }
-    };
-
-    fetchData();
+    fetchData()
   }, []);
 
-
-  dispatch(
-    setGoldPrice({
-      isLoading: false,
-      title: "Live Price",
-      increment: true,
-      percentage: 5,
-      btn: "",
-      price: 9000,
-      mcxPrice: 5000,
-      sellPrice: 30000,
-    })
-  );
-
-  dispatch(
-    setGoldPriceForShop({
-      isLoading: false,
-      title: "Live Price",
-      increment: true,
-      percentage: 5,
-      btn: "",
-      price: 9000,
-      mcxPrice: 5000,
-      sellPrice: 30000,
-    })
-  );
-  // console.log('metalData', metalData)
-  console.log('goldData', goldData)
-  // console.log("goldData mcx",  goldData.mcx)
 
   return (
     <>
       <div>
         <div className="block pl-32">
           <nav className="isolate flex shadow" aria-label="Tabs">
-            {tabs.map((tab, tabIdx) => (
+            {/* {tabs.map((tab, tabIdx) => (
               <a
                 key={tab.name}
                 href={tab.href}
@@ -126,9 +81,32 @@ const BuySell = () => {
                   )}
                 />
               </a>
-            ))}
+            ))} */}
+
+
           </nav>
-          <div className="tab-bg py-4 rounded-b-lg relative">
+
+          <div className="tab-bg  rounded-b-lg relative">
+            <div className="grid grid-cols-2">
+              <div
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === 'buy'
+                  ? 'bg-blue-600 text-white active'
+                  : 'bg-blue-200 text-blue-800'
+                  }`}
+                onClick={() => handleTabClick('buy')}
+              >
+                BUY
+              </div>
+              <div
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === 'sell'
+                  ? 'bg-blue-800 text-white active'
+                  : 'bg-blue-200 text-blue-800'
+                  }`}
+                onClick={() => handleTabClick('sell')}
+              >
+                SELL
+              </div>
+            </div>
             <div className="grid grid-cols-2">
               <div className="">
                 <div className="toggle_button_spacing" onChange={toggleGold}>
@@ -151,14 +129,31 @@ const BuySell = () => {
                     />
                     GOLD PRICE
                   </p>
-                  <p className="text-gold01 text-xl font-bold py-2 pb-0 pl-6">
-                    ₹6177.90/gm <span className="text-xs"> + 3% GST</span>
-                  </p>
+                  <div className="text-gold01 text-xl font-bold py-2 pl-6 items-center  flex">
+                    ₹{isgold ? (
+                      <div className="">
+                        {activeTab === 'buy' ? (
+                          <div>{goldData.totalPrice}</div>
+                        ) : (
+                          <div>{goldData.salePrice}</div>
+                        )}
+                      </div>
+                    ) : (
+                      <div>
+                        {activeTab === 'buy' ? (
+                          <div> {silverData.totalPrice}</div>
+                        ) : (
+                          <div>{silverData.salePrice}</div>
+                        )}
+                      </div>
+                    )}/gm <span className="text-xs"> + 3% GST</span>
+                  </div>
                   <p className="text-xs text-gray-400 pl-6">
                     24k 99.9% Pure Gold
                   </p>
                   <p className="text-xs font-base pl-6">
                     <span className="text-green-500">
+                      {/* {isgold ? } */}
                       <ArrowUpIcon className="h-4 inline-block" />0 %
                     </span>
                     <span className="text-white ml-2">Since Yesterday</span>

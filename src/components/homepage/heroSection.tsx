@@ -1,8 +1,16 @@
+'use client'
 import React from "react";
 import BuySell from "./buySell";
-// import { goldP}
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const HeroSection = () => {
+  const goldData = useSelector((state: RootState) => state.gold);
+  const silverData = useSelector((state: RootState) => state.silver);
+
+  console.log('goldData', goldData);
+  console.log('goldData', silverData);
+
   return (
     <div className="bg-theme py-10">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
