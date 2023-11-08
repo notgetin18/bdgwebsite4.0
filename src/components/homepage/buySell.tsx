@@ -1,7 +1,7 @@
 "use client";
 import { ArrowUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { metalPrice } from "@/api/DashboardServices";
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGoldData, setSilverData } from '../../redux/goldSlice';
 import { RootState } from "@/redux/store";
 import { decrementSecond, setInitialAPICallCompleted } from "@/redux/timerSlice";
+import { setAppliedCoupon, setAppliedCouponCode, setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
 const tabs = [
   { name: "Buy", href: "#", current: true },
   { name: "Sell", href: "#", current: false },
@@ -17,21 +18,55 @@ const tabs = [
 const BuySell = () => {
   const [isgold, setIsGold] = useState(true);
   const [activeTab, setActiveTab] = useState('buy');
+  const [activeTabPurchase, setActiveTabPurchase] = useState('rupees');
   const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const { minutes, seconds, hasInitialAPICallCompleted } = useSelector((state: RootState) => state.globalTimer);
-  
-  const toggleGold = () => {
+  const gst = useSelector((state: RootState) => state.shop.gst);
+  const metalType = useSelector((state: RootState) => state.shop.metalType);
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+  const extraGold = useSelector((state: RootState) => state.shop.extraGold);
+  const totalGold = useSelector((state: RootState) => state.shop.totalGold);
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
+  const couponCode = useSelector((state: RootState) => state.shop.couponCode);
+
+
+
+
+  console.table({ couponCode, purchaseType, actualAmount, gst, metalType, extraGold, totalGold, transactionType, metalPricePerGram, enteredAmount })
+
+  const toggleMetal = () => {
     setIsGold(!isgold);
+    dispatch(setMetalType(!isgold ? 'gold' : 'silver'));
   };
 
   const handleTabClick = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
+    dispatch(setPurchaseType(tab))
   };
 
+  const handleTabClick1 = (tab: 'rupees' | 'grams') => {
+    setActiveTabPurchase(tab);
+    dispatch(setTransactionType(tab));
+  }
 
+  const handleEnteredAmountChange = (e: any) => {
+    const enteredValue = e.target.value
+    console.log("changing", +enteredValue)
+    dispatch(setEnteredAmount(+enteredValue));
+  };
+  const handleAppliedCouponChange = (AppliedCoupon: boolean) => {
+    dispatch(setAppliedCoupon(AppliedCoupon));
+  };
 
+  const handleAppliedCouponCode = (CouponCode: string) => {
+    console.log('clicked!!!', CouponCode);
+    dispatch(setAppliedCouponCode(CouponCode));
+  };
   const fetchData = async () => {
     try {
       const response: any = await metalPrice();
@@ -42,17 +77,29 @@ const BuySell = () => {
       console.error('Error fetching metal data:', error);
     }
   };
+  useEffect(() => {
+    if (isgold && activeTab == 'buy') {
+      dispatch(setMetalPrice(goldData.totalPrice))
+    } else if (isgold && activeTab == 'sell') {
+      dispatch(setMetalPrice(goldData.salePrice))
+    } else if (!isgold && activeTab == 'buy') {
+      dispatch(setMetalPrice(silverData.totalPrice))
+    } else {
+      dispatch(setMetalPrice(silverData.salePrice))
+    }
+  }, [isgold, activeTab])
 
-  useEffect(() => {  
+
+  useEffect(() => {
     // Define a flag to track whether the initial API call has been made
     let initialAPICallMade = false;
-  
+
     const timerInterval = setInterval(() => {
       dispatch(decrementSecond());
-  
+
       if (minutes === 0 && seconds === 0) {
         // Timer has reached 0:00
-  
+
         if (!initialAPICallMade || !hasInitialAPICallCompleted) {
           // Initial API call
           fetchData(); // Make sure you import your API call function
@@ -61,18 +108,23 @@ const BuySell = () => {
         }
       }
     }, 1000);
-  
+
     // Call fetchData once when the component mounts
     if (!initialAPICallMade) {
       fetchData();
       initialAPICallMade = true; // Set the initial API call flag
     }
-  
+
     return () => {
       clearInterval(timerInterval);
     };
-  }, [dispatch, minutes, seconds, hasInitialAPICallCompleted]);
-  
+  }, [minutes, seconds, hasInitialAPICallCompleted]);
+
+
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [])
 
 
   return (
@@ -115,7 +167,12 @@ const BuySell = () => {
                   ? 'bg-blue-600 text-white active'
                   : 'bg-blue-200 text-blue-800'
                   }`}
-                onClick={() => handleTabClick('buy')}
+                onClick={() => {
+                  handleTabClick('buy')
+                  handleAppliedCouponCode('BDG99')
+                  handleAppliedCouponChange(true)
+                }
+                }
               >
                 BUY
               </div>
@@ -131,7 +188,7 @@ const BuySell = () => {
             </div>
             <div className="grid grid-cols-2">
               <div className="">
-                <div className="toggle_button_spacing" onChange={toggleGold}>
+                <div className="toggle_button_spacing" onChange={toggleMetal}>
                   <label className="toggle-button">
                     <input type="checkbox" />
                     <span className="slider"></span>
@@ -209,18 +266,24 @@ const BuySell = () => {
 
             <div className="p-6 z-20">
               <div className=" flex justify-around">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
+                <div
+                  className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTabPurchase === 'rupees'
+                    ? 'bg-blue-600 text-white active'
+                    : 'bg-blue-200 text-blue-800'
+                    }`}
+                  onClick={() => handleTabClick1('rupees')}
                 >
                   Buy in Rupees
-                </label>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
+                </div>
+                <div
+                  className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTabPurchase === 'grams'
+                    ? 'bg-blue-600 text-white active'
+                    : 'bg-blue-200 text-blue-800'
+                    }`}
+                  onClick={() => handleTabClick1('grams')}
                 >
                   Buy in Grams
-                </label>
+                </div>
               </div>
               <div className="grid grid-cols-2 items-center gap-6 border border-white p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
@@ -232,7 +295,8 @@ const BuySell = () => {
                     className=" bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
                     max={9}
                     placeholder="000"
-                  // value=""
+                    // value=""
+                    onChange={handleEnteredAmountChange}
                   />
                 </div>
                 <div className="relative rounded-md shadow-sm">
@@ -241,6 +305,7 @@ const BuySell = () => {
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
                     max={9}
                     placeholder="000"
+                    onChange={handleEnteredAmountChange}
                   // value=""
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
