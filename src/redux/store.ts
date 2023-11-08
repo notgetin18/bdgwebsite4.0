@@ -1,11 +1,11 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-// import managerReducer from "./rootSlice";
-// import shopReducer from "./shopSlice";
+import managerReducer from "./rootSlice";
+import shopReducer from "./shopSlice";
 // import authReducer from "./authSlice";
-import shopReducer from "./shopSlice"
+
 export const store = configureStore({
   reducer: {
-    // main: managerReducer,
+    main: managerReducer,
     shop: shopReducer,
     // auth: authReducer,
   },
