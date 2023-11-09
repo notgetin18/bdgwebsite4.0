@@ -67,7 +67,7 @@ const shopSlice = createSlice({
             state.enteredAmount = action.payload;
 
             // Calculate actual amount and GST based on conditions
-            if (state.purchaseType === 'buy' && state.metalType === 'gold') {
+            if (state.purchaseType === 'buy') {
                 if (state.transactionType === 'rupees') {
                     state.actualAmount = ParseFloat(((state.enteredAmount / 103) * 100), 2);
                     state.gst = ParseFloat((state.enteredAmount - state.actualAmount), 2);
@@ -76,6 +76,10 @@ const shopSlice = createSlice({
                     state.gst = ParseFloat((state.metalPrice * 0.03 * state.enteredAmount), 2);
                     state.actualAmount = state.metalPrice * state.enteredAmount + state.gst;
                 }
+
+
+
+
 
                 // Apply extra gold for the coupons
                 if (state.appliedCoupon) {
@@ -90,6 +94,15 @@ const shopSlice = createSlice({
                     // Calculate total gold (including extra gold)
                     state.totalGold = state.actualAmount / state.metalPrice + state.extraGold;
                 }
+            } else {
+                if (state.transactionType === 'rupees') {
+                    state.metalQuantity = ParseFloat((state.enteredAmount / state.metalPrice), 4);
+                    state.gst = 0;
+                } else if (state.transactionType === 'grams') {
+                    state.gst = 0;
+                    state.actualAmount = ParseFloat((state.metalPrice * state.enteredAmount), 2);
+                }
+
             }
         },
     },
