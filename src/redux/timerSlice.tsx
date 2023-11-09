@@ -1,29 +1,41 @@
-// timerSlice.js
+// timerSlice.ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { createSlice } from '@reduxjs/toolkit';
+interface TimerState {
+  timeLeft: number;
+  timerRunning: boolean;
+}
 
-const timerSlice = createSlice({
+const initialState: TimerState = {
+  timeLeft: 300, // 5 minutes in seconds
+  timerRunning: false,
+};
+
+export const timerSlice = createSlice({
   name: 'timer',
-  initialState: {
-    minutes: 5, // Initial timer values
-    seconds: 0,
-    hasInitialAPICallCompleted: false, // Flag to track initial API call
-  },
+  initialState,
   reducers: {
-    decrementSecond: (state) => {
-      if (state.seconds > 0) {
-        state.seconds -= 1;
-      } else if (state.minutes > 0) {
-        state.minutes -= 1;
-        state.seconds = 59;
+    startTimer(state) {
+      state.timerRunning = true;
+      state.timeLeft = 10; // Reset to 5 minutes whenever we start the timer
+    },
+    tick(state) {
+      if (state.timeLeft > 0) {
+        state.timeLeft -= 1;
       }
     },
-    setInitialAPICallCompleted: (state) => {
-      state.hasInitialAPICallCompleted = true;
+    resetTimer(state) {
+      state.timeLeft = initialState.timeLeft;
+      state.timerRunning = true; // Optionally, restart the timer automatically
+    },
+    timeUp(state) {
+      state.timerRunning = false;
     },
   },
 });
 
-export const { decrementSecond, setInitialAPICallCompleted } = timerSlice.actions;
+// Export the action creators
+export const { startTimer, tick, resetTimer, timeUp } = timerSlice.actions;
 
+// Export the reducer
 export default timerSlice.reducer;

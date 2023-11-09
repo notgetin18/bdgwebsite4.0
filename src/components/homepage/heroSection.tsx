@@ -3,59 +3,55 @@ import React, { useEffect } from "react";
 import BuySell from "./buySell";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { decrementSecond, setInitialAPICallCompleted } from "@/redux/timerSlice";
+// import { decrementSecond, setInitialAPICallCompleted } from "@/redux/timerSlice";
 import { metalPrice } from "@/api/DashboardServices";
 import { setGoldData, setSilverData } from "@/redux/goldSlice";
 
 const HeroSection = () => {
-  const goldData = useSelector((state: RootState) => state.gold);
-  const silverData = useSelector((state: RootState) => state.silver);
-  const { minutes, seconds, hasInitialAPICallCompleted } = useSelector((state: RootState) => state.globalTimer);
-
+  // const { minutes, seconds, hasInitialAPICallCompleted } = useSelector((state: RootState) => state.globalTimer);
   const dispatch = useDispatch();
 
+  // const fetchData = async () => {
+  //   try {
+  //     const response: any = await metalPrice();
+  //     const metalPriceOfGoldSilver = await JSON.parse(response);
+  //     dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
+  //     dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]))
+  //   } catch (error) {
+  //     console.error('Error fetching metal data:', error);
+  //   }
+  // };
 
 
+  // useEffect(() => {
+  //   // Define a flag to track whether the initial API call has been made
+  //   let initialAPICallMade = false;
 
-  const fetchData = async () => {
-    try {
-      const response: any = await metalPrice();
-      const metalPriceOfGoldSilver = await JSON.parse(response);
-      dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
-      dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]))
-    } catch (error) {
-      console.error('Error fetching metal data:', error);
-    }
-  };
-  useEffect(() => {
-    // Define a flag to track whether the initial API call has been made
-    let initialAPICallMade = false;
+  //   const timerInterval = setInterval(() => {
+  //     dispatch(decrementSecond());
 
-    const timerInterval = setInterval(() => {
-      dispatch(decrementSecond());
+  //     if (minutes === 0 && seconds === 0) {
+  //       // Timer has reached 0:00
 
-      if (minutes === 0 && seconds === 0) {
-        // Timer has reached 0:00
+  //       if (!initialAPICallMade || !setInitialAPICallCompleted) {
+  //         // Initial API call
+  //         fetchData(); // Make sure you import your API call function
+  //         dispatch(setInitialAPICallCompleted()); // Set the flag
+  //         initialAPICallMade = true; // Set the initial API call flag
+  //       }
+  //     }
+  //   }, 1000);
 
-        if (!initialAPICallMade || !setInitialAPICallCompleted) {
-          // Initial API call
-          fetchData(); // Make sure you import your API call function
-          dispatch(setInitialAPICallCompleted()); // Set the flag
-          initialAPICallMade = true; // Set the initial API call flag
-        }
-      }
-    }, 1000);
+  //   // Call fetchData once when the component mounts
+  //   if (!initialAPICallMade) {
+  //     fetchData();
+  //     initialAPICallMade = true; // Set the initial API call flag
+  //   }
 
-    // Call fetchData once when the component mounts
-    if (!initialAPICallMade) {
-      fetchData();
-      initialAPICallMade = true; // Set the initial API call flag
-    }
-
-    return () => {
-      clearInterval(timerInterval);
-    };
-  }, [minutes, seconds, hasInitialAPICallCompleted]);
+  //   return () => {
+  //     clearInterval(timerInterval);
+  //   };
+  // }, [minutes, seconds, hasInitialAPICallCompleted]);
 
   return (
     <div className="bg-theme py-10">

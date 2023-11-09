@@ -9,7 +9,7 @@ export const store = configureStore({
     reducer: {
         gold: goldReducer, // Add the goldReducer to your store
         silver: silverReducer, // Add the silverReducer to your store
-        globalTimer: timerSlice,
+        timer: timerSlice,
         shop: shopSlice,
         // ... other reducers
     },

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setAppliedCoupon, setAppliedCouponCode, setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
+import TimerComponent from "../timerComponent";
 
 const BuySell = () => {
   const [isgold, setIsGold] = useState(true);
@@ -15,7 +16,7 @@ const BuySell = () => {
   const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
-  const { minutes, seconds, hasInitialAPICallCompleted } = useSelector((state: RootState) => state.globalTimer);
+  // const { minutes, seconds } = useSelector((state: RootState) => state.globalTimer);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
@@ -160,7 +161,7 @@ const BuySell = () => {
                   </p>
 
                   <p className="timer mt-4 text-xs py-1 pl-6">
-                    Gold rate expires in {minutes} : {seconds}
+                    Gold rate expires in <TimerComponent />
                   </p>
                 </div>
               </div>
