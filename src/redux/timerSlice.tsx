@@ -17,7 +17,7 @@ export const timerSlice = createSlice({
   reducers: {
     startTimer(state) {
       state.timerRunning = true;
-      state.timeLeft = 10; // Reset to 5 minutes whenever we start the timer
+      state.timeLeft = 300; // Reset to 5 minutes whenever we start the timer
     },
     tick(state) {
       if (state.timeLeft > 0) {

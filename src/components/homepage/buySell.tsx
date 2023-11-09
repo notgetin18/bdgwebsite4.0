@@ -1,7 +1,7 @@
 "use client";
 import { ArrowUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,6 @@ const BuySell = () => {
   const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
-  // const { minutes, seconds } = useSelector((state: RootState) => state.globalTimer);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
@@ -27,8 +26,11 @@ const BuySell = () => {
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const couponCode = useSelector((state: RootState) => state.shop.couponCode);
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
 
-  console.table({ couponCode, purchaseType, actualAmount, gst, metalType, extraGold, totalGold, transactionType, metalPricePerGram, enteredAmount })
+
+
+  console.table({ couponCode, purchaseType, actualAmount, gst, metalType, extraGold, totalGold, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -59,6 +61,8 @@ const BuySell = () => {
     dispatch(setAppliedCouponCode(CouponCode));
   };
 
+
+
   useEffect(() => {
     if (isgold && activeTab == 'buy') {
       dispatch(setMetalPrice(goldData.totalPrice))
@@ -87,8 +91,8 @@ const BuySell = () => {
                   }`}
                 onClick={() => {
                   handleTabClick('buy')
-                  handleAppliedCouponCode('BDG99')
-                  handleAppliedCouponChange(true)
+                  // handleAppliedCouponCode('BDG99')
+                  // handleAppliedCouponChange(true)
                 }
                 }
               >
@@ -160,8 +164,8 @@ const BuySell = () => {
                     <span className="text-white ml-2">Since Yesterday</span>
                   </p>
 
-                  <p className="timer mt-4 text-xs py-1 pl-6">
-                    Gold rate expires in <TimerComponent />
+                  <p className="timer mt-4 text-xs py-1 pl-6 flex">
+                    Gold rate expires in <span className="pl-1"> <TimerComponent /></span>
                   </p>
                 </div>
               </div>

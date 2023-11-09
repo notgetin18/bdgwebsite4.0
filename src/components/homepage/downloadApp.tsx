@@ -2,11 +2,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { Router, useRouter } from "next/router";
 
 const DownloadApplication = () => {
-  // const router = useRouter();
   const [activeItem, setActiveItem] = React.useState(0);
+
 
   const handleClick = (index: any) => {
     setActiveItem(index);

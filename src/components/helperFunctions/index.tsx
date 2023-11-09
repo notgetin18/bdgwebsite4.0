@@ -49,3 +49,13 @@ export const funForAesEncrypt = async (dataToBeEncrypt: any) => {
   //
   return response;
 };
+
+export function ParseFloat(str: any, val: any) {
+  str = str.toString();
+  if (Number.isInteger(Number(str))) {
+    return Number(str);
+  } else {
+    str = str.slice(0, str.indexOf(".") + val + 1);
+  }
+  return Number(str);
+}

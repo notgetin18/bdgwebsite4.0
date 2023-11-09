@@ -1,4 +1,6 @@
+import { metalPrice } from '@/api/DashboardServices';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ParseFloat } from '@/components/helperFunctions';
 
 export type MetalType = 'gold' | 'silver';
 export type PurchaseType = 'buy' | 'sell';
@@ -21,6 +23,7 @@ interface ShopState {
     metalPrice: number,
     couponCode: string;
     totalGold: number;
+    metalQuantity: number
 }
 
 const initialState: ShopState = {
@@ -34,7 +37,8 @@ const initialState: ShopState = {
     extraGold: 0,
     couponCode: 'BDG499',
     metalPrice: 8000,
-    totalGold: 3
+    totalGold: 3,
+    metalQuantity: 12345
 };
 
 const shopSlice = createSlice({
@@ -65,11 +69,12 @@ const shopSlice = createSlice({
             // Calculate actual amount and GST based on conditions
             if (state.purchaseType === 'buy' && state.metalType === 'gold') {
                 if (state.transactionType === 'rupees') {
-                    state.actualAmount = (state.enteredAmount / 103) * 100;
-                    state.gst = state.enteredAmount - state.actualAmount;
+                    state.actualAmount = ParseFloat(((state.enteredAmount / 103) * 100), 2);
+                    state.gst = ParseFloat((state.enteredAmount - state.actualAmount), 2);
+                    state.metalQuantity = ParseFloat((state.actualAmount / state.metalPrice), 4);
                 } else if (state.transactionType === 'grams') {
-                    state.gst = state.metalPrice * 0.03 * state.enteredAmount;
-                    state.actualAmount = state.metalPrice * 0.03 * state.enteredAmount + state.gst;
+                    state.gst = ParseFloat((state.metalPrice * 0.03 * state.enteredAmount), 2);
+                    state.actualAmount = state.metalPrice * state.enteredAmount + state.gst;
                 }
 
                 // Apply extra gold for the coupons
@@ -89,6 +94,7 @@ const shopSlice = createSlice({
         },
     },
 });
+
 
 export const {
     setPurchaseType,
