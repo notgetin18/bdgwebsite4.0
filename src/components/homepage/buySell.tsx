@@ -10,6 +10,7 @@ import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTran
 import TimerComponent from "../timerComponent";
 import { fetchCoupons } from "@/api/DashboardServices";
 import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
+import Modal from "../modal";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  console.table({  purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
+  console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
   console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
 
   const toggleMetal = () => {
@@ -100,6 +101,16 @@ const BuySell = () => {
       dispatch(setMetalPrice(silverData.salePrice))
     }
   }, [isgold, activeTab])
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
 
   return (
@@ -332,9 +343,10 @@ const BuySell = () => {
                   </div>
                 ))} </div>}
               <div className="mt-12">
-                <button className="w-full bg-blue-200 rounded-lg py-2">
+                <button onClick={openModal} className="w-full bg-blue-200 rounded-lg py-2">
                   Start Investing
                 </button>
+                <Modal isOpen={isModalOpen} onClose={closeModal} />
               </div>
             </div>
           </div>

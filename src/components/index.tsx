@@ -10,6 +10,7 @@ import ClientSlider from "./homepage/clientSlider";
 import Review from "./homepage/reviews";
 import Blog from "./homepage/blog";
 import { classNames } from "./helperFunctions";
+import Modal from "./modal";
 export {
   Footer,
   Navbar,
@@ -23,4 +24,5 @@ export {
   ClientSlider,
   Review,
   Blog,
+  Modal,
 };
