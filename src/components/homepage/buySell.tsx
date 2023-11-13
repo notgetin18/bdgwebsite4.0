@@ -21,13 +21,10 @@ const BuySell = () => {
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
-  // const extraGold = useSelector((state: RootState) => state.shop.extraGold);
-  const totalGold = useSelector((state: RootState) => state.shop.totalGold);
   const transactionType = useSelector((state: RootState) => state.shop.transactionType);
   const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
-  const couponCode = useSelector((state: RootState) => state.shop.couponCode);
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
 
 
@@ -47,14 +44,12 @@ const BuySell = () => {
 
   useEffect(() => {
     fetchCouponsData();
-    console.log('metalType=====> from useEffect', metalType)
   }, [])
 
   const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
   const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
-  // const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   // console.log('error', error)
   // console.log('selectedCoupon', selectedCoupon)
@@ -64,13 +59,12 @@ const BuySell = () => {
   const handleApplyCoupon = (coupon: any, amount: any,) => {
     dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType }));
   };
-  console.log('metalType====> from ==', metalType)
 
   const handleClearCoupon = () => {
     dispatch(clearCoupon());
   };
 
-  // console.table({ couponCode, purchaseType, actualAmount, gst, metalType, totalGold, transactionType, metalPricePerGram, enteredAmount, metalQuantity, extraGoldOfRuppess })
+  console.table({  purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
   console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
 
   const toggleMetal = () => {

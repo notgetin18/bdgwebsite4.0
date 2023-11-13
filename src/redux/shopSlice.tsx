@@ -5,8 +5,6 @@ import { ParseFloat } from '@/components/helperFunctions';
 export type MetalType = 'gold' | 'silver';
 export type PurchaseType = 'buy' | 'sell';
 export type TransactionType = 'grams' | 'rupees';
-// export type AppliedCoupon = boolean;
-// export type AppliedCouponCode = string;
 export type metalPrice = number;
 
 
@@ -15,14 +13,10 @@ interface ShopState {
     purchaseType: PurchaseType;
     metalType: MetalType;
     transactionType: TransactionType;
-    // appliedCoupon: AppliedCoupon;
     enteredAmount: number;
     actualAmount: number;
     gst: number;
-    // extraGold: number;
     metalPrice: number,
-    couponCode: string;
-    totalGold: number;
     metalQuantity: number
 }
 
@@ -30,15 +24,11 @@ const initialState: ShopState = {
     purchaseType: 'buy',
     metalType: 'gold',
     transactionType: 'rupees',
-    // appliedCoupon: false,
     enteredAmount: 0,
     actualAmount: 0,
     gst: 0,
-    // extraGold: 0,
-    couponCode: 'BDG499',
-    metalPrice: 8000,
-    totalGold: 3,
-    metalQuantity: 12345
+    metalPrice: 0,
+    metalQuantity: 0,
 };
 
 const shopSlice = createSlice({
@@ -57,12 +47,7 @@ const shopSlice = createSlice({
         setTransactionType: (state, action: PayloadAction<TransactionType>) => {
             state.transactionType = action.payload;
         },
-        // setAppliedCoupon: (state, action: PayloadAction<AppliedCoupon>) => {
-        //     state.appliedCoupon = action.payload;
-        // },
-        // setAppliedCouponCode: (state, action: PayloadAction<AppliedCouponCode>) => {
-        //     state.couponCode = action.payload;
-        // },
+
         setEnteredAmount: (state, action: PayloadAction<number>) => {
             state.enteredAmount = action.payload;
 
@@ -76,24 +61,6 @@ const shopSlice = createSlice({
                     state.gst = ParseFloat((state.metalPrice * 0.03 * state.enteredAmount), 2);
                     state.actualAmount = state.metalPrice * state.enteredAmount + state.gst;
                 }
-
-
-
-
-
-                // Apply extra gold for the coupons
-                // if (state.appliedCoupon) {
-                //     if (state.couponCode === 'BDG499') {
-                //         state.extraGold = Math.min(0.015 * state.enteredAmount, 50);
-                //     } else if (state.couponCode === 'BDG899') {
-                //         state.extraGold = Math.min(0.015 * state.enteredAmount, 100);
-                //     } else {
-                //         // Handle other coupon codes here
-                //     }
-
-                //     // Calculate total gold (including extra gold)
-                //     state.totalGold = state.actualAmount / state.metalPrice + state.extraGold;
-                // }
             } else {
                 if (state.transactionType === 'rupees') {
                     state.metalQuantity = ParseFloat((state.enteredAmount / state.metalPrice), 4);
@@ -113,9 +80,7 @@ export const {
     setPurchaseType,
     setMetalType,
     setTransactionType,
-    // setAppliedCoupon,
     setEnteredAmount,
-    // setAppliedCouponCode,
     setMetalPrice,
 } = shopSlice.actions;
 
