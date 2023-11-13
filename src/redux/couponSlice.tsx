@@ -18,7 +18,6 @@ interface Coupon {
   used_count: number;
   __v: number;
   _id: string;
-  // Add other properties as needed
 }
 
 interface CouponState {
@@ -26,13 +25,12 @@ interface CouponState {
   appliedCouponCode: string | null;
   error: string | null;
   extraGoldOfRuppess: number;
-  extraGold: number; // Added property
+  extraGold: number;
   coupons: Coupon[]; // Array to store available coupons
 }
 
 
 const initialCoupons: Coupon[] = [
-  // Your list of coupons from the API
   {
     code: "",
     createdAt: "",
@@ -49,7 +47,6 @@ const initialCoupons: Coupon[] = [
     __v: 0,
     _id: "",
   },
-  // Add more coupons as needed
 ];
 
 const initialState: CouponState = {
@@ -61,7 +58,6 @@ const initialState: CouponState = {
   extraGold: 0,
 };
 
-// ... (previous imports and code)
 
 const couponSlice = createSlice({
   name: 'coupon',
