@@ -30,3 +30,28 @@ export interface SilverData {
   up: boolean;
 }
 
+export interface Coupon {
+  code: string;
+  createdAt: string;
+  description: string;
+  expiryDate: string;
+  itemType: string;
+  maximum: number;
+  minimum: number;
+  percentage: number;
+  status: boolean;
+  type: string;
+  updatedAt: string;
+  used_count: number;
+  __v: number;
+  _id: string;
+}
+
+export interface CouponState {
+  selectedCoupon: Coupon | null;
+  appliedCouponCode: string | null;
+  error: string | null;
+  extraGoldOfRuppess: number;
+  extraGold: number;
+  coupons: Coupon[]; // Array to store available coupons
+}

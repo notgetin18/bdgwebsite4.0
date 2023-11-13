@@ -2,33 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ParseFloat } from '@/components/helperFunctions';
 import { MetalType } from './shopSlice';
-
-interface Coupon {
-  code: string;
-  createdAt: string;
-  description: string;
-  expiryDate: string;
-  itemType: string;
-  maximum: number;
-  minimum: number;
-  percentage: number;
-  status: boolean;
-  type: string;
-  updatedAt: string;
-  used_count: number;
-  __v: number;
-  _id: string;
-}
-
-interface CouponState {
-  selectedCoupon: Coupon | null;
-  appliedCouponCode: string | null;
-  error: string | null;
-  extraGoldOfRuppess: number;
-  extraGold: number;
-  coupons: Coupon[]; // Array to store available coupons
-}
-
+import { Coupon, CouponState } from '@/types';
 
 const initialCoupons: Coupon[] = [
   {
