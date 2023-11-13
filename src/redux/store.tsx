@@ -1,16 +1,18 @@
 // store.ts
 
 import { configureStore } from '@reduxjs/toolkit';
-import {silverReducer, goldReducer}  from './goldSlice'; // Import your goldSlice reducer
+import {silverReducer, goldReducer}  from './goldSlice'; 
 import timerSlice from './timerSlice';
 import shopSlice from './shopSlice';
+import couponSlice from './couponSlice';
 
 export const store = configureStore({
     reducer: {
-        gold: goldReducer, // Add the goldReducer to your store
-        silver: silverReducer, // Add the silverReducer to your store
+        gold: goldReducer, 
+        silver: silverReducer, 
         timer: timerSlice,
         shop: shopSlice,
+        coupon: couponSlice,
         // ... other reducers
     },
 });

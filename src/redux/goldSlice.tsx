@@ -1,6 +1,7 @@
 // goldSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GoldData, SilverData } from '@/types';
+import { RootState } from './store';
 
 // Define the initial states
 const initialGoldState: GoldData = {
@@ -32,6 +33,7 @@ const goldSlice = createSlice({
     },
   },
 });
+
 
 const silverSlice = createSlice({
   name: 'silver',

@@ -44,6 +44,8 @@ export const funcForDecrypt = async (dataToBeDecrypt: any) => {
   //
   return response;
 };
+
+
 export const funForAesEncrypt = async (dataToBeEncrypt: any) => {
   const response = await AesEncrypt(dataToBeEncrypt);
   //

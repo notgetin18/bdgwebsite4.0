@@ -4,6 +4,7 @@ import { startTimer, tick, resetTimer, timeUp } from '../redux/timerSlice';
 import { metalPrice } from '@/api/DashboardServices';
 import { setGoldData, setSilverData } from '@/redux/goldSlice';
 import { setMetalPrice } from '@/redux/shopSlice';
+// import { fetchCoupons } from '@/api/DashboardServices';
 
 interface RootState {
     timer: {
@@ -17,24 +18,26 @@ const TimerComponent: React.FC = () => {
     const timeLeft = useSelector((state: RootState) => state.timer.timeLeft);
     const timerRunning = useSelector((state: RootState) => state.timer.timerRunning);
 
-    const fetchData = useCallback(async () => {
+    const fetchDataOfMetals = useCallback(async () => {
         try {
             const response: any = await metalPrice();
             const metalPriceOfGoldSilver = await JSON.parse(response);
             dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
             dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]));
             dispatch(setMetalPrice(metalPriceOfGoldSilver.data.gold[0].totalPrice))
-            
+
         } catch (error) {
             console.error('Error fetching metal data:', error);
         }
     }, [dispatch]);
 
+    
+
     useEffect(() => {
         // Call fetchData when the component mounts
-        fetchData();
+        fetchDataOfMetals();
         dispatch(startTimer());
-    }, [dispatch, fetchData]);
+    }, [dispatch, fetchDataOfMetals]);
 
     useEffect(() => {
         if (timerRunning) {
@@ -51,12 +54,12 @@ const TimerComponent: React.FC = () => {
     useEffect(() => {
         if (timeLeft === 0 && timerRunning) {
             dispatch(timeUp());
-            fetchData(); // Call fetchData when the timer reaches 0
+            fetchDataOfMetals(); // Call fetchData when the timer reaches 0
             console.log('function called!!!')
             //  if you want the timer to restart automatically
             dispatch(resetTimer());
         }
-    }, [timeLeft, timerRunning, dispatch, fetchData]);
+    }, [timeLeft, timerRunning, dispatch, fetchDataOfMetals]);
 
     const formatTime = (seconds: number): string => {
         const minutes = Math.floor(seconds / 60);

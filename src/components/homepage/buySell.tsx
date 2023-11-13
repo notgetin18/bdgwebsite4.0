@@ -6,20 +6,22 @@ import { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { setAppliedCoupon, setAppliedCouponCode, setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
+import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
 import TimerComponent from "../timerComponent";
+import { fetchCoupons } from "@/api/DashboardServices";
+import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 
 const BuySell = () => {
+  const dispatch = useDispatch();
   const [isgold, setIsGold] = useState(true);
   const [activeTab, setActiveTab] = useState('buy');
   const [activeTabPurchase, setActiveTabPurchase] = useState('rupees');
-  const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
-  const extraGold = useSelector((state: RootState) => state.shop.extraGold);
+  // const extraGold = useSelector((state: RootState) => state.shop.extraGold);
   const totalGold = useSelector((state: RootState) => state.shop.totalGold);
   const transactionType = useSelector((state: RootState) => state.shop.transactionType);
   const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
@@ -29,8 +31,47 @@ const BuySell = () => {
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
 
 
+  const [coupons, setCoupons] = useState([])
+  const fetchCouponsData = async () => {
+    try {
+      const response: any = await fetchCoupons();
+      const couponsData = await JSON.parse(response);
+      // console.log('couponsData', couponsData.data)
+      setCoupons(couponsData.data)
+    } catch (error) {
+      console.error('Error fetching metal data:', error);
+    }
+  };
 
-  console.table({ couponCode, purchaseType, actualAmount, gst, metalType, extraGold, totalGold, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
+  // console.log('coupons', coupons);
+
+  useEffect(() => {
+    fetchCouponsData();
+    console.log('metalType=====> from useEffect', metalType)
+  }, [])
+
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
+  const error = useSelector((state: RootState) => state.coupon.error);
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
+  // const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+  const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+  // console.log('error', error)
+  // console.log('selectedCoupon', selectedCoupon)
+  // console.log('appliedCouponCode', appliedCouponCode)
+  // console.log('extraGold', extraGold)
+
+  const handleApplyCoupon = (coupon: any, amount: any,) => {
+    dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType }));
+  };
+  console.log('metalType====> from ==', metalType)
+
+  const handleClearCoupon = () => {
+    dispatch(clearCoupon());
+  };
+
+  // console.table({ couponCode, purchaseType, actualAmount, gst, metalType, totalGold, transactionType, metalPricePerGram, enteredAmount, metalQuantity, extraGoldOfRuppess })
+  console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -52,15 +93,6 @@ const BuySell = () => {
     console.log("changing", +enteredValue)
     dispatch(setEnteredAmount(+enteredValue));
   };
-  const handleAppliedCouponChange = (AppliedCoupon: boolean) => {
-    dispatch(setAppliedCoupon(AppliedCoupon));
-  };
-
-  const handleAppliedCouponCode = (CouponCode: string) => {
-    console.log('clicked!!!', CouponCode);
-    dispatch(setAppliedCouponCode(CouponCode));
-  };
-
 
 
   useEffect(() => {
@@ -76,8 +108,6 @@ const BuySell = () => {
   }, [isgold, activeTab])
 
 
-
-
   return (
     <>
       <div>
@@ -91,8 +121,6 @@ const BuySell = () => {
                   }`}
                 onClick={() => {
                   handleTabClick('buy')
-                  // handleAppliedCouponCode('BDG99')
-                  // handleAppliedCouponChange(true)
                 }
                 }
               >
@@ -113,9 +141,9 @@ const BuySell = () => {
                 <div className="toggle_button_spacing" onChange={toggleMetal}>
                   <label className="toggle-button">
                     <input type="checkbox" />
-                    <span className="slider"></span>
-                    <span className="text-gold text-gold1">Silver</span>
-                    <span className="text-silver text-silver1">Gold</span>
+                    <div className="slider"></div>
+                    <div className="text-gold text-gold1">Silver</div>
+                    <div className="text-silver text-silver1">Gold</div>
                   </label>
                 </div>
                 <div>
@@ -147,25 +175,25 @@ const BuySell = () => {
                           <div>{silverData.salePrice}</div>
                         )}
                       </div>
-                    )}/gm <span className="text-xs"> + 3% GST</span>
+                    )}/gm <div className="text-xs"> + 3% GST</div>
                   </div>
                   <p className="text-xs text-gray-400 pl-6">
                     24k 99.9% Pure Gold
                   </p>
                   <p className="text-xs font-base pl-6">
-                    {isgold ? <span className={`${goldData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    {isgold ? <div className={`${goldData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                       {goldData.percentage >= 0 ? <ArrowUpIcon className="h-4 inline-block text-green-500" /> : <ChevronDownIcon className="h-4 inline-block text-red-500" />}
                       {goldData.percentage} %
-                    </span> : <span className={`${silverData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                    </div> : <div className={`${silverData.percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                       {silverData.percentage >= 0 ? <ArrowUpIcon className="h-4 inline-block" /> : <ChevronDownIcon className="h-4 inline-block" />}
                       {silverData.percentage} %
-                    </span>}
+                    </div>}
 
-                    <span className="text-white ml-2">Since Yesterday</span>
+                    <div className="text-white ml-2">Since Yesterday</div>
                   </p>
 
                   <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    Gold rate expires in <span className="pl-1"> <TimerComponent /></span>
+                    Gold rate expires in <div className="pl-1"> <TimerComponent /></div>
                   </p>
                 </div>
               </div>
@@ -236,7 +264,7 @@ const BuySell = () => {
                 </div>
               </div>
 
-              <p className="text-white text-md mt-4"> Quick Buy</p>
+              <div className="text-white text-md mt-4"> Quick Buy</div>
               <div className="mt-4 flex justify-between">
                 <Link
                   href="#"
@@ -281,25 +309,34 @@ const BuySell = () => {
                 <p className="text-white text-sm">Get Extra Gold</p>
               </div>
 
-              <div className="py-3 px-4 rounded-lg bg-themeLight flex items-center mt-4 justify-between">
-                <div className="flex items-center">
-                  <img
-                    className="h-10"
-                    src={new URL(
-                      "../../../public/coupon.png",
-                      import.meta.url
-                    ).toString()}
-                    alt="Your Company"
-                  />
-                  <p className="text-white text-lg leading-4 ml-2">
-                    Apply Coupon
-                  </p>
-                </div>
-                <button className="text-white rounded-full border-2">
-                  <ChevronDownIcon className="h-8" />
-                </button>
-              </div>
 
+              {isgold && purchaseType === 'buy' && <div>
+                <div className="py-3 px-4 rounded-lg bg-themeLight flex items-center mt-4 justify-between">
+                  <div className="flex items-center">
+                    <img
+                      className="h-10"
+                      src={new URL(
+                        "../../../public/coupon.png",
+                        import.meta.url
+                      ).toString()}
+                      alt="Your Company"
+                    />
+                    <p className="text-white text-lg leading-4 ml-2">
+                      Apply Coupon
+                    </p>
+                  </div>
+                  <button className="text-white rounded-full border-2">
+                    <ChevronDownIcon className="h-8" />
+                  </button>
+                </div>
+                {coupons.map((coupon: any) => (
+                  <div key={coupon._id}>
+                    <p className="text-white">{coupon.description}</p>
+                    <button className="bg-blue-400 rounded cursor-pointer text-white p-2" onClick={() => handleApplyCoupon(coupon, enteredAmount)}>
+                      Apply Coupon
+                    </button>
+                  </div>
+                ))} </div>}
               <div className="mt-12">
                 <button className="w-full bg-blue-200 rounded-lg py-2">
                   Start Investing
