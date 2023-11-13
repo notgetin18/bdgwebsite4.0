@@ -60,6 +60,7 @@ const shopSlice = createSlice({
                 } else if (state.transactionType === 'grams') {
                     state.gst = ParseFloat((state.metalPrice * 0.03 * state.enteredAmount), 2);
                     state.actualAmount = state.metalPrice * state.enteredAmount + state.gst;
+                    state.metalQuantity = state.enteredAmount;
                 }
             } else {
                 if (state.transactionType === 'rupees') {

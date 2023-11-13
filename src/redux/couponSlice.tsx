@@ -75,19 +75,32 @@ const couponSlice = createSlice({
     ) => {
       const { coupon, amount, transactionType, metalType, goldPrice } = action.payload;
       // Check if amount is greater than or equal to the coupon's minimum value
-      if (amount < coupon.minimum) {
+      if (transactionType === 'rupees' && amount < coupon.minimum) {
         state.error = `This Coupon is not applicable for amount less than Rs ${coupon.minimum}`;
         state.selectedCoupon = null;
         state.appliedCouponCode = null;
         state.extraGoldOfRuppess = 0;
         state.extraGold = 0;
-      } else {
+      } else if (transactionType === 'grams' && ParseFloat(amount * goldPrice, 4) < coupon.minimum) {
+        state.error = `This Coupon is not applicable for amount less than Rs ${coupon.minimum}`;
+        state.selectedCoupon = null;
+        state.appliedCouponCode = null;
+        state.extraGoldOfRuppess = 0;
+        state.extraGold = 0;
+      }
+      else {
 
         if (transactionType === 'rupees' && metalType === 'gold') {
           // Calculate extra gold based on coupon percentage and maximum value
           const extraGoldOfRuppess = (amount * coupon.percentage) / 100;
           state.extraGoldOfRuppess = Math.min(extraGoldOfRuppess, coupon.maximum);
-          // Assuming goldPrice is available in your action payload or from the store
+          const extraGold = ParseFloat(extraGoldOfRuppess / goldPrice, 4);
+          state.extraGold = extraGold
+        } else if (transactionType === 'grams' && metalType === 'gold') {
+          const gst = ParseFloat((goldPrice * 0.03 * amount), 2);
+          const actualAmount = ParseFloat(goldPrice * amount + gst, 2);
+          const extraGoldOfRuppess = (actualAmount * coupon.percentage) / 100;
+          state.extraGoldOfRuppess = Math.min(extraGoldOfRuppess, coupon.maximum);
           const extraGold = ParseFloat(extraGoldOfRuppess / goldPrice, 4);
           state.extraGold = extraGold
         }
@@ -95,7 +108,6 @@ const couponSlice = createSlice({
         state.selectedCoupon = coupon;
         state.appliedCouponCode = coupon.code; // Store applied coupon code
         state.error = null;
-        // state.extraGold = 0
       }
     },
     clearCoupon: (state) => {
@@ -108,7 +120,6 @@ const couponSlice = createSlice({
   },
 });
 
-// ... (export statements and other code)
 
 export const { applyCoupon, clearCoupon } = couponSlice.actions;
 export default couponSlice.reducer;
