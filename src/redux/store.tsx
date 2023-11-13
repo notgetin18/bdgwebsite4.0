@@ -1,7 +1,7 @@
 // store.ts
 
 import { configureStore } from '@reduxjs/toolkit';
-import {silverReducer, goldReducer}  from './goldSlice'; 
+import {silverReducer, goldReducer}  from './metalSlice'; 
 import timerSlice from './timerSlice';
 import shopSlice from './shopSlice';
 import couponSlice from './couponSlice';

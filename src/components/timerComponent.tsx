@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { startTimer, tick, resetTimer, timeUp } from '../redux/timerSlice';
 import { metalPrice } from '@/api/DashboardServices';
-import { setGoldData, setSilverData } from '@/redux/goldSlice';
+import { setGoldData, setSilverData } from '@/redux/metalSlice';
 import { setMetalPrice } from '@/redux/shopSlice';
 // import { fetchCoupons } from '@/api/DashboardServices';
 
