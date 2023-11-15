@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
-import TimerComponent from "../timerComponent";
+// import TimerComponent from "../timerComponent";
 import { fetchCoupons } from "@/api/DashboardServices";
 import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 import Modal from "../modal";
@@ -199,7 +199,7 @@ const BuySell = () => {
                   </p>
 
                   <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    Gold rate expires in <div className="pl-1"> <TimerComponent /><Timer /></div>
+                    Gold rate expires in <div className="pl-1"> <Timer /></div>
                   </p>
                 </div>
               </div>

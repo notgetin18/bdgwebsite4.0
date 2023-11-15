@@ -18,48 +18,48 @@ const TimerComponent: React.FC = () => {
     const timeLeft = useSelector((state: RootState) => state.timer.timeLeft);
     const timerRunning = useSelector((state: RootState) => state.timer.timerRunning);
 
-    const fetchDataOfMetals = useCallback(async () => {
-        try {
-            const response: any = await metalPrice();
-            const metalPriceOfGoldSilver = await JSON.parse(response);
-            dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
-            dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]));
-            dispatch(setMetalPrice(metalPriceOfGoldSilver.data.gold[0].totalPrice))
+    // const fetchDataOfMetals = useCallback(async () => {
+    //     try {
+    //         const response: any = await metalPrice();
+    //         const metalPriceOfGoldSilver = await JSON.parse(response);
+    //         dispatch(setGoldData(metalPriceOfGoldSilver.data.gold[0]));
+    //         dispatch(setSilverData(metalPriceOfGoldSilver.data.silver[0]));
+    //         dispatch(setMetalPrice(metalPriceOfGoldSilver.data.gold[0].totalPrice))
 
-        } catch (error) {
-            console.error('Error fetching metal data:', error);
-        }
-    }, [dispatch]);
+    //     } catch (error) {
+    //         console.error('Error fetching metal data:', error);
+    //     }
+    // }, [dispatch]);
 
     
 
-    useEffect(() => {
-        // Call fetchData when the component mounts
-        fetchDataOfMetals();
-        dispatch(startTimer());
-    }, [dispatch, fetchDataOfMetals]);
+    // useEffect(() => {
+    //     // Call fetchData when the component mounts
+    //     fetchDataOfMetals();
+    //     dispatch(startTimer());
+    // }, [dispatch, fetchDataOfMetals]);
 
-    useEffect(() => {
-        if (timerRunning) {
-            const timerID = setInterval(() => {
-                dispatch(tick());
-            }, 1000);
+    // useEffect(() => {
+    //     if (timerRunning) {
+    //         const timerID = setInterval(() => {
+    //             dispatch(tick());
+    //         }, 1000);
 
-            return () => {
-                clearInterval(timerID);
-            };
-        }
-    }, [timerRunning, dispatch]);
+    //         return () => {
+    //             clearInterval(timerID);
+    //         };
+    //     }
+    // }, [timerRunning, dispatch]);
 
-    useEffect(() => {
-        if (timeLeft === 0 && timerRunning) {
-            dispatch(timeUp());
-            fetchDataOfMetals(); // Call fetchData when the timer reaches 0
-            console.log('function called!!!')
-            //  if you want the timer to restart automatically
-            dispatch(resetTimer());
-        }
-    }, [timeLeft, timerRunning, dispatch, fetchDataOfMetals]);
+    // useEffect(() => {
+    //     if (timeLeft === 0 && timerRunning) {
+    //         dispatch(timeUp());
+    //         // fetchDataOfMetals(); // Call fetchData when the timer reaches 0
+    //         console.log('function called!!!')
+    //         //  if you want the timer to restart automatically
+    //         dispatch(resetTimer());
+    //     }
+    // }, [timeLeft, timerRunning, dispatch, ]);
 
     const formatTime = (seconds: number): string => {
         const minutes = Math.floor(seconds / 60);
