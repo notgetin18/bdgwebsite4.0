@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import Timer from './globalTimer';
 
 export default function Modal({ isOpen, onClose }: any) {
     // const [open, setOpen] = useState(true)
@@ -58,6 +59,7 @@ export default function Modal({ isOpen, onClose }: any) {
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                    <p>le le time beta <Timer /></p>
                                     <span>GOLD Weight : {metalQuantity} </span> <br />
                                     <p>GOLD Value : {transactionType === 'grams' ? actualAmount : enteredAmount} </p>  <br />
                                     <p>Promotional SILVER : {metalQuantity} </p> <br />
@@ -66,7 +68,7 @@ export default function Modal({ isOpen, onClose }: any) {
                                     <p>Total Amount : {transactionType === 'grams' ? actualAmount : enteredAmount}</p> <br />
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                   
+
                                     <button
                                         type="button"
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"

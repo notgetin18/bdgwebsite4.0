@@ -11,6 +11,7 @@ import TimerComponent from "../timerComponent";
 import { fetchCoupons } from "@/api/DashboardServices";
 import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 import Modal from "../modal";
+import Timer from "../globalTimer";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -198,7 +199,7 @@ const BuySell = () => {
                   </p>
 
                   <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    Gold rate expires in <div className="pl-1"> <TimerComponent /></div>
+                    Gold rate expires in <div className="pl-1"> <TimerComponent /><Timer /></div>
                   </p>
                 </div>
               </div>
