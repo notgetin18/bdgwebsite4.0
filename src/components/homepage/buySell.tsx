@@ -65,27 +65,33 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
-  console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
+  // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
+
+  useEffect(() => {
+    console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
+  }, [purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
 
   const toggleMetal = () => {
     setIsGold(!isgold);
     dispatch(setMetalType(!isgold ? 'gold' : 'silver'));
+    dispatch(setEnteredAmount(0));
   };
 
   const handleTabClick = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
     dispatch(setPurchaseType(tab))
+    // dispatch(setEnteredAmount(0));
   };
 
   const handleTabClick1 = (tab: 'rupees' | 'grams') => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
+    // dispatch(setEnteredAmount(0));
   }
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = e.target.value
-    console.log("changing", +enteredValue)
+    // console.log("changing", +enteredValue)
     dispatch(setEnteredAmount(+enteredValue));
   };
 

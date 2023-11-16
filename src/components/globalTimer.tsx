@@ -50,7 +50,7 @@ const Timer: React.FC = () => {
 
     useEffect(() => {
         fetchDataOfMetals()
-    }, [fetchDataOfMetals]);
+    }, []);
 
     const handleReset = () => {
         dispatch(resetTimer());

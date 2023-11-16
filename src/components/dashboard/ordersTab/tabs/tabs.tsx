@@ -1,9 +1,9 @@
 "use client";
+import { classNames } from "@/components";
+import Timer from "@/components/globalTimer";
 import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+
 const data = [
   { id: 1, name: "DIGITAL GOLD ₹(10)" },
   { id: 2, name: "DIGITAL GOLD ₹(10)" },
@@ -83,6 +83,7 @@ const OrdersTabs = () => {
             ))}
           </Tab.Panels>
         </div>
+        <div className="bg-blue-400"><Timer /></div>
       </Tab.Group>
     </div>
   );
