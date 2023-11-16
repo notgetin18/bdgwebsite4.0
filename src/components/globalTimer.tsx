@@ -4,7 +4,7 @@ import { RootState } from '@/redux/store';
 import { decrementTimer, resetTimer } from '@/redux/actionTypes';
 import { metalPrice } from '@/api/DashboardServices';
 import { setGoldData, setSilverData } from '@/redux/metalSlice';
-import { setMetalPrice } from '@/redux/shopSlice';
+import { setMetalPrice, updateMetalPrice } from '@/redux/shopSlice';
 
 const Timer: React.FC = () => {
     const time = useSelector((state: RootState) => state.time.time);
@@ -34,6 +34,7 @@ const Timer: React.FC = () => {
                 intervalRef.current = null;
                 fetchDataOfMetals();
                 dispatch(resetTimer());
+                // updateMetalPrice()
             } else {
                 dispatch(decrementTimer());
             }

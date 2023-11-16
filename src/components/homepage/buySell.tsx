@@ -80,13 +80,13 @@ const BuySell = () => {
   const handleTabClick = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
     dispatch(setPurchaseType(tab))
-    // dispatch(setEnteredAmount(0));
+    dispatch(setEnteredAmount(0));
   };
 
   const handleTabClick1 = (tab: 'rupees' | 'grams') => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
-    // dispatch(setEnteredAmount(0));
+    dispatch(setEnteredAmount(0));
   }
 
   const handleEnteredAmountChange = (e: any) => {
@@ -255,8 +255,8 @@ const BuySell = () => {
                     type="number"
                     className=" bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
                     max={9}
-                    placeholder="000"
-                    // value=""
+                    placeholder="0000"
+                    // value={metalQuantity}
                     onChange={handleEnteredAmountChange}
                   />
                 </div>
@@ -265,12 +265,13 @@ const BuySell = () => {
                     type="number"
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
                     max={9}
-                    placeholder="000"
-                    onChange={handleEnteredAmountChange}
+                    // placeholder="0000"
+                    // onChange={handleEnteredAmountChange}
                   // value=""
+                  value={metalQuantity}
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
-                    gm
+                    {/* gm */}
                   </div>
                 </div>
               </div>
