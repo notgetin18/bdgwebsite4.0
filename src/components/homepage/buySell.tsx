@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
-// import TimerComponent from "../timerComponent";
 import { fetchCoupons } from "@/api/DashboardServices";
 import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 import Modal from "../modal";
