@@ -7,10 +7,10 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
-import { fetchCoupons } from "@/api/DashboardServices";
 import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 import Modal from "../modal";
 import Timer from "../globalTimer";
+import { useCoupons } from "@/customHooks/coupons";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -27,35 +27,12 @@ const BuySell = () => {
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
-
-
-  const [coupons, setCoupons] = useState([])
-  const fetchCouponsData = async () => {
-    try {
-      const response: any = await fetchCoupons();
-      const couponsData = await JSON.parse(response);
-      // console.log('couponsData', couponsData.data)
-      setCoupons(couponsData.data)
-    } catch (error) {
-      console.error('Error fetching metal data:', error);
-    }
-  };
-
-  // console.log('coupons', coupons);
-
-  useEffect(() => {
-    fetchCouponsData();
-  }, [])
-
   const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
   const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
-  // console.log('error', error)
-  // console.log('selectedCoupon', selectedCoupon)
-  // console.log('appliedCouponCode', appliedCouponCode)
-  // console.log('extraGold', extraGold)
+  const coupons = useCoupons();
 
   const handleApplyCoupon = (coupon: any, amount: any,) => {
     dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType }));
@@ -65,11 +42,11 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
 
   useEffect(() => {
+    console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
     console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
-  }, [purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
+  }, [error, appliedCouponCode, extraGoldOfRuppess, extraGold, purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -77,16 +54,16 @@ const BuySell = () => {
     dispatch(setEnteredAmount(0));
   };
 
-  const handleTabClick = (tab: 'buy' | 'sell') => {
+  const handleTabBuyAndSell = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
     dispatch(setPurchaseType(tab))
     dispatch(setEnteredAmount(0));
   };
 
-  const handleTabClick1 = (tab: 'rupees' | 'grams') => {
+  const handleTabRupeesAndGrams = (tab: 'rupees' | 'grams') => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
-    dispatch(setEnteredAmount(0));
+    // dispatch(setEnteredAmount(0));
   }
 
   const handleEnteredAmountChange = (e: any) => {
@@ -131,7 +108,7 @@ const BuySell = () => {
                   : 'bg-blue-200 text-blue-800'
                   }`}
                 onClick={() => {
-                  handleTabClick('buy')
+                  handleTabBuyAndSell('buy')
                 }
                 }
               >
@@ -142,7 +119,7 @@ const BuySell = () => {
                   ? 'bg-blue-800 text-white active'
                   : 'bg-blue-200 text-blue-800'
                   }`}
-                onClick={() => handleTabClick('sell')}
+                onClick={() => handleTabBuyAndSell('sell')}
               >
                 SELL
               </div>
@@ -232,7 +209,7 @@ const BuySell = () => {
                     ? 'bg-blue-600 text-white active'
                     : 'bg-blue-200 text-blue-800'
                     }`}
-                  onClick={() => handleTabClick1('rupees')}
+                  onClick={() => handleTabRupeesAndGrams('rupees')}
                 >
                   Buy in Rupees
                 </div>
@@ -241,7 +218,7 @@ const BuySell = () => {
                     ? 'bg-blue-600 text-white active'
                     : 'bg-blue-200 text-blue-800'
                     }`}
-                  onClick={() => handleTabClick1('grams')}
+                  onClick={() => handleTabRupeesAndGrams('grams')}
                 >
                   Buy in Grams
                 </div>
@@ -256,7 +233,6 @@ const BuySell = () => {
                     className=" bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
                     max={9}
                     placeholder="0000"
-                    // value={metalQuantity}
                     onChange={handleEnteredAmountChange}
                   />
                 </div>
@@ -265,10 +241,9 @@ const BuySell = () => {
                     type="number"
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
                     max={9}
-                    // placeholder="0000"
-                    // onChange={handleEnteredAmountChange}
-                  // value=""
-                  value={metalQuantity}
+                    readOnly
+                    value={activeTabPurchase === 'rupees' ? metalQuantity : enteredAmount}
+
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
                     {/* gm */}
