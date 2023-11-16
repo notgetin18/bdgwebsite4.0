@@ -33,6 +33,7 @@
 
 body {
   font-family: NunitoSans-Regular;
+  background: #092637;
 }
 
 .bold {
@@ -56,6 +57,9 @@ body {
 }
 .bg-themeLight {
   background: rgba(44, 123, 172, 0.2);
+}
+.text-themeBlue {
+  color: #7f9cad;
 }
 .bg-header {
   background: #081a24;
@@ -86,7 +90,9 @@ body {
   );
   color: #ff6b6b;
 }
-
+.border-1 {
+  border: 1px solid #2c7bac;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

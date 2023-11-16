@@ -1,6 +1,10 @@
 "use client";
 import { Tab } from "@headlessui/react";
 import OrdersTabs from "../ordersTab/tabs/tabs";
+import VaultTab from "../vaultTab/tabs";
+import GiftTab from "../giftTab/tabs";
+import ReferTab from "@/components/dashboard/refer/tabs";
+import Redeem from "../redeem/tabs";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -44,26 +48,23 @@ const DashboardTopTabs = () => {
           <Tab.Panel
             className={classNames("rounded-xl p-3", "focus:outline-none")}
           >
-            Content 2
+            <VaultTab />
           </Tab.Panel>
 
           <Tab.Panel
             className={classNames("rounded-xl p-3", "focus:outline-none")}
           >
-            Content 3
+            <Redeem />
           </Tab.Panel>
           <Tab.Panel
-            className={classNames(
-              "rounded-xl bg-themeLight p-3",
-              "focus:outline-none"
-            )}
+            className={classNames("rounded-xl p-3", "focus:outline-none")}
           >
-            Content 3
+            <GiftTab />
           </Tab.Panel>
           <Tab.Panel
             className={classNames("rounded-xl  p-3", "focus:outline-none")}
           >
-            Content 3
+            <ReferTab />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
