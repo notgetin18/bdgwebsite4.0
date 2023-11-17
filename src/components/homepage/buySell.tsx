@@ -75,13 +75,31 @@ const BuySell = () => {
     setValidationError('')
   }
 
-  let goldPriceWithGST = ParseFloat(`${goldData.totalPrice * 0.03 + goldData.totalPrice}`, 2);
+  let goldPriceWithGST = ParseFloat(`${(goldData.totalPrice * 0.03 )+ goldData.totalPrice}`, 2);
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
-
+  console.log('actualPurchasingInGm', actualPurchasingInGm)
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4)
-    dispatch(setEnteredAmount(+enteredValue));
+    setValidationError('')
+    if (activeTabPurchase === 'rupees') {
+      if (enteredValue > 200000) {
+        setValidationError("Amount should be less than 2 lakhs");
+        return;
+      } else {
+        dispatch(setEnteredAmount(+enteredValue));
+      }
+    }
+
+    if (activeTabPurchase === 'grams') {
+      console.log('actualPurchasingInGm', actualPurchasingInGm)
+      if (Number(e.target.value) > actualPurchasingInGm) {
+        setValidationError("Amount should be less than 2 lakhs");
+        return;
+      } else {
+        dispatch(setEnteredAmount(+enteredValue));
+      }
+    }
   };
 
 
