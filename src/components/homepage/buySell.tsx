@@ -11,12 +11,14 @@ import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
 import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
+import { ParseFloat } from "../helperFunctions";
 
 const BuySell = () => {
   const dispatch = useDispatch();
   const [isgold, setIsGold] = useState(true);
   const [activeTab, setActiveTab] = useState('buy');
   const [activeTabPurchase, setActiveTabPurchase] = useState('rupees');
+  const [validationError, setValidationError] = useState("");
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
@@ -26,6 +28,7 @@ const BuySell = () => {
   const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
+  const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
   const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
   const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
@@ -33,6 +36,8 @@ const BuySell = () => {
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const coupons = useCoupons();
+
+
 
   const handleApplyCoupon = (coupon: any, amount: any,) => {
     dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType }));
@@ -44,31 +49,38 @@ const BuySell = () => {
 
 
   useEffect(() => {
-    console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
-    console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity })
-  }, [error, appliedCouponCode, extraGoldOfRuppess, extraGold, purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
+    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
+    console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, totalAmount, enteredAmount, metalQuantity })
+  }, [error, appliedCouponCode, extraGoldOfRuppess, extraGold, purchaseType, actualAmount, gst, totalAmount, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
 
   const toggleMetal = () => {
     setIsGold(!isgold);
     dispatch(setMetalType(!isgold ? 'gold' : 'silver'));
     dispatch(setEnteredAmount(0));
+    setValidationError('')
   };
 
   const handleTabBuyAndSell = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
     dispatch(setPurchaseType(tab))
     dispatch(setEnteredAmount(0));
+    setValidationError('')
+
   };
 
   const handleTabRupeesAndGrams = (tab: 'rupees' | 'grams') => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
-    // dispatch(setEnteredAmount(0));
+    dispatch(setEnteredAmount(0));
+    setValidationError('')
   }
 
+  let goldPriceWithGST = ParseFloat(`${goldData.totalPrice * 0.03 + goldData.totalPrice}`, 2);
+  const actualPurchasingInGm = 200000 / goldPriceWithGST;
+
+
   const handleEnteredAmountChange = (e: any) => {
-    const enteredValue = e.target.value
-    // console.log("changing", +enteredValue)
+    const enteredValue = ParseFloat(e.target.value, 4)
     dispatch(setEnteredAmount(+enteredValue));
   };
 
@@ -101,7 +113,7 @@ const BuySell = () => {
       <div>
         <div className="block pl-32">
           <div className="tab-bg  rounded-b-lg relative">
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-2  ">
               <div
                 className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === 'buy'
                   ? 'bg-blue-600 text-white active'
@@ -203,53 +215,66 @@ const BuySell = () => {
             </div>
 
             <div className="p-6 z-20">
-              <div className=" flex justify-around">
+              <div className="bg-blue-400 rounded flex justify-around   py-2">
                 <div
-                  className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTabPurchase === 'rupees'
-                    ? 'bg-blue-600 text-white active'
-                    : 'bg-blue-200 text-blue-800'
+                  className={`text-center px-9 py-2 rounded-lg font-semibold cursor-pointer ${activeTabPurchase === 'rupees'
+                    ? 'bg-blue-300 text-blue-800 active'
+                    : 'text-blue-200 '
                     }`}
                   onClick={() => handleTabRupeesAndGrams('rupees')}
                 >
                   Buy in Rupees
                 </div>
                 <div
-                  className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTabPurchase === 'grams'
-                    ? 'bg-blue-600 text-white active'
-                    : 'bg-blue-200 text-blue-800'
+                  className={`text-center px-9 py-2 rounded font-semibold cursor-pointer ${activeTabPurchase === 'grams'
+                    ? 'bg-blue-300 text-blue-800  active'
+                    : 'text-blue-200'
                     }`}
                   onClick={() => handleTabRupeesAndGrams('grams')}
                 >
                   Buy in Grams
                 </div>
               </div>
-              <div className="grid grid-cols-2 items-center gap-6 border border-white p-1 rounded-lg">
+              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-white p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-3">
-                    ₹
+                    {activeTabPurchase == 'rupees' ? '₹ ' : ''}
                   </div>
                   <input
                     type="number"
-                    className=" bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
-                    max={9}
-                    placeholder="0000"
+                    className="bg-transparent pl-8 text-lg py-1 focus:outline-none text-white"
+                    placeholder={activeTabPurchase === 'rupees' ? '0000' : '0.0000'}
                     onChange={handleEnteredAmountChange}
+                    step='0.0001'
+                    value={enteredAmount}
+                    onKeyDown={(e) => {
+                      // Prevent the input of a decimal point if purchase type is rupees
+                      if (activeTabPurchase === 'rupees' && e.key === '.') {
+                        e.preventDefault();
+                      }
+                    }}
                   />
                 </div>
                 <div className="relative rounded-md shadow-sm">
+                  <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-20">
+                    {activeTabPurchase == 'rupees' ? ' ' : '₹'}
+                  </div>
                   <input
                     type="number"
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
-                    max={9}
+                    value={activeTabPurchase == 'rupees' ? metalQuantity : totalAmount}
                     readOnly
-                    value={activeTabPurchase === 'rupees' ? metalQuantity : enteredAmount}
-
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
                     {/* gm */}
                   </div>
                 </div>
               </div>
+              {validationError ? (
+                <span className="text-red-500 text-xs">{validationError}</span>
+              ) : (
+                ""
+              )}
 
               <div className="text-white text-md mt-4"> Quick Buy</div>
               <div className="mt-4 flex justify-between">

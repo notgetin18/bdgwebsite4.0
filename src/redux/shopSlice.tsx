@@ -1,4 +1,3 @@
-// import { metalPrice } from '@/api/DashboardServices';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ParseFloat } from '@/components/helperFunctions';
 import { metalPrice, MetalType, PurchaseType, ShopState, TransactionType } from '@/types';
@@ -13,6 +12,7 @@ const initialState: ShopState = {
     gst: 0,
     metalPrice: 0,
     metalQuantity: 0,
+    totalAmount: 0
 };
 
 // Helper function to calculate values based on the state
@@ -22,11 +22,13 @@ const recalculateValues = (state: ShopState) => {
     if (state.purchaseType === 'buy') {
         if (state.transactionType === 'rupees') {
             state.actualAmount = ParseFloat(((state.enteredAmount / 103) * 100), 2);
-            state.gst = ParseFloat((state.enteredAmount - state.actualAmount), 2);
+            state.gst = (+(state.enteredAmount - state.actualAmount).toFixed(2));
             state.metalQuantity = ParseFloat((state.actualAmount / metalPrice), 4);
+            state.totalAmount = ParseFloat((state.actualAmount + state.gst), 2);
         } else if (state.transactionType === 'grams') {
             state.gst = ParseFloat((metalPrice * 0.03 * state.enteredAmount), 2);
             state.actualAmount = metalPrice * state.enteredAmount + state.gst;
+            state.totalAmount = ParseFloat((state.actualAmount + state.gst), 2);
             state.metalQuantity = state.enteredAmount;
         }
     } else {

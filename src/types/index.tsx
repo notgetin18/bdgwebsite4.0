@@ -68,5 +68,6 @@ export interface ShopState {
   actualAmount: number;
   gst: number;
   metalPrice: number,
-  metalQuantity: number
+  metalQuantity: number,
+  totalAmount: number,
 }
