@@ -75,7 +75,7 @@ const BuySell = () => {
     setValidationError('')
   }
 
-  let goldPriceWithGST = ParseFloat(`${(goldData.totalPrice * 0.03 )+ goldData.totalPrice}`, 2);
+  let goldPriceWithGST = ParseFloat(`${(goldData.totalPrice * 0.03) + goldData.totalPrice}`, 2);
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
   console.log('actualPurchasingInGm', actualPurchasingInGm)
 
@@ -84,7 +84,7 @@ const BuySell = () => {
     setValidationError('')
     if (activeTabPurchase === 'rupees') {
       if (enteredValue > 200000) {
-        setValidationError("Amount should be less than 2 lakhs");
+        setValidationError(`We appreciate your trust to buy  ${metalType} on our platform, but our current limit is ₹2 lakhs only. Please change the amount.`);
         return;
       } else {
         dispatch(setEnteredAmount(+enteredValue));
@@ -253,7 +253,7 @@ const BuySell = () => {
                   Buy in Grams
                 </div>
               </div>
-              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-white p-1 rounded-lg">
+              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-3">
                     {activeTabPurchase == 'rupees' ? '₹ ' : ''}
@@ -289,7 +289,7 @@ const BuySell = () => {
                 </div>
               </div>
               {validationError ? (
-                <span className="text-red-500 text-xs">{validationError}</span>
+                <span className="text-red-500 text-sm">{validationError}</span>
               ) : (
                 ""
               )}

@@ -60,6 +60,7 @@ export type MetalType = 'gold' | 'silver';
 export type PurchaseType = 'buy' | 'sell';
 export type TransactionType = 'grams' | 'rupees';
 export type metalPrice = number;
+
 export interface ShopState {
   purchaseType: PurchaseType;
   metalType: MetalType;

@@ -12,7 +12,7 @@ const initialState: ShopState = {
     gst: 0,
     metalPrice: 0,
     metalQuantity: 0,
-    totalAmount: 0
+    totalAmount: 0,
 };
 
 // Helper function to calculate values based on the state
@@ -26,8 +26,8 @@ const recalculateValues = (state: ShopState) => {
             state.metalQuantity = ParseFloat((state.actualAmount / metalPrice), 4);
             state.totalAmount = ParseFloat((state.actualAmount + state.gst), 2);
         } else if (state.transactionType === 'grams') {
-            state.gst = ParseFloat((metalPrice * 0.03 * state.enteredAmount), 2);
-            state.actualAmount = metalPrice * state.enteredAmount + state.gst;
+            state.gst = ParseFloat((0.03 * state.enteredAmount * metalPrice), 2);
+            state.actualAmount = ParseFloat(metalPrice * state.enteredAmount, 2);
             state.totalAmount = ParseFloat((state.actualAmount + state.gst), 2);
             state.metalQuantity = state.enteredAmount;
         }
