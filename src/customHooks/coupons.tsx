@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 
 export const useCoupons = () => {
     const [coupons, setCoupons] = useState([])
-
-
     useEffect(() => {
         const fetchCouponsData = async () => {
             try {

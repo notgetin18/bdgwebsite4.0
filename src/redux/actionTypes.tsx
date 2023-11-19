@@ -1,4 +1,3 @@
-// import { DECREMENT_TIMER, RESET_TIMER } from './actionTypes';
 export const DECREMENT_TIMER = 'DECREMENT_TIMER';
 export const RESET_TIMER = 'RESET_TIMER';
 

@@ -65,10 +65,10 @@ export interface ShopState {
   purchaseType: PurchaseType;
   metalType: MetalType;
   transactionType: TransactionType;
-  enteredAmount: number;
+  enteredAmount: number | undefined;
   actualAmount: number;
   gst: number;
   metalPrice: number,
-  metalQuantity: number,
-  totalAmount: number,
+  metalQuantity: number | undefined,
+  totalAmount: number | undefined,
 }

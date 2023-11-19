@@ -1,13 +1,12 @@
 "use client";
-import { ArrowUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
+import { ArrowUpIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType } from "@/redux/shopSlice";
-import { applyCoupon, clearCoupon } from "@/redux/couponSlice";
+import { applyCoupon, clearCoupon, isCouponApplied, setCouponError } from "@/redux/couponSlice";
 import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
@@ -15,10 +14,11 @@ import { ParseFloat } from "../helperFunctions";
 
 const BuySell = () => {
   const dispatch = useDispatch();
-  const [isgold, setIsGold] = useState(true);
+  const [isgold, setIsGold] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState('buy');
   const [activeTabPurchase, setActiveTabPurchase] = useState('rupees');
-  const [validationError, setValidationError] = useState("");
+  const [validationError, setValidationError] = useState<string>("");
+  const [showCoupon, setShowCoupon] = useState<boolean>(false);
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
@@ -35,6 +35,7 @@ const BuySell = () => {
   const error = useSelector((state: RootState) => state.coupon.error);
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+  const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
 
 
@@ -49,7 +50,7 @@ const BuySell = () => {
 
 
   useEffect(() => {
-    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
+    console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold })
     console.table({ purchaseType, actualAmount, gst, metalType, transactionType, metalPricePerGram, totalAmount, enteredAmount, metalQuantity })
   }, [error, appliedCouponCode, extraGoldOfRuppess, extraGold, purchaseType, actualAmount, gst, totalAmount, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity])
 
@@ -59,6 +60,11 @@ const BuySell = () => {
     dispatch(setEnteredAmount(0));
     setValidationError('')
   };
+
+  const toggleCoupon = () => {
+    setShowCoupon(!showCoupon)
+    dispatch(setCouponError(''))
+  }
 
   const handleTabBuyAndSell = (tab: 'buy' | 'sell') => {
     setActiveTab(tab);
@@ -77,7 +83,7 @@ const BuySell = () => {
 
   let goldPriceWithGST = ParseFloat(`${(goldData.totalPrice * 0.03) + goldData.totalPrice}`, 2);
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
-  console.log('actualPurchasingInGm', actualPurchasingInGm)
+  // console.log('actualPurchasingInGm', actualPurchasingInGm)
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4)
@@ -101,6 +107,23 @@ const BuySell = () => {
       }
     }
   };
+
+  const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
+    <div className="mt-4 flex justify-between">
+      {amounts.map((amount: any) => (
+        <button
+          key={amount}
+          onClick={() => {
+            dispatch(setEnteredAmount(amount));
+          }}
+          className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
+        >
+          {unit === 'rupees' ? `₹${amount}` : `${amount}gm`}
+        </button>
+      ))}
+    </div>
+  );
+
 
 
   useEffect(() => {
@@ -264,7 +287,7 @@ const BuySell = () => {
                     placeholder={activeTabPurchase === 'rupees' ? '0000' : '0.0000'}
                     onChange={handleEnteredAmountChange}
                     step='0.0001'
-                    value={enteredAmount}
+                    value={enteredAmount === 0 ? '' : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === 'rupees' && e.key === '.') {
@@ -275,12 +298,13 @@ const BuySell = () => {
                 </div>
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-20">
-                    {activeTabPurchase == 'rupees' ? ' ' : '₹'}
+                    {activeTabPurchase === 'rupees' ? ' ' : '₹'}
                   </div>
                   <input
                     type="number"
+                    placeholder={activeTabPurchase === 'rupees' ? '0.0000' : '00'}
                     className="bg-transparent pr-10 text-sm py-1 focus:outline-none text-white text-right"
-                    value={activeTabPurchase == 'rupees' ? metalQuantity : totalAmount}
+                    value={activeTabPurchase == 'rupees' ? metalQuantity === 0 ? '' : metalQuantity : totalAmount === 0 ? '' : totalAmount}
                     readOnly
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
@@ -295,35 +319,18 @@ const BuySell = () => {
               )}
 
               <div className="text-white text-md mt-4"> Quick Buy</div>
-              <div className="mt-4 flex justify-between">
-                <Link
-                  href="#"
-                  className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
-                >
-                  +₹50
-                </Link>
+              {transactionType === 'rupees' ? (
+                <QuickBuySellButtons
+                  amounts={[50, 100, 500, 1000]}
+                  unit="rupees"
+                />
+              ) : (
+                <QuickBuySellButtons
+                  amounts={[0.1, 0.5, 1, 2]}
+                  unit="gm"
+                />
+              )}
 
-                <Link
-                  href="#"
-                  className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
-                >
-                  +₹100
-                </Link>
-
-                <Link
-                  href="#"
-                  className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
-                >
-                  +0.5 gm
-                </Link>
-
-                <Link
-                  href="#"
-                  className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
-                >
-                  +1.0 gm
-                </Link>
-              </div>
               <p className="text-center text-xs flex justify-center items-center mt-8 text-gray-400">
                 Your Gold will be Stored in Safe & Secured Vault{" "}
                 <img
@@ -356,10 +363,20 @@ const BuySell = () => {
                     </p>
                   </div>
                   <button className="text-white rounded-full border-2">
-                    <ChevronDownIcon className="h-8" />
+                    <div>
+                      {showCoupon ? (
+                        <ChevronUpIcon onClick={toggleCoupon} className="h-8" />
+                      ) : (
+                        <ChevronDownIcon onClick={toggleCoupon} className="h-8" />
+                      )}
+                    </div>
+
                   </button>
+
                 </div>
-                {coupons.map((coupon: any) => (
+                {error && <div className="text-red-500 text-xs">{error}</div>}
+
+                {showCoupon && coupons?.map((coupon: any) => (
                   <div key={coupon._id}>
                     <p className="text-white">{coupon.description}</p>
                     <button className="bg-blue-400 rounded cursor-pointer text-white p-2" onClick={() => handleApplyCoupon(coupon, enteredAmount)}>

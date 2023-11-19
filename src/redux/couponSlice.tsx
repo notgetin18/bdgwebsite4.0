@@ -1,8 +1,8 @@
 // couponSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ParseFloat } from '@/components/helperFunctions';
-import { MetalType } from './shopSlice';
-import { Coupon, CouponState } from '@/types';
+import { Coupon, CouponState, MetalType } from '@/types';
+import { RootState } from './store';
 
 const initialCoupons: Coupon[] = [
   {
@@ -31,7 +31,6 @@ const initialState: CouponState = {
   coupons: initialCoupons,
   extraGold: 0,
 };
-
 
 const couponSlice = createSlice({
   name: 'coupon',
@@ -91,10 +90,15 @@ const couponSlice = createSlice({
       state.extraGoldOfRuppess = 0;
       state.extraGold = 0;
     },
+    setCouponError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
   },
 });
 
-
-export const { applyCoupon, clearCoupon } = couponSlice.actions;
+export const isCouponApplied = (state: RootState) => {
+  return state.coupon.selectedCoupon !== null;
+};
+export const { applyCoupon, clearCoupon, setCouponError } = couponSlice.actions;
 export default couponSlice.reducer;
 

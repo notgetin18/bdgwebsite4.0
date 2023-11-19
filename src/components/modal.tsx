@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import Timer from './globalTimer';
 import { ParseFloat } from './helperFunctions';
+import { isCouponApplied } from '@/redux/couponSlice';
 
 export default function Modal({ isOpen, onClose }: any) {
     // const [open, setOpen] = useState(true)
@@ -25,6 +26,8 @@ export default function Modal({ isOpen, onClose }: any) {
     const error = useSelector((state: RootState) => state.coupon.error);
     const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
     const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+    const isAnyCouponApplied: boolean = useSelector(isCouponApplied);
+
 
     const cancelButtonRef = useRef(null)
 
@@ -65,7 +68,7 @@ export default function Modal({ isOpen, onClose }: any) {
                                     <p>Purchased Gold Weight : {metalQuantity} </p> <br />
                                     <p>Gold Value : {actualAmount} </p>  <br />
                                     <p>Promotional Silver : {metalQuantity} </p> <br />
-                                    <p>Promotional Gold Value : {extraGoldOfRuppess} </p> <br />
+                                    {isAnyCouponApplied && <p>Promotional Gold Value : {extraGoldOfRuppess} </p>}   <br />
                                     <p>Total Gold Weight : {ParseFloat(metalQuantity + extraGold, 4)} </p> <br />
                                     <p>GST ( +3% ) : {gst} </p> <br />
                                     <p>Total Amount : {transactionType === 'grams' ? actualAmount : enteredAmount}</p> <br />
