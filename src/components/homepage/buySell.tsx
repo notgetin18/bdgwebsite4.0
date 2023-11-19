@@ -197,7 +197,7 @@ const BuySell = () => {
                       ).toString()}
                       alt="Your Company"
                     />
-                    GOLD PRICE
+                    {metalType === 'gold' ? "GOLD PRICE" : "SILVER PRICE"}
                   </p>
                   <div className="text-gold01 text-xl font-bold py-2 pl-6 items-center  flex">
                     ₹{isgold ? (
@@ -216,7 +216,7 @@ const BuySell = () => {
                           <div>{silverData.salePrice}</div>
                         )}
                       </div>
-                    )}/gm <div className="text-xs"> + 3% GST</div>
+                    )}/gm <div className="text-xs">{purchaseType === 'buy' ? "+ 3% GST" : ""}</div>
                   </div>
                   <p className="text-xs text-gray-400 pl-6">
                     24k 99.9% Pure Gold
@@ -234,7 +234,7 @@ const BuySell = () => {
                   </p>
 
                   <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    Gold rate expires in <div className="pl-1"> <Timer /></div>
+                    <div className="pl-1"> <Timer /></div>
                   </p>
                 </div>
               </div>
@@ -264,7 +264,7 @@ const BuySell = () => {
                     }`}
                   onClick={() => handleTabRupeesAndGrams('rupees')}
                 >
-                  Buy in Rupees
+                  {purchaseType === 'buy' ? "Buy in Rupees" : "Sell in Rupees"}
                 </div>
                 <div
                   className={`text-center px-9 py-2 rounded font-semibold cursor-pointer ${activeTabPurchase === 'grams'
@@ -273,8 +273,7 @@ const BuySell = () => {
                     }`}
                   onClick={() => handleTabRupeesAndGrams('grams')}
                 >
-                  Buy in Grams
-                </div>
+                  {purchaseType === 'buy' ? "Buy in grams" : "Sell in grams"}                </div>
               </div>
               <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
@@ -291,6 +290,10 @@ const BuySell = () => {
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === 'rupees' && e.key === '.') {
+                        e.preventDefault();
+                      }
+                      // Prevent entering negative values
+                      if (e.key === '-' || e.key === 'e' || e.key === 'E') {
                         e.preventDefault();
                       }
                     }}
@@ -318,7 +321,7 @@ const BuySell = () => {
                 ""
               )}
 
-              <div className="text-white text-md mt-4"> Quick Buy</div>
+              <div className="text-white text-md mt-4">{purchaseType === 'buy' ? "Quick Buy" : 'Quick Sell'}</div>
               {transactionType === 'rupees' ? (
                 <QuickBuySellButtons
                   amounts={[50, 100, 500, 1000]}
@@ -342,48 +345,48 @@ const BuySell = () => {
                   alt="Your Company"
                 />{" "}
               </p>
-              <div className="flex justify-between mt-6">
-                <p className="text-white text-sm">Get Extra Gold</p>
-              </div>
 
-
-              {isgold && purchaseType === 'buy' && <div>
-                <div className="py-3 px-4 rounded-lg bg-themeLight flex items-center mt-4 justify-between">
-                  <div className="flex items-center">
-                    <img
-                      className="h-10"
-                      src={new URL(
-                        "../../../public/coupon.png",
-                        import.meta.url
-                      ).toString()}
-                      alt="Your Company"
-                    />
-                    <p className="text-white text-lg leading-4 ml-2">
-                      Apply Coupon
-                    </p>
+              {isgold && purchaseType === 'buy' &&
+                <div>
+                  <div className="flex justify-between mt-6">
+                    <p className="text-white text-sm">Get Extra Gold</p>
                   </div>
-                  <button className="text-white rounded-full border-2">
-                    <div>
-                      {showCoupon ? (
-                        <ChevronUpIcon onClick={toggleCoupon} className="h-8" />
-                      ) : (
-                        <ChevronDownIcon onClick={toggleCoupon} className="h-8" />
-                      )}
+                  <div className="py-3 px-4 rounded-lg bg-themeLight flex items-center mt-4 justify-between">
+                    <div className="flex items-center">
+                      <img
+                        className="h-10"
+                        src={new URL(
+                          "../../../public/coupon.png",
+                          import.meta.url
+                        ).toString()}
+                        alt="Your Company"
+                      />
+                      <p className="text-white text-lg leading-4 ml-2">
+                        Apply Coupon
+                      </p>
                     </div>
+                    <button className="text-white rounded-full border-2">
+                      <div>
+                        {showCoupon ? (
+                          <ChevronUpIcon onClick={toggleCoupon} className="h-8" />
+                        ) : (
+                          <ChevronDownIcon onClick={toggleCoupon} className="h-8" />
+                        )}
+                      </div>
 
-                  </button>
-
-                </div>
-                {error && <div className="text-red-500 text-xs">{error}</div>}
-
-                {showCoupon && coupons?.map((coupon: any) => (
-                  <div key={coupon._id}>
-                    <p className="text-white">{coupon.description}</p>
-                    <button className="bg-blue-400 rounded cursor-pointer text-white p-2" onClick={() => handleApplyCoupon(coupon, enteredAmount)}>
-                      Apply Coupon
                     </button>
+
                   </div>
-                ))} </div>}
+                  {error && <div className="text-red-500 text-xs">{error}</div>}
+
+                  {showCoupon && coupons?.map((coupon: any) => (
+                    <div key={coupon._id}>
+                      <p className="text-white">{coupon.description}</p>
+                      <button className="bg-blue-400 rounded cursor-pointer text-white p-2" onClick={() => handleApplyCoupon(coupon, enteredAmount)}>
+                        Apply Coupon
+                      </button>
+                    </div>
+                  ))} </div>}
               <div className="mt-12">
                 <button onClick={openModal} className="w-full bg-blue-200 rounded-lg py-2">
                   Start Investing

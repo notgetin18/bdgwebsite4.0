@@ -64,14 +64,14 @@ export default function Modal({ isOpen, onClose }: any) {
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                                 <p> <Timer /> </p>
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <p>Price Breakdown {transactionType === 'grams' ? actualAmount : enteredAmount}</p><br />
-                                    <p>Purchased Gold Weight : {metalQuantity} </p> <br />
-                                    <p>Gold Value : {actualAmount} </p>  <br />
-                                    <p>Promotional Silver : {metalQuantity} </p> <br />
-                                    {isAnyCouponApplied && <p>Promotional Gold Value : {extraGoldOfRuppess} </p>}   <br />
-                                    <p>Total Gold Weight : {ParseFloat(metalQuantity + extraGold, 4)} </p> <br />
-                                    <p>GST ( +3% ) : {gst} </p> <br />
-                                    <p>Total Amount : {transactionType === 'grams' ? actualAmount : enteredAmount}</p> <br />
+                                    <p>Price Breakdown {transactionType === 'grams' ? actualAmount : enteredAmount}</p>
+                                    <p>{purchaseType === 'buy' ? "Purchase" : "Sell"} {metalType === 'gold' ? "Gold" : "Silver"} Weight : {metalQuantity} </p>
+                                    <p>{metalType === 'gold' ? "Gold" : "Silver"} Value : {actualAmount} </p>
+                                    {metalType === 'gold' && purchaseType === 'buy' && <p>Promotional Silver : {metalQuantity} </p>}
+                                    {isAnyCouponApplied && <p>Promotional Gold Value : {extraGoldOfRuppess} </p>}
+                                    {metalType === 'gold' && isAnyCouponApplied && <p> Total Gold Weight : {ParseFloat((metalQuantity ?? 0) + extraGold, 4)} </p>}
+                                    {purchaseType === 'buy' && <p>GST ( +3% ) : {gst} </p>}
+                                    <p>Total Amount : {transactionType === 'grams' ? actualAmount : enteredAmount}</p>
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
 

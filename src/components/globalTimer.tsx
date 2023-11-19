@@ -4,7 +4,7 @@ import { RootState } from '@/redux/store';
 import { decrementTimer, resetTimer } from '@/redux/actionTypes';
 import { metalPrice } from '@/api/DashboardServices';
 import { setGoldData, setSilverData } from '@/redux/metalSlice';
-import { setMetalPrice, updateMetalPrice } from '@/redux/shopSlice';
+import { setMetalPrice } from '@/redux/shopSlice';
 
 const Timer: React.FC = () => {
     const time = useSelector((state: RootState) => state.time.time);
@@ -65,7 +65,7 @@ const Timer: React.FC = () => {
 
     return (
         <div>
-            <div>Timer: {formatTime(time)}</div>
+            <div>Rate will expire in : {formatTime(time)}</div>
             {/* Button is commented out, but here if you need it */}
             {/* <button onClick={handleReset}>Reset Timer</button> */}
         </div>

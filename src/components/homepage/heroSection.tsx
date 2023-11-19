@@ -1,31 +1,10 @@
 'use client'
 import React, { useCallback, useEffect } from "react";
 import BuySell from "./buySell";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { fetchCoupons } from "@/api/DashboardServices";
-// import { addNewCoupon } from "@/redux/couponSlice";
+
 
 const HeroSection = () => {
-  const dispatch = useDispatch();
- // fetch coupons
-  const fetchCouponsData = async () => {
-    try {
-      const response: any = await fetchCoupons();
-      const couponsData = await JSON.parse(response);
-      // console.log('couponsData', couponsData)
-      // couponsData.data.forEach((coupon: any) => {
-      //   dispatch(addNewCoupon(coupon));
-      // });
-      dispatch({ type: 'coupon/setCoupons', payload: couponsData });
-    } catch (error) {
-      console.error('Error fetching metal data:', error);
-    }
-  };
 
-  useEffect(() => {
-    fetchCouponsData()
-  }, [])
 
   return (
     <div className="bg-theme py-10">

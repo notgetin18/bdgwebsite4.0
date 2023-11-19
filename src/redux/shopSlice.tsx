@@ -39,6 +39,8 @@ const recalculateValues = (state: ShopState) => {
         } else if (state.transactionType === 'grams') {
             state.gst = 0;
             state.actualAmount = ParseFloat((metalPrice * enteredAmount), 2);
+            state.metalQuantity = enteredAmount 
+            state.totalAmount = ParseFloat((enteredAmount * metalPrice), 2);
         }
     }
 };
