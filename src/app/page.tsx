@@ -1,8 +1,10 @@
 import {
   Blog,
   ClientSlider,
+  Ecom,
+  Faq,
   HeroSection,
-  ImageContainer,
+  HowItWorks,
   Marketing,
   Products,
   Promotional,
@@ -18,13 +20,13 @@ export default function Home() {
       <HeroSection />
       <Promotional />
       <Products />
-      <ImageContainer />
+      <HowItWorks />
+      <Ecom />
       <Marketing />
-      <SuccessInvestment />
       <ClientSlider />
-      <DownloadApplication />
-      <Review />
       <Blog />
+      <Review />
+      <Faq />
     </main>
   );
 }

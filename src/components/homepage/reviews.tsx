@@ -42,16 +42,18 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 export default function Review() {
   return (
     <>
-      <div className="bg-theme">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-center text-white text-3xl extrabold mb-12">
+      <div className="bg-themeBlue">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+          <h1 className="text-center text-gray-800 text-3xl extrabold mb-12">
             Testimonials
           </h1>
           <Swiper
-            slidesPerView={3}
-            spaceBetween={10}
             loop={true}
             breakpoints={{
+              600: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
               640: {
                 slidesPerView: 2,
                 spaceBetween: 10,
@@ -77,25 +79,27 @@ export default function Review() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4 pt-10"
               >
-                <div className="bg-themeLight rounded-2xl border-b-2 border-blue-400 h-72 p-4 relative">
-                  <div className=" flex justify-center">
+                <div className="bg-theme rounded-2xl border-b-2 border-blue-400  relative">
+                  <div className="bg-themeLight h-72 p-4">
+                    <div className="flex justify-center">
+                      <img
+                        src={feature.img}
+                        className="rounded-full absolute -top-10 h-24 w-24"
+                        alt="insite"
+                      />
+                    </div>
+                    <p className="mt-16 text-center text-white extrabold text-sm">
+                      {feature.name}
+                    </p>
+                    <p className="mt-6 text-center text-white text-sm">
+                      {feature.pera}
+                    </p>
                     <img
-                      src={feature.img}
-                      className="rounded-full absolute -top-10 h-24 w-24"
-                      alt="insite"
-                    />
+                      alt="user"
+                      className="h-8 absolute bottom-2 right-6"
+                      src="/images/testimonial2.png"
+                    ></img>
                   </div>
-                  <p className="mt-16 text-center text-white extrabold text-sm">
-                    {feature.name}
-                  </p>
-                  <p className="mt-6 text-center text-white text-sm">
-                    {feature.pera}
-                  </p>
-                  <img
-                    alt="user"
-                    className="h-8 absolute bottom-2 right-6"
-                    src="/images/testimonial2.png"
-                  ></img>
                 </div>
               </SwiperSlide>
             ))}

@@ -58,9 +58,16 @@ body {
 .bg-themeLight {
   background: rgba(44, 123, 172, 0.2);
 }
+.bg-themeLight01 {
+  background: rgba(44, 123, 172, 0.1);
+}
+.bg-themeYellow {
+  background: #fdfcf0;
+}
 .text-themeBlue {
   color: #7f9cad;
 }
+
 .bg-header {
   background: #081a24;
 }
@@ -104,76 +111,6 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.theme-btn {
-  display: inline-block;
-  border-radius: 8px;
-  color: #000;
-  text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: 0.15rem;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.theme-btn:after {
-  width: 100%;
-  background: linear-gradient(
-    90.12deg,
-    #eac954 0.1%,
-    #f6e472 12.05%,
-    #eac954 22.45%,
-    #d7b344 33.88%,
-    #c09832 41.16%,
-    #b28726 47.4%,
-    #bc932e 56.75%,
-    #c5a643 68.19%,
-    #c5a643 74.43%,
-    #ae8323 89.5%,
-    #eac954 99.9%
-  );
-  z-index: -2;
-}
-
-.theme-btn:after,
-.theme-btn:before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  border-radius: 8px;
-}
-
-.theme-btn:before {
-  width: 0;
-  background: linear-gradient(
-    90.12deg,
-    #c5a643 0.1%,
-    #ae8323 12.05%,
-    #c5a643 22.45%,
-    #cea83d 33.88%,
-    #bc932e 41.16%,
-    #b28726 47.4%,
-    #c09832 56.75%,
-    #d7b344 68.19%,
-    #eac954 74.43%,
-    #f6e472 89.5%,
-    #eac954 99.9%
-  );
-  transition: all 0.3s;
-  z-index: -1;
-}
-
-.theme-btn:hover {
-  color: #fff;
-}
-
-.theme-btn:hover:before {
-  width: 100%;
-}
-
 /* coin transasition */
 .coin_transition {
   transition: transform 0.7s ease;
@@ -193,8 +130,8 @@ input[type="number"] {
 .toggle-button {
   position: relative;
   display: inline-block;
-  width: 180px;
-  height: 60px;
+  width: 170px;
+  height: 46px;
   margin-left: 10px;
 }
 
@@ -221,8 +158,8 @@ input[type="number"] {
 .slider:before {
   position: absolute;
   content: "";
-  height: 55px;
-  width: 55px;
+  height: 40px;
+  width: 40px;
   left: 4px;
   bottom: 3px;
   background-color: #ffffff; /* Set initial color to Silver */
@@ -237,7 +174,12 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(118px);
 }
-
+.text-xxs {
+  font-size: 10px;
+}
+.bg-themeBlue {
+  background: #e4f2f7;
+}
 .text-silver,
 .text-gold {
   position: absolute;
@@ -312,6 +254,88 @@ input:checked + .slider ~ .text-gold {
   font-size: 12px !important;
   font-weight: bold !important;
 }
+
+.tabs-component1 [role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  position: relative;
+  padding: 0px 0px;
+  background: #092637;
+  border-radius: 15px;
+}
+
+.tabs-component1 [role="tablist"] button {
+  border-bottom: 3px solid;
+  border-style: solid;
+  border-color: transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  display: block;
+  padding: 0rem 1rem;
+  cursor: pointer;
+  margin: 0 1px;
+  outline: none;
+  transition: border 0.2s ease-in-out 0s;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 56px;
+  letter-spacing: 0.2px;
+  color: #7f9cad;
+  opacity: 0.5;
+}
+
+.tabs-component1 [role="tablist"] button.active,
+.tabs-component1 [role="tablist"] button:focus,
+.tabs-component1 [role="tablist"] button:hover {
+  /* border-width: 1px; */
+  /* border-color: #ffcb00; */
+}
+
+.tabs-component1 [role="tablist"] button.active {
+  color: #b7d0df;
+  opacity: 1;
+}
+
+.tabs-component1 [role="tabpanel"] {
+  text-align: left;
+}
+
+.tabs-component1.vertical {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.tabs-component1.vertical [role="tablist"] {
+  flex-direction: column;
+}
+
+.tabs-component1.vertical [role="tabpanel"] {
+  flex: 1;
+}
+
+.tabs-component1 [role="tablist"] button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0;
+}
+
+.tabs-component1.vertical [role="tablist"] button.active,
+.tabs-component1.vertical [role="tablist"] button:focus,
+.tabs-component1.vertical [role="tablist"] button:hover {
+  /* border-color: #e9ecef transparent #e9ecef #b41c1c; */
+  /* border-bottom: 1px solid; */
+}
+
+.abs-001 {
+  position: absolute;
+  width: 72%;
+  top: 31%;
+  left: 14%;
+  z-index: 1;
+}
 .container {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -320,6 +344,82 @@ input:checked + .slider ~ .text-gold {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+}
+@media (max-width: 768px) {
+  .abs-001 {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .tabs-component1 [role="tablist"] button {
+    border-bottom: 3px solid;
+    border-style: solid;
+    border-color: transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    display: block;
+    padding: 0rem 0.2rem;
+    cursor: pointer;
+    margin: 0 1px;
+    outline: none;
+    transition: border 0.2s ease-in-out 0s;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 56px;
+    letter-spacing: 0.2px;
+    color: #7f9cad;
+    opacity: 0.5;
+  }
+  .gold_coin {
+    transition: transform 1.2s ease;
+    transform: rotateX(0deg);
+  }
+
+  .silver_coin {
+    transition: transform 1.2s ease;
+    transform: rotateY(250deg);
+  }
+  /* toggle button */
+  .toggle-button {
+    position: relative;
+    display: inline-block;
+    width: 155px;
+    height: 36px;
+    margin-left: 10px;
+  }
+
+  .toggle-button input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f9cd23;
+    /* background-color: ; */
+    transition: 0.5s;
+    border-radius: 34px;
+    overflow: hidden;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 4px;
+    bottom: 3px;
+    background-color: #ffffff; /* Set initial color to Silver */
+    transition: 0.5s;
+    border-radius: 50%;
+  }
 }
 @media (min-width: 576px) {
   .container {

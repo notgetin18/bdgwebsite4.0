@@ -2,7 +2,12 @@
 
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  BellIcon,
+  UserCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { classNames } from "./helperFunctions";
@@ -107,12 +112,18 @@ const Navbar = () => {
                     <Menu.Button className="relative flex focus:outline-none">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <a
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
+                      <Link
+                        className="hidden sm:block text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
                       >
                         Login/Sign Up
-                      </a>
+                      </Link>
+                      <Link
+                        className="block sm:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
+                        href="#"
+                      >
+                        <UserCircleIcon className="h-8" />
+                      </Link>
                     </Menu.Button>
                   </div>
                   <Transition

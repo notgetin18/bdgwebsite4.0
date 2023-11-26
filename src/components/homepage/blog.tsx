@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 
 // import "./styles.css";
@@ -44,21 +45,23 @@ const features = [
     name: "The Future Is Now: Role Of Gold In Technology",
   },
 ];
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation } from "swiper/modules";
 
 export default function Blog() {
   return (
     <>
       <div className="bg-theme">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-center text-white text-3xl extrabold mb-6">
-            Latest Update
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+          <h1 className="text-center text-yellow-500 text-3xl extrabold mb-6">
+            Our Blogs
           </h1>
           <Swiper
-            slidesPerView={4}
-            spaceBetween={5}
             loop={true}
             breakpoints={{
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 5,
+              },
               640: {
                 slidesPerView: 2,
                 spaceBetween: 5,
@@ -68,16 +71,22 @@ export default function Blog() {
                 spaceBetween: 5,
               },
               1024: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 5,
               },
             }}
+            effect={"coverflow"}
+            grabCursor={true}
+            centeredSlides={true}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
             navigation={true}
-            // autoplay={{
-            //   delay: 2500,
-            //   disableOnInteraction: false,
-            // }}
-            modules={[Navigation]}
+            modules={[EffectCoverflow, Navigation]}
             className="mySwiper"
             style={{ padding: "0 20px !important" }}
           >
@@ -86,7 +95,7 @@ export default function Blog() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4 pt-10"
               >
-                <div className="bg-themeLight rounded-2xl h-64 relative">
+                <div className="bg-themeLight rounded-2xl h-44 sm:h-72 relative">
                   <div className=" flex justify-center">
                     <img
                       src={feature.img}
@@ -94,7 +103,9 @@ export default function Blog() {
                       alt="insite"
                     />
                   </div>
-                  <p className="mt-4 text-white text-sm px-4">{feature.name}</p>
+                  <p className="mt-4 text-white text-xs sm:text-sm px-4">
+                    {feature.name}
+                  </p>
                 </div>
               </SwiperSlide>
             ))}

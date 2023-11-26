@@ -1,125 +1,128 @@
-import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/20/solid";
+import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React from "react";
 const Footer = () => {
   return (
     <div className="bg-theme">
-      <div className="bg-themeLight">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-5 gap-4">
-            <div className=" col-span-4">
-              <div className="flex items-center mb-6">
-                {" "}
-                <Link href="#">
+      <div className="">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="mx-auto md:mx-0">
+              <Link href="#">
+                <img alt="gold-logo" className="w-56" src="/goldenlogo.png" />
+              </Link>
+              <div className="flex gap-4 mt-10">
+                <Link href="" className="cursor-pointer">
                   <img
-                    alt="gold-logo"
-                    className="w-56"
-                    src="/images/bdg_logo_large.png"
+                    className="h-10"
+                    src="/app-store.png"
+                    alt="Your Company"
                   />
                 </Link>
-                <p className=" text-white  pl-10">
-                  Bright Digi Gold Stands As The Most Trusted Partner Known For
-                  Providing A Platform For Buying, Selling And Exchange Of 24K
-                  Gold With The Guarantee Of Purity In Its Digital Form.
-                </p>
+                <Link href="" className="cursor-pointer">
+                  <img className="h-10" src="/andriod.png" alt="Your Company" />
+                </Link>
               </div>
-
-              <div className="grid grid-cols-3  gap-8">
-                <ul>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Home
+              <div className="w-72">
+                <ul className="mt-6 flex gap-1 justify-between">
+                  <li className="mb-8">
+                    <Link href="#">
+                      <img src="/socail1.png" alt="socail1" className="h-6" />
                     </Link>
                   </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      About Us
+                  <li className="mb-8">
+                    <Link href="#">
+                      <img src="/socail2.png" alt="socail2" className="h-6" />
                     </Link>
                   </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Contact Us
+                  <li className="mb-8">
+                    <Link href="#">
+                      <img src="/socail3.png" alt="socail3" className="h-6" />
                     </Link>
                   </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Refunds & Cancellations
+                  <li className="mb-8">
+                    <Link href="#">
+                      <img src="/Twitter.png" alt="socail3" className="h-6" />
                     </Link>
                   </li>
-                </ul>
-                <ul>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Terms and Conditions
+                  <li className="mb-8">
+                    <Link href="#">
+                      <img src="/socail4.png" alt="socail4" className="h-6" />
                     </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Privacy Policy
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Shipping Policy
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      Blogs
-                    </Link>
-                  </li>
-                  <li className="mb-4">
-                    <Link className="text-white" href="#">
-                      FAQS
-                    </Link>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="flex mb-4">
-                    <EnvelopeIcon className="h-6 text-white mr-8" />
-                    <p className="text-white">contact@brightdigigold.com</p>
-                  </li>
-                  <li className="flex items-center">
-                    <MapPinIcon className="h-12 text-white mr-8" />
-                    <p className="text-white">
-                      501, 5th Floor, World Trade Center,Babar Road, New Delhi -
-                      110001
-                    </p>
                   </li>
                 </ul>
               </div>
             </div>
-
-            <div className=" col-span-1 flex justify-center">
-              <ul className="mt-6">
-                <li className="mb-8">
-                  <Link href="#">
-                    <img src="/socail1.png" alt="socail1" className="h-8" />
-                  </Link>
-                </li>
-                <li className="mb-8">
-                  <Link href="#">
-                    <img src="/socail2.png" alt="socail2" className="h-8" />
-                  </Link>
-                </li>
-                <li className="mb-8">
-                  <Link href="#">
-                    <img src="/socail3.png" alt="socail3" className="h-8" />
-                  </Link>
-                </li>
-                <li className="mb-8">
-                  <Link href="#">
-                    <img src="/socail4.png" alt="socail4" className="h-8" />
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <ul className="mt-6">
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  About Us
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Coins
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Contact Us
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Blog
+                </Link>
+              </li>
+            </ul>
+            <ul className="mt-6">
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Terms of Uses
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Shipping Policy
+                </Link>
+              </li>
+              <li className="mb-4">
+                <Link className="text-white" href="#">
+                  Refunds & Cancellations
+                </Link>
+              </li>
+            </ul>
           </div>
-          <div>
+          <div className="grid gap-4 w-full mt-6 md:mt-0">
+            <ul className="lg:flex items-center justify-between gap-y-2">
+              <li className="flex mb-4 sm:mb-0 items-center">
+                <MapPinIcon className="h-6 text-white mr-4" />
+                <p className="text-white text-xs">
+                  501, 5th Floor, World Trade Center,Babar Road, New Delhi -
+                  110001
+                </p>
+              </li>
+              <li className="flex mb-4 sm:mb-0 items-center">
+                <PhoneIcon className="h-6 text-white mr-4" />
+                <p className="text-white text-xs">+91 92894 80033</p>
+              </li>
+              <li className="flex mb-4 sm:mb-0 items-center">
+                <EnvelopeIcon className="h-6 text-white mr-4" />
+                <p className="text-white text-xs">contact@brightdigigold.com</p>
+              </li>
+            </ul>
+          </div>
+
+          {/* <div>
             <p className="text-center text-white text-sm">
               © BrightDiGiGold. All Rights Reserved.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
