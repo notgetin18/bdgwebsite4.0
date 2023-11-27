@@ -32,7 +32,7 @@ const Products = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative">
+          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500">
             <div className="relative">
               <img
                 alt="products"
@@ -74,7 +74,7 @@ const Products = () => {
               View
             </Link>
           </div>
-          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative">
+          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500">
             <div className="relative">
               <img
                 alt="products"
@@ -112,7 +112,7 @@ const Products = () => {
             </Link>
           </div>
 
-          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative">
+          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500">
             <div className="relative">
               <img
                 alt="products"
@@ -154,7 +154,7 @@ const Products = () => {
               View
             </Link>
           </div>
-          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative">
+          <div className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500">
             <div className="relative">
               <img
                 alt="products"

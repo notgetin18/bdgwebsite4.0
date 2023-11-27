@@ -10,6 +10,10 @@ import { useState } from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import animationData from "../../../public/lottie/locker.json";
+import goldBarData from "../../../public/lottie/GoldBricks.json";
+import silverBarData from "../../../public/lottie/SilverBricks.json";
+import live from "../../../public/lottie/live.json";
 import {
   setEnteredAmount,
   setMetalPrice,
@@ -27,6 +31,7 @@ import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
 import { ParseFloat } from "../helperFunctions";
+import Lottie from "lottie-react";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -183,7 +188,7 @@ const BuySell = () => {
           onClick={() => {
             dispatch(setEnteredAmount(amount));
           }}
-          className="bg-themeLight rounded-full py-2 px-5 text-white text-sm"
+          className="bg-themeLight001 border border-blue-200 rounded-md py-1 px-4 text-white text-sm"
         >
           {unit === "rupees" ? `₹${amount}` : `${amount}gm`}
         </button>
@@ -256,18 +261,25 @@ const BuySell = () => {
                   </label>
                 </div>
                 <div>
-                  <p className="text-white text-sm pl-6 mt-6">
-                    <img
+                  <p className="text-white text-sm pl-6 mt-6 relative">
+                    {/* <img
                       className="h-4 inline-block mr-1"
                       src={new URL(
                         "../../../public/live.png",
                         import.meta.url
                       ).toString()}
                       alt="Your Company"
+                    /> */}
+                    <Lottie
+                      animationData={live}
+                      className="h-6 absolute"
+                      loop={true}
                     />
-                    {metalType === "gold" ? "GOLD PRICE" : "SILVER PRICE"}
+                    <span className="pl-10 pt-2">
+                      {metalType === "gold" ? "GOLD PRICE" : "SILVER PRICE"}
+                    </span>
                   </p>
-                  <div className="text-gold01 text-xl font-bold py-2 pl-6 items-center  flex">
+                  <div className="text-shine text-xl font-bold py-2 pl-6 items-center  flex">
                     ₹
                     {isgold ? (
                       <div className="">
@@ -338,8 +350,8 @@ const BuySell = () => {
                 </div>
               </div>
               <div className="mt-20 sm:mt-10">
-                <div className="flex justify-end items-center pr-4 sm:pr-12">
-                  <Image
+                <div className="flex justify-end pr-4 sm:pr-12">
+                  {/* <Image
                     className={`coin_transition ${
                       isgold
                         ? "gold_coin h-16 w-16 sm:h-28 sm:w-28"
@@ -354,47 +366,66 @@ const BuySell = () => {
                     loading="lazy"
                     width={100}
                     height={100}
-                  />
+                  /> */}
+                  {purchaseType === "buy" ? (
+                    <Lottie
+                      animationData={goldBarData}
+                      className="h-40 absolute"
+                      loop={true}
+                    />
+                  ) : (
+                    <Lottie
+                      animationData={silverBarData}
+                      className="h-40 absolute"
+                      loop={true}
+                    />
+                  )}
                 </div>
                 <Timer />
               </div>
             </div>
-
-            <div className="bg-themeLight p-3 mx-6 mt-4 rounded-lg border-1 flex gap-4 items-center justify-between">
-              <img src="/silvercoin.png" className="h-8" />
-              <div className="flex justify-between items-center gap-6">
-                <div className="flex items-center gap-4">
-                  <img src="/silvercoin.png" className="h-6" />
-                  <p className="text-white text-sm">₹ 3000</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <img src="/silvercoin.png" className="h-6" />
-                  <p className="text-white text-sm">₹ 3000</p>
+            {purchaseType === "sell" && (
+              <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-4 items-center justify-between">
+                {/* <img src="/silvercoin.png" className="h-8" /> */}
+                <Lottie
+                  animationData={animationData}
+                  className="h-40 left-5 absolute"
+                  loop={true}
+                />
+                <div className="col-span-1"></div>
+                <div className="flex justify-between items-center gap-6 col-span-2">
+                  <div className="flex items-center gap-4">
+                    <img src="/silvercoin.png" className="h-6" />
+                    <p className="text-white text-sm">₹ 3000</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <img src="/silvercoin.png" className="h-6" />
+                    <p className="text-white text-sm">₹ 3000</p>
+                  </div>
                 </div>
               </div>
-            </div>
-
+            )}
             <div className="p-6 z-20">
-              <div className="flex justify-around py-0">
+              <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
                 <div
-                  className={`text-center text-xxs sm:text-base px-9 py-0 rounded-lg font-semibold cursor-pointer ${
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
                     activeTabPurchase === "rupees"
-                      ? "bg-transparent text-white active"
-                      : "text-sky-500 "
+                      ? "bg-transparent text-white bg-themeLight active"
+                      : "text-white"
                   }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
-                  {purchaseType === "buy" ? "Buy in Rupees" : "Sell in Rupees"}
+                  {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs sm:text-base px-9 py-0 rounded font-semibold cursor-pointer ${
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
                     activeTabPurchase === "grams"
-                      ? "bg-transparent text-white active"
-                      : "text-sky-500 "
+                      ? "bg-transparent text-white bg-themeLight active"
+                      : "text-white "
                   }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
-                  {purchaseType === "buy" ? "Buy in grams" : "Sell in grams"}
+                  {purchaseType === "buy" ? "In grams" : "In grams"}
                 </div>
               </div>
               <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
@@ -535,7 +566,7 @@ const BuySell = () => {
                   className="w-full bg-gray-400 rounded-lg py-2"
                 >
                   <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" />
-                  Start Investing
+                  {purchaseType === "buy" ? "Start Investing " : "Sell Now"}
                 </button>
                 <Modal isOpen={isModalOpen} onClose={closeModal} />
               </div>

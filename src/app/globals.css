@@ -345,6 +345,38 @@ input:checked + .slider ~ .text-gold {
   margin-right: auto;
   margin-left: auto;
 }
+
+.bg-themeLight001 {
+  background-color: rgba(44, 0, 0, 0.2);
+}
+
+.text-shine {
+  background: linear-gradient(
+    110deg,
+    rgba(240, 164, 48, 1),
+    45%,
+    rgba(255, 255, 20, 1),
+    55%,
+    rgba(240, 164, 48, 1)
+  );
+  background-size: 260% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShine 2.5s ease-out infinite alternate;
+  font-weight: 900;
+}
+@keyframes textShine {
+  to {
+    background-position: -200%;
+  }
+}
+
+.text-shine::after {
+  content: "";
+  border-color: rgba(240, 164, 48, 1);
+  background: rgba(240, 164, 48, 1);
+}
 @media (max-width: 768px) {
   .abs-001 {
     display: none;

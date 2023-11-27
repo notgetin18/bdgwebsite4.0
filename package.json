@@ -17,6 +17,7 @@
     "axios": "^1.6.0",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
+    "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
     "next": "14.0.1",
     "react": "^18",
