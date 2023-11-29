@@ -11,7 +11,13 @@ import Review from "./homepage/reviews";
 import Blog from "./homepage/blog";
 import Ecom from "./homepage/ecom";
 import Faq from "./homepage/faq";
+import HeroAbout from "./about/heroAbout";
+import Info from "./about/info";
 import { classNames } from "./helperFunctions";
+import Mission from "./about/mission";
+import Motive from "./about/motive";
+import Succession from "./about/succession";
+import AboutFoot from "./about/aboutfoot";
 import Modal from "./modal";
 export {
   Footer,
@@ -29,4 +35,10 @@ export {
   Ecom,
   Faq,
   Modal,
+  HeroAbout,
+  Info,
+  Mission,
+  Motive,
+  Succession,
+  AboutFoot,
 };

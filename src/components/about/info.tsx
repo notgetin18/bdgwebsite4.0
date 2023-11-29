@@ -1,0 +1,47 @@
+import React from "react";
+
+const Info = () => {
+  return (
+    <div className="bg-themeBlue pt-10">
+      <div className="mx-auto pl-4 sm:pl-6 lg:pl-8">
+        <h1 className="text-center text-gray-900 text-3xl extrabold mb-6">
+          Our Story
+        </h1>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="pl-8">
+            <p className="mb-6">
+              Bright Digi Gold was founded in the Year 2021 with a Simple yet
+              Powerful idea – to redefine the standards of excellence in the
+              digital sphere. It is a sister concern of Bright Gold (Bright
+              Metal Refiners), which has been in the business for a long time
+              now. Bright Gold is an organisation to refine and recycle precious
+              metals such as gold and silver. As a refiner and manufacturer,
+              they are traders, suppliers, and service providers as well.
+            </p>
+
+            <p className="mb-6">
+              Bright DiGi Gold is a technology driven company which makes it
+              innovative and convenient for our customers to save smartly in
+              digital gold. We endeavour to make your digital gold savings such
+              as buying, selling, delivery of digital gold and silver in the
+              simplest possible way.
+            </p>
+            <p>
+              Everyone will always expect pure and quality Gold for their
+              savings, Bright DiGi Gold will ensure purity and high-quality gold
+              in physical form. We offer 24 karat 99.9% pure gold and 99.99%
+              fine silver with a certificate of purity. You can begin to save on
+              our platform with as little as ₹10. Not just that your digital
+              gold is secured in the world class vault.
+            </p>
+          </div>
+          <div>
+            <img src="/infoabout.png" className=" float-right" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Info;

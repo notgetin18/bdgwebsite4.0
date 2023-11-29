@@ -20,7 +20,7 @@ const products = [
 const Products = () => {
   return (
     <div className="bg-theme">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-16 py-16">
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl">Our Coins</h1>
           <Link

@@ -47,7 +47,7 @@ export default function Marketing() {
   return (
     <>
       <div className="bg-theme">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <div className="mx-auto  px-4 sm:px-6 lg:px-16 py-16">
           <Swiper
             spaceBetween={30}
             autoplay={{

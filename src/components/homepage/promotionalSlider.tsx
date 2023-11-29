@@ -24,7 +24,7 @@ export default function Promotional() {
   return (
     <>
       <div className="bg-themeBlue">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
           <img
             src="/saving.png"
             className="my-2 w-full rounded-lg shadow-lg"

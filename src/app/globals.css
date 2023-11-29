@@ -178,7 +178,7 @@ input:checked + .slider:before {
   font-size: 10px;
 }
 .bg-themeBlue {
-  background: #e4f2f7;
+  background: #cde8f1;
 }
 .text-silver,
 .text-gold {
@@ -376,6 +376,13 @@ input:checked + .slider ~ .text-gold {
   content: "";
   border-color: rgba(240, 164, 48, 1);
   background: rgba(240, 164, 48, 1);
+}
+.h-800 {
+  height: 800px;
+}
+.bg-imgAbout {
+  background-image: url(../../public/aboutbackfoot.png);
+  background-size: cover;
 }
 @media (max-width: 768px) {
   .abs-001 {

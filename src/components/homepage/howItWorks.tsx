@@ -51,7 +51,7 @@ const HowItWorks = () => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   return (
     <div className="bg-themeBlue">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-16 py-16">
         <h1 className="text-2xl font-bold text-center">How it Works</h1>
 
         <div className="lg:items-center mt-8 sm:mt-8">

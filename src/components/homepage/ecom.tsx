@@ -4,7 +4,7 @@ import React from "react";
 const Ecom = () => {
   return (
     <div className="bg-themeYellow">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto px-4 sm:px-6 lg:px-16 py-16">
         <div className="grid sm:grid-cols-2 gap-6 place-items-center">
           <div className="">
             <img alt="products" className="h-40 mx-auto" src="/goldcoin.png" />

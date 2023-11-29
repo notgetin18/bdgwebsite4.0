@@ -45,7 +45,7 @@ export default function ClientSlider() {
           className=" absolute right-0 h-64 overflow-hidden"
         /> */}
         <div className="">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
             <h1 className="text-center extrabold  text-2xl text-gray-700 mb-8">
               We Are Trusted By
             </h1>

@@ -6,7 +6,7 @@ import Link from "next/link";
 const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-16">
         <img
           className="h-7xl absolute bottom-0 -left-20"
           src="/BDGwhite.png"

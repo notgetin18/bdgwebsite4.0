@@ -221,7 +221,7 @@ const BuySell = () => {
   return (
     <>
       <div>
-        <div className="block lg:pl-32">
+        <div className="block lg:pl-28">
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2  ">
               <div
