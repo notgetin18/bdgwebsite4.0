@@ -130,7 +130,7 @@ input[type="number"] {
 .toggle-button {
   position: relative;
   display: inline-block;
-  width: 170px;
+  width: 168px;
   height: 46px;
   margin-left: 10px;
 }
@@ -186,7 +186,9 @@ input:checked + .slider:before {
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
-  color: #ffffff;
+  color: #11354b;
+  font-weight: bold;
+  font-family: "NunitoSans-ExtraBold";
   text-align: center;
   width: 100%;
   pointer-events: none;
@@ -383,6 +385,7 @@ input:checked + .slider ~ .text-gold {
 .bg-imgAbout {
   background-image: url(../../public/aboutbackfoot.png);
   background-size: cover;
+  background-position: right;
 }
 @media (max-width: 768px) {
   .abs-001 {

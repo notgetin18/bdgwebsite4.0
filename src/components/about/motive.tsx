@@ -4,10 +4,10 @@ const Motive = () => {
   return (
     <div className="bg-themeBlue py-10">
       <div className="mx-auto px-4 sm:px-6 lg:px-16">
-        <h1 className="text-center text-gray-900 text-3xl extrabold mb-6">
+        <h1 className="text-center text-gray-900 text-3xl extrabold mb-12">
           Motives To Choose Bright DiGi Gold
         </h1>
-        <div className="grid grid-cols-3 gap-x-6 gap-y-16">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-16">
           <div>
             <div className="flex items-center gap-4">
               <img src="/Assured.png" className="h-12" />

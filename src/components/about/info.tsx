@@ -1,14 +1,16 @@
 import React from "react";
+import { TypingText } from "../Customtexts";
 
 const Info = () => {
   return (
     <div className="bg-themeBlue pt-10">
-      <div className="mx-auto pl-4 sm:pl-6 lg:pl-8">
+      <div className="mx-auto pl-4 pr-4 sm:pl-6 sm:pr-6 lg:pl-8 lg:pr-0">
         <h1 className="text-center text-gray-900 text-3xl extrabold mb-6">
           Our Story
         </h1>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="pl-8">
+        <TypingText title="Our Service" textStyles="text-center" />
+        <div className="grid lg:grid-cols-2 gap-6">
+          <div className="pl-4 pr-4 lg:pl-8 lg:pr-0">
             <p className="mb-6">
               Bright Digi Gold was founded in the Year 2021 with a Simple yet
               Powerful idea – to redefine the standards of excellence in the
