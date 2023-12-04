@@ -7,7 +7,6 @@ import {
 } from "@heroicons/react/20/solid";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import animationData from "../../../public/lottie/locker.json";
@@ -44,50 +43,22 @@ const BuySell = () => {
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const metalPricePerGram = useSelector(
-    (state: RootState) => state.shop.metalPrice
-  );
-  const transactionType = useSelector(
-    (state: RootState) => state.shop.transactionType
-  );
-  const purchaseType = useSelector(
-    (state: RootState) => state.shop.purchaseType
-  );
-  const enteredAmount = useSelector(
-    (state: RootState) => state.shop.enteredAmount
-  );
-  const actualAmount = useSelector(
-    (state: RootState) => state.shop.actualAmount
-  );
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
-  const metalQuantity = useSelector(
-    (state: RootState) => state.shop.metalQuantity
-  );
-  const selectedCoupon = useSelector(
-    (state: RootState) => state.coupon.selectedCoupon
-  );
-  const appliedCouponCode = useSelector(
-    (state: RootState) => state.coupon.appliedCouponCode
-  );
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
-  const extraGoldOfRuppess = useSelector(
-    (state: RootState) => state.coupon.extraGoldOfRuppess
-  );
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
 
-  const handleApplyCoupon = (coupon: any, amount: any) => {
-    dispatch(
-      applyCoupon({
-        coupon,
-        amount,
-        goldPrice: goldData.totalPrice,
-        metalType,
-        transactionType,
-      })
-    );
-  };
+  const handleApplyCoupon = (coupon: any, amount: any) => { dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType, })); };
 
   const handleClearCoupon = () => {
     dispatch(clearCoupon());
@@ -225,11 +196,10 @@ const BuySell = () => {
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2  ">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${
-                  activeTab === "buy"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -237,11 +207,10 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${
-                  activeTab === "sell"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -309,11 +278,10 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${
-                          goldData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${goldData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -324,11 +292,10 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${
-                          silverData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${silverData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -367,7 +334,7 @@ const BuySell = () => {
                     width={100}
                     height={100}
                   /> */}
-                  {purchaseType === "buy" ? (
+                  {metalType === "gold" ? (
                     <Lottie
                       animationData={goldBarData}
                       className="h-40 absolute"
@@ -408,21 +375,19 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "rupees"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white"
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "rupees"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white"
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "grams"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white "
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "grams"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white "
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In grams" : "In grams"}
@@ -431,7 +396,7 @@ const BuySell = () => {
               <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-3">
-                    {activeTabPurchase == "rupees" ? "₹ " : "gm"}
+                    {activeTabPurchase == "rupees" ? "₹ " : ""}
                   </div>
                   <input
                     type="number"
@@ -455,28 +420,28 @@ const BuySell = () => {
                   />
                 </div>
                 <div className="relative rounded-md shadow-sm">
-                  <div className="pointer-events-none absolute text-gray-300 text-md inset-y-0 left-0 flex items-center pl-10">
-                    {activeTabPurchase === "rupees" ? "gm" : "₹"}
+                  <div className="pointer-events-none absolute text-gray-300 text-md inset-y-0 left-0 flex items-center pl-24">
+                    {activeTabPurchase === "rupees" ? "" : "₹"}
                   </div>
                   <input
                     type="number"
                     placeholder={
-                      activeTabPurchase === "rupees" ? "0.0000" : "00"
+                      activeTabPurchase === "rupees" ? "0.0000" : "0000"
                     }
-                    className="bg-transparent w-full pr-4 text-sm py-1 focus:outline-none text-white text-right"
+                    className="bg-transparent w-full pr-12 text-sm py-1  focus:outline-none text-white text-right"
                     value={
                       activeTabPurchase == "rupees"
                         ? metalQuantity === 0
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                        ? ""
-                        : totalAmount
+                          ? ""
+                          : totalAmount
                     }
                     readOnly
                   />
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-white">
-                    {/* gm */}
+                    {activeTabPurchase == "rupees" ? "gm" : ""}
                   </div>
                 </div>
               </div>

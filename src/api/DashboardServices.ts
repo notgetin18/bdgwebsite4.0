@@ -1,4 +1,5 @@
 import { funcForDecrypt } from "@/components/helperFunctions";
+import axios from "axios";
 
 export const metalPrice = async () => {
   try {
@@ -39,3 +40,7 @@ export const fetchCoupons = async () => {
     console.error("Error fetching metal price:", error);
   }
 };
+
+export const api = axios.create({
+  baseURL: `${process.env.baseUrl}`, // Replace with your API base URL
+});
