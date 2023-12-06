@@ -17,7 +17,7 @@ const page = ({ params }: any) => {
     const formRef = useRef<HTMLFormElement>(null);
     const [pincodeError, setPincodeError] = useState<string | null>(null);
     const [delivery, setDeliverey] = useState<boolean>(false)
-    const [photo, setphoto] = useState([])
+    const [photo, setphoto] = useState<[]>([])
 
     const getProductById = async () => {
         try {
@@ -34,7 +34,6 @@ const page = ({ params }: any) => {
         }
     };
 
-    console.log('photo', photo)
 
     useEffect(() => {
         getProductById();
@@ -93,19 +92,16 @@ const page = ({ params }: any) => {
         }
     };
 
-
-
     if (!productsDetailById) {
         return <div>Loading...</div>;
     }
-    console.log('productsDetailById', productsDetailById)
-
+    // console.log('productsDetailById', productsDetailById)
 
     return (
         <div className='text-white'>
             <div className='flex gap-12'>
                 <div>
-                    <div>
+                    <div className='bg-red-300 rounded m-3'>
                         <SimpleImageSlider
                             width={596}
                             height={620}
@@ -114,11 +110,12 @@ const page = ({ params }: any) => {
                             showNavs={true}
                             loop={true}
                             autoPlay={true}
+                            bgColor="#red"
                         />
                     </div>
-                    <div className=''>
-                        <div>Add to cart</div>
-                        <div>Buy Now</div>
+                    <div className='grid  items-center justify-center w-full'>
+                        <div className='cursor-pointer bg-slate-600 m-2 px-64 py-2 rounded'>Add to cart</div>
+                        <div className='cursor-pointer bg-slate-600 m-2 px-64 py-2 rounded'>Buy Now</div>
                     </div>
                 </div>
                 <div>
