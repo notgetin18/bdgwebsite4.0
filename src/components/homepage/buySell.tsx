@@ -43,7 +43,6 @@ const BuySell = () => {
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
   const transactionType = useSelector((state: RootState) => state.shop.transactionType);
   const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
@@ -58,40 +57,50 @@ const BuySell = () => {
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
 
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+  console.log("metalPricePerGram", metalPricePerGram)
+
+
+
   const handleApplyCoupon = (coupon: any, amount: any) => { dispatch(applyCoupon({ coupon, amount, goldPrice: goldData.totalPrice, metalType, transactionType, })); };
 
   const handleClearCoupon = () => {
     dispatch(clearCoupon());
   };
 
-  useEffect(() => {
-    console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
-    console.table({
-      purchaseType,
-      actualAmount,
-      gst,
-      metalType,
-      transactionType,
-      metalPricePerGram,
-      totalAmount,
-      enteredAmount,
-      metalQuantity,
-    });
-  }, [
-    error,
-    appliedCouponCode,
-    extraGoldOfRuppess,
-    extraGold,
-    purchaseType,
-    actualAmount,
-    gst,
-    totalAmount,
-    metalType,
-    transactionType,
-    metalPricePerGram,
-    enteredAmount,
-    metalQuantity,
-  ]);
+  // useEffect(() => {
+  //   console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
+  //   console.table({
+  //     purchaseType,
+  //     actualAmount,
+  //     gst,
+  //     metalType,
+  //     transactionType,
+  //     metalPricePerGram,
+  //     totalAmount,
+  //     enteredAmount,
+  //     metalQuantity,
+  //   });
+  // }, [
+  //   error,
+  //   appliedCouponCode,
+  //   extraGoldOfRuppess,
+  //   extraGold,
+  //   purchaseType,
+  //   actualAmount,
+  //   gst,
+  //   totalAmount,
+  //   metalType,
+  //   transactionType,
+  //   metalPricePerGram,
+  //   enteredAmount,
+  //   metalQuantity,
+  // ]);
+
+  // useEffect(() => {
+  //   console.log("metalPricePerGram", metalPricePerGram)
+  //   // console.log("goldData", goldData)
+  // }, [metalPricePerGram]);
 
   const toggleMetal = () => {
     setIsGold(!isgold);

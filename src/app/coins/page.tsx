@@ -4,11 +4,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { api } from "@/api/DashboardServices";
+import { useRouter } from 'next/navigation'
+import Link from "next/link";
+
+
 
 const Coins = () => {
   const [ProductList, setProductList] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("ALL");
-
+  const router = useRouter();
+  
 
 
   const getAllProducts = async (params: any) => {
@@ -40,8 +45,12 @@ const Coins = () => {
     setActiveTab(tab);
     getAllProducts(tab);
   };
+
+  const gotoDetailPage = (item: any) => {
+    router.push("/coins/[slug]")
+  }
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto coins_backgroun">
       <div className="flex justify-center items-center">
         <Image
           src={"https://www.brightdigigold.com/images/product-banner.png"}
@@ -50,7 +59,7 @@ const Coins = () => {
           height={300}
         />
       </div>
-      <div className="flex flex-col md:flex-row mt-4 md:items-center md:justify-between bg-slate-600 p-3 rounded-md">
+      <div className="flex flex-row md:flex-row mt-4 md:items-center md:justify-between bg-slate-600 p-3 rounded-md">
         <div className="mb-4 md:mb-0 md:mr-4">
           <div className="text-white flex items-center">
             <div onClick={() => { handleTabClick("ALL") }} className={`ml-4 cursor-pointer text-2xl border-r-2 border-slate-400 pr-4 ${activeTab === 'ALL' ? 'opacity-100' : 'opacity-50'}`}>All</div>
@@ -77,12 +86,12 @@ const Coins = () => {
         <div className="text-white flex items-center bg-blue-300 rounded-md p-2 ">
           <Image src={"https://www.brightdigigold.com/images/gold-bars.svg"} width={40} height={80} alt="vault" />
           <div className="text-white ml-4 border-r-4 border-slate-400 pr-4">
-            <p>Gold</p>
-            <p className="text-yellow-200">0.9825 GM</p>
+            <p className="text-black font-extrabold">Gold</p>
+            <p className="text-yellow-300">0.9825 GM</p>
           </div>
-          <div className="ml-6 text-white">
-            <p >Silver</p>
-            <p>0.0985 GM</p>
+          <div className="ml-6">
+            <p className="text-black font-extrabold">Silver</p>
+            <p className="text-slate-600 font-semibold">0.0985 GM</p>
           </div>
         </div>
       </div>
@@ -90,14 +99,16 @@ const Coins = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
         {ProductList.map((item, index) => (
-          <div key={index} className=" py-4 rounded-md shadow-xl text-center bg-themeLight01 transition-transform transform hover:scale-105 hover:shadow-2xl">
+          <div key={index} className=" py-4 rounded-md shadow-xl text-center coins_background transition-transform transform hover:scale-105 hover:shadow-2xl">
             <div className="flex flex-col items-center">
               <div>
                 <Image src={item.image.image} alt="coin image" width={150} height={90} />
               </div>
               <div className="mt-2 text-white">{item.name}</div>
               <div className="text-gray-400 items-center">Making charges <span className="text-2xl font-bold ml-1">₹{item.makingcharges}</span></div>
-              <button className="m-2 bg-blue-100 rounded-2xl font-extrabold   px-14 py-2">VIEW</button>
+              <Link
+                href={`/coins/${item.slug}`}
+                className="m-2 bg-blue-100 rounded-2xl font-extrabold   px-14 py-2">VIEW</Link>
             </div>
           </div>
         ))}

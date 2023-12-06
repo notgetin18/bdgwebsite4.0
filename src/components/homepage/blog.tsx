@@ -14,35 +14,35 @@ import "swiper/css/navigation";
 const features = [
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Maximise-Your-Daily-Savings.png",
-    name: "Maximise Daily Savings With Digital Gold",
+    // name: "Maximise Daily Savings With Digital Gold",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/How-are-gold-prices-Determined.png",
-    name: "How Are Gold Prices Determined?- Know Complete Information!",
+    // name: "How Are Gold Prices Determined?- Know Complete Information!",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Akshaya-Tritiya.png",
-    name: "Make A Golden Investment On This Akshaya Tritiya",
+    // name: "Make A Golden Investment On This Akshaya Tritiya",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Buying-gold-coins.png",
-    name: "Buying Gold Coins- Important Things To Know!",
+    // name: "Buying Gold Coins- Important Things To Know!",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Minor-Steps-and-Great-Savings.png",
-    name: "Minor Steps And Great Savings: How To Effectively Save And Invest On Low Earnings",
+    // name: "Minor Steps And Great Savings: How To Effectively Save And Invest On Low Earnings",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Things-to-Remember-Before-Buying-Gold-Jewellery.png",
-    name: "Things To Remember Before Buying Gold Jewellery",
+    // name: "Things To Remember Before Buying Gold Jewellery",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Involved-Risks-And-Their-Solutions.png",
-    name: "Digital Gold Investment: Involved Risks And Their Solutions",
+    // name: "Digital Gold Investment: Involved Risks And Their Solutions",
   },
   {
     img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/blogs/Role-of-Technology.png",
-    name: "The Future Is Now: Role Of Gold In Technology",
+    // name: "The Future Is Now: Role Of Gold In Technology",
   },
 ];
 import { EffectCoverflow, Navigation } from "swiper/modules";
@@ -95,7 +95,7 @@ export default function Blog() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4 pt-10"
               >
-                <div className="bg-themeLight rounded-2xl h-44 sm:h-72 relative">
+                <div className=" rounded-2xl h-44 sm:h-72 relative">
                   <div className=" flex justify-center">
                     <img
                       src={feature.img}
@@ -103,9 +103,9 @@ export default function Blog() {
                       alt="insite"
                     />
                   </div>
-                  <p className="mt-4 text-white text-xs sm:text-sm px-4">
+                  {/* <p className="mt-4 text-white text-xs sm:text-sm px-4">
                     {feature.name}
-                  </p>
+                  </p> */}
                 </div>
               </SwiperSlide>
             ))}

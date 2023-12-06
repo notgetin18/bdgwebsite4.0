@@ -11,17 +11,15 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { classNames } from "./helperFunctions";
-import { navigation, navigationAfter } from "@/constants";
 
 const Navbar = () => {
-  const router = useRouter();
   // const handleAuth = useAuth();
-  const pathname = usePathname();
   // const isLoggedIn = useAppSelector(getAuth);
+  const isloggedIn = true;
 
   return (
     <Disclosure as="nav" className="bg-header">
-      {({ open }) => (
+      {({ open, close }) => (
         <>
           <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2">
             <div className="relative flex h-16 items-center justify-between">
@@ -49,62 +47,54 @@ const Navbar = () => {
                   />
                 </div>
               </div>
+              <Link
+                className={styles.p0}
+                href="/"
+              >
+                Home
+              </Link>
+              <Link
+                className={styles.p0}
+                href="/coins"
+              >
+                Coins
+              </Link>
+              <Link
+                className={styles.p0}
+                href="/about"
+              >
+                About
+              </Link>
+              <Link
+                className={styles.p0}
+                href="/contact"
+              >
+                contact
+              </Link>
+              <Link
+                className={styles.p0}
+                href="/dashboard"
+              >
+                Dashboard
+              </Link>
+              {isloggedIn ? (
+                <Link className={styles.p0} href="/">
+                  My Account
+                </Link>
+              ) : (
+                <Link
+                  className={styles.p0}
+                  href="/"
+                >
+                  Login/Sign Up
+                </Link>
+              )}
+
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-md font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
 
-                    {/* {!isLoggedIn &&
-                      navigation.map((item) => (
-                        <Link href={item.href} key={item.href}>
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              pathname == item.href
-                                ? "text-011"
-                                : "text-white  hover:text-011",
-                              "group flex items-center px-2 py-2 text-sm font-semibold rounded-md tracking-widest margin-001"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      ))}
-                    {isLoggedIn &&
-                      navigationAfter.map((item) => (
-                        <Link href={item.href} key={item.href}>
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              pathname == item.href
-                                ? "text-011"
-                                : "text-white  hover:text-011",
-                              "group flex items-center px-2 py-2 text-sm font-semibold rounded-md tracking-widest margin-001"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      ))} */}
                   </div>
                 </div>
                 <Menu as="div" className="relative ml-3">
@@ -112,12 +102,13 @@ const Navbar = () => {
                     <Menu.Button className="relative flex focus:outline-none">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <Link
+                      {/* <Link
                         className="hidden sm:block text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
                       >
                         Login/Sign Up
-                      </Link>
+                      </Link> */}
+
                       <Link
                         className="block sm:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
@@ -181,27 +172,50 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-
+          {/* Mobile dropdown */}
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              <Link href="/">
+                <div onClick={() => { close() }} className={styles.p1}>
+                  Home
+                </div>
+              </Link>
+              <Link href="/coins">
+                <div onClick={() => { close() }} className={styles.p1}>
+                  Coins
+                </div>
+              </Link>
+              <Link href="/about">
+                <div onClick={() => { close() }} className={styles.p1}>
+                  About
+                </div>
+              </Link>
+              <Link href="/contact">
+                <div onClick={() => { close() }} className={styles.p1}>
+                  Contact
+                </div>
+              </Link>
+              <Link href="/dashboard">
+                <div onClick={() => { close() }} className={styles.p1}>
+                  Dashboard
+                </div>
+              </Link>
+              {isloggedIn ? (
+                <Link href="/">
+                  <div onClick={() => { close() }} className={styles.p1}>
+                    My Account
+                  </div>
+                </Link>
+              ) : (
+                <Link href="/">
+                  <div onClick={() => { close() }} className={styles.p1}>
+                    Login/Sign Up
+                  </div>
+                </Link>
+              )}
             </div>
           </Disclosure.Panel>
+
         </>
       )}
     </Disclosure>
@@ -209,3 +223,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const styles = {
+  p0: "hidden sm:block text-lg  font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2",
+  p1: "block rounded-md px-3 py-2 text-lg  font-semibold text-white"
+}

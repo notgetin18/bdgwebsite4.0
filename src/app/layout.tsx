@@ -28,11 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>
+        <Provider store={store}>
           <Navbar />
           {children}
           <Footer />
-        </ReduxProvider>
+        </Provider>
       </body>
     </html>
   );

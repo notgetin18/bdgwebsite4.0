@@ -1,5 +1,5 @@
 // store.ts
-
+import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import {silverReducer, goldReducer}  from './metalSlice'; 
 import shopSlice from './shopSlice';
