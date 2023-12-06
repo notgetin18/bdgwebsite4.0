@@ -61,3 +61,27 @@ export function ParseFloat(str: any, val: any) {
   }
   return Number(str);
 }
+
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+export const Card = ({ title, description, imageUrl, linkTo }: any) => {
+  const formattedDescription = description.replace(/LIMITED/g, 'LIMITED<br />');
+
+  return (
+    <Link href={linkTo}>
+      <div className="max-w-xs coins_background rounded overflow-hidden shadow-lg flex flex-col items-center">
+        <Image className="" src={imageUrl} alt={title} width={50} height={50} />
+        <div className="font-bold text-xl mb-2 text-white">{title}</div>
+        <div
+          className="px-6 py-4 text-center"
+          dangerouslySetInnerHTML={{ __html: formattedDescription }}
+        />
+      </div>
+    </Link>
+  );
+};
+
+
+
