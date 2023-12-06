@@ -5,7 +5,8 @@ import { RootState } from '@/redux/store';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-
+import Image from 'next/image';
+import SimpleImageSlider from "react-simple-image-slider";
 
 const page = ({ params }: any) => {
     const id = params.slug;
@@ -16,6 +17,7 @@ const page = ({ params }: any) => {
     const formRef = useRef<HTMLFormElement>(null);
     const [pincodeError, setPincodeError] = useState<string | null>(null);
     const [delivery, setDeliverey] = useState<boolean>(false)
+    const [photo, setphoto] = useState([])
 
     const getProductById = async () => {
         try {
@@ -24,12 +26,15 @@ const page = ({ params }: any) => {
                 const responseOfApi = await funcForDecrypt(response.data.payload);
                 const productDetails = JSON.parse(responseOfApi);
                 setProductDetailById(productDetails.data);
+                setphoto(productDetails.data.image)
             }
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            console.error('Error fetching  data:', error);
             throw error;
         }
     };
+
+    console.log('photo', photo)
 
     useEffect(() => {
         getProductById();
@@ -93,52 +98,114 @@ const page = ({ params }: any) => {
     if (!productsDetailById) {
         return <div>Loading...</div>;
     }
+    console.log('productsDetailById', productsDetailById)
+
 
     return (
         <div className='text-white'>
-            <div className='flex gap-x-12 w-full'>
+            <div className='flex gap-12'>
                 <div>
-                    <div>Image swiper, metal price {productsDetailById.iteamtype === "GOLD" ? goldData.totalPrice : silverData.totalPrice}</div>
+                    <div>
+                        <SimpleImageSlider
+                            width={596}
+                            height={620}
+                            images={photo}
+                            showBullets={true}
+                            showNavs={true}
+                            loop={true}
+                            autoPlay={true}
+                        />
+                    </div>
                     <div className=''>
                         <div>Add to cart</div>
                         <div>Buy Now</div>
                     </div>
                 </div>
-                <div className='flex items-center justify-between'>
-                    <div className=''>
-                        <div>{productsDetailById.name}</div>
-                        <div>Total Price <span className='text-yellow-500'>₹{ParseFloat(+productsDetailById.weight * quantity * (productsDetailById.iteamtype === "GOLD" ? goldData.totalPrice : silverData.totalPrice), 2)}</span><span className='text-yellow-500'>+3% GST</span></div>
-                        <div>Making Charge ₹{productsDetailById.makingcharges}</div>
-                        <div className='py-2'>
-                            <form ref={formRef} onSubmit={handleFormSubmit}>
-                                <label>Check pincode availability</label><br />
-                                <input
-                                    name="pincode"
-                                    type="tel"
-                                    className='text-black'
-                                    placeholder="Enter Your Pincode"
-                                    maxLength={6}
-                                    // pattern="\d{6}"
-                                    // required
-                                    onChange={(event) => {
-                                        const { value } = event.target;
-                                        const updatedValue = value.replace(/[^0-9]/g, '');
-                                        event.target.value = updatedValue;
-                                        setPincodeError(null); // Clear pincode error on input change
-                                    }}
-                                />
-                                <button className='' type="submit">
-                                    Check
-                                </button>
-                                {pincodeError && delivery == true ? <div className="text-green-500">{pincodeError}</div> : <div className="text-red-500">{pincodeError}</div>}
-                            </form>
+                <div>
+                    <div className='flex'>
+                        <div>
+                            <div>{productsDetailById.name}</div>
+                            <div>Total Price <span className='text-yellow-500'>₹{ParseFloat(+productsDetailById.weight * quantity * (productsDetailById.iteamtype === "GOLD" ? goldData.totalPrice : silverData.totalPrice), 2)}</span><span className='text-yellow-500'>+3% GST</span></div>
+                            <div>Making Charge ₹{productsDetailById.makingcharges}</div>
+                        </div>
+                        <div className='flex items-center rounded-lg bg-slate-500'>
+                            <div onClick={decreaseQty} className={styles.p1}>-</div>
+                            <div className=''>{quantity}</div>
+                            <div onClick={increaseQty} className={styles.p2}>+</div>
                         </div>
                     </div>
-                </div>
-                <div className='flex items-center rounded-lg bg-slate-500'>
-                    <div onClick={decreaseQty} className={styles.p1}>-</div>
-                    <div className='m-2 p-2'>{quantity}</div>
-                    <div onClick={increaseQty} className={styles.p2}>+</div>
+                    {/* pin code */}
+                    <div className='py-2'>
+                        <form ref={formRef} onSubmit={handleFormSubmit}>
+                            <label>Check pincode availability</label><br />
+                            <input
+                                name="pincode"
+                                type="tel"
+                                className='text-black'
+                                placeholder="Enter Your Pincode"
+                                maxLength={6}
+                                // pattern="\d{6}"
+                                // required
+                                onChange={(event) => {
+                                    const { value } = event.target;
+                                    const updatedValue = value.replace(/[^0-9]/g, '');
+                                    event.target.value = updatedValue;
+                                    setPincodeError(null); // Clear pincode error on input change
+                                }}
+                            />
+                            <button className='' type="submit">
+                                Check
+                            </button>
+                            {pincodeError && delivery == true ? <div className="text-green-500">{pincodeError}</div> : <div className="text-red-500">{pincodeError}</div>}
+                        </form>
+                    </div>
+                    {/*coin description */}
+                    <div className='bg-blue-600 px-2'>
+                        <p>{productsDetailById.description}</p>
+                    </div>
+                    <div className='grid grid-cols-3 mt-4'>
+                        <div className=''>
+                            <Image
+                                src={"https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"}
+                                width={50}
+                                height={50}
+                                alt='icons'
+                            />
+                            <p>Guaranteed 24K Gold</p>
+                        </div>
+                        <div>
+                            <Image
+                                src={"https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"}
+                                width={50}
+                                height={50}
+                                alt='icons'
+                            />
+                            <p>No Loss of Money</p>
+                        </div>
+                        <div>
+                            <Image
+                                src={"https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"}
+                                width={50}
+                                height={50}
+                                alt='icons'
+                            />
+                            <p>Safety Guaranteed</p>
+                        </div>
+                    </div>
+                    <div className='mt-4'>
+                        <div className='mt-4'>
+                            <p>Weight : {productsDetailById.weight}</p>
+                        </div>
+                        <div className='mt-4'>
+                            <p>Metal Purity : {productsDetailById.purity}</p>
+                        </div>
+                        <div className='mt-4'>
+                            <p>Dimension : {productsDetailById.dimension}</p>
+                        </div>
+                        <div className='mt-4'>
+                            <p>Quality : {productsDetailById.quality}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
