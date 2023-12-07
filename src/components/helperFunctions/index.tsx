@@ -75,7 +75,7 @@ export const Card = ({ title, description, imageUrl, linkTo }: any) => {
         <Image className="" src={imageUrl} alt={title} width={50} height={50} />
         <div className="font-bold text-xl mb-2 text-white">{title}</div>
         <div
-          className="px-6 py-4 text-center"
+          className="px-6 py-4 text-center text-white"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
         />
       </div>
@@ -84,4 +84,64 @@ export const Card = ({ title, description, imageUrl, linkTo }: any) => {
 };
 
 
+type InputType = "text" | "number" | "email" | "password" | "date" | "textarea";
+interface InputProps {
+  type?: InputType;
+  autoComplete?: string;
+  required?: boolean;
+  label?: string;
+  formik: any;
+  name: string;
+  onblur?: any;
+  placeholder?: any;
+  extra?: object;
+}
+
+const FormInput = ({
+  type,
+  autoComplete,
+  required,
+  label,
+  name,
+  formik,
+  placeholder,
+  onblur,
+  extra,
+}: InputProps) => {
+  return (
+    <div className={styles.p0}>
+      {label && (
+        <label htmlFor="email" className={styles.p1}>
+          {label}
+        </label>
+      )}
+      <div className={styles.p4}>
+        <input
+          id={name}
+          name={name}
+          type={type || "text"}
+          onChange={formik.handleChange}
+          onBlur={onblur}
+          value={formik.values[name]}
+          autoComplete={autoComplete}
+          required={required || false}
+          placeholder={placeholder || `${label}${required ? "" : ""}`}
+          className={styles.p2}
+          {...extra}
+        />
+        {formik.touched[name] && formik.errors[name] ? (
+          <span className={styles.p3}>{formik.errors[name]}</span>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+const styles = {
+  p0: "mb-2",
+  p1: "block text-sm mb-2 text-dark-blue",
+  p2: "appearance-none block w-full px-3 py-2 border-0 rounded-md theme-shadow placeholder-gray-400 focus:border-yellow-600 focus:ring-1 focus:ring-yellow-600 sm:text-sm",
+  p3: "text-red-500 text-sm",
+  p4: "mt-1",
+};
+export default FormInput;
 

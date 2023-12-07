@@ -93,7 +93,7 @@ const page = ({ params }: any) => {
     };
 
     if (!productsDetailById) {
-        return <div>Loading...</div>;
+        return <div className="text-white">Loading...</div>;
     }
     // console.log('productsDetailById', productsDetailById)
 
@@ -101,21 +101,23 @@ const page = ({ params }: any) => {
         <div className='text-white'>
             <div className='flex gap-12'>
                 <div>
-                    <div className='bg-red-300 rounded m-3'>
+                    <div className='bg-red-300 rounded m-3 p-4'>
                         <SimpleImageSlider
-                            width={596}
-                            height={620}
+                            width={500}
+                            height={500}
                             images={photo}
                             showBullets={true}
                             showNavs={true}
                             loop={true}
                             autoPlay={true}
                             bgColor="#red"
+                            autoPlayDelay={2.0}
+                            slideDuration={0.5}
                         />
                     </div>
                     <div className='grid  items-center justify-center w-full'>
-                        <div className='cursor-pointer bg-slate-600 m-2 px-64 py-2 rounded'>Add to cart</div>
-                        <div className='cursor-pointer bg-slate-600 m-2 px-64 py-2 rounded'>Buy Now</div>
+                        <div className='cursor-pointer bg-slate-600 w-full px-56 py-3 rounded'>Add to cart</div>
+                        <div className='cursor-pointer bg-slate-600 mt-2 w-full px-56 py-3 rounded'>Buy Now</div>
                     </div>
                 </div>
                 <div>

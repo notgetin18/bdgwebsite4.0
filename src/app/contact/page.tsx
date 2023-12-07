@@ -1,7 +1,122 @@
-import { Card } from '@/components/helperFunctions'
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
+import FormInput, { AesDecrypt, AesEncrypt, Card } from '@/components/helperFunctions'
+import * as Yup from "yup";
+import axios from 'axios';
+import { ErrorMessage, Field, Formik } from 'formik';
+import Swal from "sweetalert2";
+
+
 
 const Contacts = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const allowedFileTypes = ["image/png", "image/jpeg", "application/pdf"];
+
+  const initialValues: {
+    name: string;
+    email: string;
+    city: string;
+    mobile: string;
+    message: string;
+    document: File | null;
+  } = {
+    name: "",
+    email: "",
+    city: "",
+    mobile: "",
+    message: "",
+    document: null,
+  };
+
+
+  const validateFile = (file: { type: any }) => {
+    const allowedFileTypes = ["image/png", "image/jpeg", "application/pdf"];
+
+    if (!allowedFileTypes.includes(file.type)) {
+      return "Only PNG, JPEG, and PDF files are allowed.";
+    }
+
+    return null;
+  };
+
+
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .transform((value, originalValue) => {
+        // Remove non-character values using regex
+        if (originalValue) {
+          return originalValue.replace(/[^A-Za-z]/g, "");
+        }
+        return value;
+      })
+      .min(3, "Name should be min. 3 Character")
+      .max(50, "Name should be max. 50 Character")
+      .required("Name is required"),
+    email: Yup.string()
+      .trim()
+      .email("Invalid email address")
+      .matches(/\./, "Invalid email address")
+      .required("Email is required"),
+    city: Yup.string().trim().required("City is required"),
+    mobile: Yup.string()
+      .required("Mobile Number required")
+      .matches(/^[6789][0-9]{9}$/, "Mobile No. is not valid")
+      .min(10, "Please enter 10 digit mobile number")
+      .max(10, "too long"),
+    message: Yup.string()
+      .trim()
+      .required("Required")
+      .max(500, "Message should be max. 500 Charcter"),
+  });
+  const onSubmit = async (values: any, { resetForm }: any) => {
+    setIsSubmitting(true);
+    try {
+      console.log("values", values);
+
+      const formData = new FormData();
+      // Object.entries(values).forEach(([key, value]) => {
+      //   formData.append(key, value);
+      // });
+
+      const resAfterEncrypt = await AesEncrypt(values);
+      formData.append("document", values.document);
+      formData.append("payload", resAfterEncrypt);
+      const body = {
+        payload: resAfterEncrypt,
+      };
+      const token = localStorage.getItem("token");
+      const configHeaders = {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const response = await axios.post(
+        `${process.env.baseUrl}/data/contactus`,
+        formData,
+        configHeaders
+      );
+      //
+      const decryptedData = await AesDecrypt(response.data.payload);
+      //
+      const finalResult = JSON.parse(decryptedData);
+      if (finalResult.status) {
+        Swal.fire({
+          // position: "centre",
+          icon: "success",
+          title: finalResult.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      resetForm();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className='bg-theme'>
       <div className='text-4xl text-white font-extrabold py-4 px-9 bg-red-400'> Contact Us</div>
@@ -14,6 +129,189 @@ const Contacts = () => {
       </div>
       <p className='text-white py-4'>Our Team is Open to feedback and suggestions. If you wish to share your reviews with us, you are most welcome to do so. We strive to continually improve and provide the best possible experience for our customers.</p>
       <p className='text-white py-2'>Thank you for choosing Bright DiGi Gold. We look forward to hearing from you.</p>
+
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({
+          values,
+          setFieldValue,
+          handleChange,
+          setFieldError,
+          handleBlur,
+          handleSubmit,
+        }: {
+          values: typeof initialValues;
+          setFieldValue: (field: string, value: any) => void;
+          handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+          setFieldError: (field: string, message: string) => void;
+          handleBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+          handleSubmit: (e?: React.FormEvent<HTMLFormElement>) => void;
+        }) => (
+          <form
+            className="pt-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <div className="row">
+              <div className="col-6">
+                <label className='text-white'>Name</label>
+                <br />
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Enter Your Name"
+                  value={values.name}
+                  minLength={3}
+                  maxLength={25}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    const { name, value } = event.target;
+                    const updatedValue = value.replace(/[^A-Za-z\s]/g, "");
+                    setFieldValue(name, updatedValue);
+                  }}
+                  onBlur={(event: React.FocusEvent<HTMLInputElement>) => {
+                    handleBlur(event);
+                  }}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-6">
+                <label className='text-white'>Email ID</label>
+                <br />
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Enter Your Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-6">
+                <label className='text-white'>City</label>
+                <br />
+                <input
+                  name="city"
+                  type="text"
+                  placeholder="Enter Your City"
+                  value={values.city}
+                  onChange={(event) => {
+                    const { name, value } = event.target;
+                    const updatedValue = value.replace(
+                      /[^A-Za-z\s]/g,
+                      ""
+                    );
+                    setFieldValue("city", updatedValue);
+                  }}
+                  onBlur={handleBlur}
+                />
+                <ErrorMessage
+                  name="city"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-6">
+                <label className='text-white'>Mobile No.</label>
+                <br />
+                <input
+                  name="mobile"
+                  type="text"
+                  minLength={10}
+                  maxLength={10}
+                  placeholder="Enter Your Mobile No."
+                  value={values.mobile}
+                  onChange={(event) => {
+                    const { name, value } = event.target;
+                    const updatedValue = value.replace(/[^0-9]/g, "");
+                    setFieldValue("mobile", updatedValue);
+                  }}
+                  onBlur={handleBlur}
+                />
+                <ErrorMessage
+                  name="mobile"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-12">
+                <label className='text-white'>Message</label>
+                <br />
+                <textarea
+                  name="message"
+                  placeholder="Write Here"
+                  rows={4}
+                  value={values.message}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                <ErrorMessage
+                  name="message"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-12">
+                <label className='text-white'>Attachment</label>
+                <br />
+                <div className={''}>
+                  <input
+                    type="file"
+                    id="document"
+                    name="document"
+                    title=""
+                    value={""}
+                    onChange={(event: any) => {
+                      const file = event.currentTarget.files[0];
+                      const error = validateFile(file);
+                      if (!error) {
+                        setFieldValue("document", file);
+                        setFieldError("document", "");
+                      } else {
+                        setFieldValue("document", null);
+                        setFieldError("document", error);
+                      }
+                    }}
+                  />
+                  {values.document && (
+                    <p className={'text-white'}>{values.document.name}</p>
+                  )}
+                  {/* <p className={'text-red-500'}>{values.document ? values.document.name : "No file chosen"}</p> */}
+                </div>
+                <ErrorMessage
+                  name="document"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+              <div className="col-12">
+                <div className={''}>
+                  <button
+                    className="button text-white py-2 px-6 bg-slate-500 cursor-pointer rounded-lg"
+                    type="submit"
+                    onClick={() => handleSubmit()}
+                    disabled={isSubmitting}
+                  >
+                    SEND
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        )}
+      </Formik>
     </div>
   )
 }
