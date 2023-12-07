@@ -69,7 +69,7 @@ const Navbar = () => {
                 className={styles.p0}
                 href="/contact"
               >
-                contact
+                Contact Us
               </Link>
               <Link
                 className={styles.p0}

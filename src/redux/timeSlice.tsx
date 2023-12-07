@@ -5,7 +5,7 @@ interface TimerState {
 }
 
 const initialState: TimerState = {
-  time: 20 // Timer starts at 5:00 (300 seconds)
+  time: 300 // Timer starts at 5:00 (300 seconds)
 };
 
 const timerReducer = (state = initialState, action: any): TimerState => {
@@ -13,7 +13,7 @@ const timerReducer = (state = initialState, action: any): TimerState => {
     case DECREMENT_TIMER:
       return {
         ...state,
-        time: state.time > 0 ? state.time - 1 : 20 // If time is 0, reset to 300 seconds
+        time: state.time > 0 ? state.time - 1 : 300 // If time is 0, reset to 300 seconds
       };
     case RESET_TIMER:
       return {

@@ -81,6 +81,7 @@ const GiftTab = () => {
           </dl>
         </div>
       </div>
+      {/* redeem part */}
     </div>
   );
 };

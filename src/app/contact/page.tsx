@@ -6,12 +6,9 @@ import axios from 'axios';
 import { ErrorMessage, Field, Formik } from 'formik';
 import Swal from "sweetalert2";
 
-
-
 const Contacts = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   // const allowedFileTypes = ["image/png", "image/jpeg", "application/pdf"];
-
   const initialValues: {
     name: string;
     email: string;
@@ -31,16 +28,12 @@ const Contacts = () => {
 
   const validateFile = (file: { type: any }) => {
     const allowedFileTypes = ["image/png", "image/jpeg", "application/pdf"];
-
     if (!allowedFileTypes.includes(file.type)) {
       return "Only PNG, JPEG, and PDF files are allowed.";
     }
-
     return null;
   };
-
-
-
+  
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .transform((value, originalValue) => {

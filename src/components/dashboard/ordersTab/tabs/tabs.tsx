@@ -8,10 +8,10 @@ import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 
 const data = [
   { id: 1, name: "DIGITAL GOLD ₹(10)" },
-  { id: 2, name: "DIGITAL GOLD ₹(10)" },
-  { id: 3, name: "DIGITAL GOLD ₹(10)" },
+  { id: 2, name: "DIGITAL GOLD ₹(8)" },
+  { id: 3, name: "DIGITAL GOLD ₹(7)" },
   { id: 4, name: "DIGITAL GOLD ₹(10)" },
-  { id: 5, name: "DIGITAL GOLD ₹(10)" },
+  { id: 5, name: "DIGITAL GOLD ₹(100)" },
 ];
 const orders = [
   { heading: "Order Number :", name: "BDG2314012037037" },
@@ -119,7 +119,7 @@ const OrdersTabs = () => {
             ))}
           </Tab.Panels>
         </div>
-        <div className="bg-blue-400"><Timer /></div>
+        <div className="bg-slate-600 m-2 text-lg "><Timer /></div>
       </Tab.Group>
     </div>
   );

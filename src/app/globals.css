@@ -36,6 +36,14 @@ body {
   background: #092637;
 }
 
+body::-webkit-scrollbar {
+  background-color: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(red, green, blue);
+  border-radius: 10px;
+}
+
 .bold {
   font-family: NunitoSans-Bold;
 }
