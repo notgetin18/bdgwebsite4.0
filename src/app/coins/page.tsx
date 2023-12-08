@@ -7,14 +7,9 @@ import { api } from "@/api/DashboardServices";
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
 
-
-
 const Coins = () => {
   const [ProductList, setProductList] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("ALL");
-  const router = useRouter();
-  
-
 
   const getAllProducts = async (params: any) => {
     try {
@@ -26,7 +21,7 @@ const Coins = () => {
       if (response.status) {
         const coins = await funcForDecrypt(response.data.payload);
         const x = JSON.parse(coins);
-        console.log("x", x)
+        // console.log("x", x)
         setProductList(x.data);
       }
     } catch (error) {
@@ -39,16 +34,14 @@ const Coins = () => {
     getAllProducts("ALL");
   }, []);
 
-  // console.log("products", ProductList);
+  console.log("products", ProductList);
 
   const handleTabClick = (tab: "ALL" | "GOLD" | "SILVER") => {
     setActiveTab(tab);
     getAllProducts(tab);
   };
 
-  const gotoDetailPage = (item: any) => {
-    router.push("/coins/[slug]")
-  }
+
   return (
     <div className="container mx-auto coins_backgroun">
       <div className="flex justify-center items-center">
@@ -96,22 +89,25 @@ const Coins = () => {
         </div>
       </div>
 
-
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+
         {ProductList.map((item, index) => (
-          <div key={index} className=" py-4 rounded-md shadow-xl text-center coins_background transition-transform transform hover:scale-105 hover:shadow-2xl">
-            <div className="flex flex-col items-center">
-              <div>
-                <Image src={item.image.image} alt="coin image" width={150} height={90} />
+          <div key={index} className="py-4 rounded-md shadow-xl text-center coins_background transition-transform transform hover:scale-105 hover:shadow-2xl">
+            <div className={item.iteamtype === 'GOLD' ? 'bg-red-500' : 'bg-yellow-400'}>
+              <div className="flex flex-col items-center">
+                <div>
+                  <Image src={item.image.image} alt="coin image" width={150} height={90} />
+                </div>
+                <div className="mt-2 text-white">{item.name}</div>
+                <div className="text-gray-400 items-center">Making charges <span className="text-2xl font-bold ml-1">₹{item.makingcharges}</span></div>
+                <Link
+                  href={`/coins/${item.slug}`}
+                  className="m-2 bg-blue-100 rounded-2xl font-extrabold px-14 py-2">VIEW</Link>
               </div>
-              <div className="mt-2 text-white">{item.name}</div>
-              <div className="text-gray-400 items-center">Making charges <span className="text-2xl font-bold ml-1">₹{item.makingcharges}</span></div>
-              <Link
-                href={`/coins/${item.slug}`}
-                className="m-2 bg-blue-100 rounded-2xl font-extrabold   px-14 py-2">VIEW</Link>
             </div>
           </div>
         ))}
+
       </div>
     </div>
   );

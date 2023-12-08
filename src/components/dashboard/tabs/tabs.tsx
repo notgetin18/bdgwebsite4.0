@@ -5,9 +5,8 @@ import VaultTab from "../vaultTab/tabs";
 import GiftTab from "../giftTab/tabs";
 import ReferTab from "@/components/dashboard/refer/tabs";
 import Redeem from "../redeem/tabs";
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "@/components";
+
 const data = [
   { id: 1, name: "Orders" },
   { id: 2, name: "Vault" },
@@ -18,7 +17,7 @@ const data = [
 const DashboardTopTabs = () => {
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={1}>
+      <Tab.Group defaultIndex={2}>
         <Tab.List className="flex space-x-1 rounded-xl p-1">
           {data.map((category) => (
             <Tab

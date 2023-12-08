@@ -65,7 +65,7 @@ const Redeem = () => {
             getRewards(metal, status, page, size);
           })
           .catch(async (error) => {
-            const decryptedData =  AesDecrypt(error.response.data.payload);
+            const decryptedData = AesDecrypt(error.response.data.payload);
             let decryptedResponse = JSON.parse(decryptedData);
             Swal.fire("Oops!", decryptedResponse.message, "error");
           });
@@ -83,22 +83,22 @@ const Redeem = () => {
     getRewards(metal, e.target.value, 1, size);
   };
 
-  const updatePage = (e: any)=>{
+  const updatePage = (e: any) => {
     let moveTo = e.target.value;
     setPage(moveTo);
-    getRewards(metal,status,moveTo,size);
+    getRewards(metal, status, moveTo, size);
   }
-  
-  const nextPageHandler = () =>{
+
+  const nextPageHandler = () => {
     // log("nextPageHandler : ", page + 1);
-    setPage(page+1);
-    getRewards(metal,status,page+1,size);
+    setPage(page + 1);
+    getRewards(metal, status, page + 1, size);
   }
-  const prevPageHandler = () =>{
-    if(page > 1) {
+  const prevPageHandler = () => {
+    if (page > 1) {
       // log("nextPageHandler : ", page - 1);
-      setPage(page-1);
-      getRewards(metal,status,page-1,size);
+      setPage(page - 1);
+      getRewards(metal, status, page - 1, size);
     }
   }
 
@@ -148,7 +148,7 @@ const Redeem = () => {
         let dataToBeEncryptPayload = {
           userGiftingId: id,
         };
-        const resAfterEncryptData = await AesEncrypt(dataToBeEncryptPayload);
+        const resAfterEncryptData = AesEncrypt(dataToBeEncryptPayload);
         const payloadToSend = {
           payload: resAfterEncryptData,
         };
@@ -168,12 +168,13 @@ const Redeem = () => {
             const decryptedData = AesDecrypt(data.data.payload);
             console.log('decryptedData =======>>', decryptedData)
             console.log(typeof decryptedData)
+            // @ts-ignore
             Swal.fire("Success", decryptedData.message, "success");
             getRewards(metal, status, page, size);
           })
           .catch(async (error) => {
             getRewards(metal, status, page, size);
-            const decryptedData = await AesDecrypt(error.response.data.payload);
+            const decryptedData = AesDecrypt(error.response.data.payload);
             let decryptedResponse = JSON.parse(decryptedData);
             Swal.fire("Oops!", decryptedResponse.message, "error");
           });
@@ -190,16 +191,10 @@ const Redeem = () => {
     <div className="w-full">
       {/* <div className="border-1 w-2/5 mx-auto p-4 rounded-lg bg-themeLight flex items-center justify-center h-40"> */}
       {/* <p className="text-white">No Rewards Found</p> */}
-      <div className="col-12 col-md-9">
-        <div
-        // className={style.filterreward}
-        >
-          <div
-          // className={style.status}
-          >
-            <label
-            // className={style.fromTo}
-            >Metal</label>
+      <div className=" ">
+        <div className='flex flex-row items-center'>
+          <div className=''>
+            <label className='text-white m-3'>Metal</label>
             <select
               name="metal"
               id="metal"
@@ -213,17 +208,13 @@ const Redeem = () => {
               <option value="SILVER">SILVER</option>
             </select>
           </div>
-          <div
-          // className={style.status}
-          >
-            <label
-            // className={style.fromTo}
-            >Status</label>
+          <div className=''>
+            <label className='text-white ml-4'>Status</label>
             <select
               name="status"
               id="status"
               onChange={handleStatusChange}
-              style={{ cursor: "pointer" }}
+              className="text-black cursor-pointer m-3"
             >
               <option value="ALL" selected={true}>
                 All
@@ -235,37 +226,37 @@ const Redeem = () => {
           </div>
         </div>
       </div>
-      {itemList.length > 0 && 
-          <div className="col-12 col-md-3 mb-4">
-            <div 
-            // className={style.pagination_orders}
+      {itemList.length > 0 &&
+        <div className="col-12 col-md-3 mb-4">
+          <div
+          // className={style.pagination_orders}
+          >
+            {/* <div className={style.currentpage}>Current Page </div> */}
+            <div
+            // className={style.movetopage}
             >
-              {/* <div className={style.currentpage}>Current Page </div> */}
-              <div 
-              // className={style.movetopage}
+              <select
+                className="form-control"
+                onChange={updatePage}
+                value={page}
               >
-                <select
-                  className="form-control"
-                  onChange={updatePage}
-                  value={page}
-                >
-                  {itemList.map((number, index) => (
-                    <option key={index} value={number}>
-                      {number}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div 
-              // className={style.order_pagination}
-              >
-                {page > 1 && <div onClick={prevPageHandler}>Prev</div>}
-                {/* <div>{page}</div> */}
-                {page < totalPage && <div onClick={nextPageHandler}>Next</div>}
-              </div>
+                {itemList.map((number, index) => (
+                  <option key={index} value={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div
+            // className={style.order_pagination}
+            >
+              {page > 1 && <div onClick={prevPageHandler}>Prev</div>}
+              <div>{page}</div>
+              {page < totalPage && <div onClick={nextPageHandler}>Next</div>}
             </div>
           </div>
-          }
+        </div>
+      }
       {userRewards.length == 0 && (
         <div className="d-flex justify-content-center align-items-center nodata mt-2">
           <div style={{ textAlign: "center" }}> No Rewards Found</div>
