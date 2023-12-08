@@ -509,3 +509,6 @@ input:checked + .slider ~ .text-gold {
 .coins_backgroun {
   background-color: #0b2f47;
 }
+.rotate-silver {
+  transform: rotate(45deg); 
+}
