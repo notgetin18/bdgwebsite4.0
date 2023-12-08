@@ -2,24 +2,7 @@ import { AesDecrypt, AesEncrypt } from "@/components/helperFunctions";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-
-interface UserReward {
-  amount: number;
-  createdAt: string;
-  description: string;
-  expireAt: string;
-  gram: number;
-  itemType: string;
-  redeemAt: string;
-  rewardsType: string;
-  status: string;
-  updatedAt: string;
-  user_gifting_id: string;
-  user_id: string;
-  user_refer_id: string | null;
-  __v: number;
-  _id: string;
-}
+import { UserReward } from "@/types";
 
 const Redeem = () => {
   const [userRewards, setUserRewards] = useState<UserReward[]>([]);
@@ -166,7 +149,7 @@ const Redeem = () => {
           )
           .then(async (data) => {
             const decryptedData = AesDecrypt(data.data.payload);
-            console.log('decryptedData =======>>', decryptedData)
+            // console.log('decryptedData =======>>', decryptedData)
             console.log(typeof decryptedData)
             // @ts-ignore
             Swal.fire("Success", decryptedData.message, "success");
@@ -186,11 +169,9 @@ const Redeem = () => {
     getRewards(metal, status, page, size);
   }, []);
 
-  console.log('userRewards', userRewards)
+  // console.log('userRewards', userRewards)
   return (
     <div className="w-full">
-      {/* <div className="border-1 w-2/5 mx-auto p-4 rounded-lg bg-themeLight flex items-center justify-center h-40"> */}
-      {/* <p className="text-white">No Rewards Found</p> */}
       <div className=" ">
         <div className='flex flex-row items-center'>
           <div className=''>
@@ -229,12 +210,8 @@ const Redeem = () => {
       {itemList.length > 0 &&
         <div className="col-12 col-md-3 mb-4">
           <div
-          // className={style.pagination_orders}
           >
-            {/* <div className={style.currentpage}>Current Page </div> */}
-            <div
-            // className={style.movetopage}
-            >
+            <div>
               <select
                 className="form-control"
                 onChange={updatePage}
@@ -247,11 +224,9 @@ const Redeem = () => {
                 ))}
               </select>
             </div>
-            <div
-            // className={style.order_pagination}
-            >
+            <div>
               {page > 1 && <div onClick={prevPageHandler}>Prev</div>}
-              <div>{page}</div>
+              {/* <div>{page}</div> */}
               {page < totalPage && <div onClick={nextPageHandler}>Next</div>}
             </div>
           </div>
@@ -259,7 +234,7 @@ const Redeem = () => {
       }
       {userRewards.length == 0 && (
         <div className="d-flex justify-content-center align-items-center nodata mt-2">
-          <div style={{ textAlign: "center" }}> No Rewards Found</div>
+          <div style={{ textAlign: "center", color: "white" }}> No Rewards Found</div>
         </div>
       )}
       {userRewards.map((userRewards) => {

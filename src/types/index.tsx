@@ -72,3 +72,21 @@ export interface ShopState {
   metalQuantity: number | undefined,
   totalAmount: number | undefined,
 }
+
+export interface UserReward {
+  amount: number;
+  createdAt: string;
+  description: string;
+  expireAt: string;
+  gram: number;
+  itemType: string;
+  redeemAt: string;
+  rewardsType: string;
+  status: string;
+  updatedAt: string;
+  user_gifting_id: string;
+  user_id: string;
+  user_refer_id: string | null;
+  __v: number;
+  _id: string;
+}
