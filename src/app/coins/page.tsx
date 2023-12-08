@@ -1,10 +1,8 @@
 'use client'
 import { funcForDecrypt } from "@/components/helperFunctions";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { api } from "@/api/DashboardServices";
-import { useRouter } from 'next/navigation'
 import Link from "next/link";
 
 const Coins = () => {
@@ -34,7 +32,7 @@ const Coins = () => {
     getAllProducts("ALL");
   }, []);
 
-  console.log("products", ProductList);
+  // console.log("products", ProductList);
 
   const handleTabClick = (tab: "ALL" | "GOLD" | "SILVER") => {
     setActiveTab(tab);
@@ -90,10 +88,9 @@ const Coins = () => {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
-
         {ProductList.map((item, index) => (
           <div key={index} className="py-4 rounded-md shadow-xl text-center coins_background transition-transform transform hover:scale-105 hover:shadow-2xl">
-            <div className={item.iteamtype === 'GOLD' ? 'bg-red-500' : 'bg-yellow-400'}>
+            <div style={{ backgroundImage: `url(${item.iteamtype.toLowerCase() === 'gold' ? '/images/goldparticles.png' : '/images/silverparticles.png'})` }} className="bg-cover bg-center">
               <div className="flex flex-col items-center">
                 <div>
                   <Image src={item.image.image} alt="coin image" width={150} height={90} />
@@ -107,7 +104,6 @@ const Coins = () => {
             </div>
           </div>
         ))}
-
       </div>
     </div>
   );
