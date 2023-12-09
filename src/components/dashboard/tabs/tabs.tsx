@@ -17,7 +17,7 @@ const data = [
 const DashboardTopTabs = () => {
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={1}>
+      <Tab.Group defaultIndex={0}>
         <Tab.List className="flex space-x-1 rounded-xl p-1">
           {data.map((category) => (
             <Tab

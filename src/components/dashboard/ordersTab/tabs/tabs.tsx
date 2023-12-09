@@ -9,6 +9,7 @@ import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { format, startOfMonth, startOfYear, subYears } from "date-fns";
 import { useEffect, useState } from "react";
+import OrderDetails from "./orderDetails";
 
 const data = [
   { id: 1, name: "DIGITAL GOLD ₹(10)" },
@@ -33,6 +34,13 @@ const orders = [
 ];
 const OrdersTabs = () => {
   const [userDetails, setUserDetails] = useState("");
+  const [status, setStatus] = useState("ALL");
+  const [metalValue, setMetalValue] = useState("ALL");
+  const [transactionValue, setTransactionValue] = useState("ALL");
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(6);
+  const [dashboardData, setDashboardData] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<String>('');
   const [range, setRange] = useState([
     {
       startDate: '',
@@ -40,12 +48,6 @@ const OrdersTabs = () => {
       key: "selection",
     },
   ]);
-  const [status, setStatus] = useState("ALL");
-  const [metalValue, setMetalValue] = useState("ALL");
-  const [transactionValue, setTransactionValue] = useState("ALL");
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(9);
-  const [dashboardData, setDashboardData] = useState<any[]>([]);
 
 
 
@@ -119,12 +121,11 @@ const OrdersTabs = () => {
         console.log("allOrders : ", allOrders)
         setDashboardData(allOrders);
         if (allOrders.length > 0) {
-          // setActiveTab(allOrders[0]);
+          setActiveTab(allOrders[0]);
           // setPage(JSON.parse(decryptedData).data.currentPage)
           // setTotalPage(JSON.parse(decryptedData).data.totalPages)
           let itemList = Array.from({ length: JSON.parse(decryptedData).data.totalPages }, (_, index) => index + 1);
           // setItemList(itemList);
-
         } else {
           // setPage(0);
           // setSize(3);
@@ -132,18 +133,30 @@ const OrdersTabs = () => {
       })
       .catch((error) => console.error("errordata", error));
   };
-
   console.log('dashboardData =========> ', dashboardData)
+  const handleClick = (item: any) => {
+    setActiveTab(item)
+    // setActiveTab([...Object.entries(item)]);
+  };
+
+  useEffect(() => {
+    console.log('activeTab =====> ', activeTab);
+    if (activeTab.length > 0) {
+      console.log("activeTab Arr", activeTab[15]);
+    }
+  }, [activeTab]);
 
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={1}>
+      <Tab.Group defaultIndex={0}>
         <div className="grid grid-cols-5 gap-6">
-          <div className=" col-span-2 ">
+          <div className=" col-span-2 "
+          >
             <Tab.List className="rounded-xl p-1 ">
               {dashboardData.map((item, key) => (
                 <Tab
-                  // key={category}
+                  key={key}
+                  onClick={() => handleClick(item)}
                   className={({ selected }) =>
                     classNames(
                       "w-full border-2 rounded-lg py-2 text-sm font-medium leading-5 px-4 mb-2",
@@ -229,7 +242,6 @@ const OrdersTabs = () => {
                           </span>
                         </p>
                         <div>{item?.gram}gm</div>
-                        {/* {item?.status} */}
                         <div className="flex">
                           <span
                             className={`text-xs rounded-lg  py-1 mr-4 ${item?.status === "SUCCESS" || item?.status === "COMPLETED"
@@ -276,7 +288,9 @@ const OrdersTabs = () => {
             </div>
           </div>
           <Tab.Panels className=" col-span-3">
-            {data.map((category) => (
+            <div className="text-white"><OrderDetails orderDetails={activeTab} /></div>
+
+            {/* {data.map((category) => (
               <Tab.Panel
                 className={classNames(
                   "rounded-lg bg-themeLight",
@@ -315,7 +329,7 @@ const OrdersTabs = () => {
                   </tbody>
                 </table>
               </Tab.Panel>
-            ))}
+            ))} */}
           </Tab.Panels>
         </div>
         <div className="bg-slate-600 m-2 text-lg "><Timer /></div>

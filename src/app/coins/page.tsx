@@ -90,7 +90,7 @@ const Coins = () => {
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
         {ProductList.map((item, index) => (
           <div key={index} className="py-4 rounded-md shadow-xl text-center coins_background transition-transform transform hover:scale-105 hover:shadow-2xl">
-            <div style={{ backgroundImage: `url(${item.iteamtype.toLowerCase() === 'gold' ? '/images/goldparticles.png' : '/images/silverparticles.png'})` }} className="bg-cover bg-center">
+            <div style={{ backgroundImage: `url(${item.iteamtype.toLowerCase() === 'gold' ? '/images/goldparticles.png' : '/images/silverparticles.png'})` }} className="">
               <div className="flex flex-col items-center">
                 <div>
                   <Image src={item.image.image} alt="coin image" width={150} height={90} />
