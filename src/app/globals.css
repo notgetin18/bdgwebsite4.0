@@ -148,7 +148,12 @@ input[type="number"] {
   width: 0;
   height: 0;
 }
-
+.swiper-3d .swiper-slide-shadow-left {
+  background-image: none !important;
+}
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: none !important;
+}
 .slider {
   position: absolute;
   cursor: pointer;
@@ -510,5 +515,5 @@ input:checked + .slider ~ .text-gold {
   background-color: #0b2f47;
 }
 .rotate-silver {
-  transform: rotate(45deg); 
+  transform: rotate(45deg);
 }
