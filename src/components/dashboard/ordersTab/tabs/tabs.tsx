@@ -4,41 +4,19 @@ import Timer from "@/components/globalTimer";
 import { AesEncrypt, formatString, funcForDecrypt } from "@/components/helperFunctions";
 import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { format, startOfMonth, startOfYear, subYears } from "date-fns";
 import { useEffect, useState } from "react";
 import OrderDetails from "./orderDetails";
 
-const data = [
-  { id: 1, name: "DIGITAL GOLD ₹(10)" },
-  { id: 2, name: "DIGITAL GOLD ₹(8)" },
-  { id: 3, name: "DIGITAL GOLD ₹(7)" },
-  { id: 4, name: "DIGITAL GOLD ₹(10)" },
-  { id: 5, name: "DIGITAL GOLD ₹(100)" },
-];
-const orders = [
-  { heading: "Order Number :", name: "BDG2314012037037" },
-  { heading: "Order Date :", name: "2023-02-14 12:17 PM" },
-  { heading: "Order Status :", name: "FAILED" },
-  { heading: "Transaction Type :", name: "BUY" },
-  { heading: "Product Name :", name: "24K GOLD" },
-  { heading: "Rate per Grams :", name: "5827.50" },
-  { heading: "Purchase Weight :", name: "0" },
-  { heading: "Coupon Code :", name: "BDG1" },
-  { heading: "Coupon Weight :", name: "15.0000" },
-  { heading: "Applied Tax :", name: "(1.5% CGST + 1.5% SGST)" },
-  { heading: "Tax Amount:", name: "₹ 2484.55" },
-  // More people...
-];
 const OrdersTabs = () => {
   const [userDetails, setUserDetails] = useState("");
   const [status, setStatus] = useState("ALL");
   const [metalValue, setMetalValue] = useState("ALL");
   const [transactionValue, setTransactionValue] = useState("ALL");
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(10);
   const [dashboardData, setDashboardData] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<String>('');
   const [range, setRange] = useState([
@@ -136,7 +114,6 @@ const OrdersTabs = () => {
   console.log('dashboardData =========> ', dashboardData)
   const handleClick = (item: any) => {
     setActiveTab(item)
-    // setActiveTab([...Object.entries(item)]);
   };
 
   useEffect(() => {
@@ -168,69 +145,69 @@ const OrdersTabs = () => {
                   }
                 >
                   <div className="flex justify-between ">
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-between ">
                       {/* gold coin image */}
                       {item?.orderType === "PRODUCT" && item?.itemType === 'GOLD' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://cdn4.vectorstock.com/i/1000x1000/23/78/gold-coin-vector-2272378.jpg"
                       />}
                       {/* silver coin image */}
                       {item?.orderType === "PRODUCT" && item?.itemType === 'SILVER' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://cf-cdn.pcjeweller.com/public/uploads/catalog/product/custom/s/SCGL00050-1__654735669.jpg"
                       />}
                       {/* digital gold BUY image */}
                       {item?.orderType === "BUY" && item?.itemType === 'GOLD' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://www.blog1.trymintly.com/wp-content/uploads/2022/08/Digital-Gold-1.jpg"
                       />}
                       {/* digital gold SELL image */}
                       {item?.orderType === "SELL" && item?.itemType === 'GOLD' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://cdn4.vectorstock.com/i/1000x1000/23/78/gold-coin-vector-2272378.jpg"
                       />}
                       {/* digital silver BUY  image */}
                       {item?.orderType === "BUY" && item?.itemType === 'SILVER' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://imgnew.outlookindia.com/uploadimage/library/16_9/16_9_2/IMAGE_1674541554.webp"
                       />}
                       {/* digital silver SELL  image */}
                       {item?.orderType === "SELL" && item?.itemType === 'SILVER' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://imgnew.outlookindia.com/uploadimage/library/16_9/16_9_2/IMAGE_1674541554.webp"
                       />}
                       {/*reward digital silver  image */}
                       {item?.orderType === "REWARD" && item?.itemType === 'SILVER' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://img.freepik.com/premium-vector/achievement-trophy-flat-vector-illustration-banner_128772-725.jpg"
                       />}
                       {/*reward digital gold  image */}
                       {item?.orderType === "REWARD" && item?.itemType === 'GOLD' && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://img.freepik.com/premium-vector/achievement-trophy-flat-vector-illustration-banner_128772-725.jpg"
                       />}
                       {/*GIFT  image */}
                       {item?.orderType === "GIFT" && <img
                         alt="gold-logo"
-                        className="h-6 mr-6"
+                        className="h-6"
                         src="https://cityfurnish.com/blog/wp-content/uploads/2023/07/wrapped-gift-box-with-shiny-gold-decoration-generated-by-ai-min-1200x900.jpg"
                       />}
                     </div>
                     <div className="flex flex-col justify-between items-center">
                       <div className="flex flex-col  items-start ">
-                        <p className="flex flex-row">
+                        <div className="flex flex-row">
                           {item?.orderType !== "REWARD" && (
-                            <span className="p-1">{formatString(item?.itemType)}</span>
+                            <span className="">{formatString(item?.itemType)}</span>
                           )}
-                          <span className="p-1">
+                          <span className="ml-1">
                             {item?.orderType === "PRODUCT" && <p>Coin Purchase</p>}
                             {item?.orderType === "REWARD" && "Promotional " + formatString(item?.itemType)}
                             {item?.orderType === "BUY" && <p>Purchase</p>}
@@ -240,8 +217,8 @@ const OrdersTabs = () => {
                             {item?.orderType === "GIFT" &&
                               item?.rewardsType === "RECEIVED" && <p>Gift Received</p>}
                           </span>
-                        </p>
-                        <div>{item?.gram}gm</div>
+                        </div>
+                        <div>{item?.gram} gm</div>
                         <div className="flex">
                           <span
                             className={`text-xs rounded-lg  py-1 mr-4 ${item?.status === "SUCCESS" || item?.status === "COMPLETED"
@@ -254,9 +231,7 @@ const OrdersTabs = () => {
                               }`}
                           >
                             {item?.status}
-
                           </span>
-                          {/* <ArrowRightIcon className="h-5" /> */}
                         </div>
                       </div>
                     </div>
@@ -272,6 +247,9 @@ const OrdersTabs = () => {
                         hour: "numeric",
                         minute: "numeric",
                       })}</p>
+                    </div>
+                    <div>
+                      <ArrowRightIcon className="h-5" />
                     </div>
                   </div>
                 </Tab>

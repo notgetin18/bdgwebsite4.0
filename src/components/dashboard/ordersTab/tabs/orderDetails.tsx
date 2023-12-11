@@ -58,7 +58,7 @@ const OrderDetails = (props: any) => {
                         </div>
                         <div className='px-2'>
                             {props?.orderDetails?.orderType === "PRODUCT" && formatString(props?.orderDetails?.itemType) + " Coin Purchase"}
-                            {props?.orderDetails?.orderType === "REWARD" && "Promotional" + formatString(props?.orderDetails?.itemType) + " Received"}
+                            {props?.orderDetails?.orderType === "REWARD" && "Promotional " + formatString(props?.orderDetails?.itemType) + " Received"}
                             {props?.orderDetails?.orderType === "BUY" && formatString(props?.orderDetails?.itemType) + " Purchase"}
                             {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
                             {props?.orderDetails?.orderType === "GIFT" &&
@@ -66,7 +66,7 @@ const OrderDetails = (props: any) => {
                             {props?.orderDetails?.orderType === "GIFT" &&
                                 props?.orderDetails?.rewardsType === "RECEIVED" && (formatString(`${props?.orderDetails?.itemType}`) + " Gift Received")}
                         </div>
-                    </div>uy
+                    </div>
                     <div>
                         <p>{new Date(props.orderDetails?.updatedAt).toLocaleDateString("en-IN", {
                             day: "2-digit",
