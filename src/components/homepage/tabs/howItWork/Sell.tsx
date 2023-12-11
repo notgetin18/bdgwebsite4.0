@@ -5,11 +5,11 @@ const SellTab: FC<{}> = () => {
     <Fragment>
       {/* <p className="text-center text-xl text-white mt-4">It is easy!</p> */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 mt-8 mont-font relative">
-        <img
+        {/* <img
           src="https://imagesbdg.sgp1.digitaloceanspaces.com/cf340772-ef49-4333-bd48-0f380674d17d"
           alt="gold price in india"
           className="abs-001"
-        />
+        /> */}
         <div>
           <p className="text-dark-blue text-md font-bold text-center my-2">
             Step 1

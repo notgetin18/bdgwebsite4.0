@@ -41,7 +41,7 @@ const Products = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           <motion.div
-            variants={fadeIn("right", "spring", 0.5, 0.75)}
+            variants={fadeIn("right", "spring", 0.75, 0.75)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
@@ -127,7 +127,7 @@ const Products = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn("right", "spring", 1.5, 1.25)}
+            variants={fadeIn("right", "spring", 1.25, 1.25)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
@@ -172,7 +172,7 @@ const Products = () => {
             </Link>
           </motion.div>
           <motion.div
-            variants={fadeIn("right", "spring", 2.0, 1.5)}
+            variants={fadeIn("right", "spring", 1.5, 1.5)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
