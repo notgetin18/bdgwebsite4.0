@@ -76,7 +76,6 @@ const BuySell = () => {
   const metalPricePerGram = useSelector(
     (state: RootState) => state.shop.metalPrice
   );
-  console.log("metalPricePerGram", metalPricePerGram);
 
   const handleApplyCoupon = (coupon: any, amount: any) => {
     dispatch(
@@ -94,39 +93,11 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  // useEffect(() => {
-  //   console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
-  //   console.table({
-  //     purchaseType,
-  //     actualAmount,
-  //     gst,
-  //     metalType,
-  //     transactionType,
-  //     metalPricePerGram,
-  //     totalAmount,
-  //     enteredAmount,
-  //     metalQuantity,
-  //   });
-  // }, [
-  //   error,
-  //   appliedCouponCode,
-  //   extraGoldOfRuppess,
-  //   extraGold,
-  //   purchaseType,
-  //   actualAmount,
-  //   gst,
-  //   totalAmount,
-  //   metalType,
-  //   transactionType,
-  //   metalPricePerGram,
-  //   enteredAmount,
-  //   metalQuantity,
-  // ]);
 
-  // useEffect(() => {
-  //   console.log("metalPricePerGram", metalPricePerGram)
-  //   // console.log("goldData", goldData)
-  // }, [metalPricePerGram]);
+
+  useEffect(() => {
+    dispatch(setMetalType('gold'));
+  }, []);
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -159,7 +130,6 @@ const BuySell = () => {
     2
   );
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
-  // console.log('actualPurchasingInGm', actualPurchasingInGm)
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4);
@@ -212,7 +182,7 @@ const BuySell = () => {
     } else {
       dispatch(setMetalPrice(silverData.salePrice));
     }
-  }, [isgold, activeTab]);
+  }, [isgold, activeTab, toggleMetal]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -224,6 +194,36 @@ const BuySell = () => {
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
+    console.table({
+      purchaseType,
+      actualAmount,
+      gst,
+      metalType,
+      transactionType,
+      metalPricePerGram,
+      totalAmount,
+      enteredAmount,
+      metalQuantity,
+    });
+  }, [
+    error,
+    appliedCouponCode,
+    extraGoldOfRuppess,
+    extraGold,
+    purchaseType,
+    actualAmount,
+    gst,
+    totalAmount,
+    metalType,
+    transactionType,
+    metalPricePerGram,
+    enteredAmount,
+    metalQuantity,
+    toggleMetal
+  ]);
+
   return (
     <>
       <div>
@@ -231,11 +231,10 @@ const BuySell = () => {
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2  ">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${
-                  activeTab === "buy"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -243,11 +242,10 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${
-                  activeTab === "sell"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -315,11 +313,10 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${
-                          goldData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${goldData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -330,11 +327,10 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${
-                          silverData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${silverData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -418,21 +414,19 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "rupees"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white"
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "rupees"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white"
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "grams"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white "
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "grams"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white "
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In grams" : "In grams"}
@@ -480,8 +474,8 @@ const BuySell = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                        ? ""
-                        : totalAmount
+                          ? ""
+                          : totalAmount
                     }
                     readOnly
                   />

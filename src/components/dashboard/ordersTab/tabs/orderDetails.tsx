@@ -66,7 +66,7 @@ const OrderDetails = (props: any) => {
                             {props?.orderDetails?.orderType === "GIFT" &&
                                 props?.orderDetails?.rewardsType === "RECEIVED" && (formatString(`${props?.orderDetails?.itemType}`) + " Gift Received")}
                         </div>
-                    </div>
+                    </div>uy
                     <div>
                         <p>{new Date(props.orderDetails?.updatedAt).toLocaleDateString("en-IN", {
                             day: "2-digit",
