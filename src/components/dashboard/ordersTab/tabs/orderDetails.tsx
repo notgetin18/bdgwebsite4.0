@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const OrderDetails = (props: any) => {
-    console.log('props', props);
+    // console.log('props', props);
     return (
         <div className='coins_background rounded-lg shadow-black shadow-xl p-3'>
             <div>

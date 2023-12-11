@@ -7,7 +7,7 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { format, startOfMonth, startOfYear, subYears } from "date-fns";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import OrderDetails from "./orderDetails";
 
 const OrdersTabs = () => {
@@ -16,7 +16,7 @@ const OrdersTabs = () => {
   const [metalValue, setMetalValue] = useState("ALL");
   const [transactionValue, setTransactionValue] = useState("ALL");
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(5);
   const [dashboardData, setDashboardData] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<String>('');
   const [range, setRange] = useState([
@@ -26,6 +26,9 @@ const OrdersTabs = () => {
       key: "selection",
     },
   ]);
+  const [totalPage, setTotalPage] = useState(1);
+  const [itemList, setItemList] = useState<any[]>([]);
+
 
 
 
@@ -76,7 +79,6 @@ const OrdersTabs = () => {
       },
     };
 
-    // log(`page =${page} : size=${size} selectDate = ${selectDate} : fromDate = ${fromDate} : transaction = ${transaction} : orderStatus = ${orderStatus} : metal = ${metal} `)
 
     const data = {
       to_Date: selectDate,
@@ -101,9 +103,9 @@ const OrdersTabs = () => {
         if (allOrders.length > 0) {
           setActiveTab(allOrders[0]);
           // setPage(JSON.parse(decryptedData).data.currentPage)
-          // setTotalPage(JSON.parse(decryptedData).data.totalPages)
+          setTotalPage(JSON.parse(decryptedData).data.totalPages)
           let itemList = Array.from({ length: JSON.parse(decryptedData).data.totalPages }, (_, index) => index + 1);
-          // setItemList(itemList);
+          setItemList(itemList);
         } else {
           // setPage(0);
           // setSize(3);
@@ -111,20 +113,133 @@ const OrdersTabs = () => {
       })
       .catch((error) => console.error("errordata", error));
   };
-  console.log('dashboardData =========> ', dashboardData)
+  // console.log('dashboardData =========> ', dashboardData)
   const handleClick = (item: any) => {
     setActiveTab(item)
   };
 
-  useEffect(() => {
-    console.log('activeTab =====> ', activeTab);
-    if (activeTab.length > 0) {
-      console.log("activeTab Arr", activeTab[15]);
+  const handleStatusChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setStatus(value);
+    const formattedEndDate = range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '';
+    const formattedStartDate = range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '';
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
+      e.target.value,
+      metalValue,
+      transactionValue,
+      page,
+      size
+    );
+  };
+
+  const handleMetalChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setMetalValue(value);
+    const formattedEndDate = range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '';
+    const formattedStartDate = range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '';
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
+      status,
+      value,
+      transactionValue,
+      page,
+      size
+    );
+  };
+
+  const handleTransactionChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setTransactionValue(value);
+    const formattedEndDate = range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '';
+    const formattedStartDate = range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '';
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
+      status,
+      metalValue,
+      e.target.value,
+      page,
+      size
+    );
+  };
+
+  const updatePage = (e: any) => {
+    let moveTo = e.target.value;
+    setPage(moveTo);
+    (range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '', status, metalValue, transactionValue, moveTo, size);
+  }
+
+  const nextPageHandler = () => {
+    setPage(page + 1);
+    (range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '', status, metalValue, transactionValue, page + 1, size);
+  }
+  const prevPageHandler = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      (range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '', status, metalValue, transactionValue, page - 1, size);
     }
-  }, [activeTab]);
+  }
 
   return (
     <div className="w-full">
+      <div className="flex flex-row text-white items-center justify-between">
+        <div>
+          <div>Status</div>
+          <select
+            name="status"
+            id="status"
+            className="cursor-pointer text-black"
+            onChange={(e) => { handleStatusChange(e) }}
+          >
+            <option value="ALL" selected={true}>ALL</option>
+            <option value="PENDING" className="cursor-pointer">Pending</option>
+            <option value="CANCELLED" className="cursor-pointer">Cancel</option>
+            <option value="SUCCESS" className="cursor-pointer">Success</option>
+            <option value="FAILED" className="cursor-pointer">Failed</option>
+          </select>
+        </div>
+        <div>
+          <div>Metal</div>
+          <select
+            name="metal"
+            id="metal"
+            onChange={(e) => { handleMetalChange(e) }}
+            className="text-black "
+          >
+            <option value="ALL" selected={true}>
+              All
+            </option>
+            <option value="GOLD">GOLD</option>
+            <option value="SILVER">SILVER</option>
+          </select>
+        </div>
+        <div>
+          <div>Select Date</div>
+        </div>
+
+        <div>
+          <div>Transaction Type</div>
+          <select
+            name="status"
+            id="status"
+            onChange={(e) => { handleTransactionChange(e) }}
+            className="text-black "
+
+          >
+            <option value="ALL" selected={true}>
+              All
+            </option>
+            <option value="BUY">BUY</option>
+            <option value="SELL">SELL</option>
+            <option value="PRODUCT">COINS</option>
+            <option value="GIFT">GIFT</option>
+            <option value="REWARD">REWARD</option>
+          </select>
+        </div>
+      </div>
       <Tab.Group defaultIndex={0}>
         <div className="grid grid-cols-5 gap-6">
           <div className=" col-span-2 "
@@ -136,11 +251,11 @@ const OrdersTabs = () => {
                   onClick={() => handleClick(item)}
                   className={({ selected }) =>
                     classNames(
-                      "w-full border-2 rounded-lg py-2 text-sm font-medium leading-5 px-4 mb-2",
-                      "focus:outline-none border-2",
+                      "w-full rounded-lg py-2 text-sm font-medium leading-5 px-4 mb-2",
+                      "focus:outline-none",
                       selected
-                        ? "bg-themeLight  text-white shadow border-2"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white border-2"
+                        ? "coins_background bg-themeLight  text-white shadow"
+                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white bg-themeLight"
                     )
                   }
                 >
@@ -257,11 +372,24 @@ const OrdersTabs = () => {
             </Tab.List>
             <div className="flex justify-between items-center bg-themeLight p-4 rounded-xl text-white">
               <p>Current Page</p>
-              <p className="bg-themeLight px-6 py-1 rounded">1</p>
+              <p className="bg-themeLight px-6 py-1 rounded text-black ">
+                <select className="cursor-pointer" onChange={updatePage} value={page}>
+                  {
+                    itemList.map((number, index) => (
+                      <option key={index} value={number}>{number}</option>
+                    ))}
+                </select>
+              </p>
               <div className="flex">
-                <button className="bg-themeLight px-2 py-1 rounded">
-                  next
-                </button>
+                {page > 1 && <button className="bg-themeLight px-2 py-1 rounded mr-2" onClick={prevPageHandler}>Prev</button>}
+                {page < totalPage && <button className="bg-themeLight px-2 py-1 rounded"
+                  onClick={(event: any) => {
+                    event.preventDefault();
+                    nextPageHandler()
+                  }}
+                >
+                  Next
+                </button>}
               </div>
             </div>
           </div>
