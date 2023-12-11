@@ -1,3 +1,4 @@
+import { formatString } from '@/components/helperFunctions';
 import { ArrowDownIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import React from 'react';
@@ -11,9 +12,26 @@ const OrderDetails = (props: any) => {
                 <div className='flex justify-between pb-3'>
                     <div className='flex items-center'>
                         <div>
-                            <img src='https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png' alt='' className='' width={40} />
+                            {props?.orderDetails?.status === "SUCCESS" || props?.orderDetails?.status === "COMPLETED" ? (
+                                <img src='https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png' alt='' className='' width={40} />
+                            ) : props?.orderDetails?.status === "PENDING" ? (
+                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Yellow_question_mark.svg/1200px-Yellow_question_mark.svg.png' alt='' className='' width={30} />
+                            ) : (
+                                <img src='https://static.vecteezy.com/system/resources/previews/017/178/032/original/round-cross-mark-symbol-with-transparent-background-free-png.png' alt='' className='' width={40} />
+                            )}
                         </div>
-                        <div>Payment Successful</div>
+                        <p className="flex flex-row">
+                            <span className="p-1">
+                                {props?.orderDetails?.orderType === "PRODUCT" && <p>Coin Purchase</p>}
+                                {props?.orderDetails?.orderType === "REWARD" && "Promotional " + formatString(props?.orderDetails?.itemType)}
+                                {props?.orderDetails?.orderType === "BUY" && <p>Purchase</p>}
+                                {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
+                                {props?.orderDetails?.orderType === "GIFT" &&
+                                    props?.orderDetails?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                                {props?.orderDetails?.orderType === "GIFT" &&
+                                    props?.orderDetails?.rewardsType === "RECEIVED" && <p>Gift Received</p>}
+                            </span>
+                        </p>
                     </div>
                     <div>
                         <p>{new Date(props.orderDetails?.createdAt).toLocaleDateString("en-IN", {
@@ -29,18 +47,24 @@ const OrderDetails = (props: any) => {
                 </div>
                 <div className='flex justify-between pb-3'>
                     <div className='flex items-center'>
-                        <div>
-                            <img src='https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png' alt='' className='' width={40} />
+                        <div className=''>
+                            {props?.orderDetails?.status === "SUCCESS" || props?.orderDetails?.status === "COMPLETED" ? (
+                                <img src='https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png' alt='' className='' width={40} />
+                            ) : props?.orderDetails?.status === "PENDING" ? (
+                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Yellow_question_mark.svg/1200px-Yellow_question_mark.svg.png' alt='' className='' width={30} />
+                            ) : (
+                                <img src='https://static.vecteezy.com/system/resources/previews/017/178/032/original/round-cross-mark-symbol-with-transparent-background-free-png.png' alt='' className='' width={40} />
+                            )}
                         </div>
-                        <div>
-                            {props.orderDetails?.orderType === "PRODUCT" && <p>{props?.orderDetails?.itemType.toLowerCase().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} Coin Purchase</p>}
-                            {props.orderDetails?.orderType === "REWARD" && <p>Promotional {props?.orderDetails?.itemType.toLowerCase().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</p>}
-                            {props.orderDetails?.orderType === "BUY" && <p>{props?.orderDetails?.itemType.toLowerCase().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')} Purchase</p>}
-                            {props.orderDetails?.orderType === "SELL" && <p>Sold</p>}
-                            {props.orderDetails?.orderType === "GIFT" &&
-                                props?.rewardsType?.orderType === "SEND" && <p>Gift Sent</p>}
-                            {props.orderDetails?.orderType === "GIFT" &&
-                                props?.rewardsType?.orderType === "RECEIVED" && <p>Gift Received</p>}
+                        <div className='px-2'>
+                            {props?.orderDetails?.orderType === "PRODUCT" && formatString(props?.orderDetails?.itemType) + " Coin Purchase"}
+                            {props?.orderDetails?.orderType === "REWARD" && "Promotional" + formatString(props?.orderDetails?.itemType) + " Received"}
+                            {props?.orderDetails?.orderType === "BUY" && formatString(props?.orderDetails?.itemType) + " Purchase"}
+                            {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
+                            {props?.orderDetails?.orderType === "GIFT" &&
+                                props?.orderDetails?.rewardsType === "SEND" && (formatString(`${props?.orderDetails?.itemType}`) + " Gift Sent")}
+                            {props?.orderDetails?.orderType === "GIFT" &&
+                                props?.orderDetails?.rewardsType === "RECEIVED" && (formatString(`${props?.orderDetails?.itemType}`) + " Gift Received")}
                         </div>
                     </div>
                     <div>

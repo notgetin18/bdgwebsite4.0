@@ -1,7 +1,7 @@
 "use client";
 import { classNames } from "@/components";
 import Timer from "@/components/globalTimer";
-import { AesEncrypt, funcForDecrypt } from "@/components/helperFunctions";
+import { AesEncrypt, formatString, funcForDecrypt } from "@/components/helperFunctions";
 import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 
@@ -228,11 +228,11 @@ const OrdersTabs = () => {
                       <div className="flex flex-col  items-start ">
                         <p className="flex flex-row">
                           {item?.orderType !== "REWARD" && (
-                            <span className="p-1">{item?.itemType}</span>
+                            <span className="p-1">{formatString(item?.itemType)}</span>
                           )}
                           <span className="p-1">
                             {item?.orderType === "PRODUCT" && <p>Coin Purchase</p>}
-                            {item?.orderType === "REWARD" && <p>Promotional {item?.itemType}</p>}
+                            {item?.orderType === "REWARD" && "Promotional " + formatString(item?.itemType)}
                             {item?.orderType === "BUY" && <p>Purchase</p>}
                             {item?.orderType === "SELL" && <p>Sold</p>}
                             {item?.orderType === "GIFT" &&
@@ -287,49 +287,8 @@ const OrdersTabs = () => {
               </div>
             </div>
           </div>
-          <Tab.Panels className=" col-span-3">
+          <Tab.Panels className="col-span-3">
             <div className="text-white"><OrderDetails orderDetails={activeTab} /></div>
-
-            {/* {data.map((category) => (
-              <Tab.Panel
-                className={classNames(
-                  "rounded-lg bg-themeLight",
-                  "focus:outline-none"
-                )}
-              >
-                <table className="min-w-full">
-                  <tbody className="divide-y divide-gray-600">
-                    {orders.map((order) => (
-                      <tr key={order.heading}>
-                        <td className="px-3 py-3 text-sm text-themeBlue sm:table-cell">
-                          {order.heading}
-                        </td>
-                        <td className="px-3 py-3 text-sm text-white">
-                          {order.name}
-                        </td>
-                      </tr>
-                    ))}
-                    <tr>
-                      <td className="px-3 py-3 text-sm text-gold01 sm:table-cell">
-                        Total Invoice Value :
-                      </td>
-                      <td className="px-3 py-3 text-sm text-gold01">
-                        ₹ 2484.55
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="px-3 py-3 sm:table-cell" colSpan={2}>
-                        <button className="text-center text-sm text-gold01 border-2 px-4 py-1 rounded-lg w-full border-yellow-500">
-                          <DocumentArrowDownIcon className="h-7 inline-block" />{" "}
-                          Download Invoice
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Tab.Panel>
-            ))} */}
           </Tab.Panels>
         </div>
         <div className="bg-slate-600 m-2 text-lg "><Timer /></div>

@@ -247,9 +247,9 @@ const Redeem = () => {
               </div>
               <div className="ml-8">
                 {userRewards.status == "PENDING" && (
-                  <div className="d-flex flex-row">
+                  <div className="d-flex flex">
                     <div
-                      className='border-yellow-500 rounded-lg border-2 cursor-pointer p-3'
+                      className='border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3'
                       onClick={() => redeemReward(userRewards._id)}
                     >
                       Redeem

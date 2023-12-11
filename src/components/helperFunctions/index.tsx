@@ -1,4 +1,7 @@
 import CryptoJS from 'crypto-js';
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -62,9 +65,15 @@ export function ParseFloat(str: any, val: any) {
   return Number(str);
 }
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+export function formatString(inputString: string): string {
+  return inputString
+    .toLowerCase()
+    .split(' ')
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
 
 export const Card = ({ title, description, imageUrl, linkTo }: any) => {
   const formattedDescription = description.replace(/LIMITED/g, 'LIMITED<br />');
