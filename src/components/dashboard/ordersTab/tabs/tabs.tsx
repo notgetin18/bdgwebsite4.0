@@ -6,9 +6,12 @@ import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
-import { format, startOfMonth, startOfYear, subYears } from "date-fns";
-import { ChangeEvent, useEffect, useState } from "react";
+import { addDays, format, startOfMonth, startOfYear, subYears } from "date-fns";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import OrderDetails from "./orderDetails";
+import { DateRangePicker } from "react-date-range";
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
 
 const OrdersTabs = () => {
   const [userDetails, setUserDetails] = useState("");
@@ -19,17 +22,45 @@ const OrdersTabs = () => {
   const [size, setSize] = useState(5);
   const [dashboardData, setDashboardData] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<String>('');
-  const [range, setRange] = useState([
-    {
-      startDate: '',
-      endDate: '',
-      key: "selection",
-    },
-  ]);
   const [totalPage, setTotalPage] = useState(1);
   const [itemList, setItemList] = useState<any[]>([]);
 
+  const [range, setRange] = useState([
+    {
+      startDate: new Date("2023/01/01"),
+      endDate: addDays(new Date(), 7),
+      key: 'selection'
+    }
+  ])
 
+  // open close
+  const [open, setOpen] = useState(false)
+
+  // get the target element to toggle 
+  const refOne = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // event listeners
+    document.addEventListener("keydown", hideOnEscape, true)
+    document.addEventListener("click", hideOnClickOutside, true)
+  }, [])
+
+  // hide dropdown on ESC press
+  const hideOnEscape = (e: { key: string; }) => {
+    // console.log(e.key)
+    if (e.key === "Escape") {
+      setOpen(false)
+    }
+  }
+
+  // Hide dropdown on outside click
+  const hideOnClickOutside = (e: any) => {
+    // console.log(refOne.current)
+    // console.log(e.target)
+    if (refOne.current && !refOne.current.contains(e.target)) {
+      setOpen(false)
+    }
+  }
 
 
   useEffect(() => {
@@ -166,6 +197,23 @@ const OrdersTabs = () => {
     );
   };
 
+  const updateCalender = (item: any) => {
+    setRange([item.selection])
+    const formattedEndDate = range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '';
+    const formattedStartDate = range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '';
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
+      status,
+      metalValue,
+      transactionValue,
+      page,
+      size
+    );
+  };
+
+  console.log('range: ', range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '')
+
   const updatePage = (e: any) => {
     let moveTo = e.target.value;
     setPage(moveTo);
@@ -217,7 +265,27 @@ const OrdersTabs = () => {
           </select>
         </div>
         <div>
-          <div>Select Date</div>
+          <div className="">Select Date</div>
+          <input
+            value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
+            readOnly
+            className="inputBox text-black"
+            onClick={() => setOpen(open => !open)}
+          />
+
+          <div ref={refOne}>
+            {open &&
+              <DateRangePicker
+                onChange={(e) => { updateCalender(e) }}
+                editableDateInputs={true}
+                moveRangeOnFirstSelection={false}
+                ranges={range}
+                months={1}
+                direction="horizontal"
+                className="calendarElement text-black"
+              />
+            }
+          </div>
         </div>
 
         <div>
