@@ -229,7 +229,7 @@ const BuySell = () => {
       <div>
         <div className="block lg:pl-28">
           <div className="tab-bg  rounded-b-lg relative">
-            <div className="grid grid-cols-2  ">
+            <div className="grid grid-cols-2">
               <div
                 className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
                   ? "bg-themeLight text-white active"
@@ -266,14 +266,6 @@ const BuySell = () => {
                 </div>
                 <div>
                   <p className="text-white text-sm pl-6 mt-6 relative">
-                    {/* <img
-                      className="h-4 inline-block mr-1"
-                      src={new URL(
-                        "../../../public/live.png",
-                        import.meta.url
-                      ).toString()}
-                      alt="Your Company"
-                    /> */}
                     <Lottie
                       animationData={live}
                       className="h-6 absolute"
@@ -345,30 +337,11 @@ const BuySell = () => {
                       Since Yesterday
                     </p>
                   </p>
-
-                  {/* <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    <div className="pl-1"></div>
-                  </p> */}
                 </div>
               </div>
               <div className="mt-20 sm:mt-10">
                 <div className="flex justify-end pr-4 sm:pr-12">
-                  {/* <Image
-                    className={`coin_transition ${
-                      isgold
-                        ? "gold_coin h-16 w-16 sm:h-28 sm:w-28"
-                        : "silver_coin w-16 sm:h-28 sm:w-28"
-                    }`}
-                    src={
-                      isgold
-                        ? "/silvercoin.png"
-                        : "https://www.brightdigigold.com/images/Masksilver.svg"
-                    }
-                    alt="coin image"
-                    loading="lazy"
-                    width={100}
-                    height={100}
-                  /> */}
+
                   {metalType === "gold" ? (
                     <Lottie
                       animationData={goldBarData}
@@ -388,7 +361,6 @@ const BuySell = () => {
             </div>
             {purchaseType === "sell" && (
               <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-4 items-center justify-between">
-                {/* <img src="/silvercoin.png" className="h-8" /> */}
                 <Lottie
                   animationData={animationData}
                   className="h-40 left-5 absolute"
