@@ -17,6 +17,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 
 
 const OrdersTabs = () => {
+  const year = new Date().getFullYear();
   const [userDetails, setUserDetails] = useState("");
   const [status, setStatus] = useState("ALL");
   const [metalValue, setMetalValue] = useState("ALL");
@@ -29,7 +30,7 @@ const OrdersTabs = () => {
   const [itemList, setItemList] = useState<any[]>([]);
   const [range, setRange] = useState([
     {
-      startDate: new Date("2023/01/01"),
+      startDate: new Date(`${year}/${1}/${1}`),
       endDate: addDays(new Date(), 7),
       key: 'selection'
     }
@@ -261,7 +262,7 @@ const OrdersTabs = () => {
               className="inputBox text-white cursor-pointer "
               onClick={() => setOpen(open => !open)}
             />
-            <FaCalendarAlt className="calendar-icon-to cursor-pointer" size={26} />
+            <FaCalendarAlt className="calendar-icon-to cursor-pointer" onClick={() => setOpen(open => !open)} size={26} />
           </div>
           <div ref={refOne}>
             {open &&
