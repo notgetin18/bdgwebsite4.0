@@ -4,7 +4,6 @@ import Timer from "@/components/globalTimer";
 import { AesEncrypt, formatString, funcForDecrypt } from "@/components/helperFunctions";
 import { Tab } from "@headlessui/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { addDays, format, startOfMonth, startOfYear, subYears } from "date-fns";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -12,7 +11,6 @@ import OrderDetails from "./orderDetails";
 import { DateRangePicker } from "react-date-range";
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-// import CalendarIcon from "react-calendar-icon";
 import { FaCalendarAlt } from "react-icons/fa";
 
 
@@ -116,13 +114,12 @@ const OrdersTabs = () => {
       .post(`${process.env.baseUrl}/user/order/history?page=${page}&limit=${size}`, body, configHeaders)
       .then(async (data) => {
         const decryptedData = await funcForDecrypt(data.data.payload);
-        // log('orders',JSON.parse(decryptedData).data);
         let allOrders = JSON.parse(decryptedData).data.order;
-        console.log("allOrders : ", allOrders)
+        // console.log("allOrders : ", allOrders)
         setDashboardData(allOrders);
         if (allOrders.length > 0) {
           setActiveTab(allOrders[0]);
-          // setPage(JSON.parse(decryptedData).data.currentPage)
+          setPage(JSON.parse(decryptedData).data.currentPage)
           setTotalPage(JSON.parse(decryptedData).data.totalPages)
           let itemList = Array.from({ length: JSON.parse(decryptedData).data.totalPages }, (_, index) => index + 1);
           setItemList(itemList);
