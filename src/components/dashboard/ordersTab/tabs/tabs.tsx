@@ -24,7 +24,6 @@ const OrdersTabs = () => {
   const [activeTab, setActiveTab] = useState<String>('');
   const [totalPage, setTotalPage] = useState(1);
   const [itemList, setItemList] = useState<any[]>([]);
-
   const [range, setRange] = useState([
     {
       startDate: new Date("2023/01/01"),
@@ -32,22 +31,11 @@ const OrdersTabs = () => {
       key: 'selection'
     }
   ])
-
-  // open close
   const [open, setOpen] = useState(false)
-
-  // get the target element to toggle 
   const refOne = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // event listeners
-    document.addEventListener("keydown", hideOnEscape, true)
-    document.addEventListener("click", hideOnClickOutside, true)
-  }, [])
 
   // hide dropdown on ESC press
   const hideOnEscape = (e: { key: string; }) => {
-    // console.log(e.key)
     if (e.key === "Escape") {
       setOpen(false)
     }
@@ -55,8 +43,6 @@ const OrdersTabs = () => {
 
   // Hide dropdown on outside click
   const hideOnClickOutside = (e: any) => {
-    // console.log(refOne.current)
-    // console.log(e.target)
     if (refOne.current && !refOne.current.contains(e.target)) {
       setOpen(false)
     }
@@ -64,9 +50,8 @@ const OrdersTabs = () => {
 
 
   useEffect(() => {
-    // document.addEventListener("keydown", hideOnEscape, true);
-    // document.addEventListener("click", hideOnClickOutside, true);
-    // console.log('new Date(range[0].endDate)', format(new Date(range[0].endDate), "yyyy-MM-dd"), format(new Date(range[0].startDate), "yyyy-MM-dd"),)
+    document.addEventListener("keydown", hideOnEscape, true);
+    document.addEventListener("click", hideOnClickOutside, true);
     handleFilter(
       range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '',
       range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '',
@@ -212,7 +197,7 @@ const OrdersTabs = () => {
     );
   };
 
-  console.log('range: ', range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '')
+  // console.log('range: ', range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '')
 
   const updatePage = (e: any) => {
     let moveTo = e.target.value;
