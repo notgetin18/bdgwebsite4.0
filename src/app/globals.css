@@ -519,10 +519,12 @@ input:checked + .slider ~ .text-gold {
 }
 
 input.inputBox {
-  font-size: 22px;
+  font-size: 16px;
   padding: 5px 8px 4px 8px;
-  border-radius: 3px;
-  border: 1px solid #666;
+  /* border-radius: 3px; */
+  /* border: 2px solid #eae205; */
+  background-color: #092637;
+  text-align: center;
 }
 
 .calendarWrap {

@@ -12,6 +12,9 @@ import OrderDetails from "./orderDetails";
 import { DateRangePicker } from "react-date-range";
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
+// import CalendarIcon from "react-calendar-icon";
+import { FaCalendarAlt } from "react-icons/fa";
+
 
 const OrdersTabs = () => {
   const [userDetails, setUserDetails] = useState("");
@@ -251,13 +254,15 @@ const OrdersTabs = () => {
         </div>
         <div>
           <div className="">Select Date</div>
-          <input
-            value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
-            readOnly
-            className="inputBox text-black"
-            onClick={() => setOpen(open => !open)}
-          />
-
+          <div className="flex border-2 border-yellow-500 bg-theme">
+            <input
+              value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
+              readOnly
+              className="inputBox text-white cursor-pointer "
+              onClick={() => setOpen(open => !open)}
+            />
+            <FaCalendarAlt className="calendar-icon-to cursor-pointer" size={26} />
+          </div>
           <div ref={refOne}>
             {open &&
               <DateRangePicker
