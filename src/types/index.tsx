@@ -90,3 +90,15 @@ export interface UserReward {
   __v: number;
   _id: string;
 }
+
+export interface GiftState {
+  // purchaseType: PurchaseType;
+  metalType: MetalType;
+  transactionType: TransactionType;
+  enteredAmount: number | undefined;
+  actualAmount: number;
+  // gst: number;
+  metalPrice: number,
+  metalQuantity: number | undefined,
+  totalAmount: number | undefined,
+}

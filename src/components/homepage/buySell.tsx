@@ -43,39 +43,20 @@ const BuySell = () => {
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const transactionType = useSelector(
-    (state: RootState) => state.shop.transactionType
-  );
-  const purchaseType = useSelector(
-    (state: RootState) => state.shop.purchaseType
-  );
-  const enteredAmount = useSelector(
-    (state: RootState) => state.shop.enteredAmount
-  );
-  const actualAmount = useSelector(
-    (state: RootState) => state.shop.actualAmount
-  );
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
-  const metalQuantity = useSelector(
-    (state: RootState) => state.shop.metalQuantity
-  );
-  const selectedCoupon = useSelector(
-    (state: RootState) => state.coupon.selectedCoupon
-  );
-  const appliedCouponCode = useSelector(
-    (state: RootState) => state.coupon.appliedCouponCode
-  );
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
-  const extraGoldOfRuppess = useSelector(
-    (state: RootState) => state.coupon.extraGoldOfRuppess
-  );
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
-
-  const metalPricePerGram = useSelector(
-    (state: RootState) => state.shop.metalPrice
-  );
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
 
   const handleApplyCoupon = (coupon: any, amount: any) => {
     dispatch(
