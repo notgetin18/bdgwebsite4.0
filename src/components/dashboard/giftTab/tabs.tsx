@@ -1,19 +1,31 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Transition } from "@headlessui/react";
 import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import { setEnteredAmount, setMetalPrice, setMetalType, setTransactionType } from "@/redux/giftSlice";
 import Image from "next/image";
-import { ParseFloat } from "@/components/helperFunctions";
+import { AesDecrypt, AesEncrypt, ParseFloat } from "@/components/helperFunctions";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { faqs } from "@/constants";
+import { ErrorMessage, Formik } from "formik";
+import Swal from "sweetalert2";
+import axios from "axios";
+import * as Yup from "yup";
+import { IoMdClose } from "react-icons/io";
+import OtpInput from 'react-otp-input';
 
 const GiftTab = () => {
   const dispatch = useDispatch();
   const [isgold, setIsGold] = useState<boolean>(true);
   const [validationError, setValidationError] = useState<string>("");
   const [activeTab, setactiveTab] = useState("rupees");
+  const [isSubmitting, setSubmitting] = useState(false);
+  const [otpModalShow, setOtpModalShow] = useState(true);
+  const [mobile, setMobile] = useState<number>();
+  const [otp, setOtp] = useState('');
+  const [otpError, setOtpError] = useState("");
+
   const metalType = useSelector((state: RootState) => state.gift.metalType);
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
@@ -119,8 +131,129 @@ const GiftTab = () => {
     </div>
   );
 
+  const initialValues = {
+    giftedUsers: "",
+  };
+  const validationSchema = Yup.object().shape({
+    giftedUsers: Yup.string()
+      .required("Enter Mobile Number")
+      .matches(/^[6789][0-9]{9}$/, "Mobile number is not valid")
+      .min(10, "Please enter 10-digit mobile number")
+      .max(10, "too long"),
+  });
+
+  const onSubmit = async (values: { giftedUsers: any; }, { resetForm }: any) => {
+    if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
+      setSubmitting(true);
+      const data = {
+        itemType: metalType,
+        unitType: transactionType,
+        quantity: metalQuantity,
+        giftedUsers: values.giftedUsers
+      };
+      try {
+        const resAfterEncryptData = AesEncrypt(data);
+        const body = {
+          payload: resAfterEncryptData,
+        };
+
+        const token = localStorage.getItem("token");
+        const configHeaders = {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await axios.post(
+          `${process.env.baseUrl}/user/gifting/verify`,
+          body,
+          configHeaders
+        );
+        const decryptedData = await AesDecrypt(response.data.payload);
+        const result = JSON.parse(decryptedData);
+        if (result.status) {
+          setOtpModalShow(true);
+        }
+      } catch (error: any) {
+        const decryptedData = await AesDecrypt(error.response.data.payload);
+
+        const result = JSON.parse(decryptedData);
+        Swal.fire({
+          // position: "centre",
+          icon: "error",
+          title: "Error",
+          text: result.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      // log("gramError or rupeeError is there");
+      // setCommonError("Please enter Rs. or Grams");
+    }
+  };
+
+  function handleOTPChange(otp: React.SetStateAction<string>) {
+    setOtp(otp);
+    setOtpError('')
+  }
+  function onSubmitVerify(event: any): void {
+    console.log('otpSubmit')
+  }
+
   return (
     <div className="w-full ">
+      <Transition show={otpModalShow} aria-labelledby="contained-modal-title-vcenter">
+        <div className="">
+          <div>
+            <div className="">
+              <div className="">
+                <div className="">Enter OTP</div>
+                <div className="close" onClick={() => setOtpModalShow(false)} >
+                  <IoMdClose style={{ color: "#fff" }} />
+                </div>
+                <form onSubmit={onSubmitVerify}>
+                  <div className="">
+                    <div className="">
+                      <div className="">
+                        <OtpInput
+                          onChange={handleOTPChange}
+                          value={otp}
+                          inputStyle="inputStyle"
+                          inputType="tel"
+                          shouldAutoFocus={true}
+                          numInputs={6}
+                          renderInput={(props: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) => <input type="tel" {...props} />}
+                        />
+                      </div>
+                    </div>
+                    <span
+                      style={{
+                        display: "flex",
+                        position: "absolute",
+                        marginTop: 5,
+                        marginLeft: 60,
+                        fontWeight: "bolder",
+                        color: "#ab0000",
+                        fontSize: 13,
+                      }}
+                    >
+                      {otpError}
+                    </span>
+                    <div className="">
+                      <button type="submit" disabled={isSubmitting} >
+                        VERIFY
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Transition>
       <div className="grid grid-cols-2 gap-2">
         <div className="col-span-4 p-4 rounded-lg bg-themeLight text-white grid grid-cols-2 gap-6">
           <div>
@@ -274,56 +407,68 @@ const GiftTab = () => {
               ) : (
                 <QuickGiftButtons amounts={[0.1, 0.5, 1, 2]} unit="gm" />
               )}
+              <div className="mt-3">
+                <p className="text-lg">Send to</p>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={onSubmit}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    setFieldValue,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                  }) => (
+                    <form
+                      className="pt-2"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      <div className="">
+                        <input
+                          name="giftedUsers"
+                          type="tel"
+                          minLength={10}
+                          maxLength={10}
+                          placeholder="Enter Mobile Number"
+                          value={values.giftedUsers}
+                          onChange={(event) => {
+                            const { name, value } = event.target;
+                            const updatedValue = value.replace(/[^0-9]/g, "");
+                            setFieldValue("giftedUsers", updatedValue);
+                            setMobile(+updatedValue);
+                          }}
+                          className="text-black"
+                        />
+                        <ErrorMessage
+                          name="giftedUsers"
+                          component="div"
+                          className="text-red-500"
+                        />
+                      </div>
+                      <div
+                        onClick={() => { handleSubmit() }}
+                        className="border-2 border-yellow-400 rounded-md items-center justify-center text-center text-yellow-400 mt-3 cursor-pointer">
+                        <button
+                          type="submit"
+                          onClick={() => { handleSubmit() }}
+                          disabled={isSubmitting}
+                          className="p-2"
+                        >
+                          SEND GIFT
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </Formik>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div>
-        {/* redeem part */}
-        <p className="text-white">redeem part</p>
-      </div>
-      <div>
-        <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
-          <p className="text-white text-center">GIFT FAQ</p>
-          <dl className="mt-10 space-y-2 divide-y divide-gray-900/10">
-            {faqs.map((faq) => (
-              <Disclosure as="div" key={faq.question} className="">
-                {({ open }) => (
-                  <>
-                    <dt>
-                      <Disclosure.Button className="flex w-full items-start justify-between text-left text-white bg-themeLight px-4 py-2 rounded-lg">
-                        <span className="text-sm font-semibold leading-5">
-                          {faq.question}
-                        </span>
-                        <span className="ml-6 flex h-7 items-center">
-                          {open ? (
-                            <MinusSmallIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
-                          ) : (
-                            <PlusSmallIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
-                          )}
-                        </span>
-                      </Disclosure.Button>
-                    </dt>
-                    <Disclosure.Panel
-                      as="dd"
-                      className="mt-1 pr-12 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-700 to-blue-900"
-                    >
-                      <p className="text-base leading-7 text-white">
-                        {faq.answer}
-                      </p>
-                    </Disclosure.Panel>
-                  </>
-                )}
-              </Disclosure>
-            ))}
-          </dl>
         </div>
       </div>
     </div>
