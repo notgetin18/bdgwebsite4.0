@@ -531,3 +531,12 @@ input.inputBox {
   display: inline-block;
   position: relative;
 }
+
+.otp_background {
+  margin: auto;
+  background: #092637;
+}
+
+.caret-transparent::before {
+  caret-color: transparent;
+}

@@ -92,13 +92,21 @@ export interface UserReward {
 }
 
 export interface GiftState {
-  // purchaseType: PurchaseType;
   metalType: MetalType;
   transactionType: TransactionType;
   enteredAmount: number | undefined;
   actualAmount: number;
-  // gst: number;
   metalPrice: number,
   metalQuantity: number | undefined,
   totalAmount: number | undefined,
+}
+
+export interface OtpModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitVerify: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleOTPChange: (otp: string) => void;
+  otp: string;
+  otpError: string;
+  isSubmitting: boolean;
 }

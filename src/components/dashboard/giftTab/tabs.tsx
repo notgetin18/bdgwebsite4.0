@@ -1,7 +1,5 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { Disclosure, Transition } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import { setEnteredAmount, setMetalPrice, setMetalType, setTransactionType } from "@/redux/giftSlice";
 import Image from "next/image";
 import { AesDecrypt, AesEncrypt, ParseFloat } from "@/components/helperFunctions";
@@ -12,8 +10,7 @@ import { ErrorMessage, Formik } from "formik";
 import Swal from "sweetalert2";
 import axios from "axios";
 import * as Yup from "yup";
-import { IoMdClose } from "react-icons/io";
-import OtpInput from 'react-otp-input';
+import OtpModal from "./otpModal";
 
 const GiftTab = () => {
   const dispatch = useDispatch();
@@ -21,7 +18,7 @@ const GiftTab = () => {
   const [validationError, setValidationError] = useState<string>("");
   const [activeTab, setactiveTab] = useState("rupees");
   const [isSubmitting, setSubmitting] = useState(false);
-  const [otpModalShow, setOtpModalShow] = useState(true);
+  const [otpModalShow, setOtpModalShow] = useState(false);
   const [mobile, setMobile] = useState<number>();
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState("");
@@ -143,11 +140,23 @@ const GiftTab = () => {
   });
 
   const onSubmit = async (values: { giftedUsers: any; }, { resetForm }: any) => {
+    console.log('clicked')
+    if (!enteredAmount) {
+      setValidationError('Please enter amount');
+      return;
+    } else if (transactionType === 'rupees' && enteredAmount < 10) {
+      setValidationError('Minimum gifting amount is Rs.10');
+      return;
+    } else if (transactionType === 'grams' && actualAmount < 10) {
+      setValidationError('Minimum gifting amount must be Rs.10');
+      return;
+    }
     if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
+      // console.log(metalType.toUpperCase(), transactionType.toUpperCase(), metalQuantity, values.giftedUsers)
       setSubmitting(true);
       const data = {
-        itemType: metalType,
-        unitType: transactionType,
+        itemType: metalType.toUpperCase(),
+        unitType: 'GRAMS',
         quantity: metalQuantity,
         giftedUsers: values.giftedUsers
       };
@@ -184,7 +193,7 @@ const GiftTab = () => {
           title: "Error",
           text: result.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 15000,
         });
       } finally {
         setSubmitting(false);
@@ -199,61 +208,85 @@ const GiftTab = () => {
     setOtp(otp);
     setOtpError('')
   }
-  function onSubmitVerify(event: any): void {
-    console.log('otpSubmit')
-  }
+
+
+  const onSubmitVerify = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    if (otp === "") {
+      setOtpError("Please Fill the OTP");
+    } else if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
+      setSubmitting(true);
+      const data = {
+        itemType: metalType.toUpperCase(),
+        unitType: "GRAMS",
+        quantity: metalQuantity,
+        giftedUsers: mobile,
+        otp: otp,
+      };
+      e.preventDefault();
+      try {
+        const resAfterEncryptData = await AesEncrypt(data);
+        const body = {
+          payload: resAfterEncryptData,
+        };
+        const token = localStorage.getItem("token");
+        const configHeaders = {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        };
+        const response = await axios.post(
+          `${process.env.baseUrl}/user/gifting`,
+          body,
+          configHeaders
+        );
+        //
+        const decryptedData = await AesDecrypt(response.data.payload);
+
+        const result = JSON.parse(decryptedData);
+
+        if (result.status) {
+          setOtpModalShow(false);
+          // walletApiSell();
+          Swal.fire({
+            // position: "centre",
+            icon: "success",
+            title: result.message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+        }
+      } catch (error: any) {
+        setOtpModalShow(false);
+        const decryptedData = await AesDecrypt(error?.response?.data?.payload);
+        const result = JSON.parse(decryptedData);
+        Swal.fire({
+          // position: "centre",
+          icon: "error",
+          title: "Error",
+          text: result.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } finally {
+        setSubmitting(false);
+      }
+    }
+  };
 
   return (
     <div className="w-full ">
-      <Transition show={otpModalShow} aria-labelledby="contained-modal-title-vcenter">
-        <div className="">
-          <div>
-            <div className="">
-              <div className="">
-                <div className="">Enter OTP</div>
-                <div className="close" onClick={() => setOtpModalShow(false)} >
-                  <IoMdClose style={{ color: "#fff" }} />
-                </div>
-                <form onSubmit={onSubmitVerify}>
-                  <div className="">
-                    <div className="">
-                      <div className="">
-                        <OtpInput
-                          onChange={handleOTPChange}
-                          value={otp}
-                          inputStyle="inputStyle"
-                          inputType="tel"
-                          shouldAutoFocus={true}
-                          numInputs={6}
-                          renderInput={(props: React.JSX.IntrinsicAttributes & React.ClassAttributes<HTMLInputElement> & React.InputHTMLAttributes<HTMLInputElement>) => <input type="tel" {...props} />}
-                        />
-                      </div>
-                    </div>
-                    <span
-                      style={{
-                        display: "flex",
-                        position: "absolute",
-                        marginTop: 5,
-                        marginLeft: 60,
-                        fontWeight: "bolder",
-                        color: "#ab0000",
-                        fontSize: 13,
-                      }}
-                    >
-                      {otpError}
-                    </span>
-                    <div className="">
-                      <button type="submit" disabled={isSubmitting} >
-                        VERIFY
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Transition>
+      <OtpModal
+        isOpen={otpModalShow}
+        onClose={() => setOtpModalShow(false)}
+        onSubmitVerify={onSubmitVerify}
+        handleOTPChange={handleOTPChange}
+        otp={otp}
+        otpError={otpError}
+        isSubmitting={isSubmitting}
+      />
       <div className="grid grid-cols-2 gap-2">
         <div className="col-span-4 p-4 rounded-lg bg-themeLight text-white grid grid-cols-2 gap-6">
           <div>
@@ -443,7 +476,7 @@ const GiftTab = () => {
                             setFieldValue("giftedUsers", updatedValue);
                             setMobile(+updatedValue);
                           }}
-                          className="text-black"
+                          className="text-white text-lg p-2 rounded bg-transparent border-2 border-yellow-400 w-full focus:border-yellow-500 focus:bg-transparent outline-none"
                         />
                         <ErrorMessage
                           name="giftedUsers"
