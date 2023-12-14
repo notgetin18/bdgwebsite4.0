@@ -140,7 +140,6 @@ const GiftTab = () => {
   });
 
   const onSubmit = async (values: { giftedUsers: any; }, { resetForm }: any) => {
-    console.log('clicked')
     if (!enteredAmount) {
       setValidationError('Please enter amount');
       return;

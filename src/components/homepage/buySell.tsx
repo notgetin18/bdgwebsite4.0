@@ -116,6 +116,13 @@ const BuySell = () => {
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4);
+    if (!enteredAmount) {
+      setValidationError('Please enter amount');
+      // return;
+    } else if (actualAmount < 10) {
+      setValidationError('Minimum gifting amount is Rs.10');
+      // return;
+    }
     setValidationError("");
     if (activeTabPurchase === "rupees") {
       if (enteredValue > 200000) {
@@ -137,6 +144,17 @@ const BuySell = () => {
         dispatch(setEnteredAmount(+enteredValue));
       }
     }
+  };
+  const handleClick = (e: any) => {
+    if (!enteredAmount) {
+      setValidationError('Please enter amount');
+      return;
+    } else if (totalAmount !== undefined && totalAmount < 10) {
+      setValidationError('Minimum Purchase amount is Rs.10');
+      return;
+    }
+    setValidationError("");
+    setModalOpen(true)
   };
 
   const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
@@ -394,11 +412,12 @@ const BuySell = () => {
                   </div>
                   <input
                     type="number"
+                    inputMode="numeric"
                     className="bg-transparent pl-12 text-lg py-1 focus:outline-none text-white"
                     placeholder={
                       activeTabPurchase === "rupees" ? "0000" : "0.0000"
                     }
-                    onChange={handleEnteredAmountChange}
+                    onChange={(e) => { handleEnteredAmountChange(e) }}
                     step="0.0001"
                     value={enteredAmount === 0 ? undefined : enteredAmount}
                     onKeyDown={(e) => {
@@ -521,13 +540,13 @@ const BuySell = () => {
               )}
               <div className="mt-12">
                 <button
-                  onClick={openModal}
+                  onClick={handleClick}
                   className="w-full bg-gray-400 rounded-lg py-2"
                 >
                   <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" />
                   {purchaseType === "buy" ? "Start Investing " : "Sell Now"}
                 </button>
-                <Modal isOpen={isModalOpen} onClose={closeModal} />
+                {isModalOpen && <Modal isOpen={isModalOpen} onClose={closeModal} />}
               </div>
             </div>
           </div>
