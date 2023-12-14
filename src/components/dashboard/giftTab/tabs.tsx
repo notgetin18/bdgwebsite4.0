@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import * as Yup from "yup";
 import OtpModal from "./otpModal";
+import GiftFaq from "./giftFaq";
+
 
 const GiftTab = () => {
   const dispatch = useDispatch();
@@ -211,7 +213,7 @@ const GiftTab = () => {
   const onSubmitVerify = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (otp === "") {
-      setOtpError("Please Fill the OTP");
+      setOtpError("Please enter the OTP");
     } else if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
       setSubmitting(true);
       const data = {
@@ -247,6 +249,8 @@ const GiftTab = () => {
         if (result.status) {
           setOtpModalShow(false);
           // walletApiSell();
+          setOtp('')
+          setOtpError('')
           Swal.fire({
             // position: "centre",
             icon: "success",
@@ -257,17 +261,11 @@ const GiftTab = () => {
 
         }
       } catch (error: any) {
-        setOtpModalShow(false);
+        // setOtpModalShow(false);
         const decryptedData = await AesDecrypt(error?.response?.data?.payload);
         const result = JSON.parse(decryptedData);
-        Swal.fire({
-          // position: "centre",
-          icon: "error",
-          title: "Error",
-          text: result.message,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        setOtpError(result.message)
+        // console.log('result.message', result.message)
       } finally {
         setSubmitting(false);
       }
@@ -276,9 +274,14 @@ const GiftTab = () => {
 
   return (
     <div className="w-full ">
+     
       <OtpModal
         isOpen={otpModalShow}
-        onClose={() => setOtpModalShow(false)}
+        onClose={() => {
+          setOtpModalShow(false)
+          setOtp('')
+          setOtpError('')
+        }}
         onSubmitVerify={onSubmitVerify}
         handleOTPChange={handleOTPChange}
         otp={otp}
@@ -504,7 +507,9 @@ const GiftTab = () => {
             </div>
           </div>
         </div>
+        {/* redeem part */}
       </div>
+      <GiftFaq />
     </div>
   );
 };
