@@ -74,10 +74,12 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-
-
   useEffect(() => {
     dispatch(setMetalType('gold'));
+    dispatch(setEnteredAmount(0));
+    dispatch(setCouponError(""));
+    dispatch(setPurchaseType("buy"));
+    dispatch(setTransactionType("rupees"));
   }, []);
 
   const toggleMetal = () => {
@@ -127,8 +129,8 @@ const BuySell = () => {
     }
 
     if (activeTabPurchase === "grams") {
-      console.log("actualPurchasingInGm", actualPurchasingInGm);
-      if (Number(e.target.value) > actualPurchasingInGm) {
+      // console.log("actualPurchasingInGm", actualPurchasingInGm);
+      if (Number(e.target.value) > ParseFloat(actualPurchasingInGm, 4)) {
         setValidationError("Amount should be less than 2 lakhs");
         return;
       } else {
@@ -398,7 +400,7 @@ const BuySell = () => {
                     }
                     onChange={handleEnteredAmountChange}
                     step="0.0001"
-                    value={enteredAmount === 0 ? "" : enteredAmount}
+                    value={enteredAmount === 0 ? undefined : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {

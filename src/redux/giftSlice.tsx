@@ -19,7 +19,7 @@ const recalculateValues = (state: GiftState) => {
     let enteredAmount = state.enteredAmount ?? 0
     if (state.transactionType === 'rupees') {
         state.metalQuantity = ParseFloat((enteredAmount / metalPrice), 4);
-        state.totalAmount = ParseFloat((enteredAmount), 2);
+        state.actualAmount = ParseFloat((enteredAmount), 2);
     } else if (state.transactionType === 'grams') {
         state.actualAmount = ParseFloat(metalPrice * enteredAmount, 2);
         state.metalQuantity = state.enteredAmount;

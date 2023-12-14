@@ -144,13 +144,11 @@ const GiftTab = () => {
     if (!enteredAmount) {
       setValidationError('Please enter amount');
       return;
-    } else if (transactionType === 'rupees' && enteredAmount < 10) {
+    } else if (actualAmount < 10) {
       setValidationError('Minimum gifting amount is Rs.10');
       return;
-    } else if (transactionType === 'grams' && actualAmount < 10) {
-      setValidationError('Minimum gifting amount must be Rs.10');
-      return;
     }
+
     if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
       // console.log(metalType.toUpperCase(), transactionType.toUpperCase(), metalQuantity, values.giftedUsers)
       setSubmitting(true);
@@ -197,6 +195,7 @@ const GiftTab = () => {
         });
       } finally {
         setSubmitting(false);
+        resetForm();
       }
     } else {
       // log("gramError or rupeeError is there");
@@ -385,9 +384,12 @@ const GiftTab = () => {
                     placeholder={
                       activeTab === "rupees" ? "0000" : "0.0000"
                     }
-                    onChange={handleEnteredAmountChange}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      handleEnteredAmountChange(e)
+                    }}
                     step="0.0001"
-                    value={enteredAmount === 0 ? "" : enteredAmount}
+                    value={enteredAmount == 0 ? undefined : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if gift type is rupees
                       if (activeTab === "rupees" && e.key === ".") {
