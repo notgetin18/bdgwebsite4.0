@@ -229,7 +229,7 @@ const OrdersTabs = () => {
           <select
             name="status"
             id="status"
-            className="cursor-pointer text-black"
+            className="cursor-pointer text-white rounded border-2 border-yellow-400 bg-transparent"
             onChange={(e) => { handleStatusChange(e) }}
           >
             <option value="ALL" selected={true}>ALL</option>
@@ -245,7 +245,7 @@ const OrdersTabs = () => {
             name="metal"
             id="metal"
             onChange={(e) => { handleMetalChange(e) }}
-            className="text-black "
+            className="text-white rounded border-2 border-yellow-400 bg-transparent"
           >
             <option value="ALL" selected={true}>
               All
@@ -256,7 +256,7 @@ const OrdersTabs = () => {
         </div>
         <div>
           <div className="">Select Date</div>
-          <div className="flex border-2 border-yellow-500 bg-theme">
+          <div className="flex border-2 border-yellow-500 bg-theme rounded">
             <input
               value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
               readOnly
@@ -286,7 +286,7 @@ const OrdersTabs = () => {
             name="status"
             id="status"
             onChange={(e) => { handleTransactionChange(e) }}
-            className="text-black "
+            className="text-white rounded border-2 border-yellow-400 bg-transparent"
 
           >
             <option value="ALL" selected={true}>
@@ -301,7 +301,7 @@ const OrdersTabs = () => {
         </div>
       </div>
       <Tab.Group defaultIndex={0}>
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-5 gap-6 mt-8">
           <div className=" col-span-2 "
           >
             <Tab.List className="rounded-xl p-1 ">

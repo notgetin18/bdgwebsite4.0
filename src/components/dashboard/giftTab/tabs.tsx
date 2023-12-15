@@ -355,25 +355,27 @@ const GiftTab = () => {
               </div>
 
             </div>
-            <div className="flex flex-col py-2">
-              <div className="flex justify-around border-yellow-400 border-2 rounded-full">
-                <div
-                  className={`text-center w-1/2 sm:text-sm rounded-tl-full rounded-bl-full py-3 px-6 font-semibold cursor-pointer ${activeTab === "rupees"
-                    ? "bg-yellow-400 text-slate-800 active"
-                    : "text-white "
-                    }`}
-                  onClick={() => handleTabRupeesAndGrams("rupees")}
-                >
-                  {activeTab === "buy" ? " In Rupees" : " In Rupees"}
-                </div>
-                <div
-                  className={`text-center text-md w-1/2 sm:text-sm px-6 py-3 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTab === "grams"
-                    ? "bg-yellow-400 text-slate-800 active"
-                    : "text-white "
-                    }`}
-                  onClick={() => handleTabRupeesAndGrams("grams")}
-                >
-                  {activeTab === "buy" ? "In grams" : "In grams"}
+            <div className="flex flex-col py-2 ">
+              <div className="flex items-center justify-center ">
+                <div className="flex w-1/2 border-yellow-400 border-2 rounded-full">
+                  <div
+                    className={`text-center w-1/2 sm:text-sm rounded-tl-full rounded-bl-full py-3 px-6 font-semibold cursor-pointer ${activeTab === "rupees"
+                      ? "bg-yellow-400 text-slate-800 active"
+                      : "text-white "
+                      }`}
+                    onClick={() => handleTabRupeesAndGrams("rupees")}
+                  >
+                    {activeTab === "buy" ? " In Rupees" : " In Rupees"}
+                  </div>
+                  <div
+                    className={`text-center text-md w-1/2 sm:text-sm px-6 py-3 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTab === "grams"
+                      ? "bg-yellow-400 text-slate-800 active"
+                      : "text-white "
+                      }`}
+                    onClick={() => handleTabRupeesAndGrams("grams")}
+                  >
+                    {activeTab === "buy" ? "In grams" : "In grams"}
+                  </div>
                 </div>
               </div>
               <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">

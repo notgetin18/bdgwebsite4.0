@@ -1,6 +1,6 @@
 import { funcForDecrypt } from "@/components/helperFunctions";
 import { Wallet } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 const Vault = () => {
   const [wallet, setWallet] = useState<Wallet>();
@@ -44,4 +44,4 @@ const Vault = () => {
   );
 };
 
-export default Vault;
+export default memo(Vault);
