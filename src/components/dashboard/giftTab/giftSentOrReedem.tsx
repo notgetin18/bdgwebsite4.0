@@ -175,7 +175,7 @@ const Redeem = () => {
     return (
         <div className="w-full rounded">
             <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
-                <p className="text-white text-center">GIFTING HISTORY</p>
+                <p className="text-white text-center text-xl">GIFTING HISTORY</p>
                 <dl className="mt-10 space-y-2">
                     <div className=" ">
                         <div className='grid grid-cols-3 items-center justify-between'>

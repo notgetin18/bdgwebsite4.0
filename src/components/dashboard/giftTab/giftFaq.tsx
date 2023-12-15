@@ -20,7 +20,7 @@ const GiftFaq: React.FC = () => {
     return (
         <div>
             <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
-                <p className="text-white text-center">GIFT FAQ</p>
+                <p className="text-white text-center text-xl">GIFT FAQ</p>
                 <dl className="mt-10 space-y-2 divide-y divide-gray-900/10">
                     {accordionData.map((faq, index) => {
                         if (index < 5) {

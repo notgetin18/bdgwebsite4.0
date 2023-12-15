@@ -34,7 +34,7 @@ const GiftTab = () => {
   const enteredAmount = useSelector((state: RootState) => state.gift.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.gift.actualAmount);
 
-console.log('i am from GiftTab')
+  console.log('i am from GiftTab')
   // useEffect(() => {
   //   console.table({ activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount })
   // }, [activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount])
@@ -288,8 +288,9 @@ console.log('i am from GiftTab')
         otpError={otpError}
         isSubmitting={isSubmitting}
       />
-      <div className="grid grid-cols-2 gap-2">
-        <div className="col-span-4 p-4 rounded-lg bg-themeLight text-white grid grid-cols-2 gap-6">
+      <div className="rounded-lg bg-themeLight">
+        <p className="text-center text-white pt-4 text-xl">GIFT</p>
+        <div className="col-span-4 p-4 items-center  text-white grid grid-cols-2 gap-6">
           <div>
             <img
               alt="gold-logo"
@@ -299,7 +300,7 @@ console.log('i am from GiftTab')
           </div>
           <div>
             {/* gifting section */}
-            <div className="grid grid-cols-2 items-center">
+            <div className="grid grid-cols-2 items-center py-4">
               <div
                 onClick={toggleMetal}
                 className={`flex justify-center text-center py-3 rounded font-semibold cursor-pointer ${isgold === true
@@ -354,7 +355,7 @@ console.log('i am from GiftTab')
               </div>
 
             </div>
-            <div className="flex flex-col py-2 ">
+            <div className="flex flex-col py-8 ">
               <div className="flex items-center justify-center ">
                 <div className="flex w-1/2 border-yellow-400 border-2 rounded-full">
                   <div
@@ -437,7 +438,7 @@ console.log('i am from GiftTab')
               ) : (
                 ""
               )}
-              <p className="mt-3 text-lg">Quick Gift</p>
+              <p className="mt-3 text-lg pt-3">Quick Gift</p>
               {transactionType === "rupees" ? (
                 <QuickGiftButtons
                   amounts={[50, 100, 500, 1000]}
@@ -446,7 +447,7 @@ console.log('i am from GiftTab')
               ) : (
                 <QuickGiftButtons amounts={[0.1, 0.5, 1, 2]} unit="gm" />
               )}
-              <div className="mt-3">
+              <div className="mt-6">
                 <p className="text-lg">Send to</p>
                 <Formik
                   initialValues={initialValues}
