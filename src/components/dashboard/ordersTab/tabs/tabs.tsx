@@ -12,6 +12,7 @@ import { DateRangePicker } from "react-date-range";
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { FaCalendarAlt } from "react-icons/fa";
+import Vault from "./vault";
 
 
 const OrdersTabs = () => {
@@ -219,6 +220,9 @@ const OrdersTabs = () => {
 
   return (
     <div className="w-full">
+      <div className="mb-12">
+        <Vault />
+      </div>
       <div className="flex flex-row text-white items-center justify-between">
         <div>
           <div>Status</div>

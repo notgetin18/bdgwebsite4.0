@@ -1,5 +1,5 @@
 import { AesDecrypt, AesEncrypt } from "@/components/helperFunctions";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { UserReward } from "@/types";
@@ -101,7 +101,7 @@ const Redeem = () => {
         const decryptedData = await AesDecrypt(data.payload);
         let userRewardsDecrypt = JSON.parse(decryptedData).data.rewardsData;
 
-        console.log("decryptedData", JSON.parse(decryptedData).data);
+        // console.log("decryptedData", JSON.parse(decryptedData).data);
         if (userRewardsDecrypt.length > 0) {
           setPage(JSON.parse(decryptedData).data.currentPage);
           setTotalPage(JSON.parse(decryptedData).data.totalPages);
@@ -150,7 +150,7 @@ const Redeem = () => {
           .then(async (data) => {
             const decryptedData = AesDecrypt(data.data.payload);
             // console.log('decryptedData =======>>', decryptedData)
-            console.log(typeof decryptedData)
+            // console.log(typeof decryptedData)
             // @ts-ignore
             Swal.fire("Success", decryptedData.message, "success");
             getRewards(metal, status, page, size);
@@ -171,7 +171,7 @@ const Redeem = () => {
 
   // console.log('userRewards', userRewards)
   return (
-    <div className="w-full">
+    <div className="w-full bg-themeLight rounded">
       <div className=" ">
         <div className='flex flex-row items-center'>
           <div className=''>
@@ -330,4 +330,4 @@ const Redeem = () => {
   );
 };
 
-export default Redeem;
+export default memo(Redeem);

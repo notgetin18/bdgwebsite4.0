@@ -110,3 +110,19 @@ export interface OtpModalProps {
   otpError: string;
   isSubmitting: boolean;
 }
+
+export interface Wallet {
+  createdAt: null
+  gold: number
+  goldAvgPrice: number
+  goldCurrentValue: number
+  holdGoldGram: number
+  holdSilverGram: number
+  silver: number
+  silverAvgPrice: number
+  silverCurrentValue: number
+  totalAmount: number
+  updatedAt: String
+  user_id: String
+  _id: String
+}

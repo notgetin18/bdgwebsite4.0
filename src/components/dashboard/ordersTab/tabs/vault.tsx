@@ -1,23 +1,8 @@
 import { funcForDecrypt } from "@/components/helperFunctions";
+import { Wallet } from "@/types";
 import React, { useEffect, useState } from "react";
 
-interface Wallet {
-  createdAt: null
-  gold: number
-  goldAvgPrice: number
-  goldCurrentValue: number
-  holdGoldGram: number
-  holdSilverGram: number
-  silver: number
-  silverAvgPrice: number
-  silverCurrentValue: number
-  totalAmount: number
-  updatedAt: String
-  user_id: String
-  _id: String
-}
-
-const VaultTab = () => {
+const Vault = () => {
   const [wallet, setWallet] = useState<Wallet>();
 
   useEffect(() => {
@@ -59,4 +44,4 @@ const VaultTab = () => {
   );
 };
 
-export default VaultTab;
+export default Vault;

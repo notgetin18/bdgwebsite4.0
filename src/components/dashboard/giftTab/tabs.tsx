@@ -12,6 +12,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import OtpModal from "./otpModal";
 import GiftFaq from "./giftFaq";
+import Redeem from "./giftSentOrReedem";
 
 
 const GiftTab = () => {
@@ -274,7 +275,7 @@ const GiftTab = () => {
 
   return (
     <div className="w-full ">
-     
+
       <OtpModal
         isOpen={otpModalShow}
         onClose={() => {
@@ -507,9 +508,15 @@ const GiftTab = () => {
             </div>
           </div>
         </div>
-        {/* redeem part */}
       </div>
-      <GiftFaq />
+      {/* redeem part */}
+      <div className="mt-4">
+        <Redeem />
+      </div>
+      {/* faq part */}
+      <div className="mt-4">
+        <GiftFaq />
+      </div>
     </div>
   );
 };

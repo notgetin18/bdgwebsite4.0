@@ -1,8 +1,7 @@
 import { AesDecrypt } from '@/components/helperFunctions'
-import { faqs } from '@/constants'
 import { Disclosure } from '@headlessui/react'
 import { MinusSmallIcon, PlusSmallIcon } from '@heroicons/react/20/solid'
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 const GiftFaq: React.FC = () => {
     const [accordionData, setAccordionData] = useState<any[]>([])
@@ -14,7 +13,7 @@ const GiftFaq: React.FC = () => {
             })
             .catch(error => console.error(error));
     }, [])
-    console.log('accordionData', accordionData)
+    // console.log('accordionData', accordionData)
     return (
         <div>
             <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
@@ -62,4 +61,4 @@ const GiftFaq: React.FC = () => {
     )
 }
 
-export default GiftFaq
+export default memo(GiftFaq)
