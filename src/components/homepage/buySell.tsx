@@ -1,10 +1,5 @@
 "use client";
-import {
-  ArrowUpIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ChevronLeftIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowUpIcon, ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon} from "@heroicons/react/20/solid";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,19 +8,8 @@ import animationData from "../../../public/lottie/locker.json";
 import goldBarData from "../../../public/lottie/GoldBricks.json";
 import silverBarData from "../../../public/lottie/SilverBricks.json";
 import live from "../../../public/lottie/live.json";
-import {
-  setEnteredAmount,
-  setMetalPrice,
-  setMetalType,
-  setPurchaseType,
-  setTransactionType,
-} from "@/redux/shopSlice";
-import {
-  applyCoupon,
-  clearCoupon,
-  isCouponApplied,
-  setCouponError,
-} from "@/redux/couponSlice";
+import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType} from "@/redux/shopSlice";
+import { applyCoupon, clearCoupon, isCouponApplied, setCouponError} from "@/redux/couponSlice";
 import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
@@ -43,40 +27,20 @@ const BuySell = () => {
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const transactionType = useSelector(
-    (state: RootState) => state.shop.transactionType
-  );
-  const purchaseType = useSelector(
-    (state: RootState) => state.shop.purchaseType
-  );
-  const enteredAmount = useSelector(
-    (state: RootState) => state.shop.enteredAmount
-  );
-  const actualAmount = useSelector(
-    (state: RootState) => state.shop.actualAmount
-  );
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
-  const metalQuantity = useSelector(
-    (state: RootState) => state.shop.metalQuantity
-  );
-  const selectedCoupon = useSelector(
-    (state: RootState) => state.coupon.selectedCoupon
-  );
-  const appliedCouponCode = useSelector(
-    (state: RootState) => state.coupon.appliedCouponCode
-  );
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
-  const extraGoldOfRuppess = useSelector(
-    (state: RootState) => state.coupon.extraGoldOfRuppess
-  );
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
-
-  const metalPricePerGram = useSelector(
-    (state: RootState) => state.shop.metalPrice
-  );
-  console.log("metalPricePerGram", metalPricePerGram);
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
 
   const handleApplyCoupon = (coupon: any, amount: any) => {
     dispatch(
@@ -94,39 +58,13 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  // useEffect(() => {
-  //   console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
-  //   console.table({
-  //     purchaseType,
-  //     actualAmount,
-  //     gst,
-  //     metalType,
-  //     transactionType,
-  //     metalPricePerGram,
-  //     totalAmount,
-  //     enteredAmount,
-  //     metalQuantity,
-  //   });
-  // }, [
-  //   error,
-  //   appliedCouponCode,
-  //   extraGoldOfRuppess,
-  //   extraGold,
-  //   purchaseType,
-  //   actualAmount,
-  //   gst,
-  //   totalAmount,
-  //   metalType,
-  //   transactionType,
-  //   metalPricePerGram,
-  //   enteredAmount,
-  //   metalQuantity,
-  // ]);
-
-  // useEffect(() => {
-  //   console.log("metalPricePerGram", metalPricePerGram)
-  //   // console.log("goldData", goldData)
-  // }, [metalPricePerGram]);
+  useEffect(() => {
+    dispatch(setMetalType('gold'));
+    dispatch(setEnteredAmount(0));
+    dispatch(setCouponError(""));
+    dispatch(setPurchaseType("buy"));
+    dispatch(setTransactionType("rupees"));
+  }, []);
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -159,10 +97,16 @@ const BuySell = () => {
     2
   );
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
-  // console.log('actualPurchasingInGm', actualPurchasingInGm)
 
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4);
+    if (!enteredAmount) {
+      setValidationError('Please enter amount');
+      // return;
+    } else if (actualAmount < 10) {
+      setValidationError('Minimum gifting amount is Rs.10');
+      // return;
+    }
     setValidationError("");
     if (activeTabPurchase === "rupees") {
       if (enteredValue > 200000) {
@@ -176,14 +120,25 @@ const BuySell = () => {
     }
 
     if (activeTabPurchase === "grams") {
-      console.log("actualPurchasingInGm", actualPurchasingInGm);
-      if (Number(e.target.value) > actualPurchasingInGm) {
+      // console.log("actualPurchasingInGm", actualPurchasingInGm);
+      if (Number(e.target.value) > ParseFloat(actualPurchasingInGm, 4)) {
         setValidationError("Amount should be less than 2 lakhs");
         return;
       } else {
         dispatch(setEnteredAmount(+enteredValue));
       }
     }
+  };
+  const handleClick = (e: any) => {
+    if (!enteredAmount) {
+      setValidationError('Please enter amount');
+      return;
+    } else if (totalAmount !== undefined && totalAmount < 10) {
+      setValidationError('Minimum Purchase amount is Rs.10');
+      return;
+    }
+    setValidationError("");
+    setModalOpen(true)
   };
 
   const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
@@ -212,7 +167,7 @@ const BuySell = () => {
     } else {
       dispatch(setMetalPrice(silverData.salePrice));
     }
-  }, [isgold, activeTab]);
+  }, [isgold, activeTab, toggleMetal]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -224,18 +179,47 @@ const BuySell = () => {
     setModalOpen(false);
   };
 
+  useEffect(() => {
+    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
+    console.table({
+      purchaseType,
+      actualAmount,
+      gst,
+      metalType,
+      transactionType,
+      metalPricePerGram,
+      totalAmount,
+      enteredAmount,
+      metalQuantity,
+    });
+  }, [
+    error,
+    appliedCouponCode,
+    extraGoldOfRuppess,
+    extraGold,
+    purchaseType,
+    actualAmount,
+    gst,
+    totalAmount,
+    metalType,
+    transactionType,
+    metalPricePerGram,
+    enteredAmount,
+    metalQuantity,
+    toggleMetal
+  ]);
+
   return (
     <>
       <div>
         <div className="block lg:pl-28">
           <div className="tab-bg  rounded-b-lg relative">
-            <div className="grid grid-cols-2  ">
+            <div className="grid grid-cols-2">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${
-                  activeTab === "buy"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -243,11 +227,10 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${
-                  activeTab === "sell"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -268,14 +251,6 @@ const BuySell = () => {
                 </div>
                 <div>
                   <p className="text-white text-sm pl-6 mt-6 relative">
-                    {/* <img
-                      className="h-4 inline-block mr-1"
-                      src={new URL(
-                        "../../../public/live.png",
-                        import.meta.url
-                      ).toString()}
-                      alt="Your Company"
-                    /> */}
                     <Lottie
                       animationData={live}
                       className="h-6 absolute"
@@ -315,11 +290,10 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${
-                          goldData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${goldData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -330,11 +304,10 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${
-                          silverData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${silverData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -349,30 +322,11 @@ const BuySell = () => {
                       Since Yesterday
                     </p>
                   </p>
-
-                  {/* <p className="timer mt-4 text-xs py-1 pl-6 flex">
-                    <div className="pl-1"></div>
-                  </p> */}
                 </div>
               </div>
               <div className="mt-8 sm:mt-10">
                 <div className="flex justify-end pr-4 sm:pr-12">
-                  {/* <Image
-                    className={`coin_transition ${
-                      isgold
-                        ? "gold_coin h-16 w-16 sm:h-28 sm:w-28"
-                        : "silver_coin w-16 sm:h-28 sm:w-28"
-                    }`}
-                    src={
-                      isgold
-                        ? "/silvercoin.png"
-                        : "https://www.brightdigigold.com/images/Masksilver.svg"
-                    }
-                    alt="coin image"
-                    loading="lazy"
-                    width={100}
-                    height={100}
-                  /> */}
+
                   {metalType === "gold" ? (
                     <Lottie
                       animationData={goldBarData}
@@ -392,7 +346,6 @@ const BuySell = () => {
             </div>
             {purchaseType === "sell" && (
               <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-4 items-center justify-between">
-                {/* <img src="/silvercoin.png" className="h-8" /> */}
                 <Lottie
                   animationData={animationData}
                   className="h-28 sm:h-40 left-1 sm:left-5 absolute"
@@ -418,21 +371,19 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "rupees"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white"
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "rupees"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white"
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
-                    activeTabPurchase === "grams"
-                      ? "bg-transparent text-white bg-themeLight active"
-                      : "text-white "
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "grams"
+                    ? "bg-transparent text-white bg-themeLight active"
+                    : "text-white "
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In grams" : "In grams"}
@@ -445,13 +396,14 @@ const BuySell = () => {
                   </div>
                   <input
                     type="number"
+                    inputMode="numeric"
                     className="bg-transparent pl-12 text-lg py-1 focus:outline-none text-white"
                     placeholder={
                       activeTabPurchase === "rupees" ? "0000" : "0.0000"
                     }
-                    onChange={handleEnteredAmountChange}
+                    onChange={(e) => { handleEnteredAmountChange(e) }}
                     step="0.0001"
-                    value={enteredAmount === 0 ? "" : enteredAmount}
+                    value={enteredAmount === 0 ? undefined : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {
@@ -480,8 +432,8 @@ const BuySell = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                        ? ""
-                        : totalAmount
+                          ? ""
+                          : totalAmount
                     }
                     readOnly
                   />
@@ -572,13 +524,13 @@ const BuySell = () => {
               )}
               <div className="mt-12">
                 <button
-                  onClick={openModal}
+                  onClick={handleClick}
                   className="w-full bg-gray-400 rounded-lg py-2"
                 >
                   <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" />
                   {purchaseType === "buy" ? "Start Investing " : "Sell Now"}
                 </button>
-                <Modal isOpen={isModalOpen} onClose={closeModal} />
+                {isModalOpen && <Modal isOpen={isModalOpen} onClose={closeModal} />}
               </div>
             </div>
           </div>

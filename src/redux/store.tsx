@@ -5,6 +5,7 @@ import { silverReducer, goldReducer } from './metalSlice';
 import shopSlice from './shopSlice';
 import couponSlice from './couponSlice';
 import timerReducer from './timeSlice';
+import giftSlice from './giftSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, } from 'redux-persist';
 
@@ -13,7 +14,7 @@ const persistConfig = {
     storage,
 };
 
-const rootReducer = combineReducers({ gold: goldReducer, silver: silverReducer, shop: shopSlice, coupon: couponSlice, time: timerReducer });
+const rootReducer = combineReducers({ gold: goldReducer, silver: silverReducer, shop: shopSlice, coupon: couponSlice, time: timerReducer, gift: giftSlice, });
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export default configureStore({

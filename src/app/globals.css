@@ -517,3 +517,26 @@ input:checked + .slider ~ .text-gold {
 .rotate-silver {
   transform: rotate(45deg);
 }
+
+input.inputBox {
+  font-size: 16px;
+  padding: 2px 2px 1px 2px;
+  /* border-radius: 3px; */
+  /* border: 2px solid #eae205; */
+  background-color: #092637;
+  text-align: center;
+}
+
+.calendarWrap {
+  display: inline-block;
+  position: relative;
+}
+
+.otp_background {
+  margin: auto;
+  background: #092637;
+}
+
+.caret-transparent::before {
+  caret-color: transparent;
+}

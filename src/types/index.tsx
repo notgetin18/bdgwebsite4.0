@@ -90,3 +90,39 @@ export interface UserReward {
   __v: number;
   _id: string;
 }
+
+export interface GiftState {
+  metalType: MetalType;
+  transactionType: TransactionType;
+  enteredAmount: number | undefined;
+  actualAmount: number;
+  metalPrice: number,
+  metalQuantity: number | undefined,
+  totalAmount: number | undefined,
+}
+
+export interface OtpModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmitVerify: (event: React.FormEvent<HTMLFormElement>) => void;
+  handleOTPChange: (otp: string) => void;
+  otp: string;
+  otpError: string;
+  isSubmitting: boolean;
+}
+
+export interface Wallet {
+  createdAt: null
+  gold: number
+  goldAvgPrice: number
+  goldCurrentValue: number
+  holdGoldGram: number
+  holdSilverGram: number
+  silver: number
+  silverAvgPrice: number
+  silverCurrentValue: number
+  totalAmount: number
+  updatedAt: String
+  user_id: String
+  _id: String
+}
