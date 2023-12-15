@@ -2,65 +2,94 @@
 import React, { useCallback, useEffect } from "react";
 import BuySell from "./buySell";
 import Link from "next/link";
+import Lottie from "lottie-react";
+import GooglePlay from "../../../public/lottie/Google Play.json";
+import IOS from "../../../public/lottie/App Store.json";
+import { motion } from "framer-motion";
+import { slideIn, fadeIn, textVariant } from "../../utils/motion";
 
 const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
-      <div className="mx-auto px-4 sm:px-6 lg:px-16">
-        <img
-          className="h-7xl absolute bottom-0 -left-20"
-          src="/BDGwhite.png"
-          alt="Your Company"
-        />
-        <div className="grid lg:grid-cols-2 gap-4">
-          <div className="hidden lg:block">
-            <h1 className="text-5xl text-white font-semibold leading-tight mb-12 extrabold">
-              Start Your Saving
-              <br /> With Just <span className="text-gold01">₹</span> 10
-            </h1>
-            <div className="flex items-center">
-              <img className="h-12" src="/gold-bars.svg" alt="Your Company" />
-              <p className="text-gold01 p-1 px-3 ml-3 border-gold rounded-lg text-sm font-bold">
-                Best Platform to Buy & Sell 24K Digital Gold
-              </p>
-            </div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.25 }}
+      >
+        <div className="mx-auto px-4 sm:px-6 lg:px-16">
+          <img
+            className="h-7xl absolute bottom-0 -left-20 opacity-30"
+            src="/BDGwhite.png"
+            alt="Your Company"
+          />
+          <div className="grid lg:grid-cols-2 gap-4">
+            <div className="hidden lg:block mt-10">
+              <motion.h1
+                variants={fadeIn("right", "spring", 0.2, 0.2)}
+                className="text-5xl text-white font-semibold leading-tight mb-12 extrabold"
+              >
+                Start Your Saving
+                <br /> With Just <span className="text-gold01">₹</span> 10
+              </motion.h1>
+              <motion.div variants={textVariant(1.1)}>
+                <div className="inline-block items-center border-gold rounded-lg px-3 py-1">
+                  <img
+                    className="h-6 inline-block"
+                    src="/goldbarbanner.png"
+                    alt="Your Company"
+                  />
+                  <p className="text-gold01 p-1 px-3 ml-3  text-sm font-bold inline-block">
+                    Best Platform to Buy & Sell 24K Digital Gold
+                  </p>
+                </div>
 
-            <p className="text-white leading-6  mb-4 mt-6 text-sm">
-              In Just A Few Clicks Make Your Savings Grow in Digital Gold and
-              Silver.
-            </p>
-            <div className="flex items-center">
-              <p className="text-lg font-bold text-white">Trusted By</p>
-              {/* <img className="h-6 ml-4" src="/brinks.svg" alt="Your Company" /> */}
-              <img
-                className="h-8 ml-6 mt-2"
-                src="/Startup India.svg"
-                alt="Your Company"
-              />
-            </div>
+                <p className="text-white leading-6  mb-4 mt-6 text-sm">
+                  In Just A Few Clicks Make Your Savings Grow in Digital Gold
+                  and Silver.
+                </p>
+                <div className="flex items-center">
+                  <p className="text-lg font-bold text-white">Trusted By</p>
+                  {/* <img className="h-6 ml-4" src="/brinks.svg" alt="Your Company" /> */}
+                  <img
+                    className="h-8 ml-6 mt-2"
+                    src="/Startup India.svg"
+                    alt="Your Company"
+                  />
+                </div>
 
-            <div className="flex gap-4 mt-10">
-              <Link href="" className="cursor-pointer">
-                <img className="h-10" src="/app-store.png" alt="Your Company" />
-              </Link>
-              <Link href="" className="cursor-pointer">
-                <img className="h-10" src="/andriod.png" alt="Your Company" />
-              </Link>
-            </div>
-            <div className="flex justify-center mt-4">
-              {/* <img
+                <div className="flex gap-4 mt-10 relative">
+                  <Link href="" className="cursor-pointer">
+                    <Lottie
+                      animationData={IOS}
+                      className="h-32 absolute -top-16 -left-2"
+                      loop={true}
+                    />
+                  </Link>
+                  <Link href="" className="cursor-pointer">
+                    {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
+                    <Lottie
+                      animationData={GooglePlay}
+                      className="h-32 absolute -top-16 left-28"
+                      loop={true}
+                    />
+                  </Link>
+                </div>
+              </motion.div>
+              <div className="flex justify-center mt-4">
+                {/* <img
                 className="h-12"
                 src="/Startup India.svg"
                 alt="Your Company"
               /> */}
+              </div>
             </div>
-          </div>
-          {/* <CustomButton title="Invest now" /> */}
-          <div>
-            <BuySell />
+            {/* <CustomButton title="Invest now" /> */}
+            <motion.div variants={fadeIn("bottom", "spring", 0.5, 0.5)}>
+              <BuySell />
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

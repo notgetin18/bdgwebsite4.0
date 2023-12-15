@@ -1,6 +1,9 @@
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React from "react";
+import Lottie from "lottie-react";
+import GooglePlay from "../../public/lottie/Google Play.json";
+import IOS from "../../public/lottie/App Store.json";
 const Footer = () => {
   return (
     <div className="bg-theme">
@@ -11,20 +14,25 @@ const Footer = () => {
               <Link href="#">
                 <img alt="gold-logo" className="w-56" src="/goldenlogo.png" />
               </Link>
-              <div className="flex gap-4 mt-10">
+              <div className="flex gap-4 mt-10 relative">
                 <Link href="" className="cursor-pointer">
-                  <img
-                    className="h-10"
-                    src="/app-store.png"
-                    alt="Your Company"
+                  <Lottie
+                    animationData={IOS}
+                    className="h-32 absolute -top-16 -left-2"
+                    loop={true}
                   />
                 </Link>
                 <Link href="" className="cursor-pointer">
-                  <img className="h-10" src="/andriod.png" alt="Your Company" />
+                  {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
+                  <Lottie
+                    animationData={GooglePlay}
+                    className="h-32 absolute -top-16 left-28"
+                    loop={true}
+                  />
                 </Link>
               </div>
               <div className="w-72">
-                <ul className="mt-6 flex gap-1 justify-between">
+                <ul className="mt-8 flex gap-1 justify-between">
                   <li className="mb-8">
                     <Link href="#">
                       <img src="/socail1.png" alt="socail1" className="h-6" />
@@ -47,7 +55,7 @@ const Footer = () => {
                   </li>
                   <li className="mb-8">
                     <Link href="#">
-                      <img src="/socail4.png" alt="socail4" className="h-6" />
+                      <img src="/socail5.png" alt="socail4" className="h-6" />
                     </Link>
                   </li>
                 </ul>

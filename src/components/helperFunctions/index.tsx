@@ -1,4 +1,4 @@
-import CryptoJS from 'crypto-js';
+import CryptoJS from "crypto-js";
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -45,7 +45,6 @@ export const funcForDecrypt = async (dataToBeDecrypt: any) => {
   return response;
 };
 
-
 export const funForAesEncrypt = async (dataToBeEncrypt: any) => {
   const response = await AesEncrypt(dataToBeEncrypt);
   //
@@ -62,27 +61,32 @@ export function ParseFloat(str: any, val: any) {
   return Number(str);
 }
 
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export const Card = ({ title, description, imageUrl, linkTo }: any) => {
-  const formattedDescription = description.replace(/LIMITED/g, 'LIMITED<br />');
+  const formattedDescription = description.replace(/LIMITED/g, "LIMITED<br />");
 
   return (
     <Link href={linkTo}>
-      <div className="max-w-xs coins_background rounded overflow-hidden shadow-lg flex flex-col items-center">
-        <Image className="" src={imageUrl} alt={title} width={50} height={50} />
-        <div className="font-bold text-xl mb-2 text-white">{title}</div>
+      <div className="py-6  coins_background rounded-xl sm:min-h-[210px] overflow-hidden shadow-lg flex flex-col items-center">
+        <Image
+          className="mb-1"
+          src={imageUrl}
+          alt={title}
+          width={30}
+          height={30}
+        />
+        <div className="font-bold text-base mt-2 text-white">{title}</div>
         <div
-          className="px-6 py-4 text-center text-white"
+          className="px-4 py-2 text-center text-white"
           dangerouslySetInnerHTML={{ __html: formattedDescription }}
         />
       </div>
     </Link>
   );
 };
-
 
 type InputType = "text" | "number" | "email" | "password" | "date" | "textarea";
 interface InputProps {
@@ -144,4 +148,3 @@ const styles = {
   p4: "mt-1",
 };
 export default FormInput;
-

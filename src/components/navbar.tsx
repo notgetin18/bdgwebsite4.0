@@ -23,7 +23,7 @@ const Navbar = () => {
         <>
           <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
@@ -35,7 +35,7 @@ const Navbar = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 items-center justify-center lg:items-stretch lg:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-16"
@@ -47,34 +47,19 @@ const Navbar = () => {
                   />
                 </div>
               </div>
-              <Link
-                className={styles.p0}
-                href="/"
-              >
+              <Link className={styles.p0} href="/">
                 Home
               </Link>
-              <Link
-                className={styles.p0}
-                href="/coins"
-              >
+              <Link className={styles.p0} href="/coins">
                 Coins
               </Link>
-              <Link
-                className={styles.p0}
-                href="/about"
-              >
+              <Link className={styles.p0} href="/about">
                 About
               </Link>
-              <Link
-                className={styles.p0}
-                href="/contact"
-              >
+              <Link className={styles.p0} href="/contact">
                 Contact Us
               </Link>
-              <Link
-                className={styles.p0}
-                href="/dashboard"
-              >
+              <Link className={styles.p0} href="/dashboard">
                 Dashboard
               </Link>
               {isloggedIn ? (
@@ -82,20 +67,15 @@ const Navbar = () => {
                   My Account
                 </Link>
               ) : (
-                <Link
-                  className={styles.p0}
-                  href="/"
-                >
+                <Link className={styles.p0} href="/">
                   Login/Sign Up
                 </Link>
               )}
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
-
-                  </div>
+                <div className="hidden lg:ml-6 lg:block">
+                  <div className="flex space-x-4"></div>
                 </div>
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -110,7 +90,7 @@ const Navbar = () => {
                       </Link> */}
 
                       <Link
-                        className="block sm:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
+                        className="block lg:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
                       >
                         <UserCircleIcon className="h-8" />
@@ -173,49 +153,83 @@ const Navbar = () => {
             </div>
           </div>
           {/* Mobile dropdown */}
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               <Link href="/">
-                <div onClick={() => { close() }} className={styles.p1}>
+                <div
+                  onClick={() => {
+                    close();
+                  }}
+                  className={styles.p1}
+                >
                   Home
                 </div>
               </Link>
               <Link href="/coins">
-                <div onClick={() => { close() }} className={styles.p1}>
+                <div
+                  onClick={() => {
+                    close();
+                  }}
+                  className={styles.p1}
+                >
                   Coins
                 </div>
               </Link>
               <Link href="/about">
-                <div onClick={() => { close() }} className={styles.p1}>
+                <div
+                  onClick={() => {
+                    close();
+                  }}
+                  className={styles.p1}
+                >
                   About
                 </div>
               </Link>
               <Link href="/contact">
-                <div onClick={() => { close() }} className={styles.p1}>
+                <div
+                  onClick={() => {
+                    close();
+                  }}
+                  className={styles.p1}
+                >
                   Contact
                 </div>
               </Link>
               <Link href="/dashboard">
-                <div onClick={() => { close() }} className={styles.p1}>
+                <div
+                  onClick={() => {
+                    close();
+                  }}
+                  className={styles.p1}
+                >
                   Dashboard
                 </div>
               </Link>
               {isloggedIn ? (
                 <Link href="/">
-                  <div onClick={() => { close() }} className={styles.p1}>
+                  <div
+                    onClick={() => {
+                      close();
+                    }}
+                    className={styles.p1}
+                  >
                     My Account
                   </div>
                 </Link>
               ) : (
                 <Link href="/">
-                  <div onClick={() => { close() }} className={styles.p1}>
+                  <div
+                    onClick={() => {
+                      close();
+                    }}
+                    className={styles.p1}
+                  >
                     Login/Sign Up
                   </div>
                 </Link>
               )}
             </div>
           </Disclosure.Panel>
-
         </>
       )}
     </Disclosure>
@@ -225,6 +239,6 @@ const Navbar = () => {
 export default Navbar;
 
 const styles = {
-  p0: "hidden sm:block text-lg  font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2",
-  p1: "block rounded-md px-3 py-2 text-lg  font-semibold text-white"
-}
+  p0: "hidden lg:block text-lg  font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2",
+  p1: "block rounded-md px-3 py-2 text-lg  font-semibold text-white",
+};
