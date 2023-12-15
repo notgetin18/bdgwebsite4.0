@@ -1,10 +1,5 @@
 "use client";
-import {
-  ArrowUpIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ChevronLeftIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowUpIcon, ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon} from "@heroicons/react/20/solid";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,19 +8,8 @@ import animationData from "../../../public/lottie/locker.json";
 import goldBarData from "../../../public/lottie/GoldBricks.json";
 import silverBarData from "../../../public/lottie/SilverBricks.json";
 import live from "../../../public/lottie/live.json";
-import {
-  setEnteredAmount,
-  setMetalPrice,
-  setMetalType,
-  setPurchaseType,
-  setTransactionType,
-} from "@/redux/shopSlice";
-import {
-  applyCoupon,
-  clearCoupon,
-  isCouponApplied,
-  setCouponError,
-} from "@/redux/couponSlice";
+import { setEnteredAmount, setMetalPrice, setMetalType, setPurchaseType, setTransactionType} from "@/redux/shopSlice";
+import { applyCoupon, clearCoupon, isCouponApplied, setCouponError} from "@/redux/couponSlice";
 import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
