@@ -11,7 +11,7 @@ const Redeem = () => {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const [itemList, setItemList] = useState<any[]>([]);
-    const [size, setSize] = useState(4);
+    const [size, setSize] = useState(5);
     console.log('i am from Reedem')
 
 
@@ -173,156 +173,161 @@ const Redeem = () => {
 
     // console.log('userRewards', userRewards)
     return (
-        <div className="w-full bg-themeLight rounded">
-            <div className=" ">
-                <div className='grid grid-cols-3 items-center justify-between'>
-                    <div className=''>
-                        <label className='text-white m-3'>Metal</label>
-                        <select
-                            name="metal"
-                            id="metal"
-                            onChange={handleMetalChange}
-                            className="cursor-pointer text-white rounded border-2 border-yellow-400 bg-transparent"
-                        >
-                            <option value="ALL" selected={true}>
-                                All
-                            </option>
-                            <option value="GOLD">GOLD</option>
-                            <option value="SILVER">SILVER</option>
-                        </select>
-                    </div>
-                    <div className=''>
-                        <label className='text-white ml-4'>Status</label>
-                        <select
-                            name="status"
-                            id="status"
-                            onChange={handleStatusChange}
-                            className="m-3 cursor-pointer text-white rounded border-2 border-yellow-400 bg-transparent"
-                        >
-                            <option value="ALL" selected={true}>
-                                All
-                            </option>
-                            <option value="PENDING">Pending</option>
-                            <option value="CANCELLED">Cancelled</option>
-                            <option value="REDEEM">Redeemed</option>
-                        </select>
-                    </div>
-                    {itemList.length > 0 &&
-                        <div className="flex items-center justify-end ">
-                            {page > 1 && <div className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer" onClick={prevPageHandler}>Prev</div>}
-                            <div className="">
+        <div className="w-full rounded">
+            <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
+                <p className="text-white text-center">GIFTING HISTORY</p>
+                <dl className="mt-10 space-y-2">
+                    <div className=" ">
+                        <div className='grid grid-cols-3 items-center justify-between'>
+                            <div className=''>
+                                <label className='text-white m-3'>Metal</label>
                                 <select
-                                    className="cursor-pointer px-2 text-white rounded border-2 border-yellow-400 bg-transparent"
-                                    onChange={updatePage}
-                                    value={page}
+                                    name="metal"
+                                    id="metal"
+                                    onChange={handleMetalChange}
+                                    className="cursor-pointer text-white rounded border-2 border-yellow-400 bg-transparent"
                                 >
-                                    {itemList.map((number, index) => (
-                                        <option className="text-black text-center" key={index} value={number}>
-                                            {number}
-                                        </option>
-                                    ))}
+                                    <option value="ALL" selected={true}>
+                                        All
+                                    </option>
+                                    <option value="GOLD">GOLD</option>
+                                    <option value="SILVER">SILVER</option>
                                 </select>
                             </div>
-                            {page < totalPage && <div className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer" onClick={nextPageHandler}>Next</div>}
-                        </div>
-                    }
-                </div>
-            </div>
-
-            {userRewards.length == 0 && (
-                <div className="d-flex justify-content-center align-items-center nodata mt-2">
-                    <div style={{ textAlign: "center", color: "white" }}> No Rewards Found</div>
-                </div>
-            )}
-            {userRewards.map((userRewards) => {
-                return (
-                    <div className="text-white border-4 border-gray-500 rounded-md m-4">
-                        <div className="m-3 flex flex-row items-center justify-between">
-                            <div>
-                                <div className="text-yellow-500">{userRewards?.itemType}</div>
-                                <div>{userRewards?.description}</div>
+                            <div className=''>
+                                <label className='text-white ml-4'>Status</label>
+                                <select
+                                    name="status"
+                                    id="status"
+                                    onChange={handleStatusChange}
+                                    className="m-3 cursor-pointer text-white rounded border-2 border-yellow-400 bg-transparent"
+                                >
+                                    <option value="ALL" selected={true}>
+                                        All
+                                    </option>
+                                    <option value="PENDING">Pending</option>
+                                    <option value="CANCELLED">Cancelled</option>
+                                    <option value="REDEEM">Redeemed</option>
+                                </select>
                             </div>
-                            <div className="ml-8">
-                                {userRewards.status == "PENDING" && (
-                                    <div className="d-flex flex">
-                                        <div
-                                            className='border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3'
-                                            onClick={() => redeemReward(userRewards._id)}
+                            {itemList.length > 0 &&
+                                <div className="flex items-center justify-end ">
+                                    {page > 1 && <div className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer" onClick={prevPageHandler}>Prev</div>}
+                                    <div className="">
+                                        <select
+                                            className="cursor-pointer px-2 text-white rounded border-2 border-yellow-400 bg-transparent"
+                                            onChange={updatePage}
+                                            value={page}
                                         >
-                                            Redeem
-                                        </div>
-                                        {userRewards.rewardsType == "GIFTING" && (
-                                            <div
-                                                className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                                onClick={() =>
-                                                    rewardAction("cancel", userRewards.user_gifting_id)
-                                                }
-                                            >
-                                                Cancel
-                                            </div>
-                                        )}
+                                            {itemList.map((number, index) => (
+                                                <option className="text-black text-center" key={index} value={number}>
+                                                    {number}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
-                                )}
-
-                                {userRewards.rewardsType == "GIFTING" &&
-                                    userRewards.status == "CANCELLED" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                        >
-                                            Cancelled
-                                        </div>
-                                    )}
-
-                                {userRewards.rewardsType == "GIFTING" &&
-                                    userRewards.status == "REDEEM" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                        >
-                                            Redeemed
-                                        </div>
-                                    )}
-
-                                {userRewards.rewardsType == "GIFTING" &&
-                                    userRewards.status == "EXPIRED" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                        >Expired</div>
-                                    )}
-
-                                {userRewards.rewardsType == "GIFTING" &&
-                                    userRewards.status == "SEND" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                        >
-                                            Redeemed
-                                        </div>
-                                    )}
-
-                                {userRewards.rewardsType == "REFERANDEARN" &&
-                                    userRewards.status == "REDEEM" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                        >
-                                            Redeemed
-                                        </div>
-                                    )}
-
-                                {userRewards.rewardsType == "GIFTING" &&
-                                    userRewards.status == "SENT" && (
-                                        <div
-                                            className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
-                                            onClick={() =>
-                                                rewardAction("cancel", userRewards.user_gifting_id)
-                                            }
-                                        >
-                                            Cancel
-                                        </div>
-                                    )}
-                            </div>
+                                    {page < totalPage && <div className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer" onClick={nextPageHandler}>Next</div>}
+                                </div>
+                            }
                         </div>
                     </div>
-                )
-            })}
+
+                    {userRewards.length == 0 && (
+                        <div className="d-flex justify-content-center align-items-center nodata mt-2">
+                            <div style={{ textAlign: "center", color: "white" }}> No Rewards Found</div>
+                        </div>
+                    )}
+                    {userRewards.map((userRewards) => {
+                        return (
+                            <div className="text-white border-2 border-blue-400 rounded-md m-4">
+                                <div className="m-3 flex flex-row items-center justify-between">
+                                    <div>
+                                        <div className="text-yellow-500">{userRewards?.itemType}</div>
+                                        <div>{userRewards?.description}</div>
+                                    </div>
+                                    <div className="ml-8">
+                                        {userRewards.status == "PENDING" && (
+                                            <div className="d-flex flex">
+                                                <div
+                                                    className='border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3'
+                                                    onClick={() => redeemReward(userRewards._id)}
+                                                >
+                                                    Redeem
+                                                </div>
+                                                {userRewards.rewardsType == "GIFTING" && (
+                                                    <div
+                                                        className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                        onClick={() =>
+                                                            rewardAction("cancel", userRewards.user_gifting_id)
+                                                        }
+                                                    >
+                                                        Cancel
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {userRewards.rewardsType == "GIFTING" &&
+                                            userRewards.status == "CANCELLED" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                >
+                                                    Cancelled
+                                                </div>
+                                            )}
+
+                                        {userRewards.rewardsType == "GIFTING" &&
+                                            userRewards.status == "REDEEM" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                >
+                                                    Redeemed
+                                                </div>
+                                            )}
+
+                                        {userRewards.rewardsType == "GIFTING" &&
+                                            userRewards.status == "EXPIRED" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                >Expired</div>
+                                            )}
+
+                                        {userRewards.rewardsType == "GIFTING" &&
+                                            userRewards.status == "SEND" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                >
+                                                    Redeemed
+                                                </div>
+                                            )}
+
+                                        {userRewards.rewardsType == "REFERANDEARN" &&
+                                            userRewards.status == "REDEEM" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                >
+                                                    Redeemed
+                                                </div>
+                                            )}
+
+                                        {userRewards.rewardsType == "GIFTING" &&
+                                            userRewards.status == "SENT" && (
+                                                <div
+                                                    className='border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3'
+                                                    onClick={() =>
+                                                        rewardAction("cancel", userRewards.user_gifting_id)
+                                                    }
+                                                >
+                                                    Cancel
+                                                </div>
+                                            )}
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </dl>
+            </div>
         </div>
     );
 };
