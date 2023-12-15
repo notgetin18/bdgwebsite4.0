@@ -14,6 +14,8 @@ const GiftFaq: React.FC = () => {
             .catch(error => console.error(error));
     }, [])
     // console.log('accordionData', accordionData)
+    console.log('i am from GiftFaq')
+
     return (
         <div>
             <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">

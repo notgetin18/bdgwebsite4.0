@@ -5,7 +5,6 @@ import Image from "next/image";
 import { AesDecrypt, AesEncrypt, ParseFloat } from "@/components/helperFunctions";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { faqs } from "@/constants";
 import { ErrorMessage, Formik } from "formik";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -35,10 +34,10 @@ const GiftTab = () => {
   const enteredAmount = useSelector((state: RootState) => state.gift.enteredAmount);
   const actualAmount = useSelector((state: RootState) => state.gift.actualAmount);
 
-
-  useEffect(() => {
-    console.table({ activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount })
-  }, [activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount])
+console.log('i am from GiftTab')
+  // useEffect(() => {
+  //   console.table({ activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount })
+  // }, [activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount])
 
   useEffect(() => {
     dispatch(setMetalType("gold"));
