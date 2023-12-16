@@ -78,7 +78,7 @@ const Navbar = () => {
                 Dashboard
               </Link>
               {isloggedIn ? (
-                <Link className={styles.p0} href="/">
+                <Link className={styles.p0} href="/myAccount">
                   My Account
                 </Link>
               ) : (

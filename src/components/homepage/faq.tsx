@@ -25,35 +25,35 @@ const faqs = [
 ];
 const Faq = () => {
   return (
-    <div className="bg-theme relative">
+    <div className="bg-theme relative ">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8 ">
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <p></p>
           <h1 className="text-center text-yellow-500 text-3xl extrabold">
             FAQ's
           </h1>
           <Link
-            href="#"
+            href="/faqs"
             className="bg-themeLight px-3 py-1 text-md text-white rounded border border-gray-500"
           >
             View All
           </Link>
         </div>
         <div>
-          <dl className="mt-10 space-y-1 divide-y divide-gray-900/10">
+          <dl className="mt-10 space-y-1 divide-y divide-gray-900/10 ">
             {faqs.map((faq) => (
-              <Disclosure as="div" key={faq.question} className="pt-6">
+              <Disclosure as="div" key={faq.question} className="pt-6 ">
                 {({ open }) => (
                   <>
                     <dt>
                       <Disclosure.Button
-                        className="flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-md px-4 py-2"
+                        className=" flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-2xl px-4 py-4"
                         style={{ background: "#24455c" }}
                       >
-                        <span className="text-base font-semibold leading-7">
+                        <span className="text-base font-semibold leading-7 ">
                           {faq.question}
                         </span>
-                        <span className="ml-6 flex h-7 items-center">
+                        <span className="ml-6 flex h-7 items-center ">
                           {open ? (
                             <MinusSmallIcon
                               className="h-6 w-6"
