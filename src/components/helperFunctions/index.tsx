@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-import CryptoJS from "crypto-js";
-=======
+
 import CryptoJS from 'crypto-js';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
->>>>>>> 977d11362721d9909600d2ae5ba444560c195b73
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -68,11 +65,7 @@ export function ParseFloat(str: any, val: any) {
   return Number(str);
 }
 
-<<<<<<< HEAD
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-=======
+
 export function formatString(inputString: string): string {
   return inputString
     .toLowerCase()
@@ -82,7 +75,6 @@ export function formatString(inputString: string): string {
 }
 
 
->>>>>>> 977d11362721d9909600d2ae5ba444560c195b73
 
 export const Card = ({ title, description, imageUrl, linkTo }: any) => {
   const formattedDescription = description.replace(/LIMITED/g, "LIMITED<br />");
