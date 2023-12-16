@@ -114,14 +114,14 @@ const page = ({ params }: any) => {
         <div className="col-span-2 relative">
           {/* Absolute positioning for out-of-stock image */}
           {!productsDetailById.inStock && (
-            <div className="bg-red-600 absolute top-0 right-0 px-2 rounded-bl-lg">
+            <div className="bg-red-600 absolute top-0 right-0 px-2  rounded-bl-lg">
               {/* <Image
                 src={"https://www.highnotes.ca/cdn/shop/collections/out-of-stock_1200x1200.png?v=1652635518"}
                 alt="out of stock"
                 width={160}
                 height={160}
               /> */}
-              <p className="">Out Of Stock</p>
+              <p className="font-medium">Out Of Stock</p>
             </div>
           )}
           <div className="bg-themeLight rounded p-4">

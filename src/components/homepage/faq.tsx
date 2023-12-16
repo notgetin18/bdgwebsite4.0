@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { Disclosure } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, ArrowLongDownIcon, ArrowDownCircleIcon } from "@heroicons/react/24/outline";
+import { MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 
 const faqs = [
   {
@@ -54,12 +54,12 @@ const Faq = () => {
                         </span>
                         <span className="ml-6 flex h-7 items-center ">
                           {open ? (
-                            <MinusSmallIcon
+                            <ArrowUpIcon
                               className="h-6 w-6"
                               aria-hidden="true"
                             />
                           ) : (
-                            <ArrowDownCircleIcon
+                            <ArrowDownIcon
                               className="h-6 w-6"
                               aria-hidden="true"
                             />
