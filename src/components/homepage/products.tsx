@@ -16,7 +16,7 @@ const Products = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl">Our Coins</h1>
           <Link
-            href="#"
+            href="/coins"
             className="bg-themeLight px-3 py-1 text-md text-white rounded border border-gray-500"
           >
             View All
@@ -63,7 +63,7 @@ const Products = () => {
             </p>
 
             <Link
-              href="#"
+              href={`/coins/1-Gram-Gold-Coin`}
               className="bg-themeBlue w-full block rounded-full py-2 mt-6 text-center"
             >
               View
@@ -103,7 +103,7 @@ const Products = () => {
             </p>
 
             <Link
-              href="#"
+              href={`/coins/10-Gram-Banyan-Tree-Silver-Coin`}
               className="bg-themeBlue w-full block rounded-full py-2 mt-6 text-center"
             >
               View
@@ -149,7 +149,7 @@ const Products = () => {
             </p>
 
             <Link
-              href="#"
+              href={`/coins/10-Gram-Gold-Coin`}
               className="bg-themeBlue w-full block rounded-full py-2 mt-6 text-center"
             >
               View
@@ -189,7 +189,7 @@ const Products = () => {
             </p>
 
             <Link
-              href="#"
+              href={`/coins/100-Gram-Banyan-Tree-Silver-Coin`}
               className="bg-themeBlue w-full block rounded-full py-2 mt-6 text-center"
             >
               View
