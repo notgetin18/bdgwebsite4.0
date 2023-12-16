@@ -3,7 +3,12 @@ import Link from "next/link";
 import React from "react";
 
 import { motion } from "framer-motion";
-import { slideIn, staggerContainer, textVariant } from "../../utils/motion";
+import {
+  fadeIn,
+  slideIn,
+  staggerContainer,
+  textVariant,
+} from "../../utils/motion";
 
 const Ecom = () => {
   return (
@@ -16,7 +21,7 @@ const Ecom = () => {
           viewport={{ once: false, amount: 0.25 }}
           className="grid sm:grid-cols-2 gap-6 place-items-center"
         >
-          <motion.div variants={slideIn("right", "tween", 0.2, 1)} className="">
+          <motion.div variants={fadeIn("right", "spring", 0.2, 1)} className="">
             <img alt="products" className="h-40 mx-auto" src="/goldcoin.png" />
           </motion.div>
           <div>

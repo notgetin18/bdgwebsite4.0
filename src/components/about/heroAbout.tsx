@@ -14,7 +14,7 @@ const HeroAbout = () => {
     <div className="bg-theme py-10">
       <div className="mx-auto px-4 sm:px-6 lg:px-16">
         <img
-          className="h-800 absolute top-48 -left-20"
+          className="h-800 absolute top-48 -left-20 opacity-40 z-0"
           src="/BDGwhite.png"
           alt="Your Company"
         />
@@ -35,7 +35,11 @@ const HeroAbout = () => {
 
             <div className="flex items-center justify-center">
               <motion.div variants={fadeIn("left", "spring", 0.2, 1)}>
-                <img className="" src="/aboutbanner10.png" alt="Your Company" />
+                <img
+                  className=" z-10"
+                  src="/aboutbanner10.png"
+                  alt="Your Company"
+                />
               </motion.div>
               <motion.div variants={textVariant(1.1)}>
                 <img

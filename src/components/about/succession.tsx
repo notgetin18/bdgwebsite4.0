@@ -7,7 +7,7 @@ const Succession = () => {
   return (
     <div className="bg-theme py-10">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 relative">
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4 place-items-center">
           <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-12">
             Succession Of Gold <br />
             Over The Years
@@ -24,10 +24,14 @@ const Succession = () => {
             diversify their investment portfolio and protect their wealth.
           </p>
           <div className="relative col-span-2 md:col-span-1">
-            <Lottie
+            {/* <Lottie
               animationData={goldBarData}
               className="h-72 md:absolute right-20 lg:right-40"
               loop={true}
+            /> */}
+            <img
+              src="/lottie/Gold Stack Animation.gif"
+              className="h-28 mx-auto"
             />
           </div>
         </div>

@@ -115,11 +115,11 @@ const Products = () => {
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
-              <img
+              {/* <img
                 alt="products"
                 className=" absolute left-0"
                 src="/Light_1.png"
-              />
+              /> */}
               <img
                 alt="products"
                 className=" absolute right-0"
@@ -130,11 +130,11 @@ const Products = () => {
                 className=" absolute right-0"
                 src="/Light_3.png"
               />
-              <img
+              {/* <img
                 alt="products"
                 className=" absolute right-0"
                 src="/Light_4.png"
-              />
+              /> */}
             </div>
 
             <div className="">
