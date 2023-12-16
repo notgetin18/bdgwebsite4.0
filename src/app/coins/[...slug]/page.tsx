@@ -106,13 +106,27 @@ const page = ({ params }: any) => {
   if (!productsDetailById) {
     return <div className="text-white">Loading...</div>;
   }
-  // console.log('productsDetailById', productsDetailById)
+  console.log('productsDetailById', productsDetailById)
 
   return (
     <div className=" container py-16 text-white">
       <div className="grid  sm:grid-cols-5 gap-12">
-        <div className="col-span-2">
-          <div className="bg-themeLight rounded mb-4 p-4 relative">
+
+        <div className="col-span-2 relative">
+          {/* Absolute positioning for out-of-stock image */}
+          {!productsDetailById.instock && (
+            <div className="bg-red-600 absolute top-0 right-0">
+              {/* <Image
+                src={"https://www.highnotes.ca/cdn/shop/collections/out-of-stock_1200x1200.png?v=1652635518"}
+                alt="out of stock"
+                width={160}
+                height={160}
+              /> */}
+              <p>Out of stock</p>
+            </div>
+          )}
+          <div className="bg-themeLight rounded p-4">
+            {/* Image slider */}
             <SimpleImageSlider
               width={400}
               height={400}
@@ -146,14 +160,14 @@ const page = ({ params }: any) => {
                   ₹
                   {ParseFloat(
                     +productsDetailById.weight *
-                      quantity *
-                      (productsDetailById.iteamtype === "GOLD"
-                        ? goldData.totalPrice
-                        : silverData.totalPrice),
+                    quantity *
+                    (productsDetailById.iteamtype === "GOLD"
+                      ? goldData.totalPrice
+                      : silverData.totalPrice),
                     2
                   )}
                 </span>
-                <span className="text-yellow-500">+3% GST</span>
+                <span className="text-yellow-500"> +3% GST</span>
               </div>
               <div className="text-lg">
                 Making Charge ₹{productsDetailById.makingcharges}

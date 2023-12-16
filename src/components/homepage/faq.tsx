@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { Disclosure } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
+import { MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, ArrowLongDownIcon, ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 
 const faqs = [
   {
@@ -59,7 +59,7 @@ const Faq = () => {
                               aria-hidden="true"
                             />
                           ) : (
-                            <PlusSmallIcon
+                            <ArrowDownCircleIcon
                               className="h-6 w-6"
                               aria-hidden="true"
                             />
