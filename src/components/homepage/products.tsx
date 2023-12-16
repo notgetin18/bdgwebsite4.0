@@ -3,23 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../utils/motion";
-const products = [
-  {
-    img: "/goldcoin.png",
-    name: "1 Gram Gold Coin",
-    href: "#",
-  },
-  {
-    img: "/Banyan Tree silver coin.png",
-    name: "2 Gram Gold Coin",
-    href: "#",
-  },
-  {
-    img: "https://d2fbpyhlah02sy.cloudfront.net/product/gold/1gm/Group+24.png",
-    name: "3 Gram Gold Coin",
-    href: "#",
-  },
-];
+
 const Products = () => {
   return (
     <div className="bg-theme">
@@ -41,15 +25,15 @@ const Products = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           <motion.div
-            variants={fadeIn("right", "spring", 0.75, 0.75)}
+            variants={fadeIn("right", "spring", 0.25, 0.25)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
-              <img
+              {/* <img
                 alt="products"
                 className=" absolute left-0"
                 src="/Light_1.png"
-              />
+              /> */}
               <img
                 alt="products"
                 className=" absolute right-0"
@@ -60,11 +44,11 @@ const Products = () => {
                 className=" absolute right-0"
                 src="/Light_3.png"
               />
-              <img
+              {/* <img
                 alt="products"
                 className=" absolute right-0"
                 src="/Light_4.png"
-              />
+              /> */}
             </div>
 
             <div className="">
@@ -86,7 +70,7 @@ const Products = () => {
             </Link>
           </motion.div>
           <motion.div
-            variants={fadeIn("right", "spring", 1.0, 1.0)}
+            variants={fadeIn("right", "spring", 0.5, 0.5)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
@@ -127,7 +111,7 @@ const Products = () => {
           </motion.div>
 
           <motion.div
-            variants={fadeIn("right", "spring", 1.25, 1.25)}
+            variants={fadeIn("right", "spring", 0.75, 0.75)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">
@@ -172,7 +156,7 @@ const Products = () => {
             </Link>
           </motion.div>
           <motion.div
-            variants={fadeIn("right", "spring", 1.5, 1.5)}
+            variants={fadeIn("right", "spring", 1.0, 1.0)}
             className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
           >
             <div className="relative">

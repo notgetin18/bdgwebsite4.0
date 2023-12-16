@@ -80,7 +80,10 @@ const Faq = () => {
           </dl>
         </div>
       </div>
-      <img src="/backwhite.png" className="absolute top-28 left-0 z-0" />
+      <img
+        src="/BDGwhite.png"
+        className="absolute top-28 left-0 z-0 opacity-30"
+      />
     </div>
   );
 };

@@ -324,7 +324,7 @@ const BuySell = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-20 sm:mt-10">
+              <div className="mt-8 sm:mt-10">
                 <div className="flex justify-end pr-4 sm:pr-12">
 
                   {metalType === "gold" ? (
@@ -348,22 +348,22 @@ const BuySell = () => {
               <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-4 items-center justify-between">
                 <Lottie
                   animationData={animationData}
-                  className="h-40 left-5 absolute"
+                  className="h-28 sm:h-40 left-1 sm:left-5 absolute"
                   loop={true}
                 />
                 <div className="col-span-1"></div>
                 <div className="flex justify-between items-center gap-6 col-span-2">
-                  <div className="flex items-center gap-4">
-                    <img src="/Green Rupees.png" className="h-12" />
-                    <p className="text-white text-md">₹ 3000</p>
+                  <div className="flex items-center gap-2 sm:gap-4">
+                    <img src="/Green Rupees.png" className="h-6 sm:h-12" />
+                    <p className="text-white text-xs sm:text-md">₹ 3000</p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 sm:gap-4">
                     {metalType === "gold" ? (
-                      <img src="/coin.png" className="h-12" />
+                      <img src="/coin.png" className="h-6 sm:h-12" />
                     ) : (
-                      <img src="/silver coin.png" className="h-12" />
+                      <img src="/silver coin.png" className="h-6 sm:h-12" />
                     )}
-                    <p className="text-white text-md">₹ 3000</p>
+                    <p className="text-white text-xs sm:text-md">₹ 3000</p>
                   </div>
                 </div>
               </div>

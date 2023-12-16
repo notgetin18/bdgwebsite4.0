@@ -84,7 +84,7 @@ export default function Review() {
                     <div className="flex justify-center">
                       <img
                         src={feature.img}
-                        className="rounded-full absolute -top-10 h-24 w-24"
+                        className="rounded-full absolute -top-10 h-24 w-24 border border-blue-300"
                         alt="insite"
                       />
                     </div>
