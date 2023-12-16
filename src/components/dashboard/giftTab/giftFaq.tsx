@@ -63,7 +63,7 @@ const GiftFaq: React.FC = () => {
                         }
                     })}
                     <div className='flex justify-center items-center'>
-                        <Link href='/gifting' >
+                        <Link href='/faqs' >
                             <div className='mt-4 border-2 border-yellow-400 rounded px-12 py-2 cursor-pointer text-lg font-semibold'>View All</div>
                         </Link>
                     </div>
