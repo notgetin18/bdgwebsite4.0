@@ -10,28 +10,34 @@ const Footer = () => {
       <div className="">
         <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="mx-auto md:mx-0">
+            <div className="mx-auto md:mx-0 w-full">
               <Link href="#">
-                <img alt="gold-logo" className="w-56" src="/goldenlogo.png" />
+                <img
+                  alt="gold-logo"
+                  className=" w-full px-4 lg:w-56"
+                  src="/goldenlogo.png"
+                />
               </Link>
-              <div className="flex gap-4 mt-10 relative">
+              <div className="flex gap-4 justify-around lg:justify-start ml-6 mt-10 relative">
                 <Link href="" className="cursor-pointer">
-                  <Lottie
+                  {/* <Lottie
                     animationData={IOS}
                     className="h-32 absolute -top-16 -left-2"
                     loop={true}
-                  />
+                  /> */}
+                  <img src="/lottie/google-play-button.png" className="h-8" />
                 </Link>
                 <Link href="" className="cursor-pointer">
                   {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
-                  <Lottie
+                  {/* <Lottie
                     animationData={GooglePlay}
                     className="h-32 absolute -top-16 left-28"
                     loop={true}
-                  />
+                  /> */}
+                  <img src="/lottie/app-store-button.png" className="h-8" />
                 </Link>
               </div>
-              <div className="w-72">
+              <div className="w-full px-4 lg:w-72">
                 <ul className="mt-8 flex gap-1 justify-between">
                   <li className="mb-8">
                     <Link href="#">

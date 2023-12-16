@@ -16,11 +16,11 @@ const Mission = () => {
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16 relative">
           <img
-            className="h-800 absolute top-32 -left-20"
+            className="h-800 absolute top-32 -left-20 opacity-40"
             src="/BDGwhite.png"
             alt="Your Company"
           />
-          <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4 place-items-center">
             <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12">
               Our Vision
             </h1>
@@ -34,12 +34,16 @@ const Mission = () => {
             </p>
             <motion.div
               variants={fadeIn("right", "spring", 1.25, 1.25)}
-              className=" relative"
+              className=" col-span-2 sm:col-span-1"
             >
-              <Lottie
+              {/* <Lottie
                 animationData={mission}
                 className="h-60 left-1/3 -top-10 absolute"
                 loop={true}
+              /> */}
+              <img
+                src="/lottie/Gold Stack Animation.gif"
+                className="h-28 mx-auto"
               />
             </motion.div>
             <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12 mt-10">
@@ -47,12 +51,16 @@ const Mission = () => {
             </h1>
             <motion.div
               variants={fadeIn("left", "spring", 1.25, 1.25)}
-              className=" relative"
+              className="col-span-2 sm:col-span-1"
             >
-              <Lottie
+              {/* <Lottie
                 animationData={mission}
                 className="h-60 left-1/3 -top-6 absolute"
                 loop={true}
+              /> */}
+              <img
+                src="/lottie/Gold Stack Animation.gif"
+                className="h-28 mx-auto"
               />
             </motion.div>
             <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">

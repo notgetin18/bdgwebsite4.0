@@ -57,21 +57,26 @@ const HeroSection = () => {
                   />
                 </div>
 
-                <div className="flex gap-4 mt-10 relative">
+                <div className="flex gap-4 mt-2 relative">
                   <Link href="" className="cursor-pointer">
-                    <Lottie
+                    {/* <Lottie
                       animationData={IOS}
                       className="h-32 absolute -top-16 -left-2"
                       loop={true}
+                    /> */}
+                    <img
+                      src="/lottie/google-play-button.png"
+                      className="h-12"
                     />
                   </Link>
                   <Link href="" className="cursor-pointer">
                     {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
-                    <Lottie
+                    {/* <Lottie
                       animationData={GooglePlay}
                       className="h-32 absolute -top-16 left-28"
                       loop={true}
-                    />
+                    /> */}
+                    <img src="/lottie/app-store-button.png" className="h-12" />
                   </Link>
                 </div>
               </motion.div>
