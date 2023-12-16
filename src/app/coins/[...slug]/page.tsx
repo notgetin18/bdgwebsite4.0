@@ -106,27 +106,25 @@ const page = ({ params }: any) => {
   if (!productsDetailById) {
     return <div className="text-white">Loading...</div>;
   }
-  console.log('productsDetailById', productsDetailById)
+  // console.log('productsDetailById', productsDetailById)
 
   return (
     <div className=" container py-16 text-white">
       <div className="grid  sm:grid-cols-5 gap-12">
-
         <div className="col-span-2 relative">
           {/* Absolute positioning for out-of-stock image */}
-          {!productsDetailById.instock && (
-            <div className="bg-red-600 absolute top-0 right-0">
+          {!productsDetailById.inStock && (
+            <div className="bg-red-600 absolute top-0 right-0 px-2 rounded-bl-lg">
               {/* <Image
                 src={"https://www.highnotes.ca/cdn/shop/collections/out-of-stock_1200x1200.png?v=1652635518"}
                 alt="out of stock"
                 width={160}
                 height={160}
               /> */}
-              <p>Out of stock</p>
+              <p className="">Out Of Stock</p>
             </div>
           )}
           <div className="bg-themeLight rounded p-4">
-            {/* Image slider */}
             <SimpleImageSlider
               width={400}
               height={400}
@@ -141,13 +139,16 @@ const page = ({ params }: any) => {
               slideDuration={0.5}
             />
           </div>
-          <div className="">
+          <div className="mt-4">
             <div className="cursor-pointer bg-themeBlue text-black w-full block text-center py-3 rounded">
               Add to cart
             </div>
-            <div className="cursor-pointer bg-themeBlue text-black mt-2 w-full text-center py-3 rounded">
+            <button
+              className="cursor-pointer bg-themeBlue text-black mt-4 w-full text-center py-3 rounded"
+              disabled={productsDetailById.inStock} // Disable the button when `delivery` is false
+            >
               Buy Now
-            </div>
+            </button>
           </div>
         </div>
         <div className=" col-span-3">
