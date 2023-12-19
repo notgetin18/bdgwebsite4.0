@@ -2,7 +2,7 @@ import React, { FC, Fragment } from "react";
 const KycTab: FC<{}> = () => {
   return (
     <Fragment>
-      <p className="text-center text-xl text-white mt-4">It is easy!</p>
+      <p className="text-center text-xl text-white mt-4">It is KYC!</p>
       {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 mt-8 mont-font relative">
         <img
           src="https://imagesbdg.sgp1.digitaloceanspaces.com/cf340772-ef49-4333-bd48-0f380674d17d"

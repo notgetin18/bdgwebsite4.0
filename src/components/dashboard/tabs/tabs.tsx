@@ -6,17 +6,17 @@ import { classNames } from "@/components";
 
 const data = [
   { id: 1, name: "Orders" },
-  { id: 4, name: "Gifting" },
+  { id: 2, name: "Gifting" },
 ];
 
 const DashboardTopTabs = () => {
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={1}>
+      <Tab.Group defaultIndex={0}>
         <Tab.List className="flex space-x-1 rounded-xl p-1">
-          {data.map((category) => (
+          {data.map((category, index) => (
             <Tab
-              //   key={category}
+              key={index}
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
@@ -32,20 +32,15 @@ const DashboardTopTabs = () => {
           ))}
         </Tab.List>
         {/* Displays this panel by default */}
-
         <Tab.Panels>
-          <Tab.Panel
-            className={classNames("rounded-xl  p-3", "focus:outline-none")}
-          >
+          <Tab.Panel className={classNames("rounded-xl  p-3", "focus:outline-none")}>
             <OrdersTabs />
-
           </Tab.Panel>
-          <Tab.Panel
-            className={classNames("rounded-xl p-3", "focus:outline-none")}
-          >
+
+          <Tab.Panel className={classNames("rounded-xl p-3", "focus:outline-none")}>
             <GiftTab />
           </Tab.Panel>
-          
+
         </Tab.Panels>
       </Tab.Group>
     </div>

@@ -80,7 +80,7 @@ const OrdersTabs = () => {
       });
   }, []);
 
-  // console.log('userDetails', userDetails)
+  console.log('userDetails', userDetails)
   const handleFilter = async (
     selectDate = '',
     fromDate = '',
