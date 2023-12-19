@@ -181,7 +181,7 @@ const BuySell = () => {
           onClick={() => {
             dispatch(setEnteredAmount(amount));
           }}
-          className="bg-themeLight001 border border-blue-200 rounded-md py-1 px-4 text-white text-sm"
+          className="bg-themeLight001 border border-blue-200 rounded-md py-1 px-2 sm:px-4 text-white text-sm"
         >
           {unit === "rupees" ? `₹${amount}` : `${amount}gm`}
         </button>
@@ -243,7 +243,7 @@ const BuySell = () => {
   return (
     <>
       <div>
-        <div className="block lg:pl-28">
+        <div className="block xl:pl-28">
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
@@ -322,7 +322,7 @@ const BuySell = () => {
                   <p className="text-xs text-gray-400 pl-6">
                     24k 99.9% Pure Gold
                   </p>
-                  <p className="text-xxs sm:text-xs font-base pl-6 flex">
+                  <p className="text-xxs sm:text-xs font-base pl-6 sm:flex">
                     {isgold ? (
                       <div
                         className={`${goldData.percentage >= 0
@@ -365,12 +365,12 @@ const BuySell = () => {
 
                     <img
                       src="/lottie/Gold Stack Animation.gif"
-                      className="h-20"
+                      className="h-16 sm:h-20"
                     />
                   ) : (
                     <img
                       src="/lottie/Silver Stacks animation.gif"
-                      className="h-20"
+                      className="h-16 sm:h-20"
                     />
                   )}
                 </div>
@@ -378,11 +378,11 @@ const BuySell = () => {
               </div>
             </div>
             {purchaseType === "sell" && (
-              <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-4 items-center justify-between">
+              <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-1 sm:gap-4 items-center justify-between">
                 <div className="col-span-1">
                   <img src="/lottie/vault.gif" className="h-14" />
                 </div>
-                <div className="flex justify-between items-center gap-6 col-span-2">
+                <div className="flex justify-between items-center gap-2 sm:gap-6 col-span-2">
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="h-6 sm:h-12" />
                     <p className="text-white text-xs sm:text-md">₹ 3000</p>

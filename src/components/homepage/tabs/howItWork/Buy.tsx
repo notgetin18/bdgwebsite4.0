@@ -53,7 +53,7 @@ const BuyTab: FC<{}> = () => {
               </div>
             </div>
             <p className="text-center font-extrabold text-lg my-2">
-              Enter Value
+              Sign Up/ Login
             </p>
             <p className="text-center text-sm my-2">
               Enter the amount you wish to purchase in Rs./Grams.
@@ -74,7 +74,7 @@ const BuyTab: FC<{}> = () => {
               </div>
             </div>
             <p className="text-center font-extrabold text-lg my-2">
-              Bank Details
+              Make Payment
             </p>
             <p className="text-center text-sm my-2">
               Choose a payment method as per preference.
@@ -91,7 +91,7 @@ const BuyTab: FC<{}> = () => {
               </div>
             </div>
             <p className="text-center font-extrabold text-lg my-2">
-              Bank Account Credited
+              Vault Updated
             </p>
             <p className="text-center text-sm my-2">
               Voila! Gold is added securely in the Bright DiGi Gold Vault.

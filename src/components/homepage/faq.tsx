@@ -2,7 +2,12 @@
 import Link from "next/link";
 import React from "react";
 import { Disclosure } from "@headlessui/react";
-import { MinusSmallIcon, PlusSmallIcon, ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
+import {
+  MinusSmallIcon,
+  PlusSmallIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+} from "@heroicons/react/24/outline";
 
 const faqs = [
   {
@@ -20,11 +25,10 @@ const faqs = [
     answer:
       "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
   },
-
 ];
 const Faq = () => {
   return (
-    <div className="bg-theme relative ">
+    <div className="bg-theme relative">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8 ">
         <div className="flex justify-between ">
           <p></p>
@@ -39,7 +43,7 @@ const Faq = () => {
           </Link>
         </div>
         <div>
-          <dl className="mt-10 space-y-1 divide-y divide-gray-900/10 ">
+          <dl className="mt-10 space-y-1 divide-y divide-gray-900/10  z-50">
             {faqs.map((faq) => (
               <Disclosure as="div" key={faq.question} className="pt-6 ">
                 {({ open }) => (
@@ -81,7 +85,7 @@ const Faq = () => {
       </div>
       <img
         src="/BDGwhite.png"
-        className="absolute top-28 left-0 z-0 opacity-30"
+        className="absolute top-28 left-0 opacity-30 -z-10 sm:z-10"
       />
     </div>
   );
