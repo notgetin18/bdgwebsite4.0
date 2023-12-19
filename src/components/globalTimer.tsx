@@ -67,7 +67,7 @@ const Timer: React.FC = () => {
     <div>
       <div className="flex items-center justify-end gap-2 pr-4 sm:pr-12 mt-3">
         <img src="/alarm-filled.png" className="h-2 sm:h-4" />
-        <p className="text-sm text-red-600">
+        <p className="text-xs sm:text-sm text-red-600">
           <span className="hidden sm:inline">Rate will</span> expire in :{" "}
           {formatTime(time)}
         </p>

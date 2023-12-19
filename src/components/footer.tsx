@@ -67,47 +67,47 @@ const Footer = () => {
                 </ul>
               </div>
             </div>
-            <ul className="mt-6">
+            <ul className="mt-6 grid md:block grid-cols-2 gap-2">
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  About Us
+                  - About Us
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Coins
+                  - Coins
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Contact Us
+                  - Contact Us
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Blog
+                  - Blog
                 </Link>
               </li>
             </ul>
-            <ul className="mt-6">
+            <ul className="mt-6 grid md:block grid-cols-2 gap-2">
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Terms of Uses
+                  - Terms of Uses
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Privacy Policy
+                  - Privacy Policy
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Shipping Policy
+                  - Shipping Policy
                 </Link>
               </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
-                  Refunds & Cancellations
+                  - Refunds & Cancellations
                 </Link>
               </li>
             </ul>

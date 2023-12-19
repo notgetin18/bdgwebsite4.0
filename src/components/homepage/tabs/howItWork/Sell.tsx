@@ -12,22 +12,22 @@ const SellTab: FC<{}> = () => {
         viewport={{ once: false, amount: 0.25 }}
       >
         {/* <p className="text-center text-xl text-white mt-4">It is easy!</p> */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 mt-8 mont-font relative">
-          {/* <img
-          src="https://imagesbdg.sgp1.digitaloceanspaces.com/cf340772-ef49-4333-bd48-0f380674d17d"
-          alt="gold price in india"
-          className="abs-001"
-        /> */}
+        <div className="grid grid-cols-1 gap-6  sm:grid-cols-3 mt-8 mont-font relative">
+          {/* <img src="/line.gif" alt="gold price in india" className="abs-001" /> */}
           <motion.div
             variants={fadeIn("right", "spring", 0.25, 0.25)}
-            className=" absolute top-14 left-44"
+            className="hidden sm:block absolute top-72 sm:top-14 left-[-6%] sm:left-28 md:left-36 lg:left-44 xl:left-56 w-4/6"
           >
             {/* <Lottie
               animationData={animationData}
               className="sm:h-12"
               loop={false}
             /> */}
-            <img src="/line.png" alt="gold price in india" className="h-12" />
+            <img
+              src="/line.png"
+              alt="gold price in india"
+              className="h-12 rotate-90 sm:rotate-0 min-w-[440px] sm:min-w-full sm:w-full "
+            />
           </motion.div>
           {/* <motion.div
             variants={fadeIn("right", "spring", 0.75, 0.75)}
@@ -52,7 +52,7 @@ const SellTab: FC<{}> = () => {
               Enter Value
             </p>
             <p className="text-center text-sm my-2">
-              Enter the amount you wish to purchase in Rs./Grams.
+              Click on Sell, Enter value in Rs./Grams
             </p>
           </motion.div>
 
@@ -69,7 +69,7 @@ const SellTab: FC<{}> = () => {
               Bank Details
             </p>
             <p className="text-center text-sm my-2">
-              Choose a payment method as per preference.
+              Enter Your Correct Bank details.
             </p>
           </motion.div>
 
@@ -86,7 +86,7 @@ const SellTab: FC<{}> = () => {
               Bank Account Credited
             </p>
             <p className="text-center text-sm my-2">
-              Voila! Gold is added securely in the Bright DiGi Gold Vault.
+              Woohoo! Amount successfully credit in your Bank Account.
             </p>
           </motion.div>
         </div>
