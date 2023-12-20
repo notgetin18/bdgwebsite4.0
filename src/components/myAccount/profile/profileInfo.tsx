@@ -4,16 +4,17 @@ import React, { useEffect } from 'react'
 import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ onEditDetailsClick }: any) => {
     const user = useSelector(selectUser);
     const dispatch: AppDispatch = useDispatch();
-    
+
     useEffect(() => {
         const fetchData = async () => {
             dispatch(fetchUserDetails());
         };
 
         fetchData();
+        console.log('user details fetched', user)
     }, [dispatch]);
 
 
@@ -49,10 +50,15 @@ const ProfileInfo = () => {
                     <span>{user.data.gender.toUpperCase()}</span>
                 </div>
                 <hr className="border-gray-500 my-1" />
-                <div className="flex justify-between">
+                {/* <div className="flex justify-between">
                     <span className="font-bold">GST No.</span>
                     <span>{user.data.gst_number || 'N/A'}</span>
-                </div>
+                </div> */}
+            </div>
+            <div className='border-2 border-yellow-400 rounded mb-4 text-center'>
+                <button className='text-yellow-400 py-2 ' onClick={onEditDetailsClick}>
+                    Edit Details
+                </button>
             </div>
         </div>
     )
@@ -60,6 +66,3 @@ const ProfileInfo = () => {
 
 export default ProfileInfo
 
-function dispatch(arg0: any) {
-    throw new Error('Function not implemented.');
-}

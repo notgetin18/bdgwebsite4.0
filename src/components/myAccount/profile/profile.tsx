@@ -14,23 +14,21 @@ const ProfileTab = () => {
     setIsEditing(false);
   };
 
+  const handleSaveDetails = () => {
+    // Handle save logic here
+    setIsEditing(false); // Set isEditing to false after saving
+  };
+
   return (
     <>
       <div className="coins_background rounded-lg w-full">
         <ProfileImage />
 
         {isEditing ? (
-          // Render the EditProfile component when isEditing is true
-          <EditProfile onCancel={handleCancelEdit} />
+          <EditProfile onSaveDetails={handleSaveDetails} onCancel={handleCancelEdit} />
         ) : (
-          // Render the ProfileInfo component when isEditing is false
-          <ProfileInfo />
+          <ProfileInfo onEditDetailsClick={handleEditDetailsClick} />
         )}
-        <div className='border-2 border-yellow-400 rounded mb-4 text-center'>
-          <button className='text-yellow-400 px-14 py-2 ' onClick={handleEditDetailsClick}>
-            Edit Details
-          </button>
-        </div>
       </div>
     </>
   );
