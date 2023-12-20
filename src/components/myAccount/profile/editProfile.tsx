@@ -1,24 +1,26 @@
 import { AppDispatch } from '@/redux/store';
 import { fetchUserDetails, selectUser } from '@/redux/userDetailsSlice';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileInput from './profileInputs';
 import { useFormik } from 'formik';
-import { funForAesEncrypt, funcForDecrypt } from '@/components/helperFunctions';
+import { AesDecrypt, AesEncrypt, funForAesEncrypt, funcForDecrypt } from '@/components/helperFunctions';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const EditProfile = ({ onSaveDetails, onCancel }: any) => {
     const user = useSelector(selectUser);
     const dispatch: AppDispatch = useDispatch();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     // console.log('user.data.name from edit profile', user.data?.dateOfBirth)
     useEffect(() => {
         formik.setFieldValue("name", user.data?.name);
         formik.setFieldValue("email", user.data?.email);
         formik.setFieldValue("gender", user.data?.gender);
-        formik.setFieldValue("gstNumber", user.data?.gst_number);
-        formik.setFieldValue("dob", new Date(user.data?.dateOfBirth).toLocaleDateString("en-IN", {
+        formik.setFieldValue("gst_number", user.data?.gst_number);
+        formik.setFieldValue("dateOfBirth", new Date(user.data?.dateOfBirth).toLocaleDateString("en-IN", {
             day: "2-digit",
             month: "short",
             year: "numeric",
@@ -36,9 +38,9 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
     const formik = useFormik({
         initialValues: {
             name: "",
-            dob: "",
+            dateOfBirth: "",
             email: "",
-            gstNumber: ""
+            gst_number: ""
         },
         enableReinitialize: true,
         validate(values) {
@@ -67,16 +69,69 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
 
             return errors;
         },
-        onSubmit: async (values, { setSubmitting, setFieldError }) => {
-            console.log('values', values);
+        // onSubmit: async (values, { setSubmitting, setFieldError }) => {
+        //     console.log('values', values);
 
-            // formik.submitForm();
+        //     // formik.submitForm();
+        // }
+        onSubmit: async (values, { resetForm }) => {
+            console.log('values from 78', values);
+            setIsSubmitting(true);
+            try {
+                const resAfterEncrypt = await AesEncrypt(values);
+
+                const body = {
+                    payload: resAfterEncrypt,
+                };
+                const token = localStorage.getItem("token");
+                const configHeaders = {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                };
+                const response = await axios.post(
+                    `${process.env.baseUrl}/user/profile/details`,
+                    body,
+                    configHeaders
+                );
+                //
+                const decryptedData = await AesDecrypt(response.data.payload);
+                //
+                const finalResult = JSON.parse(decryptedData);
+                if (finalResult.status) {
+                    Swal.fire({
+                        // position: "centre",
+                        icon: "success",
+                        title: finalResult.message,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+                // props.props.setToggle(!props.props.toggle);
+                // props.onHide();
+            } catch (error: any) {
+                const decryptedData = AesDecrypt(error.response.data.payload);
+                //
+                const finalResult = JSON.parse(decryptedData);
+                console.error(error);
+                Swal.fire({
+                    // position: "centre",
+                    icon: "error",
+                    title: "Oops...",
+                    text: finalResult.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            } finally {
+                setIsSubmitting(false);
+            }
         }
     },
     )
-    const verifyGst = async (gstNumber: string) => {
+    const verifyGst = async (gst_number: string) => {
         const dataToBeDecrypt = {
-            value: gstNumber,
+            value: gst_number,
         };
 
         const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
@@ -136,7 +191,7 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
             <ProfileInput
                 type="text"
                 label="Date of Birth *"
-                name="dob"
+                name="dateOfBirth"
                 placeholder="01/01/2000"
                 formik={formik}
                 extra={{ max: "2005-01-01" }}
@@ -162,13 +217,13 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
             {/* <ProfileInput
                 type="text"
                 label="GST Number"
-                name="gstNumber"
+                name="gst_number"
                 placeholder="Enter GST Number"
                 formik={formik}
             /> */}
             <div className='border-2 border-yellow-400 rounded mb-4 text-center'>
                 <button className='text-yellow-400 px-14 py-2 ' onClick={() => {
-                    // verifyGst(formik.values.gstNumber);
+                    // verifyGst(formik.values.gst_number);
                     formik.submitForm()
                 }}>
                     Save Details
