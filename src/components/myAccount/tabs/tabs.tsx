@@ -7,21 +7,21 @@ import ProfileTab from "../profile/profile";
 import AddressTab from "../address/address";
 
 const data = [
-  { id: 1, name: "Kyc" },
-  { id: 2, name: "PayoutOption" },
-  { id: 3, name: "Profile" },
+  { id: 1, name: "Profile" },
+  { id: 2, name: "Kyc" },
+  { id: 3, name: "Payout Option" },
   { id: 4, name: "Address" },
 ];
 
 const MyAccountTabs = () => {
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={1}>
-        <div className=" grid grid-cols-3 gap-4">
+      <Tab.Group defaultIndex={0}>
+        <div className=" grid grid-cols-5 gap-4">
           <Tab.List className=" col-span-1 space-x-1 rounded-xl p-1">
-            {data.map((category) => (
+            {data.map((category, index) => (
               <Tab
-                //   key={category}
+                key={index}
                 className={({ selected }) =>
                   classNames(
                     "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
@@ -37,8 +37,12 @@ const MyAccountTabs = () => {
             ))}
           </Tab.List>
           {/* Displays this panel by default */}
-
-          <Tab.Panels className="col-span-2">
+          <Tab.Panel
+            className={classNames("rounded-xl p-2 col-span-4", "focus:outline-none")}
+          >
+            <ProfileTab />
+          </Tab.Panel>
+          <Tab.Panels className="col-span-4">
             <Tab.Panel
               className={classNames("rounded-xl  p-3", "focus:outline-none")}
             >
@@ -49,11 +53,7 @@ const MyAccountTabs = () => {
             >
               <PayoutOptionTab />
             </Tab.Panel>
-            <Tab.Panel
-              className={classNames("rounded-xl p-3", "focus:outline-none")}
-            >
-              <ProfileTab />
-            </Tab.Panel>
+
             <Tab.Panel
               className={classNames("rounded-xl p-3", "focus:outline-none")}
             >

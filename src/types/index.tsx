@@ -126,3 +126,67 @@ export interface Wallet {
   user_id: String
   _id: String
 }
+
+export interface UserState {
+  data: {
+    address: {
+      line1: string;
+      line2: string;
+      pincode: number | null;
+      state: string;
+      city: string;
+    };
+    addresses: Array<{
+      line1: string;
+      line2: string;
+      pincode: number | null;
+      state: string;
+      city: string;
+    }>;
+    bankDetails: {
+      bankName: string;
+      accountName: string;
+      ifsc: string;
+      accountNumber: string;
+      upiId: string;
+    };
+    createdAt: string;
+    dateOfBirth: string;
+    email: string;
+    enabled: boolean;
+    gender: string;
+    gst_number: string;
+    isAadhaarUploaded: boolean;
+    isAddressCompleted: boolean;
+    isBankDetailsCompleted: boolean;
+    isBasicDetailsCompleted: boolean;
+    isEmailVerified: boolean;
+    isKycDone: boolean;
+    isMobileVerified: boolean;
+    isPanUploaded: boolean;
+    isUpiVerified: boolean;
+    kyc: {
+      panNumber: string;
+      aadhaarNumber: string;
+    };
+    mobile_number: string;
+    name: string;
+    profile_image: string;
+    referralCode: string;
+    referredBy: string | null;
+    type: string;
+    updatedAt: string;
+    userId: string;
+    user_vaults: {
+      _id: string;
+      user_id: string;
+      gold: number;
+      silver: number;
+      totalAmount: number;
+    };
+    verificationToken: string;
+    walletAmount: number;
+    __v: number;
+    _id: string;
+  };
+}

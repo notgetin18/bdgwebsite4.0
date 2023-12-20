@@ -75,13 +75,11 @@ const Redeem = () => {
     }
 
     const nextPageHandler = () => {
-        // log("nextPageHandler : ", page + 1);
         setPage(page + 1);
         getRewards(metal, status, page + 1, size);
     }
     const prevPageHandler = () => {
         if (page > 1) {
-            // log("nextPageHandler : ", page - 1);
             setPage(page - 1);
             getRewards(metal, status, page - 1, size);
         }
