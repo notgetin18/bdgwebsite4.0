@@ -86,7 +86,7 @@ export default function Blog() {
             }}
             navigation={true}
             modules={[EffectCoverflow, Navigation]}
-            className="mySwiper"
+            className="mySwiperblog"
             style={{ padding: "0 20px !important" }}
           >
             {features.map((feature, index) => (

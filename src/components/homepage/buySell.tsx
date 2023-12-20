@@ -243,7 +243,7 @@ const BuySell = () => {
   return (
     <>
       <div>
-        <div className="block xl:pl-28">
+        <div className="block xl:pl-24">
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
@@ -267,7 +267,7 @@ const BuySell = () => {
                 SELL
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 place-items-end">
+            <div className="grid grid-cols-2 gap-2 items-end">
               <div className="w-full">
                 <div
                   className="toggle_button_spacing pl-4 mt-6"
@@ -322,7 +322,7 @@ const BuySell = () => {
                   <p className="text-xs text-gray-400 pl-6">
                     24k 99.9% Pure Gold
                   </p>
-                  <p className="text-xxs sm:text-xs font-base pl-6 sm:flex">
+                  <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
                         className={`${goldData.percentage >= 0
@@ -353,14 +353,14 @@ const BuySell = () => {
                       </div>
                     )}
 
-                    <p className="text-white ml-2 inline-block">
+                    <p className="text-7x sm:text-xs text-white ml-2 inline-block">
                       Since Yesterday
                     </p>
                   </p>
                 </div>
               </div>
-              <div className="mt-4 sm:mt-4 w-full">
-                <div className="flex justify-end pr-4 sm:pr-12">
+              <div className="mt-4 sm:mt-4 w-full 2xl:w-4/5 float-left">
+                <div className="flex justify-end 2xl:justify-center pr-4 sm:pr-12 2xl:pr-4">
                   {metalType === "gold" ? (
 
                     <img
@@ -493,7 +493,7 @@ const BuySell = () => {
               )}
 
               <p className="text-center text-xxs sm:text-xs flex justify-center items-center mt-6 text-gray-400">
-                Your Gold will be Stored in Safe & Secured Vault{" "}
+                Your Gold will be Stored in Safe & Secured Vault
                 <img
                   className="h-5 ml-2"
                   src={new URL(

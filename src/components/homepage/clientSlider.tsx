@@ -87,7 +87,11 @@ export default function ClientSlider() {
                     className="relative swiper-slide p-4"
                   >
                     <div className="rounded-lg client_grad">
-                      <img src={feature.img} className="" alt="insite" />
+                      <img
+                        src={feature.img}
+                        className=" mx-auto"
+                        alt="insite"
+                      />
                     </div>
                   </SwiperSlide>
                 ))}

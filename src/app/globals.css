@@ -216,7 +216,12 @@ input:checked + .slider:before {
   opacity: 0;
   transition: 0.4s;
 }
-
+.text-7x {
+  font-size: 7px;
+}
+.swiper-button-prev,
+.swiper-button-next {
+}
 input:checked + .slider ~ .text-silver {
   opacity: 0;
 }
@@ -539,4 +544,9 @@ input.inputBox {
 
 .caret-transparent::before {
   caret-color: transparent;
+}
+@media (max-width: 480px) {
+  .mySwiperblog {
+    height: 150px !important;
+  }
 }

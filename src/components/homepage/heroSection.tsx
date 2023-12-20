@@ -43,9 +43,11 @@ const HeroSection = () => {
                   </p>
                 </div>
 
-                <p className="text-white leading-6  mb-4 mt-6 text-sm">
-                  In Just A Few Clicks Make Your Savings Grow in Digital Gold
-                  and Silver.
+                <p className="text-white leading-6  mb-4 mt-6 text-sm pr-28">
+                  We at Bright DiGi Gold invite you to embark on a journey of
+                  effortless digital savings. In just a few clicks make your
+                  savings grow in Digital Gold and Silver.  Your gateway to
+                  hassle-free savings is here.
                 </p>
                 <div className="flex items-center">
                   <p className="text-lg font-bold text-white">Trusted By</p>
@@ -57,7 +59,7 @@ const HeroSection = () => {
                   />
                 </div>
 
-                <div className="flex gap-4 mt-2 relative">
+                <div className="flex gap-4 mt-4 relative">
                   <Link href="" className="cursor-pointer">
                     {/* <Lottie
                       animationData={IOS}
@@ -66,7 +68,7 @@ const HeroSection = () => {
                     /> */}
                     <img
                       src="/lottie/google-play-button.png"
-                      className="h-12"
+                      className="h-16"
                     />
                   </Link>
                   <Link href="" className="cursor-pointer">
@@ -76,7 +78,7 @@ const HeroSection = () => {
                       className="h-32 absolute -top-16 left-28"
                       loop={true}
                     /> */}
-                    <img src="/lottie/app-store-button.png" className="h-12" />
+                    <img src="/lottie/app-store-button.png" className="h-16" />
                   </Link>
                 </div>
               </motion.div>

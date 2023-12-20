@@ -26,7 +26,7 @@ const SellTab: FC<{}> = () => {
             <img
               src="/line.png"
               alt="gold price in india"
-              className="h-12 rotate-90 sm:rotate-0 min-w-[440px] sm:min-w-full sm:w-full "
+              className="h-12 rotate-90 sm:rotate-0 min-w-[440px] sm:min-w-full sm:w-full hidden"
             />
           </motion.div>
           {/* <motion.div
