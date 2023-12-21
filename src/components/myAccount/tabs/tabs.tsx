@@ -16,7 +16,7 @@ const data = [
 const MyAccountTabs = () => {
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={0}>
+      <Tab.Group defaultIndex={1}>
         <div className=" grid grid-cols-5 gap-4">
           <Tab.List className=" col-span-1 space-x-1 rounded-xl p-1">
             {data.map((category, index) => (

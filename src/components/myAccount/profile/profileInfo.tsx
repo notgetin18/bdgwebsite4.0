@@ -14,7 +14,7 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
         };
 
         fetchData();
-        console.log('user details fetched', user)
+        // console.log('user details fetched', user)
     }, [dispatch]);
 
 

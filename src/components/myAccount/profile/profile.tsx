@@ -15,8 +15,7 @@ const ProfileTab = () => {
   };
 
   const handleSaveDetails = () => {
-    // Handle save logic here
-    setIsEditing(false); // Set isEditing to false after saving
+    setIsEditing(false);
   };
 
   return (

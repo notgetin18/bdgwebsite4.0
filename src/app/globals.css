@@ -550,3 +550,117 @@ input.inputBox {
     height: 150px !important;
   }
 }
+
+
+/* pan card css */
+#rectangle {
+  width: 500px;
+  height: 250px;
+  border-radius: 10px;
+  background: -moz-linear-gradient(
+    212deg,
+    rgba(153, 218, 255, 1) 0%,
+    rgba(161, 139, 159, 1) 100%
+  ); /* ff3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left bottom,
+    right top,
+    color-stop(0%, rgba(161, 139, 159, 1)),
+    color-stop(100%, rgba(153, 218, 255, 1))
+  ); /* safari4+,chrome */
+  background: -webkit-linear-gradient(
+    212deg,
+    rgba(153, 218, 255, 1) 0%,
+    rgba(161, 139, 159, 1) 100%
+  ); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(
+    212deg,
+    rgba(153, 218, 255, 1) 0%,
+    rgba(161, 139, 159, 1) 100%
+  ); /* opera 11.10+ */
+  background: -ms-linear-gradient(
+    212deg,
+    rgba(153, 218, 255, 1) 0%,
+    rgba(161, 139, 159, 1) 100%
+  ); /* ie10+ */
+  background: linear-gradient(
+    238deg,
+    rgba(153, 218, 255, 1) 0%,
+    rgba(161, 139, 159, 1) 100%
+  ); /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A18B9F', endColorstr='#99DAFF',GradientType=1 ); /* ie6-9 */
+  /* position: absolute; */
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.center-div {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 3px;
+}
+.h11 {
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+    0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+  font-size: 20px;
+  margin-left: 370px;
+  margin-top: -50px;
+}
+.h22 {
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+    0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+  font-size: 18px;
+  margin-left: 10px;
+  margin-top: -50px;
+}
+.h44 {
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+    0 0 3px #ff00de, 0 0 40px #ff00de, 0 0 5px #ff00de, 0 0 75px #ff00de;
+  font-size: 22px;
+  margin-left: 350px;
+  margin-top: -0px;
+}
+.h33 {
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff00de,
+    0 0 35px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 75px #ff00de;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: -0px;
+}
+.A {
+  margin-top: 10px;
+  margin-left: 235px;
+}
+.aa {
+  margin-top: -10px;
+  margin-left: 425px;
+}
+.pp {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  width: 160px;
+  font-size: 25px;
+  margin-left: 15px;
+  margin-top: 50px;
+  text-decoration: none;
+  color: #000;
+}
+a {
+  color: #000;
+}
+.aaa {
+  margin-left: 10px;
+  border: 1px solid #000;
+  width: 190px;
+}
