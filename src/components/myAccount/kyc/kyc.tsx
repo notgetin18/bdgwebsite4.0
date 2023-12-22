@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import { AesDecrypt, AesEncrypt, funForAesEncrypt } from "@/components/helperFunctions";
 import Swal from "sweetalert2";
 import axios from "axios";
-import Loader from "./loader";
+import Loader from "@/utils/loader";
 
 const KycTab = () => {
   const user = useSelector(selectUser);
