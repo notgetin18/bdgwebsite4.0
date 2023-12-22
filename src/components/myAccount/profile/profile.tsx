@@ -22,7 +22,6 @@ const ProfileTab = () => {
     <>
       <div className="coins_background rounded-lg w-full">
         <ProfileImage />
-
         {isEditing ? (
           <EditProfile onSaveDetails={handleSaveDetails} onCancel={handleCancelEdit} />
         ) : (

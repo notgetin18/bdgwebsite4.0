@@ -16,7 +16,7 @@ const data = [
 
 
 const MyAccountTabs = () => {
-  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedIndex, setSelectedIndex] = useState(3);
 
   const handleCompleteKYC = () => {
     setSelectedIndex(1);
@@ -46,7 +46,7 @@ const MyAccountTabs = () => {
           </Tab.List>
           <Tab.Panels className="sm:col-span-4">
             <Tab.Panel
-              className={classNames("rounded-xl p-2", "focus:outline-none")}
+              className={classNames("rounded-xl p-3", "focus:outline-none")}
             >
               <ProfileTab />
             </Tab.Panel>

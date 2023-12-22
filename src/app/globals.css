@@ -664,3 +664,21 @@ a {
   border: 1px solid #000;
   width: 190px;
 }
+
+.delete {
+  background: rgba(255, 87, 87, 0.1);
+  border-radius: 0px 0px 8px 8px;
+  font-size: 16px;
+  line-height: 150%;
+  cursor: pointer;
+  color: #FF5757;
+}
+
+.edit {
+  background: rgba(253, 232, 163, 0.1);
+  border-radius: 0px 0px 8px 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #FDE8A3;
+}

@@ -23,6 +23,7 @@ const PayoutOptionTab: FC<PayoutOptionTabProps> = ({ onCompleteKYC }) => {
             className="border-2 border-yellow-400 rounded px-2 py-2 mt-4 mb-4">
             <div className="text-yellow-400">
               Complete KYC
+              
             </div>
           </button>
         </div>

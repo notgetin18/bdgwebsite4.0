@@ -1,15 +1,17 @@
 import { AppDispatch } from '@/redux/store';
 import { fetchUserDetails, selectUser } from '@/redux/userDetailsSlice';
 import React, { useEffect, useState } from 'react'
-import { FaTimes } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { AesDecrypt, AesEncrypt, funForAesEncrypt, funcForDecrypt } from '@/components/helperFunctions';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ProfileInput from '@/utils/profileInput';
+import { FaTimes } from 'react-icons/fa';
 
-const EditProfile = ({ onSaveDetails, onCancel }: any) => {
+
+const EditAddress = ({ onSaveDetails, onCancel, ToEditAddress }: any) => {
+    console.log('props', ToEditAddress);
     const user = useSelector(selectUser);
     const dispatch: AppDispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -170,8 +172,8 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
 
     return (
         <div>
-            <div className="relative top-2 left-80 text-gray-400 hover:text-gray-200 focus:outline-none">
-                <FaTimes onClick={onSaveDetails} className="cursor-pointer" color={'yellow'} size={20} />
+            <div className='text-white text-xl mt-2 cursor-pointer'>
+                <FaTimes onClick={onCancel} />
             </div>
             <ProfileInput
                 type="text"
@@ -226,4 +228,4 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
     );
 };
 
-export default EditProfile;
+export default EditAddress;
