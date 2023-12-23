@@ -1,14 +1,10 @@
-import { selectUser } from '@/redux/userDetailsSlice';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import EditAddress from './editAddress';
 import AddNewAddress from './addNewAddress';
 import Swal from 'sweetalert2';
 import { getUserAddressList } from '@/api/DashboardServices';
 
 const AddressTab = () => {
-  const user = useSelector(selectUser);
-  const userAddress = user?.data?.addresses;
   const [editAddress, setEditAddress] = useState<String>();
   const [showEditAddress, setShowEditAddress] = useState<boolean>(false);
   const [showAddNewAddress, setShowAddNewAddress] = useState<boolean>(false);
@@ -33,7 +29,7 @@ const AddressTab = () => {
   };
 
   const openAddNewAddress = () => {
-    if (userAddress && userAddress.length < maxAddressCount) {
+    if (addressList && addressList.length < maxAddressCount) {
       setShowAddNewAddress(true);
     } else {
       Swal.fire({
@@ -41,7 +37,7 @@ const AddressTab = () => {
         title: "Oops...",
         text: "You can't add more than 3 addresses. Please delete one of the above first.",
         showConfirmButton: true,
-        // timer: 2500,
+        timer: 2500,
       });
     }
   };
