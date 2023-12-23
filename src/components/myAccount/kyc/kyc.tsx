@@ -26,7 +26,7 @@ const KycTab = () => {
     },
     enableReinitialize: true,
     validate(values) {
-      console.log('values 27', values);
+      // console.log('values 27', values);
       const errors: any = {};
       // Validation of PAN number
       if (values.pancard_number === "") {
@@ -95,7 +95,7 @@ const KycTab = () => {
         const decryptedData = await AesDecrypt(error.response.data.payload)
         const finalResult = JSON.parse(decryptedData)
         Swal.fire({
-          // position: 'centre',
+          position: "center",
           icon: 'error',
           title: 'Oops...',
           text: finalResult.message,
