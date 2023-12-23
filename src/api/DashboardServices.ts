@@ -76,3 +76,30 @@ export const fetchCoupons = async () => {
 
 // Example of using the function
 // fetchUserDetails();
+
+export const getUserAddressList = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${process.env.baseUrl}/user/address/list`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+    const decryptedData = await funcForDecrypt(data.payload);
+
+    return JSON.parse(decryptedData).data;
+  } catch (error) {
+    console.error(error);
+    // You might want to handle errors or return a default value here
+    return [];
+  }
+};
+
+// // Example of using the function
+// const addressList = await getUserAddressList();
+// console.log(addressList);
+// // Now you can map over the addressList array as needed

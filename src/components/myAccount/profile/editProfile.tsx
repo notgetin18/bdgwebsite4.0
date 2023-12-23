@@ -39,12 +39,13 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
         initialValues: {
             name: "",
             dateOfBirth: "",
+            gender: "",
             email: "",
             gst_number: ""
         },
         enableReinitialize: true,
         validate(values) {
-            console.log('values 43', values);
+            // console.log('values 43', values);
             const errors: any = {};
             const isValidLength = /^.{2,50}$/;
             //validation on name
@@ -102,6 +103,8 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
                         showConfirmButton: false,
                         timer: 1500,
                     });
+                    resetForm()
+                    onSaveDetails()
                 }
 
             } catch (error: any) {

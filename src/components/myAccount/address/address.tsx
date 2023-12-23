@@ -1,16 +1,32 @@
 import { selectUser } from '@/redux/userDetailsSlice';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import EditAddress from './editAddress';
 import AddNewAddress from './addNewAddress';
+import Swal from 'sweetalert2';
+import { getUserAddressList } from '@/api/DashboardServices';
 
 const AddressTab = () => {
   const user = useSelector(selectUser);
-  const userAddress = user?.data.addresses;
-  const [editAddress, setEditAddress] = useState<any>();
-  const [showEditAddress, setShowEditAddress] = useState(false);
-  const [showAddNewAddress, setShowAddNewAddress] = useState(false);
+  const userAddress = user?.data?.addresses;
+  const [editAddress, setEditAddress] = useState<String>();
+  const [showEditAddress, setShowEditAddress] = useState<boolean>(false);
+  const [showAddNewAddress, setShowAddNewAddress] = useState<boolean>(false);
+  const [addressList, setaddressList] = useState([])
   const maxAddressCount = 3;
+
+  const updateAddressList = async () => {
+    try {
+      const addresses = await getUserAddressList();
+      setaddressList(addresses);
+    } catch (error) {
+      alert(error)
+    }
+  };
+
+  useEffect(() => {
+    updateAddressList();
+  }, []);
 
   const closeEditAddress = () => {
     setShowEditAddress(false);
@@ -20,7 +36,13 @@ const AddressTab = () => {
     if (userAddress && userAddress.length < maxAddressCount) {
       setShowAddNewAddress(true);
     } else {
-      alert("You can't add more than 3 addresses. Please delete one of the above first.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You can't add more than 3 addresses. Please delete one of the above first.",
+        showConfirmButton: true,
+        // timer: 2500,
+      });
     }
   };
 
@@ -28,11 +50,12 @@ const AddressTab = () => {
     setShowAddNewAddress(false);
   };
 
+
   return (
     <div className='coins_backgroun rounded-xl'>
       {showEditAddress ? (
         <div>
-          <EditAddress ToEditAddress={editAddress} onCancel={closeEditAddress} />
+          <EditAddress ToEditAddress={editAddress} onCancel={closeEditAddress} onAddressListUpdate={updateAddressList} />
         </div>
       ) : showAddNewAddress ? (
         <div>
@@ -40,7 +63,7 @@ const AddressTab = () => {
         </div>
       ) : (
         <>
-          {userAddress?.map((address: any, key) => (
+          {addressList?.map((address: any, key) => (
             <div key={key}>
               <p className='text-white pl-2 text-lg'>Address {key + 1}</p>
               <address className=''>
