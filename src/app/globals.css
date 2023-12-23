@@ -551,7 +551,6 @@ input.inputBox {
   }
 }
 
-
 /* pan card css */
 #rectangle {
   width: 500px;
@@ -671,7 +670,7 @@ a {
   font-size: 16px;
   line-height: 150%;
   cursor: pointer;
-  color: #FF5757;
+  color: #ff5757;
 }
 
 .edit {
@@ -680,5 +679,23 @@ a {
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-  color: #FDE8A3;
+  color: #fde8a3;
+}
+
+.swalButtonsYes {
+  padding: 4px;
+  text-align: center;
+  margin: 5px;
+  text-transform: capitalize;
+  background-color: #1933df;
+  border-radius: 4px;
+}
+
+.swalButtonsNo {
+  padding: 4px;
+  text-align: center;
+  margin: 5px;
+  text-transform: capitalize;
+  background-color: #e5270a;
+  border-radius: 4px;
 }
