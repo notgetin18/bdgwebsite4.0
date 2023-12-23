@@ -81,7 +81,7 @@ const KycTab = () => {
           // setCheckingPanStatus(true);
           // updateUserData();
           Swal.fire({
-            // position: 'centre',
+            position: "center",
             icon: 'success',
             title: finalResult.message,
             showConfirmButton: false,
