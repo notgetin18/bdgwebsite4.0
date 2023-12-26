@@ -3,12 +3,21 @@ import { AesDecrypt, AesEncrypt, funcForDecrypt } from '@/components/helperFunct
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2';
+import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
+import UpiModal from './addNewUpiId';
 
-const BankVerification = ({ toggled }: any) => {
+
+const AddedBanksOrUpiIds = ({ toggled }: any) => {
     const [upiList, setUpiList] = useState([]);
     const [allUpiList, setAllUpiList] = useState([]);
     const [allBankList, setAllBankList] = useState<any[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [TotoggleUPImodal, setToggleUPImodal] = useState(false);
+    const [upiUpdated, setupiUpdated] = useState(false);
+
+    const toggleUPImodal = () => {
+        setToggleUPImodal(!TotoggleUPImodal);
+    }
 
     const fetchBankAndUPIDetails = async () => {
         try {
@@ -25,15 +34,15 @@ const BankVerification = ({ toggled }: any) => {
 
     useEffect(() => {
         fetchBankAndUPIDetails();
-    }, [toggled]);
+    }, [toggled, upiUpdated]);
 
 
     // console.log('upiList', { upiList, allUpiList, allBankList })
     // console.log('bankList', bankList)
     // console.log('from bank verification', toggled);
     // console.log('allBankList--', allBankList)
-    // console.log('allUpiList==', allUpiList)
-    // console.log('upiList -->', upiList)
+    console.log('allUpiList==', allUpiList)
+    console.log('upiList -->', upiList)
 
     const deleteUPIOrBankAccount = async (deleteItem: any) => {
         if (!isSubmitting) {
@@ -61,7 +70,6 @@ const BankVerification = ({ toggled }: any) => {
                         "id": deleteItem,
                     }
                     const resAfterEncryptData = await AesEncrypt(dataToBeEncryptPayload)
-                    // 
                     const payloadToSend = {
                         payload: resAfterEncryptData
                     }
@@ -97,7 +105,7 @@ const BankVerification = ({ toggled }: any) => {
     return (
         <div className='coins_background m-3 p-2 rounded'>
             <div>
-                {allBankList.map((bank, key) => {
+                {allBankList && allBankList.map((bank, key) => {
                     return (
                         <>
                             {bank.documentType == "BANKACCOUNT" && (
@@ -133,8 +141,61 @@ const BankVerification = ({ toggled }: any) => {
                     )
                 })}
             </div>
+            <div>
+                {!allBankList && <div>No Banks or UPI Added</div>}
+            </div>
+            <div onClick={toggleUPImodal} className='flex cursor-pointer justify-between coins_background rounded'>
+                <div className="text-3xl ">ADD UPI</div>
+                <div className='cursor-pointer'>
+                    {TotoggleUPImodal ? (
+                        <ArrowUpIcon
+                            className="h-8 w-8"
+                            aria-hidden="true"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                toggleUPImodal();
+                            }}
+                        />
+                    ) : (
+                        <ArrowDownIcon
+                            className="h-8 w-8"
+                            aria-hidden="true"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                toggleUPImodal();
+                            }}
+                        />
+                    )}
+                </div>
+            </div>
+            {TotoggleUPImodal && <UpiModal toggled={toggled} toggleUPImodal={toggleUPImodal} upiUpdated={upiUpdated}
+                setupiUpdated={setupiUpdated} />}
+            <div>
+                {allBankList && allBankList.map((bank, key) => {
+                    return (
+                        <div className='mt-4'>
+                            {bank.documentType == "UPI" && (
+                                <div key={key}>
+                                    <div className='flex justify-between text-slate-400'>
+                                        <span className=''>UPI ID</span>
+                                        <span>{AesDecrypt(bank?.value)}</span>
+                                    </div>
+
+                                    <hr className="border-gray-500" />
+                                    <button className='delete mt-3 mb-3' onClick={() => {
+                                        deleteUPIOrBankAccount(bank?._id)
+                                    }}>
+                                        <div className='text-red-600 px-4 py-2'> Delete UPI ID</div>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }
 
-export default BankVerification
+export default AddedBanksOrUpiIds
+

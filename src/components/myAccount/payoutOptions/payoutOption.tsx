@@ -2,7 +2,7 @@ import { selectUser } from "@/redux/userDetailsSlice";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import React, { FC, Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import BankVerification from "./bankVerification";
+import BankVerification from "./addedBanksOrUPI";
 import { CSSTransition } from 'react-transition-group';
 import AddNewBank from "./addNewBank";
 
