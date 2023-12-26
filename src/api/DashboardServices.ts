@@ -1,4 +1,4 @@
-import { funcForDecrypt } from "@/components/helperFunctions";
+import { AesDecrypt, funcForDecrypt } from "@/components/helperFunctions";
 import axios from "axios";
 
 export const api = axios.create({
@@ -16,13 +16,11 @@ export const metalPrice = async () => {
         `Failed to fetch metal price. Status: ${response.status}`
       );
     }
-
     const data = await response.json();
     const decryptedData = await funcForDecrypt(data.payload);
-    // console.log("JSON.parse(decryptedData)", JSON.parse(decryptedData));
     return decryptedData;
-  } catch (error) {
-    console.error("Error fetching metal price:", error);
+  } catch (error: any | Error) {
+    alert(error);
   }
 };
 
@@ -38,44 +36,11 @@ export const fetchCoupons = async () => {
 
     const data = await response.json();
     const decryptedData = await funcForDecrypt(data.payload);
-    // console.log("JSON.parse(decryptedData)", JSON.parse(decryptedData));
     return decryptedData;
-  } catch (error) {
-    console.error("Error fetching metal price:", error);
+  } catch (error: any) {
+    alert(error);
   }
 };
-
-// export const fetchUserDetails = async () => {
-//   try {
-//     const token = localStorage.getItem("token");
-//     const configHeaders = {
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//         "Content-Type": "application/json",
-//       },
-//     };
-
-//     const response = await fetch(
-//       `${process.env.baseUrl}/auth/validate/token`,
-//       configHeaders
-//     );
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to validate token. Status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     const decryptedData = await funcForDecrypt(data.payload);
-//     const userDetails = JSON.parse(decryptedData).data;
-//     return userDetails;
-//   } catch (error) {
-//     console.error("Error fetching user details:", error);
-//     // Handle errors here if needed
-//   }
-// };
-
-// Example of using the function
-// fetchUserDetails();
 
 export const getUserAddressList = async () => {
   try {
@@ -93,13 +58,45 @@ export const getUserAddressList = async () => {
 
     return JSON.parse(decryptedData).data;
   } catch (error) {
-    console.error(error);
-    // You might want to handle errors or return a default value here
+    alert(error);
     return [];
   }
 };
 
-// // Example of using the function
-// const addressList = await getUserAddressList();
-// console.log(addressList);
-// // Now you can map over the addressList array as needed
+export const fetchAllUPI = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const configHeaders = {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await fetch(
+      `${process.env.baseUrl}/user/upis`,
+      configHeaders
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch UPI data. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const decryptedData = await AesDecrypt(data.payload);
+
+    let decryptedDataList = JSON.parse(decryptedData).data;
+    let UpiList = decryptedDataList.filter(function (value: any) {
+      return value.documentType === "UPI";
+    });
+
+    let BankList = decryptedDataList.filter(function (value: any) {
+      return value.documentType === "UPI";
+    });
+
+    return { UpiList, BankList, decryptedDataList };
+  } catch (error) {
+    console.error(error);
+    return { UpiList: [], BankList: [], decryptedDataList: [] }; // Return empty arrays or handle error case accordingly.
+  }
+};

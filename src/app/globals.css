@@ -683,19 +683,40 @@ a {
 }
 
 .swalButtonsYes {
-  padding: 4px;
+  padding: 3px;
   text-align: center;
   margin: 5px;
   text-transform: capitalize;
   background-color: #1933df;
   border-radius: 4px;
+  color: "#fff";
 }
 
 .swalButtonsNo {
-  padding: 4px;
+  padding: 3px;
   text-align: center;
   margin: 5px;
   text-transform: capitalize;
   background-color: #e5270a;
   border-radius: 4px;
+  color: "#fff";
+}
+
+/* transition.css */
+.bank-verification-enter {
+  opacity: 0.01;
+}
+
+.bank-verification-enter.bank-verification-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.bank-verification-exit {
+  opacity: 1;
+}
+
+.bank-verification-exit.bank-verification-exit-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in-out;
 }

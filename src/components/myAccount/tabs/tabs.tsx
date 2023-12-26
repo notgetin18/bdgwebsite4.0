@@ -16,7 +16,7 @@ const data = [
 
 
 const MyAccountTabs = () => {
-  const [selectedIndex, setSelectedIndex] = useState(3);
+  const [selectedIndex, setSelectedIndex] = useState(2);
 
   const handleCompleteKYC = () => {
     setSelectedIndex(1);
