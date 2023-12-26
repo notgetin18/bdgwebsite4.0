@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import UpiModal from './addNewUpiId';
 
-
 const AddedBanksOrUpiIds = ({ toggled }: any) => {
     const [upiList, setUpiList] = useState([]);
     const [allUpiList, setAllUpiList] = useState([]);
@@ -83,13 +82,8 @@ const AddedBanksOrUpiIds = ({ toggled }: any) => {
                     const response = await axios.post(`${process.env.baseUrl}/user/destroy/upi`, payloadToSend, configHeaders);
                     const decryptedData = await AesDecrypt(response.data.payload)
                     const finalResult = JSON.parse(decryptedData)
-
                     if (finalResult.status) {
-                        // Notiflix.Loading.remove();
-                        // props?.setToggle(!props.toggle);
                         await fetchBankAndUPIDetails();
-                        // fetchAllUPI();
-                        // props?.setToggle(!props.toggle);
                     } else {
                         alert("some error occured please try again");
                     }
@@ -105,41 +99,45 @@ const AddedBanksOrUpiIds = ({ toggled }: any) => {
     return (
         <div className='coins_background m-3 p-2 rounded'>
             <div>
-                {allBankList && allBankList.map((bank, key) => {
-                    return (
-                        <>
-                            {bank.documentType == "BANKACCOUNT" && (
-                                <div key={key}>
-                                    <div className='flex justify-between text-slate-400'>
-                                        <span className=''>Account Holder's Name</span>
-                                        <span>{AesDecrypt(bank?.bankData?.accountName)}</span>
+                {allBankList.length == 0 ? <div>No Bank Added</div> : 
+                <div>
+                    {allBankList && allBankList.map((bank, key) => {
+                        return (
+                            <>
+                                {bank.documentType == "BANKACCOUNT" && (
+                                    <div key={key}>
+                                        <div className='flex justify-between text-slate-400'>
+                                            <span className=''>Account Holder's Name</span>
+                                            <span>{AesDecrypt(bank?.bankData?.accountName)}</span>
+                                        </div>
+                                        <hr className="border-gray-500" />
+                                        <div className='flex justify-between text-slate-400'>
+                                            <span className=''>Account Number</span>
+                                            <span>{AesDecrypt(bank?.bankData?.accountNumber)}</span>
+                                        </div>
+                                        <hr className="border-gray-500" />
+                                        <div className='flex justify-between text-slate-400'>
+                                            <span className=''>Bank Name</span>
+                                            <span>{AesDecrypt(bank?.bankData?.bankName)}</span>
+                                        </div>
+                                        <hr className="border-gray-500" />
+                                        <div className='flex justify-between text-slate-400'>
+                                            <span className=''>IFSC Code</span>
+                                            <span>{AesDecrypt(bank?.bankData?.ifsc)}</span>
+                                        </div>
+                                        <hr className="border-gray-500" />
+                                        <button className='delete mt-3 mb-3' onClick={() => {
+                                            deleteUPIOrBankAccount(bank?._id)
+                                        }}>
+                                            <div className='text-red-600 px-4 py-2'> Delete Bank Details</div>
+                                        </button>
                                     </div>
-                                    <hr className="border-gray-500" />
-                                    <div className='flex justify-between text-slate-400'>
-                                        <span className=''>Account Number</span>
-                                        <span>{AesDecrypt(bank?.bankData?.accountNumber)}</span>
-                                    </div>
-                                    <hr className="border-gray-500" />
-                                    <div className='flex justify-between text-slate-400'>
-                                        <span className=''>Bank Name</span>
-                                        <span>{AesDecrypt(bank?.bankData?.bankName)}</span>
-                                    </div>
-                                    <hr className="border-gray-500" />
-                                    <div className='flex justify-between text-slate-400'>
-                                        <span className=''>IFSC Code</span>
-                                        <span>{AesDecrypt(bank?.bankData?.ifsc)}</span>
-                                    </div>
-                                    <hr className="border-gray-500" />
-                                    <button className='delete mt-3 mb-3' onClick={() => {
-                                        deleteUPIOrBankAccount(bank?._id)
-                                    }}>
-                                        <div className='text-red-600 px-4 py-2'> Delete Bank Details</div>
-                                    </button>
-                                </div>
-                            )}
-                        </>
-                    )
-                })}
+                                )}
+                            </>
+                        )
+                    })}
+                </div>}
+
             </div>
             <div>
                 {!allBankList && <div>No Banks or UPI Added</div>}
@@ -171,27 +169,32 @@ const AddedBanksOrUpiIds = ({ toggled }: any) => {
             {TotoggleUPImodal && <UpiModal toggled={toggled} toggleUPImodal={toggleUPImodal} upiUpdated={upiUpdated}
                 setupiUpdated={setupiUpdated} />}
             <div>
-                {allBankList && allBankList.map((bank, key) => {
-                    return (
-                        <div className='mt-4'>
-                            {bank.documentType == "UPI" && (
-                                <div key={key}>
-                                    <div className='flex justify-between text-slate-400'>
-                                        <span className=''>UPI ID</span>
-                                        <span>{AesDecrypt(bank?.value)}</span>
-                                    </div>
+                {allUpiList.length == 0 ? <div>No UPI ID Added</div> :
+                    <>
+                        {allBankList && allBankList.map((bank, key) => {
+                            return (
+                                <div className='mt-4'>
+                                    {bank.documentType == "UPI" && (
+                                        <div key={key}>
+                                            <div className='flex justify-between text-slate-400'>
+                                                <span className=''>UPI ID</span>
+                                                <span>{AesDecrypt(bank?.value)}</span>
+                                            </div>
 
-                                    <hr className="border-gray-500" />
-                                    <button className='delete mt-3 mb-3' onClick={() => {
-                                        deleteUPIOrBankAccount(bank?._id)
-                                    }}>
-                                        <div className='text-red-600 px-4 py-2'> Delete UPI ID</div>
-                                    </button>
+                                            <hr className="border-gray-500" />
+                                            <button className='delete mt-3 mb-3' onClick={() => {
+                                                deleteUPIOrBankAccount(bank?._id)
+                                            }}>
+                                                <div className='text-red-600 px-4 py-2'> Delete UPI ID</div>
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-                    )
-                })}
+                            )
+                        })}
+                    </>
+                }
+
             </div>
         </div>
     )
