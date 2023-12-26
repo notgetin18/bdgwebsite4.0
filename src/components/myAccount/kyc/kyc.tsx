@@ -89,7 +89,6 @@ const KycTab = () => {
           })
         }
         resetForm()
-
       } catch (error: any) {
         console.error(error);
         const decryptedData = await AesDecrypt(error.response.data.payload)
@@ -103,7 +102,6 @@ const KycTab = () => {
           timer: 3000
         })
         resetForm()
-
       } finally {
         setIsSubmitting(false);
         resetForm()
