@@ -42,13 +42,8 @@ const Coins = () => {
     getAllProducts(tab);
   };
 
-
-
   return (
     <div className="container mx-auto">
-
-      
-
       <div className="flex justify-center items-center">
         <img
           src={"/lottie/product banner copy.jpg"}
@@ -65,14 +60,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("ALL");
                 }}
-<<<<<<< HEAD
                 className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
                   activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
                 }`}
-=======
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "ALL" ? "opacity-100" : "opacity-50"
-                  }`}
->>>>>>> 17a695cfde1b39fa0cbf5a63f0bd1ffd00cfafc1
               >
                 All
               </div>
@@ -81,8 +71,9 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 h-5 cursor-pointer ${
+                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
@@ -91,8 +82,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
+                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                }`}
               >
                 Gold
               </div>
@@ -101,8 +93,9 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 h-5 cursor-pointer ${
+                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
@@ -111,8 +104,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
-                className={`ml-2 cursor-pointer text-lg ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 cursor-pointer text-lg ${
+                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                }`}
               >
                 Silver
               </div>
@@ -154,10 +148,11 @@ const Coins = () => {
                 style={{
                   backgroundSize: "cover",
                   backgroundPosition: "bottom",
-                  backgroundImage: `url(${item.iteamtype.toLowerCase() === "gold"
+                  backgroundImage: `url(${
+                    item.iteamtype.toLowerCase() === "gold"
                       ? "/images/goldpart.png"
                       : "/images/silverpart.png"
-                    })`,
+                  })`,
                 }}
                 className=""
               >
