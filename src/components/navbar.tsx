@@ -26,7 +26,12 @@ const Navbar = () => {
     <Disclosure as="nav" className="bg-header">
       {({ open, close }) => (
         <>
-          {isLoginOpen && <LoginAside isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />}
+          {isLoginOpen && (
+            <LoginAside
+              isOpen={isLoginOpen}
+              onClose={() => setLoginOpen(false)}
+            />
+          )}
           <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
@@ -74,11 +79,14 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <label
-                  className="text-white"
+                  className="text-white hidden sm:inline-block"
                   onClick={handleLoginClick}
                 >
                   <span>
-                    <Link className="text-white" href=""> Login/Sign Up</Link>
+                    <Link className="text-white" href="">
+                      {" "}
+                      Login/Sign Up
+                    </Link>
                   </span>
                 </label>
               )}

@@ -126,7 +126,7 @@ const page = ({ params }: any) => {
           )}
           <div className="bg-themeLight rounded p-4">
             <SimpleImageSlider
-              width={400}
+              width="30vw"
               height={400}
               images={photo}
               showBullets={true}
