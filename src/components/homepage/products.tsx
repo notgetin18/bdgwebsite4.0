@@ -26,7 +26,7 @@ const Products = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           <motion.div
             variants={fadeIn("right", "spring", 0.25, 0.25)}
-            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
+            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500 product001"
           >
             <div className="relative">
               {/* <img
@@ -71,7 +71,7 @@ const Products = () => {
           </motion.div>
           <motion.div
             variants={fadeIn("right", "spring", 0.5, 0.5)}
-            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
+            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500 product001"
           >
             <div className="relative">
               <img
@@ -112,7 +112,7 @@ const Products = () => {
 
           <motion.div
             variants={fadeIn("right", "spring", 0.75, 0.75)}
-            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
+            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500 product001"
           >
             <div className="relative">
               {/* <img
@@ -157,7 +157,7 @@ const Products = () => {
           </motion.div>
           <motion.div
             variants={fadeIn("right", "spring", 1.0, 1.0)}
-            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500"
+            className="bg-themeLight rounded-lg shadow-xl p-4 relative hover:shadow-lg hover:shadow-yellow-500 product001"
           >
             <div className="relative">
               <img

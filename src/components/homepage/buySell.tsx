@@ -201,7 +201,6 @@ const BuySell = () => {
     }
   }, [isgold, activeTab, toggleMetal]);
 
-
   const openModal = () => {
     setModalOpen(true);
   };
@@ -247,10 +246,11 @@ const BuySell = () => {
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
-                  ? "bg-themeLight text-white active"
-                  : "bg-themeLight01 text-sky-600"
-                  }`}
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${
+                  activeTab === "buy"
+                    ? "bg-themeLight text-white active"
+                    : "bg-themeLight01 text-sky-600"
+                }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -258,10 +258,11 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
-                  ? "bg-themeLight text-white active"
-                  : "bg-themeLight01 text-sky-600"
-                  }`}
+                className={`text-center py-3 rounded cursor-pointer ${
+                  activeTab === "sell"
+                    ? "bg-themeLight text-white active"
+                    : "bg-themeLight01 text-sky-600"
+                }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -325,10 +326,11 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${goldData.percentage >= 0
-                          ? "text-green-500"
-                          : "text-red-500"
-                          }`}
+                        className={`${
+                          goldData.percentage >= 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -339,10 +341,11 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${silverData.percentage >= 0
-                          ? "text-green-500"
-                          : "text-red-500"
-                          }`}
+                        className={`${
+                          silverData.percentage >= 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -362,15 +365,14 @@ const BuySell = () => {
               <div className="mt-4 sm:mt-4 w-full 2xl:w-4/5 float-left">
                 <div className="flex justify-end 2xl:justify-center pr-4 sm:pr-12 2xl:pr-4">
                   {metalType === "gold" ? (
-
                     <img
                       src="/lottie/Gold Stack Animation.gif"
-                      className="h-16 sm:h-20"
+                      className="h-16 sm:h-28"
                     />
                   ) : (
                     <img
                       src="/lottie/Silver Stacks animation.gif"
-                      className="h-16 sm:h-20"
+                      className="h-16 sm:h-28"
                     />
                   )}
                 </div>
@@ -401,19 +403,21 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "rupees"
-                    ? "bg-transparent text-white bg-themeLight active"
-                    : "text-white"
-                    }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
+                    activeTabPurchase === "rupees"
+                      ? "bg-transparent text-white bg-themeLight active"
+                      : "text-white"
+                  }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${activeTabPurchase === "grams"
-                    ? "bg-transparent text-white bg-themeLight active"
-                    : "text-white "
-                    }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
+                    activeTabPurchase === "grams"
+                      ? "bg-transparent text-white bg-themeLight active"
+                      : "text-white "
+                  }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In grams" : "In grams"}
@@ -464,8 +468,8 @@ const BuySell = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                          ? ""
-                          : totalAmount
+                        ? ""
+                        : totalAmount
                     }
                     readOnly
                   />
@@ -559,7 +563,7 @@ const BuySell = () => {
                   onClick={handleClick}
                   className="w-full bg-themeBlue rounded-lg py-2"
                 >
-                  <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" />
+                  {/* <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" /> */}
                   {purchaseType === "buy" ? "Start Investing " : "Sell Now"}
                 </button>
                 {isModalOpen && (

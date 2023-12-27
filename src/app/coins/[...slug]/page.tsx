@@ -109,8 +109,8 @@ const page = ({ params }: any) => {
   // console.log('productsDetailById', productsDetailById)
 
   return (
-    <div className=" container py-16 text-white">
-      <div className="grid  sm:grid-cols-5 gap-12">
+    <div className="container py-16 text-white">
+      <div className="grid sm:grid-cols-5 gap-12">
         <div className="col-span-2 relative">
           {/* Absolute positioning for out-of-stock image */}
           {!productsDetailById.inStock && (
@@ -161,10 +161,10 @@ const page = ({ params }: any) => {
                   ₹
                   {ParseFloat(
                     +productsDetailById.weight *
-                    quantity *
-                    (productsDetailById.iteamtype === "GOLD"
-                      ? goldData.totalPrice
-                      : silverData.totalPrice),
+                      quantity *
+                      (productsDetailById.iteamtype === "GOLD"
+                        ? goldData.totalPrice
+                        : silverData.totalPrice),
                     2
                   )}
                 </span>

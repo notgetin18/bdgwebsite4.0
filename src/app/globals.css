@@ -31,8 +31,22 @@
   src: url(../../public/font/NunitoSans_SemiBold.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: Lato-Black;
+  src: url(../../public/font/Lato-Black.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Lato-Bold;
+  src: url(../../public/font/Lato-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Lato-Regular;
+  src: url(../../public/font/Lato-Regular.ttf) format("truetype");
+}
 body {
-  font-family: NunitoSans-Regular;
+  font-family: Lato-Regular;
   background: #092637;
 }
 
@@ -45,11 +59,11 @@ body::-webkit-scrollbar-thumb {
 }
 
 .bold {
-  font-family: NunitoSans-Bold;
+  font-family: Lato-Bold;
 }
 
 .extrabold {
-  font-family: NunitoSans-ExtraBold;
+  font-family: Lato-Black;
 }
 
 .regular {
@@ -75,11 +89,18 @@ body::-webkit-scrollbar-thumb {
 .text-themeBlue {
   color: #7f9cad;
 }
-
+.product001:hover {
+  /* transform: scale(1.5); */
+  transform: scale(1.1) !important;
+  transition: transform 0.5s;
+}
 .bg-header {
   background: #081a24;
 }
-
+.faq-back {
+  background: #27506d;
+  z-index: 20;
+}
 .text-goldTheme {
   color: #fef468;
 }
@@ -192,6 +213,9 @@ input:checked + .slider:before {
 }
 .bg-themeBlue {
   background: #cde8f1;
+}
+.text-themeBlueLight {
+  color: #cde8f1;
 }
 .text-silver,
 .text-gold {

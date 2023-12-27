@@ -97,7 +97,7 @@ export default function ClientSlider() {
                 ))}
               </Swiper>
             </div>
-            <div className="sm:grid grid-cols-5 gap-16 hidden place-items-center">
+            <div className="sm:grid grid-cols-5 gap-12 hidden place-items-center">
               <img src="/client1.png" className="my-2 mx-auto" alt="insite" />
               <img src="/client2.png" className="my-2 mx-auto" alt="insite" />
               <img src="/client3.png" className="my-2 mx-auto" alt="insite" />
@@ -112,7 +112,7 @@ export default function ClientSlider() {
               />
               <img
                 src="/client7.png"
-                className="my-2 px-8 mx-auto"
+                className="my-2 px-2 mx-auto"
                 alt="insite"
               />
               <img

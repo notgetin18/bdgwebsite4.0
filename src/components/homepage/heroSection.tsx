@@ -26,9 +26,9 @@ const HeroSection = () => {
             <div className="hidden lg:block mt-10">
               <motion.h1
                 variants={fadeIn("right", "spring", 0.2, 0.2)}
-                className="text-5xl text-white font-semibold leading-tight mb-12 extrabold"
+                className="text-6xl text-white font-semibold leading-tight mb-12 extrabold"
               >
-                Start Your Saving
+                <span className="text-themeBlueLight">Start Your Saving</span>
                 <br /> With Just <span className="text-gold01">₹</span> 10
               </motion.h1>
               <motion.div variants={textVariant(1.1)}>
@@ -53,7 +53,7 @@ const HeroSection = () => {
                   <p className="text-lg font-bold text-white">Trusted By</p>
                   {/* <img className="h-6 ml-4" src="/brinks.svg" alt="Your Company" /> */}
                   <img
-                    className="h-8 ml-6 mt-2"
+                    className="h-14 ml-4 mt-2"
                     src="/Startup India.svg"
                     alt="Your Company"
                   />
@@ -68,7 +68,7 @@ const HeroSection = () => {
                     /> */}
                     <img
                       src="/lottie/google-play-button.png"
-                      className="h-16"
+                      className="h-14"
                     />
                   </Link>
                   <Link href="" className="cursor-pointer">
@@ -78,7 +78,7 @@ const HeroSection = () => {
                       className="h-32 absolute -top-16 left-28"
                       loop={true}
                     /> */}
-                    <img src="/lottie/app-store-button.png" className="h-16" />
+                    <img src="/lottie/app-store-button.png" className="h-14" />
                   </Link>
                 </div>
               </motion.div>
