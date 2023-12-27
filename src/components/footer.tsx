@@ -1,9 +1,6 @@
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React from "react";
-import Lottie from "lottie-react";
-import GooglePlay from "../../public/lottie/Google Play.json";
-import IOS from "../../public/lottie/App Store.json";
 const Footer = () => {
   return (
     <div className="bg-theme">
@@ -19,7 +16,10 @@ const Footer = () => {
                 />
               </Link>
               <div className="flex gap-4 justify-around lg:justify-between mx-4 mt-10 relative">
-                <Link href="" className="cursor-pointer">
+                <Link
+                  href="https://play.google.com/store/apps/details?id=com.brightdigigold.customer"
+                  className="cursor-pointer"
+                >
                   {/* <Lottie
                     animationData={IOS}
                     className="h-32 absolute -top-16 -left-2"
@@ -27,7 +27,10 @@ const Footer = () => {
                   /> */}
                   <img src="/lottie/google-play-button.png" className="h-10" />
                 </Link>
-                <Link href="" className="cursor-pointer">
+                <Link
+                  href="https://apps.apple.com/in/app/bright-digi-gold-buy-24k-gold/id1640972173"
+                  className="cursor-pointer"
+                >
                   {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
                   {/* <Lottie
                     animationData={GooglePlay}
@@ -40,22 +43,22 @@ const Footer = () => {
               <div className="w-full px-4">
                 <ul className="mt-8 flex gap-1 justify-between">
                   <li className="mb-8">
-                    <Link href="#">
+                    <Link href="https://www.facebook.com/brightdigigold">
                       <img src="/socail1.png" alt="socail1" className="h-6" />
                     </Link>
                   </li>
                   <li className="mb-8">
-                    <Link href="#">
+                    <Link href="https://www.instagram.com/brightdigigold/">
                       <img src="/socail2.png" alt="socail2" className="h-6" />
                     </Link>
                   </li>
                   <li className="mb-8">
-                    <Link href="#">
+                    <Link href="https://www.linkedin.com/company/brightdigigold/mycompany/">
                       <img src="/socail3.png" alt="socail3" className="h-6" />
                     </Link>
                   </li>
                   <li className="mb-8">
-                    <Link href="#">
+                    <Link href="https://twitter.com/BrightDiGiGold">
                       <img src="/Twitter.png" alt="socail3" className="h-6" />
                     </Link>
                   </li>
@@ -69,17 +72,17 @@ const Footer = () => {
             </div>
             <ul className="mt-6 grid md:block grid-cols-2 gap-2">
               <li className="mb-4">
-                <Link className="text-white" href="#">
+                <Link className="text-white" href="/about">
                   <span className="inline sm:hidden">-</span> About Us
                 </Link>
               </li>
               <li className="mb-4">
-                <Link className="text-white" href="#">
+                <Link className="text-white" href="/coins">
                   <span className="inline sm:hidden">-</span> Coins
                 </Link>
               </li>
               <li className="mb-4">
-                <Link className="text-white" href="#">
+                <Link className="text-white" href="/contact">
                   <span className="inline sm:hidden">-</span> Contact Us
                 </Link>
               </li>
@@ -117,20 +120,20 @@ const Footer = () => {
             <ul className="lg:flex items-center justify-between gap-y-2">
               <li className="flex mb-4 lg:mb-0 items-center">
                 <MapPinIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs md:text-base">
+                <p className="text-white text-xs sm:text-sm xl:text-base">
                   501, 5th Floor, World Trade Center,Babar Road, New Delhi -
                   110001
                 </p>
               </li>
               <li className="flex mb-4 lg:mb-0 items-center">
                 <PhoneIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs md:text-base">
+                <p className="text-white text-xs sm:text-sm xl:text-base">
                   +91 92894 80033
                 </p>
               </li>
               <li className="flex mb-4 sm:mb-0 items-center">
                 <EnvelopeIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs md:text-base">
+                <p className="text-white text-xs sm:text-sm xl:text-base">
                   contact@brightdigigold.com
                 </p>
               </li>

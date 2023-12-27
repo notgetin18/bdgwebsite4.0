@@ -380,32 +380,32 @@ const BuySell = () => {
               </div>
             </div>
             {purchaseType === "sell" && (
-              <div className="bg-themeLight p-3 mx-6 h-20 mt-4 rounded-lg border-1 grid grid-cols-3 gap-1 sm:gap-4 items-center justify-between">
+              <div className="bg-themeLight001 p-3 mx-6 mt-4 rounded-lg border-1 grid grid-cols-3 gap-1 sm:gap-4 items-center justify-between">
                 <div className="col-span-1">
-                  <img src="/lottie/vault.gif" className="h-14" />
+                  <img src="/lottie/New Web Vault.gif" className="h-20" />
                 </div>
-                <div className="flex justify-between items-center gap-2 sm:gap-6 col-span-2">
-                  <div className="flex items-center gap-2 sm:gap-4">
-                    <img src="/Green Rupees.png" className="h-6 sm:h-12" />
-                    <p className="text-white text-xs sm:text-md">₹ 3000</p>
+                <div className="col-span-2">
+                  <div className="flex items-center gap-2 sm:gap-4 mb-2">
+                    {metalType === "gold" ? (
+                      <img src="/Goldbarbanner.png" className="h-6 sm:h-6" />
+                    ) : (
+                      <img src="/Silverbar.png" className="h-6 sm:h-6" />
+                    )}
+                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
-                    {metalType === "gold" ? (
-                      <img src="/coin.png" className="h-6 sm:h-12" />
-                    ) : (
-                      <img src="/silver coin.png" className="h-6 sm:h-12" />
-                    )}
-                    <p className="text-white text-xs sm:text-md">₹ 3000</p>
+                    <img src="/Green Rupees.png" className="w-10 " />
+                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
                   </div>
                 </div>
               </div>
             )}
             <div className="p-6 z-20">
-              <div className="flex justify-around px-1 py-1 bg-themeLight rounded-md">
+              <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-3/4">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
                     activeTabPurchase === "rupees"
-                      ? "bg-transparent text-white bg-themeLight active"
+                      ? "bg-transparent text-black bg-themeBlue active extrabold"
                       : "text-white"
                   }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
@@ -413,17 +413,17 @@ const BuySell = () => {
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-9 py-2 rounded-md font-semibold cursor-pointer ${
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
                     activeTabPurchase === "grams"
-                      ? "bg-transparent text-white bg-themeLight active"
+                      ? "bg-transparent text-black bg-themeBlue active extrabold"
                       : "text-white "
                   }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
-                  {purchaseType === "buy" ? "In grams" : "In grams"}
+                  {purchaseType === "buy" ? "In Grams" : "In grams"}
                 </div>
               </div>
-              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
+              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border-1 font-extrabold p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-3">
                     {activeTabPurchase == "rupees" ? "₹ " : ""}

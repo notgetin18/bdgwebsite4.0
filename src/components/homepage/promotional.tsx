@@ -4,11 +4,11 @@ import React, { useRef, useState } from "react";
 export default function Promotional() {
   return (
     <>
-      <div className="bg-themeBlue">
-        <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
+      <div className="">
+        <div className="mx-auto">
           <img
             src="/webbanner.jpg"
-            className="my-2 w-full rounded-lg shadow-lg"
+            className="my-2 w-full shadow-lg"
             alt="insite"
           />
         </div>

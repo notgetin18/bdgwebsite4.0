@@ -6,6 +6,7 @@ import {
   HeroSection,
   HowItWorks,
   Marketing,
+  OfferSlider,
   Products,
   Promotional,
   Review,
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
+      {/* <OfferSlider /> */}
       <Promotional />
       <Products />
       <HowItWorks />

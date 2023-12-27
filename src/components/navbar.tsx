@@ -108,15 +108,17 @@ const Navbar = () => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <Link href="/myAccount"
+                          <Link
+                            href="/myAccount"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
-                            <div onClick={() => {
-                              close();
-                            }}
+                            <div
+                              onClick={() => {
+                                close();
+                              }}
                             />
                             Your Profile
                           </Link>
@@ -142,6 +144,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+
           {/* Mobile dropdown */}
           <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
@@ -159,8 +162,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log('clicking coins')
-
+                    console.log("clicking coins");
                   }}
                   className={styles.p1}
                 >
@@ -171,8 +173,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log('clicking about')
-
+                    console.log("clicking about");
                   }}
                   className={styles.p1}
                 >
@@ -183,7 +184,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log('clicking contact')
+                    console.log("clicking contact");
                   }}
                   className={styles.p1}
                 >
@@ -194,7 +195,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log('clicking dashboard')
+                    console.log("clicking dashboard");
                   }}
                   className={styles.p1}
                 >

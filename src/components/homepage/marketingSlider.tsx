@@ -12,32 +12,25 @@ import "swiper/css/navigation";
 
 const features = [
   {
-    img: "/images/refer_and_earn.png",
-    name: "Refer and Earn Rewards",
-    pera: "Refer our Bright DiGi Gold app to your friends and family, and earn an extra 0.01gm of Gold as a reward.",
-    linkName: "Refer Now",
-    href: "#",
+    img: "/lottie/KYC Verification.gif",
+    name: "Gold KYC",
+    pera: "Get your KYC done and start with your digital gold/silver investment journey.    ",
+    linkName: "KYC Now",
+    href: "/profile",
   },
   {
-    img: "/images/gold_delivery_boy.png",
-    name: "Gold delivery at your doorstep",
-    pera: "With just a click away, you can now order your Digital Gold/Silver and get physical delivery of your purchase without any hassle.",
+    img: "/lottie/Customer support.gif",
+    name: "Customer Support",
+    pera: "Bright DiGi Gold provides you with 24*7 customer support services for ease of communication. ",
+    linkName: "Contact Us ",
+    href: "/contact",
+  },
+  {
+    img: "/lottie/Home Deliveryy.gif",
+    name: "Get It Delivered",
+    pera: " Get 100% safe and secure gold/silver delivery at your doorstep. ",
     linkName: "Buy Now",
-    href: "#",
-  },
-  {
-    img: "/images/gift_gold_web.png",
-    name: "Gift Gold to Your Special Ones",
-    pera: "Now you can gift certified and guaranteed 24k",
-    linkName: "Gift Now",
-    href: "#",
-  },
-  {
-    img: "/images/get_reward_web.png",
-    name: "Get Rewards",
-    pera: "With the Bright DiGi Gold app you can now earn an extra 1.5% of Gold on your first purchase and grow your savings with us.",
-    linkName: "Reward Now",
-    href: "#",
+    href: "/coins",
   },
 ];
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -51,7 +44,7 @@ export default function Marketing() {
           <Swiper
             spaceBetween={30}
             autoplay={{
-              delay: 2500,
+              delay: 5000,
               disableOnInteraction: false,
             }}
             modules={[Autoplay]}

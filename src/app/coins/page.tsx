@@ -44,15 +44,13 @@ const Coins = () => {
   return (
     <div className="container mx-auto">
       <div className="flex justify-center items-center">
-        <Image
-          src={"https://www.brightdigigold.com/images/product-banner.png"}
+        <img
+          src={"/lottie/product banner copy.jpg"}
           alt="Product"
-          width={1500}
-          height={300}
           className="rounded-b"
         />
       </div>
-      <div className="md:flex flex-row md:flex-row mt-4 md:items-center md:justify-between p-3 rounded-md">
+      <div className="lg:flex flex-row md:flex-row mt-4 md:items-center md:justify-between p-3 rounded-md">
         <div className="sm:flex items-center">
           <p className="text-2xl text-white mr-4">Coins</p>
           <div className="mb-4 md:mb-0 md:mr-4 bg-themeLight px-3 py-2 rounded-md">
@@ -62,7 +60,7 @@ const Coins = () => {
                   handleTabClick("ALL");
                 }}
                 className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
-                  activeTab === "ALL" ? "opacity-100" : "opacity-50"
+                  activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
                 }`}
               >
                 All
@@ -114,24 +112,16 @@ const Coins = () => {
             </div>
           </div>
         </div>
-        <div className="text-white sm:flex items-center bg-themeLight rounded-md px-3 p-2">
+        <div className="text-white mt-4 lg:mt-0 sm:divide-x sm:flex items-center bg-themeLight rounded-md px-3 p-2">
           <div className="flex items-center">
-            <img
-              src={"https://www.brightdigigold.com/images/gold-bars.svg"}
-              className="h-5"
-              alt="vault"
-            />
-            <div className="text-white ml-2 sm:border-r-2 border-slate-400 pr-4 flex">
+            <img src={"Goldbarbanner.png"} className="h-5" alt="vault" />
+            <div className="text-white ml-2 pr-4 flex">
               <p className="text-yellow-300 font-extrabold mr-2">Gold :</p>
               <p className="text-yellow-300">0.9825 GM</p>
             </div>
           </div>
           <div className="flex items-center">
-            <img
-              src={"https://www.brightdigigold.com/images/gold-bars.svg"}
-              className="h-5 sm:ml-4"
-              alt="vault"
-            />
+            <img src={"/SilverBar.png"} className="h-5 sm:ml-4" alt="vault" />
             <div className="ml-2 flex">
               <p className="text-slate-200 font-extrabold mr-2">Silver :</p>
               <p className="text-slate-200 font-semibold">0.0985 GM</p>

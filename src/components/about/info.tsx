@@ -48,7 +48,7 @@ const Info = () => {
               </p>
             </div>
             <motion.div variants={fadeIn("right", "spring", 0.2, 1)}>
-              <img src="/infoabout.png" className=" float-right" />
+              <img src="/infoabout.png" className=" mx-auto lg:float-right" />
             </motion.div>
           </div>
         </div>

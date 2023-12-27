@@ -7,6 +7,7 @@ import GooglePlay from "../../../public/lottie/Google Play.json";
 import IOS from "../../../public/lottie/App Store.json";
 import { motion } from "framer-motion";
 import { slideIn, fadeIn, textVariant } from "../../utils/motion";
+import { OfferSlider } from "..";
 
 const HeroSection = () => {
   return (
@@ -26,10 +27,16 @@ const HeroSection = () => {
             <div className="hidden lg:block mt-10">
               <motion.h1
                 variants={fadeIn("right", "spring", 0.2, 0.2)}
-                className="text-6xl text-white font-semibold leading-tight mb-12 extrabold"
+                className="text-6xl text-white font-semibold leading-tight mb-12 "
               >
-                <span className="text-themeBlueLight">Start Your Saving</span>
-                <br /> With Just <span className="text-gold01">₹</span> 10
+                <span className="text-themeBlueLight extrabold">
+                  Start Your Savings
+                </span>
+                <br />
+                <span className="">
+                  {" "}
+                  With Just <span className="text-gold01 extrabold">₹</span> 10
+                </span>
               </motion.h1>
               <motion.div variants={textVariant(1.1)}>
                 <div className="inline-block items-center border-gold rounded-lg px-3 py-1">
@@ -59,8 +66,11 @@ const HeroSection = () => {
                   />
                 </div>
 
-                <div className="flex gap-4 mt-4 relative">
-                  <Link href="" className="cursor-pointer">
+                <div className="flex gap-4 mt-8 relative">
+                  <Link
+                    href="https://play.google.com/store/apps/details?id=com.brightdigigold.customer"
+                    className="cursor-pointer"
+                  >
                     {/* <Lottie
                       animationData={IOS}
                       className="h-32 absolute -top-16 -left-2"
@@ -71,7 +81,10 @@ const HeroSection = () => {
                       className="h-14"
                     />
                   </Link>
-                  <Link href="" className="cursor-pointer">
+                  <Link
+                    href="https://apps.apple.com/in/app/bright-digi-gold-buy-24k-gold/id1640972173"
+                    className="cursor-pointer"
+                  >
                     {/* <img className="h-10" src="/andriod.png" alt="Your Company" /> */}
                     {/* <Lottie
                       animationData={GooglePlay}
@@ -82,6 +95,8 @@ const HeroSection = () => {
                   </Link>
                 </div>
               </motion.div>
+
+              <OfferSlider />
               <div className="flex justify-center mt-4">
                 {/* <img
                 className="h-12"

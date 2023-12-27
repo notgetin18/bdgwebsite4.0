@@ -73,7 +73,9 @@ body::-webkit-scrollbar-thumb {
 .semibold {
   font-family: NunitoSans-SemiBold;
 }
-
+.bg-themeLight001 {
+  background: rgb(0 0 0 / 20%);
+}
 .bg-theme {
   background: #092637;
 }

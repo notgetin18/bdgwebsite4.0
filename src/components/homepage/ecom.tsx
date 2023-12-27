@@ -21,16 +21,24 @@ const Ecom = () => {
           viewport={{ once: false, amount: 0.25 }}
           className="grid sm:grid-cols-2 gap-6 place-items-center"
         >
-          <motion.div variants={fadeIn("right", "spring", 0.2, 1)} className="">
+          <motion.div
+            variants={fadeIn("right", "spring", 0.2, 1)}
+            className=" flex items-end relative"
+          >
             <img alt="products" className="h-40 mx-auto" src="/goldcoin.png" />
+            <img
+              alt="products"
+              className="h-32 mx-auto"
+              src="/BanyanTree.png"
+            />
           </motion.div>
           <div>
             <motion.h1
               variants={textVariant(1.1)}
               className=" text-right font-bold text-3xl text-gray-700"
             >
-              Buy Gold and Silver <br />
-              Coins
+              Get Free Delivery <br />
+              Pan India
             </motion.h1>
             <Link
               href="#"

@@ -10,7 +10,7 @@ const Timer: React.FC = () => {
   const time = useSelector((state: RootState) => state.time.time);
   const dispatch = useDispatch();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  const metalType = useSelector((state: RootState) => state.shop.metalType);
   const fetchDataOfMetals = useCallback(async () => {
     try {
       const response: any = await metalPrice(); // Assuming this returns a JSON string
@@ -67,11 +67,19 @@ const Timer: React.FC = () => {
     <div>
       <div className="flex items-center justify-end 2xl:justify-center gap-2 pr-4 sm:pr-12 2xl:pr-4 mt-3">
         <img src="/alarm-filled.png" className="h-2 sm:h-4" />
-        <p className="text-xs sm:text-sm text-red-600">
-          <span className="hidden sm:inline">Rate will</span> expire in :{" "}
-          {formatTime(time)}
-        </p>
+        {metalType === "gold" ? (
+          <p className="text-xs sm:text-sm text-gold01">
+            <span className="hidden sm:inline">Gold Rate will</span> expire in :{" "}
+            {formatTime(time)}
+          </p>
+        ) : (
+          <p className="text-xs sm:text-sm text-gray-100">
+            <span className="hidden sm:inline">Silver Rate will</span> expire in
+            : {formatTime(time)}
+          </p>
+        )}
       </div>
+
       {/* Button is commented out, but here if you need it */}
       {/* <button onClick={handleReset}>Reset Timer</button> */}
     </div>

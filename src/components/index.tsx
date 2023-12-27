@@ -18,6 +18,7 @@ import Mission from "./about/mission";
 import Motive from "./about/motive";
 import Succession from "./about/succession";
 import AboutFoot from "./about/aboutfoot";
+import OfferSlider from "./homepage/offerSlider";
 import Modal from "./modal";
 export {
   Footer,
@@ -41,4 +42,5 @@ export {
   Motive,
   Succession,
   AboutFoot,
+  OfferSlider,
 };
