@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -10,16 +10,23 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { classNames } from "./helperFunctions";
+import LoginAside from "@/app/auth/page";
 
 const Navbar = () => {
   // const handleAuth = useAuth();
   // const isLoggedIn = useAppSelector(getAuth);
-  const isloggedIn = true;
+  const isloggedIn = false;
+  const [isLoginOpen, setLoginOpen] = useState(false);
+
+  const handleLoginClick = () => {
+    setLoginOpen(!isLoginOpen);
+  };
 
   return (
     <Disclosure as="nav" className="bg-header">
       {({ open, close }) => (
         <>
+          {isLoginOpen && <LoginAside isOpen={isLoginOpen} onClose={() => setLoginOpen(false)} />}
           <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
@@ -66,9 +73,14 @@ const Navbar = () => {
                   My Account
                 </Link>
               ) : (
-                <Link className={styles.p0} href="/">
-                  Login/Sign Up
-                </Link>
+                <label
+                  className="text-white"
+                  onClick={handleLoginClick}
+                >
+                  <span>
+                    <Link className="text-white" href=""> Login/Sign Up</Link>
+                  </span>
+                </label>
               )}
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

@@ -7,7 +7,8 @@ import GooglePlay from "../../../public/lottie/Google Play.json";
 import IOS from "../../../public/lottie/App Store.json";
 import { motion } from "framer-motion";
 import { slideIn, fadeIn, textVariant } from "../../utils/motion";
-import { OfferSlider } from "..";
+import OTPModal from "./otp";
+import OfferSlider from "./offerSlider";
 
 const HeroSection = () => {
   return (

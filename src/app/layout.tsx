@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from "@/redux/store";
+import { AesDecrypt } from "@/components/helperFunctions";
+import { useEffect } from "react";
 
 let persistor = persistStore(store);
 // const inter = Inter({ subsets: ["latin"] });
@@ -17,11 +19,47 @@ let persistor = persistStore(store);
 // };
 
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+
+
+
+export default function RootLayout({ children, }: { children: React.ReactNode; }) {
+
+  const checkUserIsNew = async () => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const configHeaders = {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(`${process.env.baseUrl}/auth/validate/token`, configHeaders)
+        .then((response) => response.json())
+        .then(async (data) => {
+          // log("isUserProfileFilled in data : ", data);
+          const decryptedData = await AesDecrypt(data.payload);
+          const userdata = JSON.parse(decryptedData).data;
+          console.log("userdata : ", userdata);
+          if (userdata.isBasicDetailsCompleted == false) {
+            console.log("doooooooo")
+            // dispatch(doShowLoginAside(true));
+          } else {
+            // dispatch(profileFilled(true));
+          }
+        })
+        .catch((errorWhileCheckingIsUserNew) => {
+          console.log("errorWhileCheckingIsUserNew : ", errorWhileCheckingIsUserNew);
+        });
+    }
+  };
+
+  useEffect(() => {
+    checkUserIsNew()
+  }, [])
+
+
   return (
     <html lang="en">
       <body>
