@@ -41,7 +41,7 @@ const Mission = () => {
                 className="h-60 left-1/3 -top-10 absolute"
                 loop={true}
               /> */}
-              <img src="/lottie/Vision.gif" className=" mx-auto" />
+              <img src="/lottie/Vision.gif" className="mx-auto h-72" />
             </motion.div>
             <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12">
               Our Mission
@@ -55,7 +55,7 @@ const Mission = () => {
                 className="h-60 left-1/3 -top-6 absolute"
                 loop={true}
               /> */}
-              <img src="/lottie/Mission.gif" className="h-28 mx-auto" />
+              <img src="/lottie/Mission.gif" className="h-72 mx-auto" />
             </motion.div>
             <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">
               Bright Digi Gold envisions leadership in digital gold trade,

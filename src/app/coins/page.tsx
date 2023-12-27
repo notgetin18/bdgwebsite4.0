@@ -130,7 +130,7 @@ const Coins = () => {
         </div>
       </div>
       <motion.div
-        initial="hidden"
+        // initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
       >
