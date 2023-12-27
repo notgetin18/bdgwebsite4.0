@@ -10,13 +10,13 @@ import { useState } from "react";
 const data = [
   { id: 1, name: "PROFILE" },
   { id: 2, name: "KYC" },
-  { id: 3, name: "PAYOUT" },
+  { id: 3, name: "WITHDRAW" },
   { id: 4, name: "ADDRESS" },
 ];
 
 
 const MyAccountTabs = () => {
-  const [selectedIndex, setSelectedIndex] = useState(2);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleCompleteKYC = () => {
     setSelectedIndex(1);

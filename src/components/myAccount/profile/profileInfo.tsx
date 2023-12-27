@@ -1,21 +1,69 @@
 import { AppDispatch } from '@/redux/store';
 import { fetchUserDetails, selectUser } from '@/redux/userDetailsSlice';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { VscVerifiedFilled } from 'react-icons/vsc';
+import { MdScheduleSend } from 'react-icons/md';
+import Swal from 'sweetalert2';
+import { AesDecrypt } from '@/components/helperFunctions';
+
 
 const ProfileInfo = ({ onEditDetailsClick }: any) => {
     const user = useSelector(selectUser);
     const dispatch: AppDispatch = useDispatch();
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             dispatch(fetchUserDetails());
         };
-
         fetchData();
         // console.log('user details fetched', user)
     }, [dispatch]);
+
+    const verifyEmail = () => {
+
+        if (!isSubmitting) {
+            setIsSubmitting(true);
+            const token = localStorage.getItem("token");
+            const configHeaders = {
+                headers: {
+                    authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            };
+            fetch(`${process.env.baseUrl}/user/validate/email`, configHeaders)
+                .then((response) => response.json())
+                .then(async (response) => {
+                    const decryptedData = await AesDecrypt(response.payload)
+                    const finalResult = JSON.parse(decryptedData);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: finalResult.message,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                })
+                .catch(async (errorInVerifyEmail) => {
+                    // log(errorInVerifyEmail.payload);
+                    const decryptedData = await AesDecrypt(errorInVerifyEmail.payload)
+                    const finalResult = JSON.parse(decryptedData);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: finalResult.message,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                }).finally(() => {
+                    setIsLoading(false);
+                    setIsSubmitting(false);
+                })
+        }
+    }
 
 
     return (
@@ -42,7 +90,7 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Email ID</span>
-                    <span className='flex'>{user.data.email}<span className='pl-2'><FaEdit className="cursor-pointer" color={'yellow'} size={20} /></span></span>
+                    <span className='flex items-center'>{user.data.email}<span className='pl-2'>{user?.data?.isEmailVerified ? <VscVerifiedFilled className="cursor-pointer" color={'green'} size={24} /> : <MdScheduleSend onClick={verifyEmail} className="cursor-pointer" color={'yellow'} size={24} />}</span></span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
