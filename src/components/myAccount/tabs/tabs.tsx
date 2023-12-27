@@ -5,20 +5,28 @@ import KycTab from "../kyc/kyc";
 import PayoutOptionTab from "../payoutOptions/payoutOption";
 import ProfileTab from "../profile/profile";
 import AddressTab from "../address/address";
+import { useState } from "react";
 
 const data = [
-  { id: 1, name: "Profile" },
-  { id: 2, name: "Kyc" },
-  { id: 3, name: "Payout Option" },
-  { id: 4, name: "Address" },
+  { id: 1, name: "PROFILE" },
+  { id: 2, name: "KYC" },
+  { id: 3, name: "PAYOUT" },
+  { id: 4, name: "ADDRESS" },
 ];
 
+
 const MyAccountTabs = () => {
+  const [selectedIndex, setSelectedIndex] = useState(2);
+
+  const handleCompleteKYC = () => {
+    setSelectedIndex(1);
+  };
+
   return (
     <div className="w-full">
-      <Tab.Group defaultIndex={0}>
-        <div className=" grid grid-cols-5 gap-4">
-          <Tab.List className=" col-span-1 space-x-1 rounded-xl p-1">
+      <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
+          <Tab.List className="sm:col-span-1 space-x-1 rounded-xl p-1 sm:w-full flex flex-row sm:flex-col">
             {data.map((category, index) => (
               <Tab
                 key={index}
@@ -36,24 +44,22 @@ const MyAccountTabs = () => {
               </Tab>
             ))}
           </Tab.List>
-          {/* Displays this panel by default */}
-          <Tab.Panel
-            className={classNames("rounded-xl p-2 col-span-4", "focus:outline-none")}
-          >
-            <ProfileTab />
-          </Tab.Panel>
-          <Tab.Panels className="col-span-4">
+          <Tab.Panels className="sm:col-span-4">
             <Tab.Panel
-              className={classNames("rounded-xl  p-3", "focus:outline-none")}
+              className={classNames("rounded-xl p-3", "focus:outline-none")}
+            >
+              <ProfileTab />
+            </Tab.Panel>
+            <Tab.Panel
+              className={classNames("rounded-xl p-3", "focus:outline-none")}
             >
               <KycTab />
             </Tab.Panel>
             <Tab.Panel
               className={classNames("rounded-xl p-3", "focus:outline-none")}
             >
-              <PayoutOptionTab />
+              <PayoutOptionTab onCompleteKYC={handleCompleteKYC} />
             </Tab.Panel>
-
             <Tab.Panel
               className={classNames("rounded-xl p-3", "focus:outline-none")}
             >
@@ -67,3 +73,5 @@ const MyAccountTabs = () => {
 };
 
 export default MyAccountTabs;
+
+
