@@ -7,8 +7,11 @@ import GooglePlay from "../../../public/lottie/Google Play.json";
 import IOS from "../../../public/lottie/App Store.json";
 import { motion } from "framer-motion";
 import { slideIn, fadeIn, textVariant } from "../../utils/motion";
+import OTPModal from "./otp";
 
 const HeroSection = () => {
+  
+
   return (
     <div className="bg-theme py-10">
       <motion.div
