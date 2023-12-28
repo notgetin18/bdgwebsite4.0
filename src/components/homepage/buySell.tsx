@@ -23,10 +23,10 @@ import {
   isCouponApplied,
   setCouponError,
 } from "@/redux/couponSlice";
-// import Modal from "../modal";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
 import { ParseFloat } from "../helperFunctions";
+import Modal from "../modals/modal";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -566,9 +566,9 @@ const BuySell = () => {
                   {/* <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" /> */}
                   {purchaseType === "buy" ? "Start Investing " : "Sell Now"}
                 </button>
-                {/* {isModalOpen && (
+                {isModalOpen && (
                   <Modal isOpen={isModalOpen} onClose={closeModal} />
-                )} */}
+                )}
               </div>
             </div>
           </div>

@@ -4,12 +4,13 @@ import BuySell from "./buySell";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeIn, textVariant } from "../../utils/motion";
-import OTPModal from "./otp";
+// import OTPModal from "./otp";
 import OfferSlider from "./offerSlider";
 import { AesDecrypt } from "../helperFunctions";
 import { setShowOTPmodal, setShowProfileForm, setUserExists } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import OtpModal from "../modals/otpModal";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const HeroSection = () => {
         }
       }
     };
-
+    dispatch(setShowOTPmodal(false));
     checkUserIsNew();
   }, [dispatch]);
 
@@ -58,7 +59,7 @@ const HeroSection = () => {
 
   return (
     <div className="bg-theme py-10">
-      {otpModal && <OTPModal />}
+      {otpModal && <OtpModal />}
       <motion.div
         initial="hidden"
         whileInView="show"

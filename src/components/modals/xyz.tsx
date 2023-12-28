@@ -12,15 +12,6 @@ const OTPModal = () => {
     const [otp, setOtp] = useState('');
     const router = useRouter();
     const dispatch = useDispatch()
-
-    // const openModal = () => {
-    //     setModalOpen(true);
-    // };
-
-    // const closeModal = () => {
-    //     setModalOpen(false);
-    //     onClose();
-    // };
     const [submitting, setSubmitting] = useState(false);
     const [otpError, setOtpError] = useState("");
 
@@ -28,7 +19,7 @@ const OTPModal = () => {
     const handleSubmit = async () => {
         const mobile_number = localStorage.getItem("mobile_number");
         // setShowMobileNumber(mobile_number);
-        if (otp === undefined) {
+        if (otp.length < 6) {
             setOtpError("Please Fill the OTP");
         } else {
             const data = {
@@ -56,11 +47,8 @@ const OTPModal = () => {
                     body,
                     header
                 );
-                //
                 const decryptedData = await AesDecrypt(response.data.payload);
-
                 const result = JSON.parse(decryptedData);
-                // log("🚀 ~ file: otpScreen.js:63 ~ handleSubmit ~ result:", result)
 
                 if (result.status == true) {
                     if (result.data.isNewUser == false) {
@@ -70,7 +58,7 @@ const OTPModal = () => {
                         // dispatch(logInUser(true));
                         // dispatch(profileFilled(true));
                         // if (props.redirectData) {
-                        //   props.redirectData({ redirect: "handleClick", data: "SELL" });
+                        // props.redirectData({ redirect: "handleClick", data: "SELL" });
                         // }
                         // props.setToggle(0);
                         // props.onHide();
@@ -84,7 +72,7 @@ const OTPModal = () => {
                     }
                 } else {
                     setOtp("");
-                    //   log("🚀 ~ file: otpScreen.js:112 ~ handleSubmit ~ setOtp:", setOtp)
+                    // log("🚀 ~ file: otpScreen.js:112 ~ handleSubmit ~ setOtp:", setOtp)
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -109,7 +97,6 @@ const OTPModal = () => {
 
     return (
         <div>
-            {/* {isModalOpen && ( */}
             <div
                 id="popup-modal"
                 tabIndex={-1}
@@ -168,7 +155,7 @@ const OTPModal = () => {
                                 }}
                                 renderInput={(props) => <input {...props} />}
                             />
-
+                            {otpError && <div className='text-red-600'>{otpError}</div>}
                             <button
                                 data-modal-hide="popup-modal"
                                 type="button"
@@ -181,7 +168,6 @@ const OTPModal = () => {
                     </div>
                 </div>
             </div>
-            {/* )} */}
         </div>
     );
 };
