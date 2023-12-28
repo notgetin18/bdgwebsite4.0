@@ -10,6 +10,7 @@ import userDetailsSlice from './userDetailsSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import { UserState } from '@/types';
+import authSlice from './authSlice';
 
 const persistConfig = {
   key: 'root',
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   time: timerReducer,
   gift: giftSlice,
   user: userDetailsSlice,
+  auth: authSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,12 +1,12 @@
 'use client'
 import { AesDecrypt, AesEncrypt } from '@/components/helperFunctions';
-import OTPModal from '@/components/homepage/otp';
+import { setShowOTPmodal } from '@/redux/authSlice';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Formik } from 'formik';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 interface LoginAsideProps {
@@ -16,10 +16,10 @@ interface LoginAsideProps {
 
 const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
     const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    const router = useRouter();
     const [submitting, setSubmitting] = useState(false);
     const [termsLinkColor, setTermsLinkColor] = useState('text-white');
-    const [showOTPModal, setShowOTPModal] = useState(false);
+    const dispatch = useDispatch()
+
 
     const handleTermsClick = () => {
         onClose();
@@ -66,7 +66,10 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
                 const decryptedData = await AesDecrypt(result.data.payload);
                 if (JSON.parse(decryptedData).status) {
                     localStorage.setItem('mobile_number', values.mobile_number);
-                    setShowOTPModal(true); // Show the OTP modal
+                    // setShowOTPModal(true);
+                    // console.log('show otp modal')
+                    // console.log('showOTPModal 71', showOTPModal)
+                    dispatch(setShowOTPmodal(true));
                 }
                 setSubmitting(false);
                 onClose();
@@ -75,15 +78,12 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
             }
         } catch (error) {
             // Handle error
-            console.error(error);
+            alert(error);
             setSubmitting(false);
         }
     };
 
-    const closeOTPModal = () => {
-        setShowOTPModal(false);
-        onClose(); // Close the modal from the parent component
-    };
+
 
     return (
         <aside
@@ -91,8 +91,6 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
                 } transition-transform ease-in-out z-50`}
             style={{ zIndex: 1000 }}
         >
-            {showOTPModal && <OTPModal onClose={closeOTPModal} />}
-
             <div className="grid h-screen place-items-center w-full">
                 <div className='w-full p-6'>
                     <button

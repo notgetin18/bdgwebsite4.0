@@ -1,18 +1,64 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import BuySell from "./buySell";
 import Link from "next/link";
-import Lottie from "lottie-react";
-import GooglePlay from "../../../public/lottie/Google Play.json";
-import IOS from "../../../public/lottie/App Store.json";
 import { motion } from "framer-motion";
-import { slideIn, fadeIn, textVariant } from "../../utils/motion";
+import { fadeIn, textVariant } from "../../utils/motion";
 import OTPModal from "./otp";
 import OfferSlider from "./offerSlider";
+import { AesDecrypt } from "../helperFunctions";
+import { setShowOTPmodal, setShowProfileForm, setUserExists } from "@/redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const HeroSection = () => {
+  const dispatch = useDispatch();
+  const userExists = useSelector((state: RootState) => state.auth.userExists);
+  const otpModal = useSelector((state: RootState) => state.auth.otpModal);
+
+  console.log('otpModal =-====>  ', otpModal)
+
+  useEffect(() => {
+    const checkUserIsNew = async () => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        const configHeaders = {
+          headers: {
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        };
+
+        try {
+          const response = await fetch(`${process.env.baseUrl}/auth/validate/token`, configHeaders);
+          const data = await response.json();
+          const decryptedData = await AesDecrypt(data.payload);
+          const userdata = JSON.parse(decryptedData).data;
+
+          if (userdata.isBasicDetailsCompleted) {
+            dispatch(setShowOTPmodal(false));
+            dispatch(setUserExists(true));
+          } else {
+            dispatch(setShowProfileForm(false));
+          }
+        } catch (errorWhileCheckingIsUserNew) {
+          console.log('errorWhileCheckingIsUserNew:', errorWhileCheckingIsUserNew);
+        }
+      }
+    };
+
+    checkUserIsNew();
+  }, [dispatch]);
+
+  useEffect(() => {
+
+  }, [otpModal])
+
+
   return (
     <div className="bg-theme py-10">
+      {otpModal && <OTPModal />}
       <motion.div
         initial="hidden"
         whileInView="show"

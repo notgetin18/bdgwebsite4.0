@@ -42,8 +42,26 @@ const Coins = () => {
     getAllProducts(tab);
   };
 
+  const closeOTPModal = () => {
+    // setShowOTPModal(false);
+    // onClose(); // Close the modal from the parent component
+  };
+
+  const [state, setstate] = useState(false)
+  const openOTPModal = () => {
+    setstate(prevState => !prevState)
+  };
+
+  useEffect(() => {
+
+  }, [openOTPModal])
+
+  console.log("state", state)
+
   return (
     <div className="container mx-auto">
+      {/* {state && <OTPModal onClose={closeOTPModal} />}
+      <button className="text-red-600 mt-24 p-2 rounded border-red-600 border-2" onClick={openOTPModal} > toggle </button> */}
       <div className="flex justify-center items-center">
         <img
           src={"/lottie/product banner copy.jpg"}
@@ -60,9 +78,8 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("ALL");
                 }}
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
-                  activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
-                }`}
+                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
+                  }`}
               >
                 All
               </div>
@@ -71,9 +88,8 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${
-                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                }`}
+                className={`ml-2 h-5 cursor-pointer ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                  }`}
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
@@ -82,9 +98,8 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
-                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                }`}
+                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                  }`}
               >
                 Gold
               </div>
@@ -93,9 +108,8 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${
-                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                }`}
+                className={`ml-2 h-5 cursor-pointer ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                  }`}
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
@@ -104,9 +118,8 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
-                className={`ml-2 cursor-pointer text-lg ${
-                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                }`}
+                className={`ml-2 cursor-pointer text-lg ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                  }`}
               >
                 Silver
               </div>
@@ -148,11 +161,10 @@ const Coins = () => {
                 style={{
                   backgroundSize: "cover",
                   backgroundPosition: "bottom",
-                  backgroundImage: `url(${
-                    item.iteamtype.toLowerCase() === "gold"
-                      ? "/images/goldpart.png"
-                      : "/images/silverpart.png"
-                  })`,
+                  backgroundImage: `url(${item.iteamtype.toLowerCase() === "gold"
+                    ? "/images/goldpart.png"
+                    : "/images/silverpart.png"
+                    })`,
                 }}
                 className=""
               >

@@ -1,5 +1,7 @@
 import { AesDecrypt, funcForDecrypt } from "@/components/helperFunctions";
+import { setShowProfileForm, setUserExists } from "@/redux/authSlice";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 export const api = axios.create({
   baseURL: `${process.env.baseUrl}`, // Replace with your API base URL
@@ -98,5 +100,39 @@ export const fetchAllUPI = async () => {
   } catch (error) {
     console.error(error);
     return { UpiList: [], BankList: [], decryptedDataList: [] }; // Return empty arrays or handle error case accordingly.
+  }
+};
+
+export const checkUserIsNew = async () => {
+  const dispatch = useDispatch();
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    const configHeaders = {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    fetch(`${process.env.baseUrl}/auth/validate/token`, configHeaders)
+      .then((response) => response.json())
+      .then(async (data) => {
+        const decryptedData = await AesDecrypt(data.payload);
+        const userdata = JSON.parse(decryptedData).data;
+        // console.log("userdata : ", userdata);
+        // console.log("userdata.isBasicDetailsCompleted", userdata.isBasicDetailsCompleted)
+        if (userdata.isBasicDetailsCompleted == true) {
+          dispatch(setUserExists(true));
+        } else {
+          dispatch(setShowProfileForm(false));
+        }
+      })
+      .catch((errorWhileCheckingIsUserNew) => {
+        console.log(
+          "errorWhileCheckingIsUserNew : ",
+          errorWhileCheckingIsUserNew
+        );
+      });
   }
 };

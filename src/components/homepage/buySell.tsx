@@ -209,35 +209,35 @@ const BuySell = () => {
     setModalOpen(false);
   };
 
-  useEffect(() => {
-    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
-    console.table({
-      purchaseType,
-      actualAmount,
-      gst,
-      metalType,
-      transactionType,
-      metalPricePerGram,
-      totalAmount,
-      enteredAmount,
-      metalQuantity,
-    });
-  }, [
-    error,
-    appliedCouponCode,
-    extraGoldOfRuppess,
-    extraGold,
-    purchaseType,
-    actualAmount,
-    gst,
-    totalAmount,
-    metalType,
-    transactionType,
-    metalPricePerGram,
-    enteredAmount,
-    metalQuantity,
-    toggleMetal,
-  ]);
+  // useEffect(() => {
+  //   // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
+  //   console.table({
+  //     purchaseType,
+  //     actualAmount,
+  //     gst,
+  //     metalType,
+  //     transactionType,
+  //     metalPricePerGram,
+  //     totalAmount,
+  //     enteredAmount,
+  //     metalQuantity,
+  //   });
+  // }, [
+  //   error,
+  //   appliedCouponCode,
+  //   extraGoldOfRuppess,
+  //   extraGold,
+  //   purchaseType,
+  //   actualAmount,
+  //   gst,
+  //   totalAmount,
+  //   metalType,
+  //   transactionType,
+  //   metalPricePerGram,
+  //   enteredAmount,
+  //   metalQuantity,
+  //   toggleMetal,
+  // ]);
 
   return (
     <>
