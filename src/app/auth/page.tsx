@@ -101,7 +101,6 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
                     </button>
                     <h1 className="text-2xl font-bold mb-4 text-white text-center">Login/Sign Up</h1>
                     <h3 className="text-2xl mb-4 text-blue-300 text-center italic">LogIn to start <span className='text-yellow-400 italic'>INVESTING</span></h3>
-
                     <div className="mb-4">
                         <Formik
                             initialValues={initialValues}
