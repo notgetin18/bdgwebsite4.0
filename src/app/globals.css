@@ -76,6 +76,17 @@ body::-webkit-scrollbar-thumb {
 .bg-themeLight001 {
   background: rgb(0 0 0 / 20%);
 }
+.swiper-pagination-bullet {
+  height: 12px !important;
+  width: 12px !important;
+  background-color: #a6d7f1 !important;
+}
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: -3px !important;
+}
 .bg-theme {
   background: #092637;
 }
@@ -265,6 +276,7 @@ input:checked + .slider ~ .text-gold {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50%;
+  background-size: cover;
 }
 
 .client_grad {

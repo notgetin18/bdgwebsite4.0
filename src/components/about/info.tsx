@@ -14,7 +14,7 @@ const Info = () => {
         className=""
       >
         <div className="mx-auto pl-4 pr-4 sm:pl-6 sm:pr-6 lg:pl-8 lg:pr-0">
-          <h1 className="text-center text-gray-900 text-3xl extrabold mb-6">
+          <h1 className="text-center text-gray-900 text-5xl extrabold mb-6">
             Our Story
           </h1>
           <TypingText title="Our Service" textStyles="text-center" />

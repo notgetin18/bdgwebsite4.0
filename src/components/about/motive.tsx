@@ -12,7 +12,7 @@ const Motive = () => {
         viewport={{ once: false, amount: 0.25 }}
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16">
-          <h1 className="text-center text-gray-900 text-3xl extrabold mb-12">
+          <h1 className="text-center text-gray-900 text-5xl extrabold mb-12">
             Motives To Choose Bright DiGi Gold
           </h1>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-16">

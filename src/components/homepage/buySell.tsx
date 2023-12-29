@@ -27,6 +27,7 @@ import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
 import { ParseFloat } from "../helperFunctions";
 import Modal from "../modals/modal";
+import ModalCoupon from "../modals/modelcoupon";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const BuySell = () => {
   const [validationError, setValidationError] = useState<string>("");
   const [showCoupon, setShowCoupon] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isModalCouponOpen, setModalCouponOpen] = useState(false);
 
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
@@ -202,11 +204,12 @@ const BuySell = () => {
   }, [isgold, activeTab, toggleMetal]);
 
   const openModal = () => {
-    setModalOpen(true);
+    setModalCouponOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+    setModalCouponOpen(false);
   };
 
   // useEffect(() => {
@@ -527,17 +530,18 @@ const BuySell = () => {
                     </div>
                     <button className="text-white rounded-full border-2">
                       <div>
-                        {showCoupon ? (
+                        <ChevronUpIcon onClick={openModal} className="h-8" />
+                        {/* {showCoupon ? (
                           <ChevronUpIcon
-                            onClick={toggleCoupon}
+                            onClick={handleClick}
                             className="h-8"
                           />
                         ) : (
                           <ChevronDownIcon
-                            onClick={toggleCoupon}
+                            onClick={handleClick}
                             className="h-8"
                           />
-                        )}
+                        )} */}
                       </div>
                     </button>
                   </div>
@@ -568,6 +572,13 @@ const BuySell = () => {
                 </button>
                 {isModalOpen && (
                   <Modal isOpen={isModalOpen} onClose={closeModal} />
+                )}
+
+                {isModalCouponOpen && (
+                  <ModalCoupon
+                    isOpen={isModalCouponOpen}
+                    onClose={closeModal}
+                  />
                 )}
               </div>
             </div>

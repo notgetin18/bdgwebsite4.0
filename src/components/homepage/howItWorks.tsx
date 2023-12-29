@@ -52,7 +52,7 @@ const HowItWorks = () => {
   return (
     <div className="bg-themeBlue">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-16">
-        <h1 className="text-2xl font-bold text-center">How it Works</h1>
+        <h1 className="text-5xl extrabold text-center">How it Works</h1>
 
         <div className="lg:items-center mt-8 sm:mt-8">
           <Tabs

@@ -9,17 +9,12 @@ import {
   textVariant,
 } from "../../utils/motion";
 
-
 const HeroAbout = () => {
-
-  
-
   return (
     <div className="bg-theme py-10">
-      
       <div className="mx-auto px-4 sm:px-6 lg:px-16">
         <img
-          className="h-800 absolute top-48 -left-20 opacity-40 z-10"
+          className="h-800 absolute top-48 -left-20 opacity-20 z-10"
           src="/BDGwhite.png"
           alt="Your Company"
         />

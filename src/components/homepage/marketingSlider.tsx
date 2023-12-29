@@ -40,14 +40,15 @@ export default function Marketing() {
   return (
     <>
       <div className="bg-theme">
-        <div className="mx-auto  px-4 sm:px-6 lg:px-16 py-16">
+        <div className="mx-auto backSlider px-4 sm:px-6 lg:px-16 pb-16">
           <Swiper
             spaceBetween={30}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
-            modules={[Autoplay]}
+            pagination
+            modules={[Autoplay, Pagination]}
             className="mySwiper"
           >
             {features.map((item, index) => (
@@ -55,7 +56,7 @@ export default function Marketing() {
                 key={`${index}-Slider`}
                 className="relative swiper-slide p-4"
               >
-                <div className="backSlider grid md:grid-cols-2 gap-20 place-items-center">
+                <div className="grid md:grid-cols-2 gap-20 place-items-center">
                   <div>
                     <img
                       alt="stories img"
@@ -64,15 +65,15 @@ export default function Marketing() {
                     />
                   </div>
                   <div>
-                    <h1 className="text-white text-3xl extrabold mb-12">
+                    <h1 className="text-gold01 text-5xl extrabold mb-8">
                       {item.name}
                     </h1>
-                    <p className="w-full sm:w-3/4 text-white text-xl">
+                    <p className="w-full sm:w-3/4 text-white text-2xl">
                       {item.pera}
                     </p>
-                    <div className="block mt-8">
+                    <div className="block mt-12">
                       <Link
-                        className="bg-gray-200 rounded-lg py-3 px-8 text-center"
+                        className="bg-themeBlue rounded-lg py-3 px-8 extrabold text-center"
                         href={item.href}
                       >
                         {item.linkName}

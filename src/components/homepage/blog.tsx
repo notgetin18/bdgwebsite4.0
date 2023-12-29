@@ -51,7 +51,7 @@ export default function Blog() {
     <>
       <div className="bg-theme">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-center text-yellow-500 text-3xl extrabold mb-6">
+          <h1 className="text-center text-yellow-500 text-5xl extrabold mb-6">
             Our Blogs
           </h1>
           <Swiper

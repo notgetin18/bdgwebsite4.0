@@ -44,7 +44,7 @@ export default function Review() {
     <>
       <div className="bg-themeBlue">
         <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
-          <h1 className="text-center text-gray-800 text-3xl extrabold mb-12">
+          <h1 className="text-center text-gray-800 text-5xl extrabold mb-12">
             Feedback
           </h1>
           <Swiper

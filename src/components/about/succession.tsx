@@ -8,7 +8,7 @@ const Succession = () => {
     <div className="bg-theme py-10">
       <div className="mx-auto px-4 sm:px-6 lg:px-16 relative">
         <div className="grid md:grid-cols-2 gap-4 place-items-center">
-          <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-2">
+          <h1 className="col-span-2 text-5xl text-gold01 text-center extrabold leading-tight mb-2">
             Succession Of Gold <br />
             Over The Years
           </h1>

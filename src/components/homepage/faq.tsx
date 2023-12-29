@@ -34,7 +34,7 @@ const Faq = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-16 py-12 ">
         <div className="flex justify-between ">
           <p></p>
-          <h1 className="text-center text-yellow-500 text-3xl extrabold">
+          <h1 className="text-center text-yellow-500 text-5xl extrabold">
             FAQ's
           </h1>
           <Link
