@@ -11,12 +11,40 @@ import {
 import Link from "next/link";
 import { classNames } from "./helperFunctions";
 import LoginAside from "@/app/auth/page";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
 
 const Navbar = () => {
   // const handleAuth = useAuth();
   // const isLoggedIn = useAppSelector(getAuth);
-  const isloggedIn = false;
+  const router = useRouter();
+  const userExists = useSelector((state: RootState) => state.auth.userExists);
+  const isloggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  // const isloggedIn = true;
   const [isLoginOpen, setLoginOpen] = useState(false);
+  const dispatch = useDispatch()
+  console.log('isloggedIn', isloggedIn)
+
+  const logoutProfile = () => {
+    console.log('logged out')
+    router.push('/')
+    localStorage.removeItem("mobile_number");
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLogIn");
+    dispatch(setShowOTPmodal(false));
+    dispatch(setIsLoggedIn(false));
+    // setLoading(false);
+    // handleToggleMenu(false);
+    // setToken(false);
+    // dispatch(logOutUser(false));
+    // dispatch(profileFilled(false));
+    //  setLoading(true);
+  }
+  // logoutProfile()
+  // console.log('userExists', userExists)
 
   const handleLoginClick = () => {
     setLoginOpen(!isLoginOpen);
@@ -84,7 +112,6 @@ const Navbar = () => {
                 >
                   <span>
                     <Link className="text-white" href="">
-                      {" "}
                       Login/Sign Up
                     </Link>
                   </span>
@@ -101,13 +128,6 @@ const Navbar = () => {
                     <Menu.Button className="relative flex focus:outline-none">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      {/* <Link
-                        className="hidden sm:block text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
-                        href="#"
-                      >
-                        Login/Sign Up
-                      </Link> */}
-
                       <Link
                         className="block lg:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
@@ -140,22 +160,23 @@ const Navbar = () => {
                                 close();
                               }}
                             />
-                            Your Profile
+                            Profile
                           </Link>
                         )}
                       </Menu.Item>
 
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
+                            onClick={logoutProfile}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>

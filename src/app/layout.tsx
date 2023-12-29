@@ -3,14 +3,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer, Navbar } from "@/components";
-import { Provider } from "react-redux";
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import store from "@/redux/store";
-import { AesDecrypt } from "@/components/helperFunctions";
-import { useEffect } from "react";
+import store, { RootState } from "@/redux/store";
+import { Provider } from "react-redux";
 
-let persistor = persistStore(store);
 // const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -20,51 +17,14 @@ let persistor = persistStore(store);
 
 
 
-
-
-
+let persistor = persistStore(store);
 export default function RootLayout({ children, }: { children: React.ReactNode; }) {
-
-  const checkUserIsNew = async () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      const configHeaders = {
-        headers: {
-          authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      };
-      fetch(`${process.env.baseUrl}/auth/validate/token`, configHeaders)
-        .then((response) => response.json())
-        .then(async (data) => {
-          // log("isUserProfileFilled in data : ", data);
-          const decryptedData = await AesDecrypt(data.payload);
-          const userdata = JSON.parse(decryptedData).data;
-          console.log("userdata : ", userdata);
-          if (userdata.isBasicDetailsCompleted == false) {
-            console.log("doooooooo")
-            // dispatch(doShowLoginAside(true));
-          } else {
-            // dispatch(profileFilled(true));
-          }
-        })
-        .catch((errorWhileCheckingIsUserNew) => {
-          console.log("errorWhileCheckingIsUserNew : ", errorWhileCheckingIsUserNew);
-        });
-    }
-  };
-
-  useEffect(() => {
-    checkUserIsNew()
-  }, [])
-
 
   return (
     <html lang="en">
       <body>
         <Provider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate loading={null} persistor={persistor}>
             <Navbar />
             {children}
             <Footer />

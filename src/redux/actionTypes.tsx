@@ -8,3 +8,32 @@ export const decrementTimer = () => ({
 export const resetTimer = () => ({
   type: RESET_TIMER
 });
+
+
+
+export const SET_USER_EXISTS = 'SET_USER_EXISTS';
+export const SET_SHOW_PROFILE_FORM = 'SET_SHOW_PROFILE_FORM';
+export const SET_SHOW_OTP_MODAL = 'SET_SHOW_OTP_MODAL';
+export const IS_LOGGED_IN = 'IS_LOGGED_IN';
+
+
+
+export interface SetUserExistsAction {
+  type: typeof SET_USER_EXISTS;
+  payload: boolean;
+}
+
+export interface SetShowProfileFormAction {
+  type: typeof SET_SHOW_PROFILE_FORM;
+  payload: boolean;
+}
+
+export interface SetOtpModal {
+  type: typeof SET_SHOW_OTP_MODAL;
+  payload: boolean;
+}
+
+export interface IsLoggedIn {
+  type: typeof IS_LOGGED_IN;
+  payload: boolean;
+}

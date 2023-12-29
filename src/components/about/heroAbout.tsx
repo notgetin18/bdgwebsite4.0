@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -9,9 +9,14 @@ import {
   textVariant,
 } from "../../utils/motion";
 
+
 const HeroAbout = () => {
+
+  
+
   return (
     <div className="bg-theme py-10">
+      
       <div className="mx-auto px-4 sm:px-6 lg:px-16">
         <img
           className="h-800 absolute top-48 -left-20 opacity-40 z-10"

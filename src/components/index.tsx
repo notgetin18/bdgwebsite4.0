@@ -19,7 +19,7 @@ import Motive from "./about/motive";
 import Succession from "./about/succession";
 import AboutFoot from "./about/aboutfoot";
 import OfferSlider from "./homepage/offerSlider";
-import Modal from "./modal";
+import Modal from "./modals/modal";
 export {
   Footer,
   Navbar,
