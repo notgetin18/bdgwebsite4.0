@@ -18,12 +18,13 @@ import DownloadApplication from "@/components/homepage/downloadApp";
 export default function Home() {
   return (
     <main>
+      <OfferSlider />
       <HeroSection />
       {/* <OfferSlider /> */}
       <Promotional />
       <Products />
       <HowItWorks />
-      <Ecom />
+      {/* <Ecom /> */}
       <Marketing />
       <ClientSlider />
       <Blog />

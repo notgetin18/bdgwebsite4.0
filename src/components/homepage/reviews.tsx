@@ -12,32 +12,32 @@ import "swiper/css/navigation";
 
 const features = [
   {
-    img: "https://bdggold.s3.ap-south-1.amazonaws.com/testimonials/piyush-1688056828359.jpg",
+    img: "/piyush.jpg",
     name: "Piyush Puri",
     pera: "This app has completely changed the way I manage my savings. I highly recommend this app to anyones who wants to transform their investment.",
   },
   {
-    img: "https://bdggold.s3.ap-south-1.amazonaws.com/testimonials/Jyoti-1688056759609.jpg",
+    img: "/Jyoti.jpg",
     name: "Jyoti Tiwari",
     pera: "I was hesitant at first to buy digital gold, but this app made the process so simple and easy. The interface is user friendly and instructions are very clear. I now feel confident in my investment.",
   },
   {
-    img: "https://bdggold.s3.ap-south-1.amazonaws.com/testimonials/Minakshi-1688056955580.jpg",
+    img: "/Minakshi.jpg",
     name: "Meenakshi Sharma",
     pera: "I recently invested in Gold and I would like to share my journey with you all. Bright DiGi Gold made my investment quick and easy. You can buy 24K pure gold with their safe and secure policies.",
   },
   {
-    img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/testimonials/Nitin_Gupta-1688570873331.jpg",
+    img: "/Nitin Gupta.jpg",
     name: "Nitin Gupta",
     pera: "I would like to share my hands-on experience with Bright DiGi Gold. I purchased 24k gold and I must say it has truly impressed me with its innovative approach to digital gold investment.",
   },
   {
-    img: "https://brightdigigold.s3.ap-south-1.amazonaws.com/testimonials/sumit-1688570860780.jpg",
+    img: "/sumit.jpg",
     name: "Sumit Singhal",
     pera: "Bright DiGi Gold is a wonderful app. I cannot believe that buying gold could be so easy and convenient. Anyone who wants to invest in gold can definitely go for it without any doubt.",
   },
 ];
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 export default function Review() {
   return (

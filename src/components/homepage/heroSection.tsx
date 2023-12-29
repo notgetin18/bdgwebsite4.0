@@ -20,7 +20,7 @@ const HeroSection = () => {
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16">
           <img
-            className="h-7xl absolute bottom-0 -left-20 opacity-30"
+            className="h-7xl absolute -bottom-96 -left-20 opacity-30"
             src="/BDGwhite.png"
             alt="Your Company"
           />
@@ -97,7 +97,6 @@ const HeroSection = () => {
                 </div>
               </motion.div>
 
-              <OfferSlider />
               <div className="flex justify-center mt-4">
                 {/* <img
                 className="h-12"

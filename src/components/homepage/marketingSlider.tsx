@@ -14,21 +14,21 @@ const features = [
   {
     img: "/lottie/KYC Verification.gif",
     name: "Gold KYC",
-    pera: "Get your KYC done and start with your digital gold/silver investment journey.    ",
+    pera: " Simplify your life by completing your KYC effortlessly and embark on a seamless digital gold and silver savings journey.",
     linkName: "KYC Now",
     href: "/profile",
   },
   {
     img: "/lottie/Customer support.gif",
     name: "Customer Support",
-    pera: "Bright DiGi Gold provides you with 24*7 customer support services for ease of communication. ",
+    pera: "Trust us to be your reliable partner for your financial journey. Our robust customer support is always there to assist you.",
     linkName: "Contact Us ",
     href: "/contact",
   },
   {
     img: "/lottie/Home Deliveryy.gif",
     name: "Get It Delivered",
-    pera: " Get 100% safe and secure gold/silver delivery at your doorstep. ",
+    pera: " Say goodbye to hassle and embrace the happiness of owing gold/silver at your fingertips with utmost ease.      ",
     linkName: "Buy Now",
     href: "/coins",
   },
@@ -67,7 +67,9 @@ export default function Marketing() {
                     <h1 className="text-white text-3xl extrabold mb-12">
                       {item.name}
                     </h1>
-                    <p className="w-full sm:w-3/4 text-white">{item.pera}</p>
+                    <p className="w-full sm:w-3/4 text-white text-xl">
+                      {item.pera}
+                    </p>
                     <div className="block mt-8">
                       <Link
                         className="bg-gray-200 rounded-lg py-3 px-8 text-center"

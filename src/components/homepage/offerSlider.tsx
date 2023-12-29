@@ -18,7 +18,7 @@ const features = [
     img: "/lottie/offer2.jpg",
   },
 ];
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 export default function OfferSlider() {
   return (
@@ -30,7 +30,7 @@ export default function OfferSlider() {
           className=" absolute right-0 h-64 overflow-hidden"
         /> */}
         <div className="">
-          <div className="mx-auto pt-8 pr-36">
+          <div className="mx-auto">
             <div className="">
               <Swiper
                 // slidesPerView={5}
@@ -62,10 +62,10 @@ export default function OfferSlider() {
                     key={`${index}-Slider`}
                     className="relative swiper-slide"
                   >
-                    <div className="rounded-lg client_grad">
+                    <div className=" client_grad">
                       <img
                         src={feature.img}
-                        className=" mx-auto rounded-lg"
+                        className=" mx-auto"
                         alt="insite"
                       />
                     </div>

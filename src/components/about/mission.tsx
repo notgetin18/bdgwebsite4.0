@@ -24,7 +24,7 @@ const Mission = () => {
             <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12">
               Our Vision
             </h1>
-            <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">
+            <p className="col-span-2 sm:col-span-1 text-white text-justify leading-8  mb-4 mt-6 text-xl">
               At Bright Digi Gold, we pioneer innovative solutions in the
               digital space, transforming your savings management. Our
               commitment to transparency and accountability ensures a secure,
@@ -57,7 +57,7 @@ const Mission = () => {
               /> */}
               <img src="/lottie/Mission.gif" className="h-72 mx-auto" />
             </motion.div>
-            <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">
+            <p className="col-span-2 sm:col-span-1 text-white text-justify leading-8  mb-4 mt-6 text-xl">
               Bright Digi Gold envisions leadership in digital gold trade,
               aiming for a flawless system that offers reliable investment
               solutions. Our vision includes becoming a trusted, transparent,

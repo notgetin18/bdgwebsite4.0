@@ -46,7 +46,7 @@ const Coins = () => {
     <div className="container mx-auto">
       <div className="flex justify-center items-center">
         <img
-          src={"/lottie/product banner copy.jpg"}
+          src={"/lottie/product banner New.jpg"}
           alt="Product"
           className="rounded-b"
         />

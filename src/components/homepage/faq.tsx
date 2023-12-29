@@ -15,17 +15,17 @@ const faqs = [
   {
     question: "What is Bright DiGi Gold?",
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      "Bright DiGi Gold, is a user-friendly platform, where you can make your savings grow in pure digital gold and silver.     ",
   },
   {
     question: "What is digital gold?",
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      "Digital Gold is real gold. It can easily be converted or purchased into physical gold with a single click, all while being kept digitally to save space and ensure security.    ",
   },
   {
     question: "Is it safe to use the Bright DiGi Gold?",
     answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      "Yes, the Bright DiGi Gold platform is 100% safe and secure for your digital gold and silver savings. It is powered by Bright Gold (Bright Metal Refiners) as our Gold Partner and all the payments happen over a secure banking network.    ",
   },
 ];
 const Faq = () => {
