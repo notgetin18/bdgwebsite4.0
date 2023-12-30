@@ -71,9 +71,6 @@ const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
       {otpModal && <OtpModal />}
-      {/* <button className='px-2 py-2 border-2 border-yellow-400 text-yellow-400' type="button"  onClick={() => {
-          router.push('/auth/profileSetup')
-        }}> click me </button> */}
       <motion.div
         initial="hidden"
         whileInView="show"

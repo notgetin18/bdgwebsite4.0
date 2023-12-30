@@ -2,7 +2,6 @@
 import { AesDecrypt, AesEncrypt } from '@/components/helperFunctions';
 import { profileFilled, setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
 import axios, { AxiosRequestConfig } from 'axios';
-// import { format } from 'date-fns';
 import { ErrorMessage, Formik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,7 +11,6 @@ import { FaCalendarAlt, FaTimes } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import format from "date-fns/format";
 import "react-date-range/dist/styles.css";

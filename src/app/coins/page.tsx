@@ -6,7 +6,6 @@ import { api } from "@/api/DashboardServices";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../utils/motion";
-import OTPModal from "@/components/homepage/otp";
 
 const Coins = () => {
   const [ProductList, setProductList] = useState<any[]>([]);
@@ -42,26 +41,16 @@ const Coins = () => {
     getAllProducts(tab);
   };
 
-  const closeOTPModal = () => {
-    // setShowOTPModal(false);
-    // onClose(); // Close the modal from the parent component
-  };
+ 
 
   const [state, setstate] = useState(false)
-  const openOTPModal = () => {
-    setstate(prevState => !prevState)
-  };
-
-  useEffect(() => {
-
-  }, [openOTPModal])
+ 
 
   console.log("state", state)
 
   return (
     <div className="container mx-auto">
-      {/* {state && <OTPModal onClose={closeOTPModal} />}
-      <button className="text-red-600 mt-24 p-2 rounded border-red-600 border-2" onClick={openOTPModal} > toggle </button> */}
+      
       <div className="flex justify-center items-center">
         <img
           src={"/lottie/product banner New.jpg"}
