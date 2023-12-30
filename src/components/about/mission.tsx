@@ -16,15 +16,15 @@ const Mission = () => {
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16 relative">
           <img
-            className="h-800 absolute top-32 -left-20 opacity-40"
+            className="h-800 absolute top-32 -left-20 opacity-20"
             src="/BDGwhite.png"
             alt="Your Company"
           />
           <div className="grid sm:grid-cols-2 gap-4 place-items-center">
-            <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12">
+            <h1 className="col-span-2 text-5xl text-gold01 text-center extrabold leading-tight mb-0 sm:mb-6">
               Our Vision
             </h1>
-            <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">
+            <p className="col-span-2 sm:col-span-1 text-white text-left leading-8  mb-4 mt-6 text-2xl">
               At Bright Digi Gold, we pioneer innovative solutions in the
               digital space, transforming your savings management. Our
               commitment to transparency and accountability ensures a secure,
@@ -34,7 +34,7 @@ const Mission = () => {
             </p>
             <motion.div
               variants={fadeIn("right", "spring", 1.25, 1.25)}
-              className=" col-span-2 sm:col-span-1"
+              className=" col-span-2 sm:col-span-1 rounded-2xl bg-themeBlue"
             >
               {/* <Lottie
                 animationData={mission}
@@ -43,21 +43,21 @@ const Mission = () => {
               /> */}
               <img src="/lottie/Vision.gif" className="mx-auto h-72" />
             </motion.div>
-            <h1 className="col-span-2 text-4xl text-gold01 text-center font-semibold leading-tight mb-0 sm:mb-12">
+            <h1 className="col-span-2 text-5xl text-gold01 text-center extrabold leading-tight mb-0 sm:mb-6">
               Our Mission
             </h1>
             <motion.div
               variants={fadeIn("left", "spring", 1.25, 1.25)}
-              className="col-span-2 sm:col-span-1"
+              className="col-span-2 sm:col-span-1 rounded-2xl bg-themeBlue"
             >
               {/* <Lottie
                 animationData={mission}
                 className="h-60 left-1/3 -top-6 absolute"
                 loop={true}
               /> */}
-              <img src="/lottie/Mission.gif" className="h-72 mx-auto" />
+              <img src="/lottie/Vision.gif" className="mx-auto h-72" />
             </motion.div>
-            <p className="col-span-2 sm:col-span-1 text-white text-center leading-6  mb-4 mt-6 text-lg">
+            <p className="col-span-2 sm:col-span-1 text-white text-left leading-8  mb-4 mt-6 text-2xl">
               Bright Digi Gold envisions leadership in digital gold trade,
               aiming for a flawless system that offers reliable investment
               solutions. Our vision includes becoming a trusted, transparent,

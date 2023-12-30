@@ -52,7 +52,7 @@ export default function ClientSlider() {
         /> */}
         <div className="">
           <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8">
-            <h1 className="text-center extrabold  text-2xl text-gray-700 mb-8">
+            <h1 className="text-center extrabold  text-5xl text-gray-700 mb-8">
               We Are Trusted By
             </h1>
             <div className=" sm:hidden">

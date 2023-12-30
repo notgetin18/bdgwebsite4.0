@@ -64,7 +64,7 @@ const Coins = () => {
       <button className="text-red-600 mt-24 p-2 rounded border-red-600 border-2" onClick={openOTPModal} > toggle </button> */}
       <div className="flex justify-center items-center">
         <img
-          src={"/lottie/product banner copy.jpg"}
+          src={"/lottie/product banner New.jpg"}
           alt="Product"
           className="rounded-b"
         />

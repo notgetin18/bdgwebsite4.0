@@ -14,7 +14,7 @@ const Products = () => {
         className="mx-auto px-4 sm:px-6 lg:px-16 py-16"
       >
         <div className="flex justify-between items-center">
-          <h1 className="text-white text-2xl">Our Coins</h1>
+          <h1 className="text-white text-5xl extrabold">Our Coins</h1>
           <Link
             href="/coins"
             className="bg-themeLight px-3 py-1 text-md text-white rounded border border-gray-500"

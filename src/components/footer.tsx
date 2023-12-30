@@ -72,6 +72,11 @@ const Footer = () => {
             </div>
             <ul className="mt-6 grid md:block grid-cols-2 gap-2">
               <li className="mb-4">
+                <Link className="text-white" href="/contact">
+                  <span className="inline sm:hidden">-</span> Home
+                </Link>
+              </li>
+              <li className="mb-4">
                 <Link className="text-white" href="/about">
                   <span className="inline sm:hidden">-</span> About Us
                 </Link>
@@ -82,8 +87,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="mb-4">
-                <Link className="text-white" href="/contact">
-                  <span className="inline sm:hidden">-</span> Contact Us
+                <Link className="text-white" href="/faqs">
+                  <span className="inline sm:hidden">-</span> FAQs
                 </Link>
               </li>
               <li className="mb-4">
@@ -93,6 +98,11 @@ const Footer = () => {
               </li>
             </ul>
             <ul className="mt-0 md:mt-6 grid md:block grid-cols-2 gap-2">
+              <li className="mb-4">
+                <Link className="text-white" href="/contact">
+                  <span className="inline sm:hidden">-</span> Contact Us
+                </Link>
+              </li>
               <li className="mb-4">
                 <Link className="text-white" href="#">
                   <span className="inline sm:hidden">-</span> Terms of Uses
@@ -120,21 +130,21 @@ const Footer = () => {
             <ul className="lg:flex items-center justify-between gap-y-2">
               <li className="flex mb-4 lg:mb-0 items-center">
                 <MapPinIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs sm:text-sm xl:text-base">
+                <p className="text-white text-xs sm:text-sm xl:text-lg">
                   501, 5th Floor, World Trade Center,Babar Road, New Delhi -
                   110001
                 </p>
               </li>
               <li className="flex mb-4 lg:mb-0 items-center">
                 <PhoneIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs sm:text-sm xl:text-base">
+                <p className="text-white text-xs sm:text-sm xl:text-lg">
                   +91 92894 80033
                 </p>
               </li>
               <li className="flex mb-4 sm:mb-0 items-center">
                 <EnvelopeIcon className="h-6 text-white mr-4" />
-                <p className="text-white text-xs sm:text-sm xl:text-base">
-                  contact@brightdigigold.com
+                <p className="text-white text-xs sm:text-sm xl:text-lg">
+                  support@brightdigigold.com
                 </p>
               </li>
             </ul>

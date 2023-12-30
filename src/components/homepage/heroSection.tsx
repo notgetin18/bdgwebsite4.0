@@ -7,7 +7,11 @@ import { fadeIn, textVariant } from "../../utils/motion";
 // import OTPModal from "./otp";
 import OfferSlider from "./offerSlider";
 import { AesDecrypt } from "../helperFunctions";
-import { setShowOTPmodal, setShowProfileForm, setUserExists } from "@/redux/authSlice";
+import {
+  setShowOTPmodal,
+  setShowProfileForm,
+  setUserExists,
+} from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
@@ -17,22 +21,25 @@ const HeroSection = () => {
   const userExists = useSelector((state: RootState) => state.auth.userExists);
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
 
-  console.log('otpModal =-====>  ', otpModal)
+  console.log("otpModal =-====>  ", otpModal);
 
   useEffect(() => {
     const checkUserIsNew = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       if (token) {
         const configHeaders = {
           headers: {
             authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         };
 
         try {
-          const response = await fetch(`${process.env.baseUrl}/auth/validate/token`, configHeaders);
+          const response = await fetch(
+            `${process.env.baseUrl}/auth/validate/token`,
+            configHeaders
+          );
           const data = await response.json();
           const decryptedData = await AesDecrypt(data.payload);
           const userdata = JSON.parse(decryptedData).data;
@@ -44,7 +51,10 @@ const HeroSection = () => {
             dispatch(setShowProfileForm(false));
           }
         } catch (errorWhileCheckingIsUserNew) {
-          console.log('errorWhileCheckingIsUserNew:', errorWhileCheckingIsUserNew);
+          console.log(
+            "errorWhileCheckingIsUserNew:",
+            errorWhileCheckingIsUserNew
+          );
         }
       }
     };
@@ -52,10 +62,7 @@ const HeroSection = () => {
     checkUserIsNew();
   }, [dispatch]);
 
-  useEffect(() => {
-
-  }, [otpModal])
-
+  useEffect(() => {}, [otpModal]);
 
   return (
     <div className="bg-theme py-10">
@@ -67,7 +74,7 @@ const HeroSection = () => {
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16">
           <img
-            className="h-7xl absolute bottom-0 -left-20 opacity-30"
+            className="h-7xl absolute -bottom-96 -left-20 opacity-20"
             src="/BDGwhite.png"
             alt="Your Company"
           />
@@ -93,28 +100,28 @@ const HeroSection = () => {
                     src="/goldbarbanner.png"
                     alt="Your Company"
                   />
-                  <p className="text-gold01 p-1 px-3 ml-3  text-sm font-bold inline-block">
+                  <p className="text-gold01 p-1 px-3 ml-3  text-xl font-bold inline-block">
                     Best Platform to Buy & Sell 24K Digital Gold
                   </p>
                 </div>
 
-                <p className="text-white leading-6  mb-4 mt-6 text-sm pr-28">
+                <p className="text-white leading-8  mb-4 mt-6 text-xl pr-28">
                   We at Bright DiGi Gold invite you to embark on a journey of
                   effortless digital savings. In just a few clicks make your
                   savings grow in Digital Gold and Silver.  Your gateway to
                   hassle-free savings is here.
                 </p>
                 <div className="flex items-center">
-                  <p className="text-lg font-bold text-white">Trusted By</p>
+                  <p className="text-xl font-bold text-white">Trusted By</p>
                   {/* <img className="h-6 ml-4" src="/brinks.svg" alt="Your Company" /> */}
                   <img
-                    className="h-14 ml-4 mt-2"
+                    className="h-14 ml-2 mt-2"
                     src="/Startup India.svg"
                     alt="Your Company"
                   />
                 </div>
 
-                <div className="flex gap-4 mt-8 relative">
+                <div className="flex gap-5 mt-8 relative">
                   <Link
                     href="https://play.google.com/store/apps/details?id=com.brightdigigold.customer"
                     className="cursor-pointer"
@@ -144,7 +151,6 @@ const HeroSection = () => {
                 </div>
               </motion.div>
 
-              <OfferSlider />
               <div className="flex justify-center mt-4">
                 {/* <img
                 className="h-12"
