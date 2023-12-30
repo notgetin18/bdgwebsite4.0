@@ -1,5 +1,4 @@
 "use client";
-
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
@@ -18,33 +17,26 @@ import { useDispatch } from "react-redux";
 import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
 
 const Navbar = () => {
-  // const handleAuth = useAuth();
-  // const isLoggedIn = useAppSelector(getAuth);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const router = useRouter();
   const userExists = useSelector((state: RootState) => state.auth.userExists);
   const isloggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  // const isloggedIn = true;
   const [isLoginOpen, setLoginOpen] = useState(false);
-  const dispatch = useDispatch()
-  console.log('isloggedIn', isloggedIn)
+  const dispatch = useDispatch();
+
+  const handleDropdownToggle = (isOpen: boolean | ((prevState: boolean) => boolean)) => {
+    setDropdownOpen(isOpen);
+  };
 
   const logoutProfile = () => {
-    console.log('logged out')
-    router.push('/')
-    localStorage.removeItem("mobile_number");
-    localStorage.removeItem("token");
-    localStorage.removeItem("isLogIn");
+    console.log('logged out');
+    router.push('/');
+    localStorage.removeItem('mobile_number');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isLogIn');
     dispatch(setShowOTPmodal(false));
     dispatch(setIsLoggedIn(false));
-    // setLoading(false);
-    // handleToggleMenu(false);
-    // setToken(false);
-    // dispatch(logOutUser(false));
-    // dispatch(profileFilled(false));
-    //  setLoading(true);
-  }
-  // logoutProfile()
-  // console.log('userExists', userExists)
+  };
 
   const handleLoginClick = () => {
     setLoginOpen(!isLoginOpen);
@@ -60,7 +52,7 @@ const Navbar = () => {
               onClose={() => setLoginOpen(false)}
             />
           )}
-          <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2">
+          <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2 z-10">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
@@ -102,9 +94,36 @@ const Navbar = () => {
                 Dashboard
               </Link>
               {isloggedIn ? (
-                <Link className={styles.p0} href="/myAccount">
-                  My Account
-                </Link>
+                <div
+                  onMouseEnter={() => handleDropdownToggle(true)}
+                  onMouseLeave={() => handleDropdownToggle(false)}
+                  className="hidden lg:block text-lg font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 relative cursor-pointer z-20"
+                >
+                  <span>My Account</span>
+                  {isDropdownOpen && (
+                    <div className="absolute top-full left-0 p-2 mt-0 bg-slate-400 space-y-2 shadow-md rounded-md cursor-pointer">
+                      <Link href="/myAccount">
+                        <div
+                          onClick={() => {
+                            close();
+                          }}
+                          className="block px-2 text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
+                        >
+                          Profile
+                        </div>
+                      </Link>
+                      <div
+                        onClick={() => {
+                          logoutProfile();
+                          close();
+                        }}
+                        className="block px-2 text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
+                      >
+                        Sign out
+                      </div>
+                    </div>
+                  )}
+                </div>
               ) : (
                 <label
                   className="text-white hidden sm:inline-block"
@@ -117,7 +136,6 @@ const Navbar = () => {
                   </span>
                 </label>
               )}
-
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <div className="hidden lg:ml-6 lg:block">
@@ -274,9 +292,9 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
-
 const styles = {
   p0: "hidden lg:block text-lg  font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2",
   p1: "block rounded-md px-3 py-2 text-lg  font-semibold text-white",
 };
+
+export default Navbar;
