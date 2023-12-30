@@ -18,7 +18,7 @@ import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const router = useRouter();
-  const userExists = useSelector((state: RootState) => state.auth.userExists);
+  // const userExists = useSelector((state: RootState) => state.auth.userExists);
   const isloggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [isLoginOpen, setLoginOpen] = useState(false);
   const dispatch = useDispatch();

@@ -27,11 +27,12 @@ const SetProfileForNewUser: React.FC = () => {
     const [showCalendar, setshowCalendar] = useState(false);
     const [ageError, setAgeError] = useState("");
     const refOne = useRef<HTMLDivElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
 
     const onClose = () => {
-        setIsOpen(false);
+        // setIsOpen(false);
+        router.push('/')
     };
 
     const initialValues = {
@@ -173,11 +174,12 @@ const SetProfileForNewUser: React.FC = () => {
             <div className="grid h-screen place-items-center w-full">
                 <div className='w-full p-6'>
                     <button
-                        onClick={() => onClose()}
+                        onClick={onClose}
                         className="absolute top-3 end-2.5 text-gray-500 hover:text-red-600 text-xl cursor-pointer"
                     >
                         <FaTimes />
                     </button>
+
                     <h1 className="text-2xl font-bold mb-4 text-white text-center">Set Up Your Profile</h1>
                     {/* <h3 className="text-2xl mb-4 text-blue-300 text-center italic">LogIn to start <span className='text-yellow-400 italic'>INVESTING</span></h3> */}
                     <div className="mb-4">
@@ -229,7 +231,7 @@ const SetProfileForNewUser: React.FC = () => {
                                         <br />
                                         <div className="flex justify-between items-center cursor-pointer relative font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none">
                                             <input
-                                                className='coins_backgroun outline-none'
+                                                className='coins_backgroun text-white outline-none'
                                                 name="dob"
                                                 type="text"
                                                 placeholder="Enter Your DOB"
@@ -243,7 +245,7 @@ const SetProfileForNewUser: React.FC = () => {
                                                 size={26}
                                                 onClick={() => setshowCalendar(!showCalendar)}
                                             />
-                                            <div className='absolute' ref={refOne}>
+                                            <div className='absolute text-white' ref={refOne}>
                                                 {showCalendar && (
                                                     <Calendar
                                                         onChange={(date) => {

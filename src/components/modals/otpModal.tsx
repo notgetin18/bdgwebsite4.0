@@ -12,7 +12,6 @@ import { RootState } from "@/redux/store";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function OtpModal() {
-  const [userProfile, setUserProfile] = useState(false);
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const [otp, setOtp] = useState("");
@@ -61,16 +60,6 @@ export default function OtpModal() {
         if (result.status == true) {
           if (result.data.isNewUser == false) {
             localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            // localStorage.setItem("isLogIn", true);
-            // dispatch(doShowLoginAside(false));
-            // dispatch(logInUser(true));
-            // dispatch(profileFilled(true));
-            // if (props.redirectData) {
-            // props.redirectData({ redirect: "handleClick", data: "SELL" });
-            // }
-            // props.setToggle(0);
-            // props.onHide();
-            // log("result?.data : ", result?.data);
             dispatch(setIsLoggedIn(true));
             dispatch(setShowOTPmodal(false));
             router.push("/");
@@ -80,7 +69,6 @@ export default function OtpModal() {
           }
         } else {
           setOtp("");
-          // log("🚀 ~ file: otpScreen.js:112 ~ handleSubmit ~ setOtp:", setOtp)
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -89,7 +77,6 @@ export default function OtpModal() {
         }
         setSubmitting(false);
       } catch (error: any) {
-        // log('asdasd');
         const decryptedData = await AesDecrypt(error?.response?.data?.payload);
         const result = JSON.parse(decryptedData);
         Swal.fire({
