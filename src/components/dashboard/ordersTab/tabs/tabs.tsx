@@ -394,8 +394,8 @@ const OrdersTabs = () => {
                     )
                   }
                 >
-                  <div className="flex justify-between ">
-                    <div className="flex items-center justify-between ">
+                  <div className="grid grid-cols-6 gap-1">
+                    <div className="flex items-center justify-between col-span-1">
                       {/* gold coin image */}
                       {item?.orderType === "PRODUCT" &&
                         item?.itemType === "GOLD" && (
@@ -477,82 +477,89 @@ const OrdersTabs = () => {
                         />
                       )}
                     </div>
-                    <div className="flex flex-col justify-between items-center">
-                      <div className="flex flex-col  items-start ">
-                        <div className="flex flex-row">
-                          {item?.orderType !== "REWARD" && (
-                            <span className="">
-                              {formatString(item?.itemType)}
-                            </span>
+                    <div className="flex flex-col justify-start items-center col-span-2">
+                      <div className="flex flex-row">
+                        {item?.orderType !== "REWARD" && (
+                          <span className="">
+                            {formatString(item?.itemType)}
+                          </span>
+                        )}
+                        <span className="">
+                          {item?.orderType === "PRODUCT" && (
+                            <p>Coin Purchase</p>
                           )}
-                          <span className="ml-1">
-                            {item?.orderType === "PRODUCT" && (
-                              <p>Coin Purchase</p>
+                          {item?.orderType === "REWARD" &&
+                            "Promotional " + formatString(item?.itemType)}
+                          {item?.orderType === "BUY" && <p>Purchase</p>}
+                          {item?.orderType === "SELL" && <p>Sold</p>}
+                          {item?.orderType === "GIFT" &&
+                            item?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                          {item?.orderType === "GIFT" &&
+                            item?.rewardsType === "RECEIVED" && (
+                              <p>Gift Received</p>
                             )}
-                            {item?.orderType === "REWARD" &&
-                              "Promotional " + formatString(item?.itemType)}
-                            {item?.orderType === "BUY" && <p>Purchase</p>}
-                            {item?.orderType === "SELL" && <p>Sold</p>}
-                            {item?.orderType === "GIFT" &&
-                              item?.rewardsType === "SEND" && <p>Gift Sent</p>}
-                            {item?.orderType === "GIFT" &&
-                              item?.rewardsType === "RECEIVED" && (
-                                <p>Gift Received</p>
-                              )}
-                          </span>
-                        </div>
-                        <div>{item?.gram} gm</div>
-                        <div className="flex">
-                          <span
-                            className={`text-xs rounded-lg  py-1 mr-4 ${
-                              item?.status === "SUCCESS" ||
-                              item?.status === "COMPLETED"
-                                ? "text-green-500"
-                                : item?.status === "PENDING"
-                                ? "text-yellow-500"
-                                : item?.status === "FAILED"
-                                ? "text-red-500"
-                                : "" // Default color or add another color class
-                            }`}
-                          >
-                            {item?.status}
-                          </span>
-                        </div>
+                        </span>
+                      </div>
+                      <div>{item?.gram} gm</div>
+                      <div className="flex">
+                        <span
+                          className={`text-xs rounded-lg  py-1  ${
+                            item?.status === "SUCCESS" ||
+                            item?.status === "COMPLETED"
+                              ? "text-green-500"
+                              : item?.status === "PENDING"
+                              ? "text-yellow-500"
+                              : item?.status === "FAILED"
+                              ? "text-red-500"
+                              : "" // Default color or add another color class
+                          }`}
+                        >
+                          {item?.status}
+                        </span>
                       </div>
                     </div>
-                    <div>
-                      {item?.totalAmount !== 0 && (
-                        <p className="text-white font-extrabold text-xl">
-                          ₹{item?.totalAmount}
+                    <div className="col-span-2 grid place-items-center">
+                      <div>
+                        {item?.totalAmount !== 0 && (
+                          <p className="text-white font-extrabold text-base sm:text-xl">
+                            ₹{item?.totalAmount}
+                          </p>
+                        )}
+
+                        {/* <p className="text-white font-extrabold text-xl">₹{item?.totalAmount}</p> */}
+                        <p className="text-xs sm:text-base">
+                          {new Date(item?.createdAt).toLocaleDateString(
+                            "en-IN",
+                            {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
                         </p>
-                      )}
-                      {/* <p className="text-white font-extrabold text-xl">₹{item?.totalAmount}</p> */}
-                      <p>
-                        {new Date(item?.createdAt).toLocaleDateString("en-IN", {
-                          day: "2-digit",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </p>
-                      <p>
-                        {new Date(item?.createdAt).toLocaleTimeString("en-IN", {
-                          hour: "numeric",
-                          minute: "numeric",
-                        })}
-                      </p>
+                        <p className="text-xs sm:text-base">
+                          {new Date(item?.createdAt).toLocaleTimeString(
+                            "en-IN",
+                            {
+                              hour: "numeric",
+                              minute: "numeric",
+                            }
+                          )}
+                        </p>
+                      </div>
                     </div>
-                    <div>
+                    <div className="flex justify-end items-center col-span-1">
                       <ArrowRightIcon className="h-5" />
                     </div>
                   </div>
                 </Tab>
               ))}
             </Tab.List>
-            <div className="flex justify-between items-center bg-themeLight p-4 rounded-xl text-white">
+            <div className="grid grid-cols-3 justify-between items-center bg-themeLight p-4 rounded-xl text-white">
               <p>Current Page</p>
-              <p className="bg-themeLight px-6 py-1 rounded text-black ">
+              <div className="flex justify-end sm:justify-center col-span-2">
                 <select
-                  className="cursor-pointer"
+                  className="cursor-pointer text-white focus:outline-none bg-themeLight px-4 py-1 rounded"
                   onChange={updatePage}
                   value={page}
                 >
@@ -562,8 +569,8 @@ const OrdersTabs = () => {
                     </option>
                   ))}
                 </select>
-              </p>
-              <div className="flex">
+              </div>
+              <div className="flex justify-center sm:justify-end col-span-3 mt-2 sm:mt-0">
                 {page > 1 && (
                   <button
                     className="bg-themeLight px-2 py-1 rounded mr-2"
@@ -592,7 +599,7 @@ const OrdersTabs = () => {
             </div>
           </Tab.Panels>
         </div>
-        <div className="bg-slate-600 m-2 text-lg ">
+        <div className=" m-2 text-lg inline-block float-right">
           <Timer />
         </div>
       </Tab.Group>

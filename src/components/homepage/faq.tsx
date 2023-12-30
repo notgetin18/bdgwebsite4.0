@@ -37,12 +37,14 @@ const Faq = () => {
           <h1 className="text-center text-yellow-500 text-5xl extrabold">
             FAQ's
           </h1>
-          <Link
-            href="/faqs"
-            className="bg-themeLight px-3 py-1 text-md text-white rounded border border-gray-500"
-          >
-            View All
-          </Link>
+          <div>
+            <Link
+              href="/faqs"
+              className="bg-themeLight px-3 py-1 text-md text-white rounded border border-gray-500"
+            >
+              View All
+            </Link>
+          </div>
         </div>
         <div>
           <dl className="mt-8 space-y-1 divide-y divide-gray-900/10  z-50">
@@ -105,7 +107,7 @@ const Faq = () => {
       </div>
       <img
         src="/BDGwhite.png"
-        className="absolute top-28 left-0 opacity-30 -z-10 sm:z-10"
+        className="absolute top-28 left-0 opacity-20 -z-10 sm:z-10"
       />
     </div>
   );
