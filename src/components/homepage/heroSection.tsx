@@ -22,6 +22,8 @@ const HeroSection = () => {
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
 
   console.log("otpModal =-====>  ", otpModal);
+  console.log("userExists =-====>  ", userExists);
+
 
   useEffect(() => {
     const checkUserIsNew = async () => {
@@ -43,7 +45,6 @@ const HeroSection = () => {
           const data = await response.json();
           const decryptedData = await AesDecrypt(data.payload);
           const userdata = JSON.parse(decryptedData).data;
-
           if (userdata.isBasicDetailsCompleted) {
             dispatch(setShowOTPmodal(false));
             dispatch(setUserExists(true));

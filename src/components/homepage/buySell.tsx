@@ -27,7 +27,7 @@ import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
 import { ParseFloat } from "../helperFunctions";
 import Modal from "../modals/modal";
-import ModalCoupon from "../modals/modelcoupon";
+import ModalCoupon from "../modals/modalcoupon";
 
 const BuySell = () => {
   const dispatch = useDispatch();

@@ -1,12 +1,7 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  BellIcon,
-  UserCircleIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon,  UserCircleIcon,  XMarkIcon,} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { classNames } from "./helperFunctions";
 import LoginAside from "@/app/auth/page";
@@ -105,15 +100,17 @@ const Navbar = () => {
                       <Link href="/myAccount">
                         <div
                           onClick={() => {
+                            setDropdownOpen(false);
                             close();
                           }}
-                          className="block px-2 text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
+                          className="block px-2 text-white text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
                         >
                           Profile
                         </div>
                       </Link>
                       <div
                         onClick={() => {
+                          setDropdownOpen(false);
                           logoutProfile();
                           close();
                         }}
