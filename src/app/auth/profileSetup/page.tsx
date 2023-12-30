@@ -18,21 +18,22 @@ import format from "date-fns/format";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-interface LoginAsideProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
 
-const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
+
+const SetProfileForNewUser: React.FC = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showCalendar, setshowCalendar] = useState(false);
     const [ageError, setAgeError] = useState("");
     const refOne = useRef<HTMLDivElement>(null);
-    const [date, setDate] = useState(new Date());
+    const [isOpen, setIsOpen] = useState(false);
 
-    //
+
+    const onClose = () => {
+        setIsOpen(false);
+    };
+
     const initialValues = {
         mobile_number: localStorage.getItem("mobile_number"),
         name: "",
@@ -60,7 +61,6 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (!token) {
-            // props.setToggle(0);
         }
         document.addEventListener("keydown", hideOnEscape, true);
         document.addEventListener("click", hideOnClickOutside, true);
@@ -68,7 +68,6 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
 
     // hide dropdown on ESC press
     const hideOnEscape = (e: any) => {
-        //
         if (e.key === "Escape") {
             setshowCalendar(false);
         }
@@ -159,8 +158,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
     const getAge = (birthDate: string | number | Date) => {
         const currentDate = new Date();
         const birthDateTime = new Date(birthDate as any).getTime();
-        const millisecondsInYear = 3.15576e10; // milliseconds in a year
-
+        const millisecondsInYear = 3.15576e10;
         return Math.floor((currentDate.getTime() - birthDateTime) / millisecondsInYear);
     };
 
@@ -175,7 +173,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
             <div className="grid h-screen place-items-center w-full">
                 <div className='w-full p-6'>
                     <button
-                        onClick={onClose}
+                        onClick={() => onClose()}
                         className="absolute top-3 end-2.5 text-gray-500 hover:text-red-600 text-xl cursor-pointer"
                     >
                         <FaTimes />
@@ -287,14 +285,14 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         <label className='text-white'>Gender</label>
                                         <br />
                                         <select
-                                            className=' form-control text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
+                                            className='cursor-pointer form-control text-gray-400 tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
                                             id="myDropdown"
                                             name="gender"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.gender}
                                         >
-                                            <option value="">Select Gender</option>
+                                            <option className='tracking-widest text-white' value="">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
                                             <option value="other">Other</option>
