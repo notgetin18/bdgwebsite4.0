@@ -1,8 +1,17 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
-import { setEnteredAmount, setMetalPrice, setMetalType, setTransactionType } from "@/redux/giftSlice";
+import {
+  setEnteredAmount,
+  setMetalPrice,
+  setMetalType,
+  setTransactionType,
+} from "@/redux/giftSlice";
 import Image from "next/image";
-import { AesDecrypt, AesEncrypt, ParseFloat } from "@/components/helperFunctions";
+import {
+  AesDecrypt,
+  AesEncrypt,
+  ParseFloat,
+} from "@/components/helperFunctions";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Formik } from "formik";
@@ -13,7 +22,6 @@ import OtpModal from "./otpModal";
 import GiftFaq from "./giftFaq";
 import Redeem from "./giftSentOrReedem";
 
-
 const GiftTab = () => {
   const dispatch = useDispatch();
   const [isgold, setIsGold] = useState<boolean>(true);
@@ -22,19 +30,27 @@ const GiftTab = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [otpModalShow, setOtpModalShow] = useState(false);
   const [mobile, setMobile] = useState<number>();
-  const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
 
   const metalType = useSelector((state: RootState) => state.gift.metalType);
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const totalAmount = useSelector((state: RootState) => state.gift.totalAmount);
-  const metalQuantity = useSelector((state: RootState) => state.gift.metalQuantity);
-  const transactionType = useSelector((state: RootState) => state.gift.transactionType);
-  const enteredAmount = useSelector((state: RootState) => state.gift.enteredAmount);
-  const actualAmount = useSelector((state: RootState) => state.gift.actualAmount);
+  const metalQuantity = useSelector(
+    (state: RootState) => state.gift.metalQuantity
+  );
+  const transactionType = useSelector(
+    (state: RootState) => state.gift.transactionType
+  );
+  const enteredAmount = useSelector(
+    (state: RootState) => state.gift.enteredAmount
+  );
+  const actualAmount = useSelector(
+    (state: RootState) => state.gift.actualAmount
+  );
 
-  console.log('i am from GiftTab')
+  console.log("i am from GiftTab");
   // useEffect(() => {
   //   console.table({ activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount })
   // }, [activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount])
@@ -42,8 +58,8 @@ const GiftTab = () => {
   useEffect(() => {
     dispatch(setMetalType("gold"));
     dispatch(setEnteredAmount(0));
-    dispatch(setTransactionType('rupees'));
-  }, [])
+    dispatch(setTransactionType("rupees"));
+  }, []);
 
   const toggleMetal = () => {
     setIsGold(!isgold);
@@ -52,16 +68,13 @@ const GiftTab = () => {
     setValidationError("");
   };
 
-
   useEffect(() => {
     if (isgold) {
-      dispatch(setMetalPrice(goldData.salePrice))
+      dispatch(setMetalPrice(goldData.salePrice));
     } else {
-      dispatch(setMetalPrice(silverData.salePrice))
+      dispatch(setMetalPrice(silverData.salePrice));
     }
   }, [isgold, activeTab, toggleMetal]);
-
-
 
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
     setactiveTab(tab);
@@ -73,20 +86,24 @@ const GiftTab = () => {
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4);
     setValidationError("");
-    if (metalType == 'gold') {
+    if (metalType == "gold") {
       if (activeTab === "grams") {
         if (Number(e.target.value) > 5) {
           setValidationError(
-            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is 5gm only. Please change the amount.`);
+            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is 5gm only. Please change the amount.`
+          );
           return;
         } else {
           dispatch(setEnteredAmount(+enteredValue));
         }
       }
       if (activeTab === "rupees") {
-        if (enteredValue > (5 * goldData.salePrice)) {
+        if (enteredValue > 5 * goldData.salePrice) {
           setValidationError(
-            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is ₹${5 * goldData.salePrice} only. Please change the amount.`);
+            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is ₹${
+              5 * goldData.salePrice
+            } only. Please change the amount.`
+          );
           return;
         } else {
           dispatch(setEnteredAmount(+enteredValue));
@@ -96,16 +113,20 @@ const GiftTab = () => {
       if (activeTab === "grams") {
         if (Number(e.target.value) > 50) {
           setValidationError(
-            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is 50gm only. Please change the amount.`);
+            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is 50gm only. Please change the amount.`
+          );
           return;
         } else {
           dispatch(setEnteredAmount(+enteredValue));
         }
       }
       if (activeTab === "rupees") {
-        if (enteredValue > (50 * silverData.salePrice)) {
+        if (enteredValue > 50 * silverData.salePrice) {
           setValidationError(
-            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is ₹${50 * silverData.salePrice} only. Please change the amount.`);
+            `We appreciate your trust to Gift  ${metalType} on our platform, but our current limit for gifting is ₹${
+              50 * silverData.salePrice
+            } only. Please change the amount.`
+          );
           return;
         } else {
           dispatch(setEnteredAmount(+enteredValue));
@@ -141,23 +162,27 @@ const GiftTab = () => {
       .max(10, "too long"),
   });
 
-  const onSubmit = async (values: { giftedUsers: any; }, { resetForm }: any) => {
+  const onSubmit = async (values: { giftedUsers: any }, { resetForm }: any) => {
     if (!enteredAmount) {
-      setValidationError('Please enter amount');
+      setValidationError("Please enter amount");
       return;
     } else if (actualAmount < 10) {
-      setValidationError('Minimum gifting amount is Rs.10');
+      setValidationError("Minimum gifting amount is Rs.10");
       return;
     }
 
-    if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
+    if (
+      validationError == "" &&
+      metalQuantity !== undefined &&
+      metalQuantity > 0
+    ) {
       // console.log(metalType.toUpperCase(), transactionType.toUpperCase(), metalQuantity, values.giftedUsers)
       setSubmitting(true);
       const data = {
         itemType: metalType.toUpperCase(),
-        unitType: 'GRAMS',
+        unitType: "GRAMS",
         quantity: metalQuantity,
-        giftedUsers: values.giftedUsers
+        giftedUsers: values.giftedUsers,
       };
       try {
         const resAfterEncryptData = AesEncrypt(data);
@@ -206,15 +231,18 @@ const GiftTab = () => {
 
   function handleOTPChange(otp: React.SetStateAction<string>) {
     setOtp(otp);
-    setOtpError('')
+    setOtpError("");
   }
 
-
-  const onSubmitVerify = async (e: { preventDefault: () => void; }) => {
+  const onSubmitVerify = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (otp === "") {
       setOtpError("Please enter the OTP");
-    } else if (validationError == "" && metalQuantity !== undefined && metalQuantity > 0) {
+    } else if (
+      validationError == "" &&
+      metalQuantity !== undefined &&
+      metalQuantity > 0
+    ) {
       setSubmitting(true);
       const data = {
         itemType: metalType.toUpperCase(),
@@ -249,8 +277,8 @@ const GiftTab = () => {
         if (result.status) {
           setOtpModalShow(false);
           // walletApiSell();
-          setOtp('')
-          setOtpError('')
+          setOtp("");
+          setOtpError("");
           Swal.fire({
             // position: "centre",
             icon: "success",
@@ -258,13 +286,12 @@ const GiftTab = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-
         }
       } catch (error: any) {
         // setOtpModalShow(false);
         const decryptedData = await AesDecrypt(error?.response?.data?.payload);
         const result = JSON.parse(decryptedData);
-        setOtpError(result.message)
+        setOtpError(result.message);
         // console.log('result.message', result.message)
       } finally {
         setSubmitting(false);
@@ -274,13 +301,12 @@ const GiftTab = () => {
 
   return (
     <div className="w-full ">
-
       <OtpModal
         isOpen={otpModalShow}
         onClose={() => {
-          setOtpModalShow(false)
-          setOtp('')
-          setOtpError('')
+          setOtpModalShow(false);
+          setOtp("");
+          setOtpError("");
         }}
         onSubmitVerify={onSubmitVerify}
         handleOTPChange={handleOTPChange}
@@ -289,9 +315,9 @@ const GiftTab = () => {
         isSubmitting={isSubmitting}
       />
       <div className="rounded-lg bg-themeLight">
-        <p className="text-center text-white pt-4 text-xl">GIFT</p>
-        <div className="col-span-4 p-4 items-center  text-white grid grid-cols-2 gap-6">
-          <div>
+        <p className="text-center text-gold01 pt-4 extrabold text-5xl">GIFT</p>
+        <div className="col-span-4 p-4 items-center  text-white grid md:grid-cols-2 gap-6">
+          <div className=" hidden md:block">
             <img
               alt="gold-logo"
               className="p-8"
@@ -303,82 +329,107 @@ const GiftTab = () => {
             <div className="grid grid-cols-2 items-center py-4">
               <div
                 onClick={toggleMetal}
-                className={`flex justify-center text-center py-3 rounded font-semibold cursor-pointer ${isgold === true
-                  ? "bg-themeLight text-white active"
-                  : "bg-themeLight01 text-sky-600"
-                  }`}>
-                <Image
-                  src={"https://www.brightdigigold.com/images/gold-bars.svg"}
-                  width={20}
-                  height={20}
+                className={`flex justify-center text-center py-3 rounded font-semibold cursor-pointer ${
+                  isgold === true
+                    ? "bg-themeBlue extrabold active text-black"
+                    : "bg-themeLight01 text-white"
+                }`}
+              >
+                <img
+                  src={"/Goldbarbanner.png"}
                   alt="digital gold"
-                  className={`mr-2 cursor-pointer ${isgold === true ? 'opacity-100' : 'opacity-50'}`}
+                  className={`mr-2 cursor-pointer h-5 sm:h-6 ${
+                    isgold === true ? "opacity-100" : "opacity-50"
+                  }`}
                 />
-                <div>Gold</div>
+                <p className="text-sm sm:text-base">Gold</p>
               </div>
               <div
                 onClick={toggleMetal}
-                className={`flex justify-center text-center py-3 rounded font-semibold cursor-pointer ${isgold === false
-                  ? "bg-themeLight text-white active"
-                  : "bg-themeLight01 text-sky-600"
-                  }`}>
-                <Image
-                  src={"https://www.brightdigigold.com/images/silverBars.png"}
-                  width={20}
-                  height={20}
+                className={`flex justify-center text-center py-3 rounded font-semibold cursor-pointer ${
+                  isgold === false
+                    ? "bg-themeBlue text-black extrabold  active"
+                    : "bg-themeLight01 text-white"
+                }`}
+              >
+                <img
+                  src={"/Silverbar.png"}
                   alt="digital gold"
-                  className={`mr-2 cursor-pointer ${isgold === false ? 'opacity-100' : 'opacity-50'}`}
+                  className={`mr-2 cursor-pointer h-5 sm:h-6 ${
+                    isgold === false ? "opacity-100" : "opacity-50"
+                  }`}
                 />
-                <div>Silver</div>
+                <p className="text-sm sm:text-base">Silver</p>
               </div>
-
             </div>
             {/* vault Balance */}
-            <div className="grid grid-cols-2 justify-between items-center border-2 border-blue-400 p-2 rounded-md mt-4">
+            <div className="grid grid-cols-2 justify-between items-center bg-themeLight px-4 p-2 rounded-md mt-4">
               <div className="flex items-center">
-                <Image src="https://img.freepik.com/premium-vector/gift-box-isolated-white-background-cute-image-paper-gift-box-with-bow_118339-5292.jpg" className="mr-2" alt="digital gold gift" width={26} height={26} />
-                <p className="text-2xl font-semibold ">Gift {isgold ? <span className="text-yellow-500">Gold</span> : <span className="text-white">Silver</span>}</p>
+                <img
+                  src="/gift-box.png"
+                  className="mr-2 h-8"
+                  alt="digital gold gift"
+                />
+                <p className="text-lg sm:text-2xl font-semibold ">
+                  <span className="text-sm sm:text-lg mr-2">Gift</span>
+                  {isgold ? (
+                    <span className="text-yellow-500">Gold</span>
+                  ) : (
+                    <span className="text-white">Silver</span>
+                  )}
+                </p>
               </div>
               <div>
                 <div className="flex items-center justify-end">
-                  <div >
-                    <Image src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-gold-coin-png-image_3779125.jpg" className="mr-2" alt="digital gold gift" width={36} height={36} />
+                  <div>
+                    <img
+                      src="/scale.png"
+                      className="mr-2 h-8"
+                      alt="digital gold gift"
+                    />
                   </div>
                   <div>
                     <p className="text-sm">Weight</p>
                     {isgold ? <p>5.0023 gm</p> : <p>200.0023 gm</p>}
                   </div>
-                  <div >
-                    <Image src="https://thumbs.dreamstime.com/b/bank-vault-stack-gold-bars-d-render-ine-108980994.jpg" className="ml-4" alt="digital gold gift" width={60} height={36} />
+                  <div>
+                    {/* <Image
+                      src="https://thumbs.dreamstime.com/b/bank-vault-stack-gold-bars-d-render-ine-108980994.jpg"
+                      className="ml-4"
+                      alt="digital gold gift"
+                      width={60}
+                      height={36}
+                    /> */}
                   </div>
                 </div>
               </div>
-
             </div>
             <div className="flex flex-col py-8 ">
               <div className="flex items-center justify-center ">
-                <div className="flex w-1/2 border-yellow-400 border-2 rounded-full">
+                <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-full lg:w-3/4">
                   <div
-                    className={`text-center w-1/2 sm:text-sm rounded-tl-full rounded-bl-full py-3 px-6 font-semibold cursor-pointer ${activeTab === "rupees"
-                      ? "bg-yellow-400 text-slate-800 active"
-                      : "text-white "
-                      }`}
+                    className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
+                      activeTab === "rupees"
+                        ? "bg-transparent text-black bg-themeBlue active extrabold"
+                        : "text-white "
+                    }`}
                     onClick={() => handleTabRupeesAndGrams("rupees")}
                   >
                     {activeTab === "buy" ? " In Rupees" : " In Rupees"}
                   </div>
                   <div
-                    className={`text-center text-md w-1/2 sm:text-sm px-6 py-3 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTab === "grams"
-                      ? "bg-yellow-400 text-slate-800 active"
-                      : "text-white "
-                      }`}
+                    className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
+                      activeTab === "grams"
+                        ? "bg-transparent text-black bg-themeBlue active extrabold"
+                        : "text-white "
+                    }`}
                     onClick={() => handleTabRupeesAndGrams("grams")}
                   >
                     {activeTab === "buy" ? "In grams" : "In grams"}
                   </div>
                 </div>
               </div>
-              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border border-yellow-500 font-extrabold p-1 rounded-lg">
+              <div className="pt-2 mt-2 grid grid-cols-2 items-center gap-6 border-1 font-extrabold p-1 rounded-lg">
                 <div className="relative rounded-md shadow-sm">
                   <div className="pointer-events-none absolute text-white text-lg inset-y-0 left-0 flex items-center pl-3">
                     {activeTab == "rupees" ? "₹ " : ""}
@@ -386,12 +437,10 @@ const GiftTab = () => {
                   <input
                     type="number"
                     className="bg-transparent pl-12 text-lg py-1 focus:outline-none text-white"
-                    placeholder={
-                      activeTab === "rupees" ? "0000" : "0.0000"
-                    }
+                    placeholder={activeTab === "rupees" ? "0000" : "0.0000"}
                     onChange={(e) => {
                       e.preventDefault();
-                      handleEnteredAmountChange(e)
+                      handleEnteredAmountChange(e);
                     }}
                     step="0.0001"
                     value={enteredAmount == 0 ? undefined : enteredAmount}
@@ -413,9 +462,7 @@ const GiftTab = () => {
                   </div>
                   <input
                     type="number"
-                    placeholder={
-                      activeTab === "rupees" ? "0.0000" : "0000"
-                    }
+                    placeholder={activeTab === "rupees" ? "0.0000" : "0000"}
                     className="bg-transparent w-full pr-12 text-sm py-1  focus:outline-none text-white text-right"
                     value={
                       activeTab == "rupees"
@@ -423,8 +470,8 @@ const GiftTab = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                          ? ""
-                          : totalAmount
+                        ? ""
+                        : totalAmount
                     }
                     readOnly
                   />
@@ -483,7 +530,7 @@ const GiftTab = () => {
                             setFieldValue("giftedUsers", updatedValue);
                             setMobile(+updatedValue);
                           }}
-                          className="text-white text-lg p-2 rounded bg-transparent border-2 border-yellow-400 w-full focus:border-yellow-500 focus:bg-transparent outline-none"
+                          className="text-white text-lg p-2 px-4 rounded-lg bg-transparent border-1 w-full focus:outline-none focus:bg-transparent outline-none"
                         />
                         <ErrorMessage
                           name="giftedUsers"
@@ -492,11 +539,16 @@ const GiftTab = () => {
                         />
                       </div>
                       <div
-                        onClick={() => { handleSubmit() }}
-                        className="border-2 border-yellow-400 rounded-md items-center justify-center text-center text-yellow-400 mt-3 cursor-pointer">
+                        onClick={() => {
+                          handleSubmit();
+                        }}
+                        className="rounded-md items-center justify-center text-center bg-themeBlue text-black font-semibold mt-3 cursor-pointer"
+                      >
                         <button
                           type="submit"
-                          onClick={() => { handleSubmit() }}
+                          onClick={() => {
+                            handleSubmit();
+                          }}
                           disabled={isSubmitting}
                           className="p-2"
                         >

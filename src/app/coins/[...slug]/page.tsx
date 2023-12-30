@@ -154,8 +154,10 @@ const page = ({ params }: any) => {
         <div className=" col-span-3">
           <div className="flex justify-between items-center">
             <div>
-              <div className="mb-2 text-lg">{productsDetailById.name}</div>
-              <div className="mb-2 text-lg">
+              <div className="mb-2 sm:text-lg extrabold">
+                {productsDetailById.name}
+              </div>
+              <div className="mb-2 text-base sm:text-lg">
                 Total Price{" "}
                 <span className="text-yellow-500">
                   ₹
@@ -170,7 +172,7 @@ const page = ({ params }: any) => {
                 </span>
                 <span className="text-yellow-500"> +3% GST</span>
               </div>
-              <div className="text-lg">
+              <div className="text-base sm:text-lg">
                 Making Charge ₹{productsDetailById.makingcharges}
               </div>
             </div>
@@ -223,42 +225,47 @@ const page = ({ params }: any) => {
           <div className="bg-themeLight px-4 py-4 rounded-md mt-4">
             <p className="text-sm">{productsDetailById.description}</p>
 
-            <div className="grid grid-cols-3 mt-4">
+            <div className="grid grid-cols-4 mt-4">
               <div className=" text-center px-2">
-                <Image
-                  src={
-                    "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
-                  }
-                  width={50}
-                  height={50}
+                <img
+                  src={"/24K guaranteed .png"}
                   alt="icons"
-                  className="mx-auto mb-2"
+                  className="mx-auto mb-2 h-12 sm:h-20"
                 />
-                <p>Guaranteed 24K Gold</p>
+                <p className="font-8x sm:text-base">
+                  24K Guaranteed <br /> Quality Certified
+                </p>
               </div>
               <div className="text-center px-2">
-                <Image
-                  src={
-                    "https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"
-                  }
-                  width={50}
-                  height={50}
+                <img
+                  src={"/Free Insurance.png"}
                   alt="icons"
-                  className="mx-auto mb-2"
+                  className="mx-auto mb-2  h-12 sm:h-20"
                 />
-                <p>No Loss of Money</p>
+                <p className="font-8x sm:text-base">
+                  Free Insurance <br /> on Delivery
+                </p>
               </div>
               <div className="text-center px-2">
-                <Image
-                  src={
-                    "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
-                  }
-                  width={50}
-                  height={50}
+                <img
+                  src={"/order tracking support.png"}
                   alt="icons"
-                  className="mx-auto mb-2"
+                  className="mx-auto mb-2   h-12 sm:h-20"
                 />
-                <p>Safety Guaranteed</p>
+                <p className="font-8x sm:text-base">
+                  Order Tracking &<br />
+                  Support
+                </p>
+              </div>
+              <div className="text-center px-2">
+                <img
+                  src={"/zero negative.png"}
+                  alt="icons"
+                  className="mx-auto mb-2 h-12 sm:h-20"
+                />
+                <p className="font-8x sm:text-base">
+                  Zero negative <br /> weight tolerance
+                </p>
               </div>
             </div>
             <div className="mt-6">
@@ -283,8 +290,8 @@ const page = ({ params }: any) => {
 };
 
 const styles = {
-  p1: "m-2 w-8 px-3 py-1 font-bold text-lg text-red-500 cursor-pointer rounded-md bg-themeLight",
-  p2: "m-2 w-8 px-3 py-1 font-bold text-lg text-green-500 cursor-pointer rounded-md bg-themeLight",
+  p1: "m-2 w-6 sm:w-8 px-2 sm:px-3 sm:py-1 font-bold text-lg text-red-500 cursor-pointer rounded-md bg-themeLight",
+  p2: "m-2 w-6 sm:w-8 px-2 sm:px-3 sm:py-1 font-bold text-lg text-green-500 cursor-pointer rounded-md bg-themeLight",
 };
 
 export default page;

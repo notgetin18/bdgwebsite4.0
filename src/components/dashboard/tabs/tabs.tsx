@@ -13,7 +13,7 @@ const DashboardTopTabs = () => {
   return (
     <div className="w-full">
       <Tab.Group defaultIndex={0}>
-        <Tab.List className="flex space-x-1 rounded-xl p-1">
+        <Tab.List className="flex space-x-1 rounded-xl p-1 bg-themeLight">
           {data.map((category, index) => (
             <Tab
               key={index}
@@ -21,9 +21,7 @@ const DashboardTopTabs = () => {
                 classNames(
                   "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
                   "focus:outline-none",
-                  selected
-                    ? "bg-themeLight text-white shadow"
-                    : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
+                  selected ? "bg-themeBlue shadow" : "text-blue-100 "
                 )
               }
             >
@@ -33,14 +31,17 @@ const DashboardTopTabs = () => {
         </Tab.List>
         {/* Displays this panel by default */}
         <Tab.Panels>
-          <Tab.Panel className={classNames("rounded-xl  p-3", "focus:outline-none")}>
+          <Tab.Panel
+            className={classNames("rounded-xl  p-3", "focus:outline-none")}
+          >
             <OrdersTabs />
           </Tab.Panel>
 
-          <Tab.Panel className={classNames("rounded-xl p-3", "focus:outline-none")}>
+          <Tab.Panel
+            className={classNames("rounded-xl p-3", "focus:outline-none")}
+          >
             <GiftTab />
           </Tab.Panel>
-
         </Tab.Panels>
       </Tab.Group>
     </div>
