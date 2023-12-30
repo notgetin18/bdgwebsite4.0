@@ -6,17 +6,20 @@ import { AesDecrypt, AesEncrypt } from '../helperFunctions';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/navigation';
 import { setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import SetProfileForNewUser from '../setProfile';
+import { RootState } from '@/redux/store';
 
 export default function OtpModal() {
+  const [userProfile, setUserProfile] = useState(false);
   const [open, setOpen] = useState(true)
   const cancelButtonRef = useRef(null)
-  const [isModalOpen, setModalOpen] = useState(false);
   const [otp, setOtp] = useState('');
   const router = useRouter();
   const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -71,6 +74,7 @@ export default function OtpModal() {
           } else {
             localStorage.setItem("token", result?.data?.otpVarifiedToken);
             // props.setToggle(2);
+
           }
         } else {
           setOtp("");
@@ -112,6 +116,13 @@ export default function OtpModal() {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
+        {showProfileForm && (
+          <SetProfileForNewUser
+            isOpen={showProfileForm}
+            onClose={() => setUserProfile(false)}
+          />
+        )}
+
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
@@ -126,7 +137,7 @@ export default function OtpModal() {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    
+
                     <div className="mt-3 items-center text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                         Enter OTP
