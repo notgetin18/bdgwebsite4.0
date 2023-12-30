@@ -25,9 +25,11 @@ import {
 } from "@/redux/couponSlice";
 import Timer from "../globalTimer";
 import { useCoupons } from "@/customHooks/coupons";
-import { ParseFloat } from "../helperFunctions";
+import { ParseFloat, funForAesEncrypt, funcForDecrypt } from "../helperFunctions";
 import Modal from "../modals/modal";
 import ModalCoupon from "../modals/modalcoupon";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -43,38 +45,131 @@ const BuySell = () => {
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const transactionType = useSelector(
-    (state: RootState) => state.shop.transactionType
-  );
-  const purchaseType = useSelector(
-    (state: RootState) => state.shop.purchaseType
-  );
-  const enteredAmount = useSelector(
-    (state: RootState) => state.shop.enteredAmount
-  );
-  const actualAmount = useSelector(
-    (state: RootState) => state.shop.actualAmount
-  );
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
-  const metalQuantity = useSelector(
-    (state: RootState) => state.shop.metalQuantity
-  );
-  const selectedCoupon = useSelector(
-    (state: RootState) => state.coupon.selectedCoupon
-  );
-  const appliedCouponCode = useSelector(
-    (state: RootState) => state.coupon.appliedCouponCode
-  );
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
   const error = useSelector((state: RootState) => state.coupon.error);
-  const extraGoldOfRuppess = useSelector(
-    (state: RootState) => state.coupon.extraGoldOfRuppess
-  );
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const coupons = useCoupons();
-  const metalPricePerGram = useSelector(
-    (state: RootState) => state.shop.metalPrice
-  );
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+
+  const [previewData, setPreviewData] = useState([]);
+  const [transactionId, setTransactionId] = useState("");
+  console.table({
+    orderType: purchaseType.toUpperCase(),
+    item: metalType.toUpperCase(),
+    // unit: "AMOUNT",
+    gram: metalQuantity,
+    amount: totalAmount,
+    // gst_number: props.gstNum,
+    // currentMatelPrice: 33.22,
+    currentMatelPrice: metalPricePerGram,
+    fromApp: false,
+  })
+
+  const previewModal = async () => {
+    // Notiflix.Loading.custom({svgSize:'180px',customSvgCode: '<object type="image/svg+xml" data="/svg/pageloader.svg">svg-animation</object>'});
+    const dataToBeDecrypt: {
+      orderType: string;
+      itemType: string;
+      unit: string;
+      gram: number | undefined;
+      amount: number | undefined;
+      currentMatelPrice: number;
+      fromApp: boolean;
+      couponCode?: string;
+    } = {
+      orderType: purchaseType.toUpperCase(),
+      itemType: metalType.toUpperCase(),
+      unit: "AMOUNT",
+      gram: metalQuantity,
+      amount: totalAmount,
+      currentMatelPrice: metalPricePerGram,
+      fromApp: false,
+    };
+
+    if (isAnyCouponApplied) {
+      dataToBeDecrypt.couponCode = appliedCouponCode ? appliedCouponCode : '';
+    }
+
+
+    const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
+    const payloadToSend = {
+      payload: resAfterEncryptData,
+    };
+    const token = localStorage.getItem("token");
+
+    const configHeaders = {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        // onUploadProgress: Notiflix.Loading.circle()
+      },
+    };
+    axios
+      .post(
+        `${process.env.baseUrl}/user/order/preview`,
+        payloadToSend,
+        configHeaders
+      )
+      .then(async (resAfterPreview) => {
+        const decryptedData = await funcForDecrypt(
+          resAfterPreview.data.payload
+        );
+        // log("preview", JSON.parse(decryptedData).data);
+        setPreviewData(JSON.parse(decryptedData).data.preview);
+        setTransactionId(JSON.parse(decryptedData).data.transactionCache._id);
+        if (JSON.parse(decryptedData).statusCode == 200) {
+          // Notiflix.Loading.remove();
+          if (purchaseType.toUpperCase() == "BUY") {
+            setModalOpen(true)
+          } else {
+            // setSellModalShow(true);
+          }
+        }
+      })
+      .catch(async (errInPreview) => {
+        // Notiflix.Loading.remove();
+        const decryptedData = await funcForDecrypt(
+          errInPreview.response.data.payload
+        );
+        let response = JSON.parse(decryptedData);
+        console.log('decryptedData', response)
+        if (response.messageCode == "TECHNICAL_ERROR") {
+          console.log('response.messageCode 128', response.messageCode)
+          // updateMetalPrice();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Session Expired",
+          });
+        } else if (response.messageCode == "KYC_PENDING") {
+          console.log('response.messageCode 135', response.messageCode)
+          // setKycError(response.message);
+        } else if (response.messageCode == "SESSION_EXPIRED") {
+          console.log('response.messageCode 138', response.messageCode)
+          // updateMetalPrice();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Session Expired",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.message,
+          });
+        }
+      });
+  };
 
   const handleApplyCoupon = (coupon: any, amount: any) => {
     dispatch(
@@ -172,7 +267,8 @@ const BuySell = () => {
       return;
     }
     setValidationError("");
-    setModalOpen(true);
+    previewModal()
+    // setModalOpen(true);
   };
 
   const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
@@ -249,11 +345,10 @@ const BuySell = () => {
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${
-                  activeTab === "buy"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -261,11 +356,10 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${
-                  activeTab === "sell"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
-                }`}
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
+                  }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -329,11 +423,10 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${
-                          goldData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${goldData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -344,11 +437,10 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${
-                          silverData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }`}
+                        className={`${silverData.percentage >= 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                          }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -406,21 +498,19 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-3/4">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
-                    activeTabPurchase === "rupees"
-                      ? "bg-transparent text-black bg-themeBlue active extrabold"
-                      : "text-white"
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${activeTabPurchase === "rupees"
+                    ? "bg-transparent text-black bg-themeBlue active extrabold"
+                    : "text-white"
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
-                    activeTabPurchase === "grams"
-                      ? "bg-transparent text-black bg-themeBlue active extrabold"
-                      : "text-white "
-                  }`}
+                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTabPurchase === "grams"
+                    ? "bg-transparent text-black bg-themeBlue active extrabold"
+                    : "text-white "
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In Grams" : "In grams"}
@@ -471,8 +561,8 @@ const BuySell = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                        ? ""
-                        : totalAmount
+                          ? ""
+                          : totalAmount
                     }
                     readOnly
                   />
@@ -571,7 +661,7 @@ const BuySell = () => {
                   {purchaseType === "buy" ? "Start Saving " : "Sell Now"}
                 </button>
                 {isModalOpen && (
-                  <Modal isOpen={isModalOpen} onClose={closeModal} />
+                  <Modal transactionId={transactionId} isOpen={isModalOpen} onClose={closeModal} />
                 )}
 
                 {isModalCouponOpen && (

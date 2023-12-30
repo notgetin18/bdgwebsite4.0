@@ -11,7 +11,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 
-export default function Modal({ isOpen, onClose }: any) {
+export default function Modal({ isOpen, onClose, transactionId }: any) {
+  console.log('transactionId', transactionId)
   // const [open, setOpen] = useState(true)
   const router = useRouter()
   const goldData = useSelector((state: RootState) => state.gold);
@@ -32,7 +33,7 @@ export default function Modal({ isOpen, onClose }: any) {
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied: boolean = useSelector(isCouponApplied);
-  const [token, setToken] = useState<string | null>(null);
+  // const [token, setToken] = useState<string | null>(null);
   const [orderId, setOrderId] = useState("");
   const orderIdRef = useRef(null);
 
@@ -71,7 +72,6 @@ export default function Modal({ isOpen, onClose }: any) {
   };
 
   const checkPaymentStatus = () => {
-
     let token = localStorage.getItem('token');
     console.log(token);
     const configHeaders = {
@@ -127,8 +127,8 @@ export default function Modal({ isOpen, onClose }: any) {
 
   }, [])
 
+  const token = localStorage.getItem('token')
   // useEffect(() => {
-  //   const token = localStorage.getItem('token')
   //   setToken(token);
   // }, [props.show])
 
@@ -140,15 +140,29 @@ export default function Modal({ isOpen, onClose }: any) {
       unit: "AMOUNT",
       gram: metalQuantity,
       amount: totalAmount,
-      // order_preview_id: props.transactionId,
-      amountWithoutTax: gst,
+      order_preview_id: transactionId,
+      amountWithoutTax: actualAmount,
       tax: "3",
       totalAmount: totalAmount,
-      couponCode: appliedCouponCode,
+      couponCode: appliedCouponCode ? appliedCouponCode : '',
       itemMode: "DIGITAL",
       gst_number: '',
       fromApp: false,
       payment_mode: 'cashfree'
+      // orderType: props.isShow,
+      // item: props.isOn ? "GOLD" : "SILVER",
+      // unit: "AMOUNT",
+      // gram: props.gramIn,
+      // amount: props.rupeeIn,
+      // order_preview_id: props.transactionId,
+      // amountWithoutTax: props.rupeeIn / +"1.03",
+      // tax: "3",
+      // totalAmount: props.rupeeIn,
+      // couponCode: props.couponCode,
+      // itemMode: "DIGITAL",
+      // gst_number: props.gstNum,
+      // fromApp: false,
+      // payment_mode: "cashfree",
     }
     const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt)
     const payloadToSend = {
@@ -165,7 +179,6 @@ export default function Modal({ isOpen, onClose }: any) {
       console.log('decryptedData', decryptedData);
 
       if (JSON.parse(decryptedData).status) {
-
         setOrderId(JSON.parse(decryptedData).data.order.order_id);
         orderIdRef.current = JSON.parse(decryptedData).data.order.order_id;
         console.log(orderIdRef.current);
