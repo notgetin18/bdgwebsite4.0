@@ -76,7 +76,6 @@ export default function OtpModal() {
             router.push("/");
           } else {
             localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            // props.setToggle(2);
             router.push('/auth/profileSetup')
           }
         } else {

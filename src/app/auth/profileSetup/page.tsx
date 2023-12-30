@@ -1,6 +1,6 @@
 'use client'
 import { AesDecrypt, AesEncrypt } from '@/components/helperFunctions';
-import { setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
+import { profileFilled, setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
 import axios, { AxiosRequestConfig } from 'axios';
 import { format } from 'date-fns';
 import { ErrorMessage, Formik } from 'formik';
@@ -127,12 +127,10 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
             const finalResult = JSON.parse(decryptedData);
 
             if (finalResult.status == true) {
-                //   dispatch(logInUser(true));
-                //   dispatch(profileFilled(true));
-                //   dispatch(doShowLoginAside(false));
-                //   props.setToggle(0);
+                  dispatch(profileFilled(true));
                 dispatch(setIsLoggedIn(true));
                 dispatch(setShowOTPmodal(false));
+                router.push('/')
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -140,7 +138,6 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                //   props.onHide();
             } else {
                 Swal.fire({
                     position: "center",
@@ -256,7 +253,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         <ErrorMessage
                                             name="name"
                                             component="div"
-                                            className="error text-danger"
+                                            className="text-red-600"
                                         />
                                     </div>
                                     <div className=''>
@@ -298,7 +295,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         <ErrorMessage
                                             name="dob"
                                             component="div"
-                                            className="error text-danger"
+                                            className="text-red-600"
                                         />
                                     </div>
 
@@ -321,7 +318,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         <ErrorMessage
                                             name="gender"
                                             component="div"
-                                            className="error text-danger"
+                                            className="text-red-600"
                                         />
                                     </div>
 
@@ -339,7 +336,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         <ErrorMessage
                                             name="email"
                                             component="div"
-                                            className="error text-danger"
+                                            className="text-red-600"
                                         />
                                     </div>
 
@@ -372,7 +369,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                     <ErrorMessage
                                         name="termsAndConditions"
                                         component="div"
-                                        className="error text-danger"
+                                        className="text-red-600"
                                     />
                                     <div className=''>
                                         By tapping continue. I’ve read and agree to the E-Sign
