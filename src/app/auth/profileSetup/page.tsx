@@ -2,7 +2,7 @@
 import { AesDecrypt, AesEncrypt } from '@/components/helperFunctions';
 import { profileFilled, setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
 import axios, { AxiosRequestConfig } from 'axios';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { ErrorMessage, Formik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,6 +12,11 @@ import { FaCalendarAlt, FaTimes } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import format from "date-fns/format";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 interface LoginAsideProps {
     isOpen: boolean;
@@ -22,11 +27,10 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
     const dispatch = useDispatch();
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [showDate, setShowDate] = useState(null);
     const [showCalendar, setshowCalendar] = useState(false);
     const [ageError, setAgeError] = useState("");
     const refOne = useRef<HTMLDivElement>(null);
+    const [date, setDate] = useState(new Date());
 
     //
     const initialValues = {
@@ -70,23 +74,12 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
         }
     };
 
-    // Hide on outside click
     const hideOnClickOutside = (e: any) => {
-        //
-        //
         if (refOne.current && !refOne.current.contains(e.target)) {
             setshowCalendar(false);
         }
     };
-    // const handleDateChange = (dateStr: any) => {
-    //     setShowDate(dateStr);
-    //     var date = new Date(dateStr),
-    //         month = ("0" + (date.getMonth() + 1)).slice(-2),
-    //         day = ("0" + date.getDate()).slice(-2);
-    //     const formattedDate = [date.getFullYear(), month, day].join("-");
 
-    //     setSelectedDate(formattedDate);
-    // };
     const onSubmit = async (values: { mobile_number: any; name: any; email: any; gender: any; dob: any; }, { setSubmitting, resetForm }: any) => {
         setIsSubmitting(true);
         //   Notiflix.Loading.init({ svgColor: "rgba(241,230,230,0.985)" });
@@ -127,7 +120,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
             const finalResult = JSON.parse(decryptedData);
 
             if (finalResult.status == true) {
-                  dispatch(profileFilled(true));
+                dispatch(profileFilled(true));
                 dispatch(setIsLoggedIn(true));
                 dispatch(setShowOTPmodal(false));
                 router.push('/')
@@ -162,31 +155,6 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
         }
     };
 
-    // const decryptedData = await AesDecrypt(result.data.payload);
-    // const finalResult = JSON.parse(decryptedData);
-
-    //   if (finalResult.status == true) {
-    //     dispatch(logInUser(true));
-    //     dispatch(profileFilled(true));
-    //     dispatch(doShowLoginAside(false));
-    //     props.setToggle(0);
-    //     Notiflix.Loading.remove();
-    //     Swal.fire({
-    //       position: "centre",
-    //       icon: "success",
-    //       title: finalResult.message,
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     props.onHide();
-    //   } else {
-    //     Swal.fire({
-    //       position: "centre",
-    //       icon: "error",
-    //       title: finalResult.message,
-    //       showConfirmButton: false,
-    //     });
-    //   }
 
     const getAge = (birthDate: string | number | Date) => {
         const currentDate = new Date();
@@ -195,6 +163,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
 
         return Math.floor((currentDate.getTime() - birthDateTime) / millisecondsInYear);
     };
+
 
 
     return (
@@ -211,8 +180,8 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                     >
                         <FaTimes />
                     </button>
-                    <h1 className="text-2xl font-bold mb-4 text-white text-center">Login/Sign Up</h1>
-                    <h3 className="text-2xl mb-4 text-blue-300 text-center italic">LogIn to start <span className='text-yellow-400 italic'>INVESTING</span></h3>
+                    <h1 className="text-2xl font-bold mb-4 text-white text-center">Set Up Your Profile</h1>
+                    {/* <h3 className="text-2xl mb-4 text-blue-300 text-center italic">LogIn to start <span className='text-yellow-400 italic'>INVESTING</span></h3> */}
                     <div className="mb-4">
                         <Formik
                             initialValues={initialValues}
@@ -233,10 +202,11 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         e.preventDefault();
                                     }}
                                 >
-                                    <div className=''>
-                                        <label>Name</label>
+                                    <div className='mb-3'>
+                                        <label className='text-white'>Name</label>
                                         <br />
                                         <input
+                                            className='text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
                                             name="name"
                                             type="text"
                                             minLength={3}
@@ -257,10 +227,11 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         />
                                     </div>
                                     <div className=''>
-                                        <label>Date of Birth</label>
+                                        <label className='text-white'>Date of Birth</label>
                                         <br />
-                                        <div className="calendar-input-container">
+                                        <div className="flex justify-between items-center cursor-pointer relative font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none">
                                             <input
+                                                className='coins_backgroun outline-none'
                                                 name="dob"
                                                 type="text"
                                                 placeholder="Enter Your DOB"
@@ -270,10 +241,23 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                                 onClick={() => setshowCalendar(!showCalendar)}
                                             />
                                             <FaCalendarAlt
-                                                className="calendar-icon"
+                                                className="calendar-icon cursor-pointer  text-white"
+                                                size={26}
                                                 onClick={() => setshowCalendar(!showCalendar)}
                                             />
-                                            <div className='' ref={refOne}>
+                                            <div className='absolute' ref={refOne}>
+                                                {/* <DatePicker 
+                                                   placeholderText='select date of birth'
+                                                    onChange={(date: Date) => {
+                                                    setDate(date)
+                                                    const userIsOldEnough = calculateAge(date) >= 18;
+                                                    if (!userIsOldEnough) {
+                                                        setAgeError("must be 18 or above to register");
+                                                    }
+                                                }
+                                                }
+                                                    className=' form-control text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
+                                                /> */}
                                                 {showCalendar && (
                                                     <Calendar
                                                         onChange={(date) => {
@@ -291,7 +275,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                                 )}
                                             </div>
                                         </div>
-                                        <div>{ageError}</div>
+                                        <div className='text-red-600'>{ageError}</div>
                                         <ErrorMessage
                                             name="dob"
                                             component="div"
@@ -300,14 +284,14 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                     </div>
 
                                     <div className=''>
-                                        <label>Gender</label>
+                                        <label className='text-white'>Gender</label>
                                         <br />
                                         <select
+                                            className=' form-control text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
                                             id="myDropdown"
                                             name="gender"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            className="form-control"
                                             value={values.gender}
                                         >
                                             <option value="">Select Gender</option>
@@ -323,9 +307,10 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                     </div>
 
                                     <div className=''>
-                                        <label>E-mail</label>
+                                        <label className='text-white'>E-mail</label>
                                         <br />
                                         <input
+                                            className='text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
                                             name="email"
                                             type="text"
                                             placeholder="Enter your E-mail Address."
@@ -352,8 +337,9 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                     value={values.referCode}
                   />
                 </div> */}
-                                    <div className=''>
+                                    <div className='flex items-center mt-3'>
                                         <input
+                                            className="cursor-pointer w-4 h-5 text-theme coins_background  rounded-lg focus:outline-none "
                                             id="checkbox"
                                             type="checkbox"
                                             name="termsAndConditions"
@@ -361,7 +347,7 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                         />
-                                        <label className=''>
+                                        <label className='text-white ml-2'>
                                             I am at least 18 years old and agree to the following terms
                                             <br />
                                         </label>
@@ -371,12 +357,12 @@ const SetProfileForNewUser: React.FC<LoginAsideProps> = ({ isOpen, onClose }) =>
                                         component="div"
                                         className="text-red-600"
                                     />
-                                    <div className=''>
+                                    <div className='text-white'>
                                         By tapping continue. I’ve read and agree to the E-Sign
                                         Disclosure and Consent to receive all the communications
                                         electronically.
                                     </div>
-                                    <div className=''>
+                                    <div onClick={() => handleSubmit()} className='cursor-pointer mt-2 rounded border-yellow-400 text-yellow-400 border-2 px-2 py-2 text-center'>
                                         <button
                                             type="submit"
                                             onClick={() => handleSubmit()}
