@@ -1,7 +1,11 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon,  UserCircleIcon,  XMarkIcon,} from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  UserCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { classNames } from "./helperFunctions";
 import LoginAside from "@/app/auth/page";
@@ -94,18 +98,18 @@ const Navbar = () => {
                 <div
                   onMouseEnter={() => handleDropdownToggle(true)}
                   onMouseLeave={() => handleDropdownToggle(false)}
-                  className="hidden lg:block text-lg font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 relative cursor-pointer z-20"
+                  className="hidden lg:block text-lg font-semibold text-gray-100 hover:bg-gray-800 hover:text-white rounded-md px-5 py-2 relative cursor-pointer z-20"
                 >
                   <span>My Account</span>
                   {isDropdownOpen && (
-                    <div className="absolute top-full left-0 p-2 mt-0 bg-slate-400 space-y-2 shadow-md rounded-md cursor-pointer">
+                    <div className="absolute w-32 top-full left-0 p-2 mt-0 bg-theme space-y-2 shadow-md rounded-md cursor-pointer">
                       <Link href="/myAccount">
                         <div
                           onClick={() => {
                             setDropdownOpen(false);
                             close();
                           }}
-                          className="block px-2 text-white text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
+                          className="block px-4 text-white text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
                         >
                           Profile
                         </div>
@@ -116,7 +120,7 @@ const Navbar = () => {
                           logoutProfile();
                           close();
                         }}
-                        className="block px-2 text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
+                        className="block px-4 text-center rounded py-2 text-sm coins_background cursor-pointer shadow-md"
                       >
                         Sign out
                       </div>
@@ -146,7 +150,7 @@ const Navbar = () => {
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <Link
-                        className="block lg:hidden text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-md font-medium"
+                        className="block lg:hidden text-gray-300 hover:bg-gray-800 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
                       >
                         <UserCircleIcon className="h-8" />
@@ -169,7 +173,7 @@ const Navbar = () => {
                             href="/myAccount"
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-6 py-2 text-sm text-gray-700"
                             )}
                           >
                             <div
@@ -188,7 +192,7 @@ const Navbar = () => {
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-6 py-2 text-sm text-gray-700"
                             )}
                             onClick={logoutProfile}
                           >
@@ -292,7 +296,7 @@ const Navbar = () => {
 };
 
 const styles = {
-  p0: "hidden lg:block text-lg  font-semibold text-gray-100 hover:bg-gray-700 hover:text-white rounded-md px-5 py-2",
+  p0: "hidden lg:block text-lg  font-semibold text-gray-100 hover:bg-gray-800 hover:text-white rounded-md px-5 py-2",
   p1: "block rounded-md px-3 py-2 text-lg  font-semibold text-white",
 };
 

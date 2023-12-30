@@ -1,25 +1,28 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import OtpInput from 'react-otp-input';
-import Swal from 'sweetalert2';
-import { AesDecrypt, AesEncrypt } from '../helperFunctions';
-import axios, { AxiosRequestConfig } from 'axios';
-import { useRouter } from 'next/navigation';
-import { setIsLoggedIn, setShowOTPmodal } from '@/redux/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import SetProfileForNewUser from '../setProfile';
-import { RootState } from '@/redux/store';
+import { Fragment, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import OtpInput from "react-otp-input";
+import Swal from "sweetalert2";
+import { AesDecrypt, AesEncrypt } from "../helperFunctions";
+import axios, { AxiosRequestConfig } from "axios";
+import { useRouter } from "next/navigation";
+import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import SetProfileForNewUser from "../setProfile";
+import { RootState } from "@/redux/store";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function OtpModal() {
   const [userProfile, setUserProfile] = useState(false);
-  const [open, setOpen] = useState(true)
-  const cancelButtonRef = useRef(null)
-  const [otp, setOtp] = useState('');
+  const [open, setOpen] = useState(true);
+  const cancelButtonRef = useRef(null);
+  const [otp, setOtp] = useState("");
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
-  const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
+  const showProfileForm = useSelector(
+    (state: RootState) => state.auth.showProfileForm
+  );
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -43,7 +46,7 @@ export default function OtpModal() {
         };
         const header: AxiosRequestConfig = {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         };
 
@@ -70,7 +73,7 @@ export default function OtpModal() {
             // log("result?.data : ", result?.data);
             dispatch(setIsLoggedIn(true));
             dispatch(setShowOTPmodal(false));
-            router.push('/')
+            router.push("/");
           } else {
             localStorage.setItem("token", result?.data?.otpVarifiedToken);
             // props.setToggle(2);
@@ -103,7 +106,12 @@ export default function OtpModal() {
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={setOpen}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -136,12 +144,17 @@ export default function OtpModal() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-theme text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-theme px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                  <h1 className="text-gold01 extrabold text-5xl text-center mb-3">
+                    OTP
+                  </h1>
                   <div className="sm:flex sm:items-start">
-
                     <div className="mt-3 items-center text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-base font-semibold leading-6 text-white"
+                      >
                         Enter OTP
                       </Dialog.Title>
                       <div className="mt-2">
@@ -150,32 +163,38 @@ export default function OtpModal() {
                           onChange={setOtp}
                           numInputs={6}
                           containerStyle={{
-                            padding: '2px',
-                            margin: '0 auto',
-                            borderRadius: '8px',
-                            display: 'flex',
-                            justifyContent: 'space-around',
+                            padding: "2px",
+                            margin: "0 auto",
+                            borderRadius: "8px",
+                            display: "flex",
+                            justifyContent: "space-around",
                           }}
                           shouldAutoFocus={true}
                           renderSeparator={<span> </span>}
                           inputStyle={{
-                            width: '2.5rem',
-                            height: '2.5rem',
-                            textAlign: 'center',
-                            fontSize: '1rem',
-                            border: '2px solid #FCD34D',
-                            borderRadius: '10px',
-                            margin: '0 4px',
-                            outline: 'none',
+                            width: "2.5rem",
+                            height: "2.5rem",
+                            textAlign: "center",
+                            fontSize: "1rem",
+                            border: "2px solid #2c7bac",
+                            background: "transparent",
+                            color: "#fff",
+                            borderRadius: "10px",
+                            margin: "0 4px",
+                            outline: "none",
                           }}
                           renderInput={(props) => <input {...props} />}
                         />
-                        {otpError && <div className='text-red-600'>{otpError}</div>}
+                        {otpError && (
+                          <div className="text-red-600">{otpError}</div>
+                        )}
                         <button
                           data-modal-hide="popup-modal"
                           type="button"
-                          className="mt-4 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                          onClick={() => { handleSubmit() }}
+                          className="mt-4 text-black bg-themeBlue focus:outline-none rounded-md border border-gray-200 text-sm font-bold px-5 py-2.5 focus:z-10"
+                          onClick={() => {
+                            handleSubmit();
+                          }}
                         >
                           Submit
                         </button>
@@ -183,21 +202,14 @@ export default function OtpModal() {
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setOpen(false)}
-                  >
-                    Deactivate
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 inline-flex absolute top-5 right-5 w-full justify-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    <XMarkIcon className="h-5" />
                   </button>
                 </div>
               </Dialog.Panel>
@@ -206,5 +218,5 @@ export default function OtpModal() {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

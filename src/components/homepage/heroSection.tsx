@@ -81,7 +81,7 @@ const HeroSection = () => {
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-16">
           <img
-            className="h-7xl absolute -bottom-96 -left-20 opacity-20"
+            className="h-7xl absolute -bottom-72 -left-20 opacity-20"
             src="/BDGwhite.png"
             alt="Your Company"
           />

@@ -14,7 +14,6 @@ const data = [
   { id: 4, name: "ADDRESS" },
 ];
 
-
 const MyAccountTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -26,7 +25,7 @@ const MyAccountTabs = () => {
     <div className="w-full">
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
         <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
-          <Tab.List className="sm:col-span-1 space-x-1 rounded-xl p-1 sm:w-full flex flex-row sm:flex-col">
+          <Tab.List className="sm:col-span-1 rounded-xl p-1 sm:w-full flex flex-row sm:flex-col bg-themeLight">
             {data.map((category, index) => (
               <Tab
                 key={index}
@@ -35,7 +34,7 @@ const MyAccountTabs = () => {
                     "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
                     "focus:outline-none",
                     selected
-                      ? "bg-themeLight text-white shadow"
+                      ? "bg-themeBlue text-black shadow"
                       : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
                   )
                 }
@@ -73,5 +72,3 @@ const MyAccountTabs = () => {
 };
 
 export default MyAccountTabs;
-
-
