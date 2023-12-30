@@ -273,54 +273,56 @@ const OrdersTabs = () => {
       <div className="mb-12">
         <Vault />
       </div>
-      <div className="flex flex-row text-white items-center justify-between">
-        <div>
-          <p className="text-sm mb-1">Status</p>
-          <select
-            name="status"
-            id="status"
-            className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-32 focus:outline-none"
-            onChange={(e) => {
-              handleStatusChange(e);
-            }}
-          >
-            <option value="ALL" selected={true}>
-              ALL
-            </option>
-            <option value="PENDING" className="cursor-pointer">
-              Pending
-            </option>
-            <option value="CANCELLED" className="cursor-pointer">
-              Cancel
-            </option>
-            <option value="SUCCESS" className="cursor-pointer">
-              Success
-            </option>
-            <option value="FAILED" className="cursor-pointer">
-              Failed
-            </option>
-          </select>
-        </div>
-        <div>
-          <p className="text-sm mb-1">Metal</p>
-          <select
-            name="metal"
-            id="metal"
-            onChange={(e) => {
-              handleMetalChange(e);
-            }}
-            className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-32 focus:outline-none"
-          >
-            <option value="ALL" selected={true}>
-              All
-            </option>
-            <option value="GOLD">GOLD</option>
-            <option value="SILVER">SILVER</option>
-          </select>
+      <div className="md:flex flex-row text-white items-center justify-between">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-sm mb-1">Status</p>
+            <select
+              name="status"
+              id="status"
+              className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-full md:w-32 focus:outline-none"
+              onChange={(e) => {
+                handleStatusChange(e);
+              }}
+            >
+              <option value="ALL" selected={true}>
+                ALL
+              </option>
+              <option value="PENDING" className="cursor-pointer">
+                Pending
+              </option>
+              <option value="CANCELLED" className="cursor-pointer">
+                Cancel
+              </option>
+              <option value="SUCCESS" className="cursor-pointer">
+                Success
+              </option>
+              <option value="FAILED" className="cursor-pointer">
+                Failed
+              </option>
+            </select>
+          </div>
+          <div>
+            <p className="text-sm mb-1">Metal</p>
+            <select
+              name="metal"
+              id="metal"
+              onChange={(e) => {
+                handleMetalChange(e);
+              }}
+              className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-full md:w-32 focus:outline-none"
+            >
+              <option value="ALL" selected={true}>
+                All
+              </option>
+              <option value="GOLD">GOLD</option>
+              <option value="SILVER">SILVER</option>
+            </select>
+          </div>
         </div>
         <div>
           <p className=" text-sm mb-1">Select Date</p>
-          <div className="flex cursor-pointer text-white rounded bg-themeLight px-3 py-2 focus:outline-none">
+          <div className=" cursor-pointer text-white rounded bg-themeLight px-3 py-2 focus:outline-none">
             <input
               value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(
                 range[0].endDate,
@@ -331,7 +333,7 @@ const OrdersTabs = () => {
               onClick={() => setOpen((open) => !open)}
             />
             <FaCalendarAlt
-              className="calendar-icon-to cursor-pointer"
+              className="calendar-icon-to cursor-pointer float-right"
               onClick={() => setOpen((open) => !open)}
               size={26}
             />
@@ -361,7 +363,7 @@ const OrdersTabs = () => {
             onChange={(e) => {
               handleTransactionChange(e);
             }}
-            className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-32 focus:outline-none"
+            className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-full md:w-32 focus:outline-none"
           >
             <option value="ALL" selected={true}>
               All
@@ -376,7 +378,7 @@ const OrdersTabs = () => {
       </div>
       <Tab.Group defaultIndex={0}>
         <div className="grid grid-cols-5 gap-6 mt-8">
-          <div className=" col-span-2 ">
+          <div className="col-span-5 md:col-span-2 ">
             <Tab.List className="rounded-xl p-1 ">
               {dashboardData.map((item, key) => (
                 <Tab
@@ -584,7 +586,7 @@ const OrdersTabs = () => {
               </div>
             </div>
           </div>
-          <Tab.Panels className="col-span-3">
+          <Tab.Panels className="col-span-5 md:col-span-3">
             <div className="text-white">
               <OrderDetails orderDetails={activeTab} />
             </div>

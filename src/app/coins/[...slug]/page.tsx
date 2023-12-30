@@ -110,8 +110,8 @@ const page = ({ params }: any) => {
 
   return (
     <div className="container py-16 text-white">
-      <div className="grid sm:grid-cols-5 gap-12">
-        <div className="col-span-2 relative">
+      <div className="grid xl:grid-cols-5 gap-12">
+        <div className="col-span-5 xl:col-span-2 relative">
           {/* Absolute positioning for out-of-stock image */}
           {!productsDetailById.inStock && (
             <div className="bg-red-600 absolute top-0 right-0 px-2  rounded-bl-lg">
@@ -124,14 +124,29 @@ const page = ({ params }: any) => {
               <p className="font-medium">Out Of Stock</p>
             </div>
           )}
-          <div className="bg-themeLight rounded p-4">
+          <div className="hidden sm:block bg-themeLight rounded p-4">
             <SimpleImageSlider
-              width="30vw"
+              width={400}
               height={400}
               images={photo}
               showBullets={true}
               style={{ margin: "0 auto" }}
-              showNavs={true}
+              showNavs={false}
+              loop={true}
+              autoPlay={true}
+              bgColor="#red"
+              autoPlayDelay={2.0}
+              slideDuration={0.5}
+            />
+          </div>
+          <div className="block sm:hidden bg-themeLight rounded p-4">
+            <SimpleImageSlider
+              width={250}
+              height={250}
+              images={photo}
+              showBullets={true}
+              style={{ margin: "0 auto" }}
+              showNavs={false}
               loop={true}
               autoPlay={true}
               bgColor="#red"
@@ -151,7 +166,7 @@ const page = ({ params }: any) => {
             </button>
           </div>
         </div>
-        <div className=" col-span-3">
+        <div className="col-span-5 xl:col-span-3">
           <div className="flex justify-between items-center">
             <div>
               <div className="mb-2 sm:text-lg extrabold">
