@@ -57,7 +57,6 @@ const BuySell = () => {
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied = useSelector(isCouponApplied);
-  const coupons = useCoupons();
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
 
   const [previewData, setPreviewData] = useState([]);
