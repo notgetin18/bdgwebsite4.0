@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 const OrderDetails = (props: any) => {
+<<<<<<< HEAD
   console.log("props", props);
   return (
     <div className="coins_background rounded-lg shadow-black shadow-xl p-3">
@@ -11,6 +12,11 @@ const OrderDetails = (props: any) => {
         <p className="text-xl font-lg">Transaction Status</p>
         <div className="grid grid-cols-3 justify-between pb-3">
           <div className="flex items-center col-span-2">
+=======
+    // console.log('props', props);
+    return (
+        <div className='coins_background rounded-lg shadow-black shadow-xl p-3'>
+>>>>>>> b5e635b9d169b2d412ffbf0a5f65150dab72e77f
             <div>
               {props?.orderDetails?.status === "SUCCESS" ||
               props?.orderDetails?.status === "COMPLETED" ? (

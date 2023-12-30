@@ -6,18 +6,23 @@ import { AesDecrypt, AesEncrypt } from "../helperFunctions";
 import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/navigation";
 import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import SetProfileForNewUser from "../setProfile";
+import { RootState } from "@/redux/store";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function OtpModal() {
+  const [userProfile, setUserProfile] = useState(false);
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
-  const [isModalOpen, setModalOpen] = useState(false);
   const [otp, setOtp] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const showProfileForm = useSelector(
+    (state: RootState) => state.auth.showProfileForm
+  );
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -117,6 +122,13 @@ export default function OtpModal() {
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
+
+        {showProfileForm && (
+          <SetProfileForNewUser
+            isOpen={showProfileForm}
+            onClose={() => setUserProfile(false)}
+          />
+        )}
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
