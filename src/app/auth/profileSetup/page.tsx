@@ -224,7 +224,7 @@ const SetProfileForNewUser: React.FC = () => {
                                             className="text-red-600"
                                         />
                                     </div>
-                                    <div className=''>
+                                    <div className='mb-3'>
                                         <label className='text-white'>Date of Birth</label>
                                         <br />
                                         <div className="flex justify-between items-center cursor-pointer relative font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none">
@@ -244,18 +244,6 @@ const SetProfileForNewUser: React.FC = () => {
                                                 onClick={() => setshowCalendar(!showCalendar)}
                                             />
                                             <div className='absolute' ref={refOne}>
-                                                {/* <DatePicker 
-                                                   placeholderText='select date of birth'
-                                                    onChange={(date: Date) => {
-                                                    setDate(date)
-                                                    const userIsOldEnough = calculateAge(date) >= 18;
-                                                    if (!userIsOldEnough) {
-                                                        setAgeError("must be 18 or above to register");
-                                                    }
-                                                }
-                                                }
-                                                    className=' form-control text-white tracking-widest font-semibold border-1 rounded mt-1 w-full p-2 coins_backgroun outline-none'
-                                                /> */}
                                                 {showCalendar && (
                                                     <Calendar
                                                         onChange={(date) => {
@@ -281,7 +269,7 @@ const SetProfileForNewUser: React.FC = () => {
                                         />
                                     </div>
 
-                                    <div className=''>
+                                    <div className='mb-3'>
                                         <label className='text-white'>Gender</label>
                                         <br />
                                         <select
@@ -360,7 +348,7 @@ const SetProfileForNewUser: React.FC = () => {
                                         Disclosure and Consent to receive all the communications
                                         electronically.
                                     </div>
-                                    <div onClick={() => handleSubmit()} className='cursor-pointer mt-2 rounded border-yellow-400 text-yellow-400 border-2 px-2 py-2 text-center'>
+                                    <div onClick={() => handleSubmit()} className='cursor-pointer mt-3 rounded border-yellow-400 text-yellow-400 border-2 px-2 py-2 text-center'>
                                         <button
                                             type="submit"
                                             onClick={() => handleSubmit()}
