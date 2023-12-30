@@ -10,19 +10,22 @@ import { AesDecrypt } from "../helperFunctions";
 import {
   setShowOTPmodal,
   setShowProfileForm,
-  setUserExists,
+  profileFilled,
 } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
+import { useRouter } from 'next/navigation'
 
 const HeroSection = () => {
   const dispatch = useDispatch();
-  const userExists = useSelector((state: RootState) => state.auth.userExists);
+  const router = useRouter();
+  const userExists = useSelector((state: RootState) => state.auth.profileFilled);
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
 
   console.log("otpModal =-====>  ", otpModal);
   console.log("userExists =-====>  ", userExists);
+
 
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const HeroSection = () => {
           const userdata = JSON.parse(decryptedData).data;
           if (userdata.isBasicDetailsCompleted) {
             dispatch(setShowOTPmodal(false));
-            dispatch(setUserExists(true));
+            dispatch(profileFilled(true));
           } else {
             dispatch(setShowProfileForm(false));
           }
@@ -68,6 +71,9 @@ const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
       {otpModal && <OtpModal />}
+      {/* <button className='px-2 py-2 border-2 border-yellow-400 text-yellow-400' type="button"  onClick={() => {
+          router.push('/auth/profileSetup')
+        }}> click me </button> */}
       <motion.div
         initial="hidden"
         whileInView="show"

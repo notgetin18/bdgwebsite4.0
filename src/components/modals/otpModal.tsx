@@ -74,7 +74,7 @@ export default function OtpModal() {
           } else {
             localStorage.setItem("token", result?.data?.otpVarifiedToken);
             // props.setToggle(2);
-
+            router.push('/auth/profileSetup')
           }
         } else {
           setOtp("");
@@ -116,12 +116,14 @@ export default function OtpModal() {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        {showProfileForm && (
+        {/* {showProfileForm && (
           <SetProfileForNewUser
             isOpen={showProfileForm}
             onClose={() => setUserProfile(false)}
           />
-        )}
+        )} */}
+
+       
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">

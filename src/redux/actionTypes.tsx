@@ -11,15 +11,15 @@ export const resetTimer = () => ({
 
 
 
-export const SET_USER_EXISTS = 'SET_USER_EXISTS';
+export const PROFILE_COMPLETED = 'PROFILE_COMPLETED';
 export const SET_SHOW_PROFILE_FORM = 'SET_SHOW_PROFILE_FORM';
 export const SET_SHOW_OTP_MODAL = 'SET_SHOW_OTP_MODAL';
 export const IS_LOGGED_IN = 'IS_LOGGED_IN';
 
 
 
-export interface SetUserExistsAction {
-  type: typeof SET_USER_EXISTS;
+export interface ProfileFilled {
+  type: typeof PROFILE_COMPLETED;
   payload: boolean;
 }
 
