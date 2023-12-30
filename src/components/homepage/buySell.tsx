@@ -170,28 +170,13 @@ const BuySell = () => {
       });
   };
 
-  const handleApplyCoupon = (coupon: any, amount: any) => {
-    dispatch(
-      applyCoupon({
-        coupon,
-        amount,
-        goldPrice: goldData.totalPrice,
-        metalType,
-        transactionType,
-      })
-    );
-  };
-
-  const handleClearCoupon = () => {
-    dispatch(clearCoupon());
-  };
-
   useEffect(() => {
     dispatch(setMetalType("gold"));
     dispatch(setEnteredAmount(0));
     dispatch(setCouponError(""));
     dispatch(setPurchaseType("buy"));
     dispatch(setTransactionType("rupees"));
+    dispatch(clearCoupon());
   }, []);
 
   const toggleMetal = () => {
@@ -199,6 +184,7 @@ const BuySell = () => {
     dispatch(setMetalType(!isgold ? "gold" : "silver"));
     dispatch(setEnteredAmount(0));
     setValidationError("");
+    dispatch(clearCoupon());
   };
 
   const toggleCoupon = () => {
@@ -211,6 +197,7 @@ const BuySell = () => {
     dispatch(setPurchaseType(tab));
     dispatch(setEnteredAmount(0));
     setValidationError("");
+    dispatch(clearCoupon());
   };
 
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {

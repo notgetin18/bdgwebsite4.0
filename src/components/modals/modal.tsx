@@ -132,8 +132,9 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   //   setToken(token);
   // }, [props.show])
 
-  const buyReqApiHandler = async () => {
+  console.log("000000000000000000000000000000000" , appliedCouponCode ? appliedCouponCode : '',)
 
+  const buyReqApiHandler = async () => {
     const dataToBeDecrypt = {
       orderType: purchaseType.toUpperCase(),
       item: metalType.toUpperCase(),

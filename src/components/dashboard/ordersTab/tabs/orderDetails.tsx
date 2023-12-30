@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const OrderDetails = (props: any) => {
-    // console.log('props', props);
+    console.log('props', props);
     return (
         <div className='coins_background rounded-lg shadow-black shadow-xl p-3'>
             <div>
@@ -86,14 +86,14 @@ const OrderDetails = (props: any) => {
                 <div className='flex justify-center'>
                     {props?.orderDetails?.status == 'SUCCESS' && props?.orderDetails?.challanUrl && <Link target='_blank' className='' href={props?.orderDetails?.challanUrl}>
                         <div className='text-center m-2 pb-3 flex justify-around'>
-                            <button className='border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex '>Download Challan
+                            <button className='border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex text-yellow-400'>Download Challan
                                 <ArrowDownIcon className="h-5 ml-2 text-yellow-300" />
                             </button>
                         </div>
                     </Link>}
                     {props?.orderDetails?.status == 'SUCCESS' && props?.orderDetails?.invoiceUrl && <Link target='_blank' className='' href={props?.orderDetails?.invoiceUrl}>
                         <div className='text-center m-2 pb-3 flex justify-around'>
-                            <button className='border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex '>Download Invoice
+                            <button className='border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex text-yellow-400'>Download Invoice
                                 <ArrowDownIcon className="h-5 ml-2 text-yellow-300" />
                             </button>
                         </div>
