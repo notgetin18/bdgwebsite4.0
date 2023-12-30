@@ -6,23 +6,29 @@ const Vault = () => {
   const [wallet, setWallet] = useState<Wallet>();
 
   useEffect(() => {
-    apiForWallet()
-  }, [])
+    apiForWallet();
+  }, []);
 
   const apiForWallet = () => {
-    const token = localStorage.getItem('token')
-    fetch(`${process.env.baseUrl}/user/vault`, { headers: { authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } }).then(response => response.json())
+    const token = localStorage.getItem("token");
+    fetch(`${process.env.baseUrl}/user/vault`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
       .then(async (data) => {
         const decryptedData = await funcForDecrypt(data.payload);
         let userWallet = JSON.parse(decryptedData).data;
         setWallet(userWallet);
       })
-      .catch(error => console.error(error));
-  }
-  console.log('wallet', wallet)
+      .catch((error) => console.error(error));
+  };
+  console.log("wallet", wallet);
   return (
     <div className="w-full">
-      <div className=" grid grid-cols-2 gap-6">
+      <div className=" grid sm:grid-cols-2 gap-6">
         <div className="p-4 border-1 rounded-lg bg-themeLight grid grid-cols-2 gap-3 text-white">
           <p>Gold</p>
           <p></p>
@@ -37,7 +43,9 @@ const Vault = () => {
           <p>Weight</p>
           <p className="text-right">Gifted Weight</p>
           <p className="text-green-500">{wallet?.silver}gm</p>
-          <p className="text-green-500 text-right">{wallet?.holdSilverGram}gm</p>
+          <p className="text-green-500 text-right">
+            {wallet?.holdSilverGram}gm
+          </p>
         </div>
       </div>
     </div>
