@@ -24,7 +24,7 @@ const GiftFaq: React.FC = () => {
   return (
     <div>
       <div className=" col-span-2 p-4 rounded-lg bg-themeLight text-white">
-        <p className="text-white text-center text-xl">GIFT FAQ</p>
+        <p className="text-gold01 text-center text-5xl extrabold">GIFT FAQ</p>
         <dl className="mt-10 space-y-2 divide-y divide-gray-900/10">
           {accordionData.map((faq, index) => {
             if (index < 5) {
@@ -33,28 +33,49 @@ const GiftFaq: React.FC = () => {
                   {({ open }) => (
                     <>
                       <dt>
-                        <Disclosure.Button className="flex w-full items-start justify-between text-left text-white bg-themeLight px-4 py-2 rounded-lg">
-                          <span className="text-sm font-semibold leading-5">
-                            {faq?.title}
-                          </span>
-                          <span className="ml-6 flex h-7 items-center">
-                            {open ? (
-                              <FaChevronCircleUp
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                              />
-                            ) : (
-                              <FaChevronCircleDown
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                              />
-                            )}
-                          </span>
-                        </Disclosure.Button>
+                        {open ? (
+                          <Disclosure.Button className="faq-back flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-t-2xl px-4 py-4">
+                            <span className="text-base font-semibold leading-7">
+                              {faq?.title}
+                            </span>
+                            <span className="ml-6 flex h-7 items-center">
+                              {open ? (
+                                <FaChevronCircleUp
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <FaChevronCircleDown
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        ) : (
+                          <Disclosure.Button className="faq-back flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-2xl px-4 py-4">
+                            <span className="text-base font-semibold leading-7">
+                              {faq?.title}
+                            </span>
+                            <span className="ml-6 flex h-7 items-center">
+                              {open ? (
+                                <FaChevronCircleUp
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                              ) : (
+                                <FaChevronCircleDown
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        )}
                       </dt>
                       <Disclosure.Panel
                         as="dd"
-                        className="mt-1 pr-12 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-700 to-blue-900"
+                        className="text-base leading-7 text-gray-600 rounded-b-2xl px-4 py-2 bg-themeBlue"
                       >
                         <p
                           dangerouslySetInnerHTML={{ __html: faq.description }}
@@ -68,7 +89,7 @@ const GiftFaq: React.FC = () => {
           })}
           <div className="flex justify-center items-center">
             <Link href="/faqs">
-              <div className="mt-4 border-2 border-yellow-400 rounded px-12 py-2 cursor-pointer text-lg font-semibold">
+              <div className="mt-4 bg-themeBlue rounded-lg px-12 py-2 cursor-pointer text-lg font-semibold">
                 View All
               </div>
             </Link>

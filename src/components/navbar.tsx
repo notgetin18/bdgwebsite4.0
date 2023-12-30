@@ -19,16 +19,18 @@ const Navbar = () => {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDropdownToggle = (isOpen: boolean | ((prevState: boolean) => boolean)) => {
+  const handleDropdownToggle = (
+    isOpen: boolean | ((prevState: boolean) => boolean)
+  ) => {
     setDropdownOpen(isOpen);
   };
 
   const logoutProfile = () => {
-    console.log('logged out');
-    router.push('/');
-    localStorage.removeItem('mobile_number');
-    localStorage.removeItem('token');
-    localStorage.removeItem('isLogIn');
+    console.log("logged out");
+    router.push("/");
+    localStorage.removeItem("mobile_number");
+    localStorage.removeItem("token");
+    localStorage.removeItem("isLogIn");
     dispatch(setShowOTPmodal(false));
     dispatch(setIsLoggedIn(false));
   };
@@ -123,11 +125,11 @@ const Navbar = () => {
                 </div>
               ) : (
                 <label
-                  className="text-white hidden sm:inline-block"
+                  className="text-white hidden sm:inline-block ml-3"
                   onClick={handleLoginClick}
                 >
                   <span>
-                    <Link className="text-white" href="">
+                    <Link className="text-white " href="">
                       Login/Sign Up
                     </Link>
                   </span>

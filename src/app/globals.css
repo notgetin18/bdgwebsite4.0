@@ -54,7 +54,7 @@ body::-webkit-scrollbar {
   background-color: transparent;
 }
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(red, green, blue);
+  background: linear-gradient(red, green);
   border-radius: 10px;
 }
 
@@ -65,7 +65,9 @@ body::-webkit-scrollbar-thumb {
 .extrabold {
   font-family: Lato-Black;
 }
-
+.font-8x {
+  font-size: 8px;
+}
 .regular {
   font-family: NunitoSans-Regular;
 }
