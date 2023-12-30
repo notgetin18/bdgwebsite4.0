@@ -621,35 +621,11 @@ const BuySell = () => {
                     <button className="text-white rounded-full border-2">
                       <div>
                         <ChevronUpIcon onClick={openModal} className="h-8" />
-                        {/* {showCoupon ? (
-                          <ChevronUpIcon
-                            onClick={handleClick}
-                            className="h-8"
-                          />
-                        ) : (
-                          <ChevronDownIcon
-                            onClick={handleClick}
-                            className="h-8"
-                          />
-                        )} */}
+
                       </div>
                     </button>
                   </div>
-                  {error && <div className="text-red-500 text-xs">{error}</div>}
-                  {showCoupon &&
-                    coupons?.map((coupon: any) => (
-                      <div key={coupon._id}>
-                        <p className="text-white">{coupon.description}</p>
-                        <button
-                          className="bg-gray-400 rounded cursor-pointer text-white p-2"
-                          onClick={() =>
-                            handleApplyCoupon(coupon, enteredAmount)
-                          }
-                        >
-                          Apply Coupon
-                        </button>
-                      </div>
-                    ))}{" "}
+
                 </div>
               )}
               <div className="mt-12">

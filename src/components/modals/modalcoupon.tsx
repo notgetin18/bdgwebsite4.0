@@ -2,17 +2,44 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Timer from "../globalTimer";
 import { ParseFloat } from "../helperFunctions";
-import { isCouponApplied } from "@/redux/couponSlice";
+import { applyCoupon, clearCoupon, isCouponApplied } from "@/redux/couponSlice";
 import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useCoupons } from "@/customHooks/coupons";
 
 export default function ModalCoupon({ isOpen, onClose }: any) {
   const cancelButtonRef = useRef(null);
   const [imgModel, setImgModel] = useState(false);
+  const coupons = useCoupons();
+  const error = useSelector((state: RootState) => state.coupon.error);
+  const dispatch = useDispatch();
+  const goldData = useSelector((state: RootState) => state.gold);
+  const metalType = useSelector((state: RootState) => state.shop.metalType);
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+
+
+  const handleApplyCoupon = (coupon: any, amount: any) => {
+    dispatch(
+      applyCoupon({
+        coupon,
+        amount,
+        goldPrice: goldData.totalPrice,
+        metalType,
+        transactionType,
+      })
+    );
+  };
+
+  const handleClearCoupon = () => {
+    dispatch(clearCoupon());
+  };
+
+
   const closeModal = () => {
     onClose(false);
   };
@@ -57,12 +84,28 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                     Coupons
                   </p>
 
-                  <Link href="#" onClick={imgOpen}>
+                  {/* <Link href="#" onClick={imgOpen}>
                     <img src="/coupon 499.png" className="pb-6" />
                   </Link>
                   <Link href="#">
                     <img src="/coupon 899.png" />
-                  </Link>
+                  </Link> */}
+                  {coupons?.map((coupon: any) => (
+                    <div key={coupon._id}>
+                      <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" />
+                      {/* <p className="text-white">{coupon.description}</p> */}
+                      {/* <button
+                        className="bg-gray-400 rounded cursor-pointer text-white p-2"
+                        onClick={() =>
+                          handleApplyCoupon(coupon, enteredAmount)
+                        }
+                      >
+                        Apply Coupon
+                      </button> */}
+                    </div>
+                  ))}
+                  {error && <div className="text-red-500 text-sm">{error}</div>}
+
                 </div>
                 <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
