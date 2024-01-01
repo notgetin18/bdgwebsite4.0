@@ -48,6 +48,7 @@ const HeroSection = () => {
           const data = await response.json();
           const decryptedData = await AesDecrypt(data.payload);
           const userdata = JSON.parse(decryptedData).data;
+
           if (userdata.isBasicDetailsCompleted) {
             dispatch(setShowOTPmodal(false));
             dispatch(profileFilled(true));
@@ -66,7 +67,7 @@ const HeroSection = () => {
     checkUserIsNew();
   }, [dispatch]);
 
-  useEffect(() => {}, [otpModal]);
+  useEffect(() => { }, [otpModal]);
 
   return (
     <div className="bg-theme py-10">

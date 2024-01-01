@@ -1,9 +1,9 @@
 import { selectUser } from "@/redux/userDetailsSlice";
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { AesDecrypt, AesEncrypt, funForAesEncrypt } from "@/components/helperFunctions";
+import { AesDecrypt, AesEncrypt, funForAesEncrypt, funcForDecrypt } from "@/components/helperFunctions";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loader from "@/utils/loader";
@@ -12,13 +12,24 @@ import ProfileInput from "@/utils/profileInput";
 const KycTab = () => {
   const user = useSelector(selectUser);
   const [showDetails, setShowDetails] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [panNumber, setPanNumber] = useState<String>()
+
 
   const handleToggleDetails = () => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
-  // console.log('user', user.data.isKycDone);
+  const KycData = async () => {
+    const decryptedPan: string = await funcForDecrypt(user?.data?.kyc?.panNumber);
+    setPanNumber(decryptedPan);
+  }
+
+  useEffect(() => {
+    KycData()
+  }, [])
+
+  console.log('user', user.data);
 
   const formik = useFormik({
     initialValues: {
@@ -130,7 +141,7 @@ const KycTab = () => {
               <div className="grid grid-cols-2 justify-between mt-10 ml-2">
                 <div className="">
                   <div>PAN </div>
-                  <div>{showDetails ? <strong>GTEPK8368A</strong> : <strong>XXXXXXXXXX</strong>}</div>
+                  <div>{showDetails ? <strong>{panNumber}</strong> : <strong>XXXXXXXXXX</strong>}</div>
                 </div>
                 <div>
                   <div className="flex flex-row justify-end mr-2 items-center" onClick={handleToggleDetails}>
@@ -140,9 +151,9 @@ const KycTab = () => {
                 </div>
               </div>
               <div className="grid grid-cols-2 justify-between mt-10 ml-2">
-                <div>{showDetails ? <strong>AMIT KUMAR</strong> : <strong>XXXXXXXXXXX</strong>}</div>
+                <div>{showDetails ? <strong>{user.data.name}</strong> : <strong>XXXXXXXXXXX</strong>}</div>
                 <div className="flex justify-end">
-                  <div className="mr-2">{showDetails ? <strong>02-Jan-2000</strong> : <strong>xx-xx-xxxx</strong>}</div>
+                  <div className="mr-2">{showDetails ? <strong>{user?.data?.dateOfBirth?.toLocaleLowerCase()}</strong> : <strong>xx-xx-xxxx</strong>}</div>
                 </div>
               </div>
             </div>
