@@ -1,15 +1,19 @@
 "use client";
-import { funcForDecrypt } from "@/components/helperFunctions";
+import { ParseFloat, funcForDecrypt } from "@/components/helperFunctions";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { api } from "@/api/DashboardServices";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../utils/motion";
+import { selectUser } from "@/redux/userDetailsSlice";
+import { useSelector } from "react-redux";
 
 const Coins = () => {
   const [ProductList, setProductList] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState("ALL");
+  const user = useSelector(selectUser);
+
 
   const getAllProducts = async (params: any) => {
     try {
@@ -120,14 +124,14 @@ const Coins = () => {
             <img src={"Goldbarbanner.png"} className="h-5" alt="vault" />
             <div className="text-white ml-2 pr-4 flex">
               <p className="text-yellow-300 font-extrabold mr-2">Gold :</p>
-              <p className="text-yellow-300">0.9825 GM</p>
+              <p className="text-yellow-300">{ParseFloat(user.data.user_vaults.gold, 2)} GM</p>
             </div>
           </div>
           <div className="flex items-center">
             <img src={"/SilverBar.png"} className="h-5 sm:ml-4" alt="vault" />
             <div className="ml-2 flex">
               <p className="text-slate-200 font-extrabold mr-2">Silver :</p>
-              <p className="text-slate-200 font-semibold">0.0985 GM</p>
+              <p className="text-slate-200 font-semibold">{ParseFloat(user.data.user_vaults.silver, 2)} GM</p>
             </div>
           </div>
         </div>
