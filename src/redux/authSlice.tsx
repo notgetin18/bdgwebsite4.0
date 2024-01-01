@@ -9,7 +9,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   profileFilled: false,
-  showProfileForm: true,
+  showProfileForm: false,
   otpModal: false,
   isLoggedIn: false,
 };

@@ -65,9 +65,6 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
         const decryptedData = await AesDecrypt(result.data.payload);
         if (JSON.parse(decryptedData).status) {
           localStorage.setItem("mobile_number", values.mobile_number);
-          // setShowOTPModal(true);
-          // console.log('show otp modal')
-          // console.log('showOTPModal 71', showOTPModal)
           dispatch(setShowOTPmodal(true));
         }
         setSubmitting(false);
@@ -84,9 +81,8 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
 
   return (
     <aside
-      className={`fixed top-0 right-0 h-full lg:w-4/12 md:w-5/12 sm:w-6/12 bg-theme shadow-lg transform translate-x-${
-        isOpen ? "0" : "full"
-      } transition-transform ease-in-out z-50`}
+      className={`fixed top-0 right-0 h-full lg:w-4/12 md:w-5/12 sm:w-6/12 bg-theme shadow-lg transform translate-x-${isOpen ? "0" : "full"
+        } transition-transform ease-in-out z-50`}
       style={{ zIndex: 1000 }}
     >
       <div className="grid h-screen place-items-center w-full">
@@ -95,7 +91,7 @@ const LoginAside: React.FC<LoginAsideProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="absolute top-3 end-2.5 text-white hover:text-gold01 text-xl cursor-pointer"
           >
-            <FaTimes />
+            <FaTimes className="text-red-600" />
           </button>
           <h1 className="text-2xl font-bold mb-4 text-white text-center">
             Login/Sign Up

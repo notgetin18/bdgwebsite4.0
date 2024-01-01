@@ -16,21 +16,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
 import { useRouter } from 'next/navigation'
+import SetProfileForNewUser from "../setProfile";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const userExists = useSelector((state: RootState) => state.auth.profileFilled);
+  const profileFilledd = useSelector((state: RootState) => state.auth.profileFilled);
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
+  const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
+  const [OpenSetUserProfile, setOpenSetUserProfile] = useState(true)
 
-  console.log("otpModal =-====>  ", otpModal);
-  console.log("userExists =-====>  ", userExists);
+  // console.log("otpModal =-====>  ", otpModal);
+  // console.log("profileFilledd =-====>  ", profileFilledd);
 
 
 
   useEffect(() => {
     const checkUserIsNew = async () => {
+      console.log('method called');
       const token = localStorage.getItem("token");
+      console.log('token', token)
 
       if (token) {
         const configHeaders = {
@@ -47,12 +52,16 @@ const HeroSection = () => {
           );
           const data = await response.json();
           const decryptedData = await AesDecrypt(data.payload);
+          console.log('decrypted data')
           const userdata = JSON.parse(decryptedData).data;
-
+          console.log('decrypted data form hero section')
+          console.log('userdata ------------>>>>>>>> 51', userdata)
           if (userdata.isBasicDetailsCompleted) {
+            console.log('1')
             dispatch(setShowOTPmodal(false));
             dispatch(profileFilled(true));
           } else {
+            console.log('2')
             dispatch(setShowProfileForm(false));
           }
         } catch (errorWhileCheckingIsUserNew) {
@@ -169,6 +178,9 @@ const HeroSection = () => {
               <BuySell />
             </motion.div>
           </div>
+          {showProfileForm && (
+            <SetProfileForNewUser isOpen={OpenSetUserProfile} onClose={() => { setOpenSetUserProfile(!OpenSetUserProfile) }} />
+          )}
         </div>
       </motion.div>
     </div>

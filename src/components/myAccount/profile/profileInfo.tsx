@@ -90,12 +90,12 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Email ID</span>
-                    <span className='flex items-center'>{user.data.email}<span className='pl-2'>{user?.data?.isEmailVerified ? <VscVerifiedFilled className="cursor-pointer" color={'green'} size={24} /> : <MdScheduleSend onClick={verifyEmail} className="cursor-pointer" color={'yellow'} size={24} />}</span></span>
+                    <span className='flex items-center'>{user?.data?.email}<span className='pl-2'>{user?.data?.isEmailVerified ? <VscVerifiedFilled className="cursor-pointer" color={'green'} size={24} /> : <MdScheduleSend onClick={verifyEmail} className="cursor-pointer" color={'yellow'} size={24} />}</span></span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Gender</span>
-                    <span>{user.data.gender.toUpperCase()}</span>
+                    <span>{user?.data?.gender?.toUpperCase()}</span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 {/* <div className="flex justify-between">

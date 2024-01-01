@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { AesDecrypt, AesEncrypt } from "../helperFunctions";
 import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/navigation";
-import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
+import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SetProfileForNewUser from "../setProfile";
 import { RootState } from "@/redux/store";
@@ -19,6 +19,7 @@ export default function OtpModal() {
   const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
+  // const [isNewUser, setIsNewUser] = useState(false);
   const showProfileForm = useSelector(
     (state: RootState) => state.auth.showProfileForm
   );
@@ -56,17 +57,16 @@ export default function OtpModal() {
         );
         const decryptedData = await AesDecrypt(response.data.payload);
         const result = JSON.parse(decryptedData);
-
         if (result.status == true) {
-          if (result.data.isNewUser == false) {
-            localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            dispatch(setIsLoggedIn(true));
-            dispatch(setShowOTPmodal(false));
-            router.push("/");
-          } else {
-            localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            router.push('/auth/profileSetup')
+          console.log('result', result);
+          dispatch(setIsLoggedIn(true));
+          if (result.data.isNewUser) {
+            dispatch(setShowProfileForm(true));
+            // setIsNewUser(true);
           }
+          localStorage.setItem("token", result?.data?.otpVarifiedToken);
+          dispatch(setShowOTPmodal(false));
+          router.push("/");
         } else {
           setOtp("");
           Swal.fire({
@@ -109,16 +109,6 @@ export default function OtpModal() {
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
-
-        {/* {showProfileForm && (
-          <SetProfileForNewUser
-            isOpen={showProfileForm}
-            onClose={() => setUserProfile(false)}
-          />
-        )} */}
-
-       
-
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
@@ -186,6 +176,13 @@ export default function OtpModal() {
                         </button>
                       </div>
                     </div>
+                    {/* {isNewUser && (
+                      <SetProfileForNewUser
+                        isOpen={isNewUser}  // Use isNewUser state to control visibility
+                        onClose={() => setIsNewUser(false)}  // Close the modal by updating state
+                      />
+                    )} */}
+
                   </div>
                 </div>
                 <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">

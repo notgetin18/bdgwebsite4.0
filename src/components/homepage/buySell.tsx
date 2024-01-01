@@ -61,17 +61,17 @@ const BuySell = () => {
 
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
-  console.table({
-    orderType: purchaseType.toUpperCase(),
-    item: metalType.toUpperCase(),
-    // unit: "AMOUNT",
-    gram: metalQuantity,
-    amount: totalAmount,
-    // gst_number: props.gstNum,
-    // currentMatelPrice: 33.22,
-    currentMatelPrice: metalPricePerGram,
-    fromApp: false,
-  })
+  // console.table({
+  //   orderType: purchaseType.toUpperCase(),
+  //   item: metalType.toUpperCase(),
+  //   // unit: "AMOUNT",
+  //   gram: metalQuantity,
+  //   amount: totalAmount,
+  //   // gst_number: props.gstNum,
+  //   // currentMatelPrice: 33.22,
+  //   currentMatelPrice: metalPricePerGram,
+  //   fromApp: false,
+  // })
 
   const previewModal = async () => {
     // Notiflix.Loading.custom({svgSize:'180px',customSvgCode: '<object type="image/svg+xml" data="/svg/pageloader.svg">svg-animation</object>'});

@@ -39,6 +39,8 @@ const Navbar = () => {
     dispatch(setIsLoggedIn(false));
   };
 
+  // logoutProfile()
+
   const handleLoginClick = () => {
     setLoginOpen(!isLoginOpen);
   };
