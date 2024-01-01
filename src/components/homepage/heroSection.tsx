@@ -24,18 +24,16 @@ const HeroSection = () => {
   const profileFilledd = useSelector((state: RootState) => state.auth.profileFilled);
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
   const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
-  const [OpenSetUserProfile, setOpenSetUserProfile] = useState(true)
 
-  // console.log("otpModal =-====>  ", otpModal);
-  // console.log("profileFilledd =-====>  ", profileFilledd);
+  console.log("showProfileForm =-====>  ", showProfileForm);
 
-
+const onClose = () => {
+  dispatch(setShowProfileForm(false));
+};
 
   useEffect(() => {
     const checkUserIsNew = async () => {
-      console.log('method called');
       const token = localStorage.getItem("token");
-      console.log('token', token)
 
       if (token) {
         const configHeaders = {
@@ -52,23 +50,15 @@ const HeroSection = () => {
           );
           const data = await response.json();
           const decryptedData = await AesDecrypt(data.payload);
-          console.log('decrypted data')
           const userdata = JSON.parse(decryptedData).data;
-          console.log('decrypted data form hero section')
-          console.log('userdata ------------>>>>>>>> 51', userdata)
           if (userdata.isBasicDetailsCompleted) {
-            console.log('1')
             dispatch(setShowOTPmodal(false));
             dispatch(profileFilled(true));
           } else {
-            console.log('2')
             dispatch(setShowProfileForm(false));
           }
         } catch (errorWhileCheckingIsUserNew) {
-          console.log(
-            "errorWhileCheckingIsUserNew:",
-            errorWhileCheckingIsUserNew
-          );
+          alert(errorWhileCheckingIsUserNew);
         }
       }
     };
@@ -179,7 +169,7 @@ const HeroSection = () => {
             </motion.div>
           </div>
           {showProfileForm && (
-            <SetProfileForNewUser isOpen={OpenSetUserProfile} onClose={() => { setOpenSetUserProfile(!OpenSetUserProfile) }} />
+            <SetProfileForNewUser isOpen={showProfileForm} onClose={onClose} />
           )}
         </div>
       </motion.div>

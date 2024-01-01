@@ -13,7 +13,7 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
+import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -30,13 +30,14 @@ const Navbar = () => {
   };
 
   const logoutProfile = () => {
-    console.log("logged out");
+    // console.log("logged out");
     router.push("/");
     localStorage.removeItem("mobile_number");
     localStorage.removeItem("token");
     localStorage.removeItem("isLogIn");
     dispatch(setShowOTPmodal(false));
     dispatch(setIsLoggedIn(false));
+    dispatch(setShowProfileForm(false));
   };
 
   // logoutProfile()
@@ -226,7 +227,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log("clicking coins");
+                    // console.log("clicking coins");
                   }}
                   className={styles.p1}
                 >
@@ -237,7 +238,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log("clicking about");
+                    // console.log("clicking about");
                   }}
                   className={styles.p1}
                 >
@@ -248,7 +249,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log("clicking contact");
+                    // console.log("clicking contact");
                   }}
                   className={styles.p1}
                 >
@@ -259,7 +260,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    console.log("clicking dashboard");
+                    // console.log("clicking dashboard");
                   }}
                   className={styles.p1}
                 >

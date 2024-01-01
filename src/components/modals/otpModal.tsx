@@ -58,7 +58,7 @@ export default function OtpModal() {
         const decryptedData = await AesDecrypt(response.data.payload);
         const result = JSON.parse(decryptedData);
         if (result.status == true) {
-          console.log('result', result);
+          // console.log('result', result);
           dispatch(setIsLoggedIn(true));
           if (result.data.isNewUser) {
             dispatch(setShowProfileForm(true));
