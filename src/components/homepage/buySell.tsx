@@ -30,9 +30,11 @@ import Modal from "../modals/modal";
 import ModalCoupon from "../modals/modalcoupon";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { selectUser } from "@/redux/userDetailsSlice";
 
 const BuySell = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [isgold, setIsGold] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState("buy");
   const [activeTabPurchase, setActiveTabPurchase] = useState("rupees");
@@ -61,6 +63,8 @@ const BuySell = () => {
 
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
+
+  console.log('user', user)
   // console.table({
   //   orderType: purchaseType.toUpperCase(),
   //   item: metalType.toUpperCase(),
@@ -472,11 +476,11 @@ const BuySell = () => {
                     ) : (
                       <img src="/Silverbar.png" className="h-6 sm:h-6" />
                     )}
-                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
+                    <p className="text-white text-sm sm:text-lg">{metalType === 'gold' ? `${ParseFloat(user.data.user_vaults.gold, 2)}` : `${ParseFloat(user.data.user_vaults.silver, 2)}`} gm</p>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="w-10 " />
-                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
+                    <p className="text-white text-sm sm:text-lg">₹ {metalType === 'gold' ? `${ParseFloat(ParseFloat(user.data.user_vaults.gold, 2) * metalPricePerGram, 2)}` : `${ParseFloat(ParseFloat(user.data.user_vaults.silver, 2), 2)}`} </p>
                   </div>
                 </div>
               </div>

@@ -8,21 +8,22 @@ import { useRouter } from "next/navigation";
 import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SetProfileForNewUser from "../setProfile";
-import { RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { fetchUserDetails } from "@/redux/userDetailsSlice";
 
 export default function OtpModal() {
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const [otp, setOtp] = useState("");
   const router = useRouter();
-  const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
-  // const [isNewUser, setIsNewUser] = useState(false);
   const showProfileForm = useSelector(
     (state: RootState) => state.auth.showProfileForm
   );
+  const dispatch: AppDispatch = useDispatch();
+
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -59,10 +60,11 @@ export default function OtpModal() {
         const result = JSON.parse(decryptedData);
         if (result.status == true) {
           // console.log('result', result);
+          dispatch(fetchUserDetails());
+          
           dispatch(setIsLoggedIn(true));
           if (result.data.isNewUser) {
             dispatch(setShowProfileForm(true));
-            // setIsNewUser(true);
           }
           localStorage.setItem("token", result?.data?.otpVarifiedToken);
           dispatch(setShowOTPmodal(false));
