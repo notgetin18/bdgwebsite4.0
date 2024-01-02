@@ -65,12 +65,12 @@ export interface ShopState {
   purchaseType: PurchaseType;
   metalType: MetalType;
   transactionType: TransactionType;
-  enteredAmount: number | undefined;
+  enteredAmount: number;
   actualAmount: number;
   gst: number;
   metalPrice: number,
-  metalQuantity: number | undefined,
-  totalAmount: number | undefined,
+  metalQuantity: number,
+  totalAmount: number,
 }
 
 export interface UserReward {

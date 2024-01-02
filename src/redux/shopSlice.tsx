@@ -7,12 +7,12 @@ const initialState: ShopState = {
     purchaseType: 'buy',
     metalType: 'gold',
     transactionType: 'rupees',
-    enteredAmount: undefined,
+    enteredAmount: 0,
     actualAmount: 0,
     gst: 0,
     metalPrice: 0,
-    metalQuantity: undefined,
-    totalAmount: undefined,
+    metalQuantity: 0,
+    totalAmount: 0,
 };
 
 // Helper function to calculate values based on the state
@@ -35,6 +35,8 @@ const recalculateValues = (state: ShopState) => {
     } else {
         if (state.transactionType === 'rupees') {
             state.metalQuantity = ParseFloat((enteredAmount / metalPrice), 4);
+            state.actualAmount = state.enteredAmount;
+            state.totalAmount = state.enteredAmount;
             state.gst = 0;
         } else if (state.transactionType === 'grams') {
             state.gst = 0;

@@ -105,8 +105,8 @@ const BuySell = () => {
       orderType: string;
       itemType: string;
       unit: string;
-      gram: number | undefined;
-      amount: number | undefined;
+      gram: number;
+      amount: number;
       currentMatelPrice: number;
       fromApp: boolean;
       couponCode?: string;
