@@ -73,7 +73,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
 
   const checkPaymentStatus = () => {
     let token = localStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
     const configHeaders = {
       headers: {
         authorization: `Bearer ${token}`,
@@ -132,7 +132,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   //   setToken(token);
   // }, [props.show])
 
-  console.log("000000000000000000000000000000000" , appliedCouponCode ? appliedCouponCode : '',)
+  // console.log("000000000000000000000000000000000" , appliedCouponCode ? appliedCouponCode : '',)
 
   const buyReqApiHandler = async () => {
     const dataToBeDecrypt = {
@@ -197,6 +197,94 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
       })
     })
   }
+
+  console.table({
+    purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
+    unit: "GRAMS",
+    gram: metalQuantity,
+    amount: enteredAmount,
+    order_preview_id: transactionId,
+    amountWithoutTax:  enteredAmount,
+    totalAmount: enteredAmount,
+    // paymentMode : upiId,
+    itemMode: "DIGITAL",
+    fromApp: false,
+  })
+
+  const sellReqApiHandler = async () => {
+    const dataToBeDecrypt = {
+      purpose: purchaseType.toUpperCase() == 'gold' ? "SELL_GOLD" : "SELL_SILVER",
+      unit: "GRAMS",
+      gram: metalQuantity,
+      amount: actualAmount,
+      order_preview_id: transactionId,
+      amountWithoutTax:  actualAmount,
+      totalAmount: actualAmount,
+      // paymentMode : upiId,
+      itemMode: "DIGITAL",
+      fromApp: false,
+
+
+      // orderType: purchaseType.toUpperCase(),
+      // item: metalType.toUpperCase(),
+      // unit: "AMOUNT",
+      // gram: metalQuantity,
+      // amount: totalAmount,
+      // order_preview_id: transactionId,
+      // amountWithoutTax: actualAmount,
+      // tax: "3",
+      // totalAmount: totalAmount,
+      // couponCode: appliedCouponCode ? appliedCouponCode : '',
+      // itemMode: "DIGITAL",
+      // gst_number: '',
+      // fromApp: false,
+      // payment_mode: 'cashfree'
+    };
+
+    const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
+
+    const payloadToSend = {
+      payload: resAfterEncryptData,
+    };
+    const configHeaders = {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+    axios
+      .post(
+        `${process.env.baseUrl}/user/sale/order/request`,
+        payloadToSend,
+        configHeaders
+      )
+      .then(async (resAfterSellReq) => {
+        const decryptedData = await funcForDecrypt(
+          resAfterSellReq.data.payload
+        );
+
+        if (JSON.parse(decryptedData).status) {
+          Swal.fire(
+            "Success",
+            `${JSON.parse(decryptedData).message}`,
+            "success"
+          );
+          // closeTheModal();
+        }
+        // setPreviewData(JSON.parse(decryptedData).data);
+      })
+      .catch(async (errInBuyReq) => {
+        const decryptedData = await funcForDecrypt(
+          errInBuyReq.response.data.payload
+        );
+        let decryptPayload = JSON.parse(decryptedData);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: decryptPayload.message,
+        });
+      });
+  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>

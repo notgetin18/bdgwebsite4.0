@@ -3,7 +3,6 @@ import {
   ArrowUpIcon,
   ChevronDownIcon,
   ChevronUpIcon,
-  ChevronLeftIcon,
 } from "@heroicons/react/20/solid";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -24,14 +23,12 @@ import {
   setCouponError,
 } from "@/redux/couponSlice";
 import Timer from "../globalTimer";
-import { useCoupons } from "@/customHooks/coupons";
 import {
   ParseFloat,
   funForAesEncrypt,
   funcForDecrypt,
 } from "../helperFunctions";
 import Modal from "../modals/modal";
-import ModalCoupon from "../modals/modalcoupon";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { selectUser } from "@/redux/userDetailsSlice";
@@ -43,7 +40,6 @@ const BuySell = () => {
   const [activeTab, setActiveTab] = useState("buy");
   const [activeTabPurchase, setActiveTabPurchase] = useState("rupees");
   const [validationError, setValidationError] = useState<string>("");
-  const [showCoupon, setShowCoupon] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModalCouponOpen, setModalCouponOpen] = useState(false);
 
@@ -89,19 +85,19 @@ const BuySell = () => {
   const SilverVault = user.data.user_vaults.silver
 
 
-  console.log('user', user.data.user_vaults.gold)
-  console.log("user", user);
-  // console.table({
-  //   orderType: purchaseType.toUpperCase(),
-  //   item: metalType.toUpperCase(),
-  //   // unit: "AMOUNT",
-  //   gram: metalQuantity,
-  //   amount: totalAmount,
-  //   // gst_number: props.gstNum,
-  //   // currentMatelPrice: 33.22,
-  //   currentMatelPrice: metalPricePerGram,
-  //   fromApp: false,
-  // })
+  // console.log('user', user.data.user_vaults.gold)
+  // console.log("user", user);
+  console.table({
+    orderType: purchaseType.toUpperCase(),
+    item: metalType.toUpperCase(),
+    unit: "AMOUNT",
+    gram: metalQuantity,
+    amount: totalAmount,
+    // gst_number: props.gstNum,
+    // currentMatelPrice: 33.22,
+    currentMatelPrice: metalPricePerGram,
+    fromApp: false,
+  })
 
   const previewModal = async () => {
     // Notiflix.Loading.custom({svgSize:'180px',customSvgCode: '<object type="image/svg+xml" data="/svg/pageloader.svg">svg-animation</object>'});
@@ -232,9 +228,9 @@ const BuySell = () => {
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
     dispatch(setPurchaseType(tab));
-    dispatch(setEnteredAmount(0));
     setValidationError("");
     dispatch(clearCoupon());
+    dispatch(setEnteredAmount(0));
   };
 
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
@@ -299,7 +295,7 @@ const BuySell = () => {
     if (!enteredAmount) {
       setValidationError("Please enter amount");
       return;
-    } else if (enteredAmount < 100) {
+    } else if (enteredAmount < 1) {
       setValidationError("Minimum Sell amount is Rs.100");
       return;
     }
@@ -345,35 +341,35 @@ const BuySell = () => {
     setModalCouponOpen(false);
   };
 
-  // useEffect(() => {
-  //   // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
-  //   console.table({
-  //     purchaseType,
-  //     actualAmount,
-  //     gst,
-  //     metalType,
-  //     transactionType,
-  //     metalPricePerGram,
-  //     totalAmount,
-  //     enteredAmount,
-  //     metalQuantity,
-  //   });
-  // }, [
-  //   error,
-  //   appliedCouponCode,
-  //   extraGoldOfRuppess,
-  //   extraGold,
-  //   purchaseType,
-  //   actualAmount,
-  //   gst,
-  //   totalAmount,
-  //   metalType,
-  //   transactionType,
-  //   metalPricePerGram,
-  //   enteredAmount,
-  //   metalQuantity,
-  //   toggleMetal,
-  // ]);
+  useEffect(() => {
+    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
+    console.table({
+      purchaseType,
+      actualAmount,
+      gst,
+      metalType,
+      transactionType,
+      metalPricePerGram,
+      totalAmount,
+      enteredAmount,
+      metalQuantity,
+    });
+  }, [
+    error,
+    appliedCouponCode,
+    extraGoldOfRuppess,
+    extraGold,
+    purchaseType,
+    actualAmount,
+    gst,
+    totalAmount,
+    metalType,
+    transactionType,
+    metalPricePerGram,
+    enteredAmount,
+    metalQuantity,
+    toggleMetal,
+  ]);
 
   return (
     <>
@@ -572,7 +568,7 @@ const BuySell = () => {
                       handleEnteredAmountChange(e);
                     }}
                     step="0.0001"
-                    value={enteredAmount === 0 ? undefined : enteredAmount}
+                    value={enteredAmount === 0 ? 0 : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {
