@@ -32,7 +32,7 @@ const OrdersTabs = () => {
   const [itemList, setItemList] = useState<any[]>([]);
   const [range, setRange] = useState([
     {
-      startDate: new Date(`${year}/${1}/${1}`),
+      startDate: new Date(`${2023}/${1}/${1}`),
       endDate: addDays(new Date(), 7),
       key: "selection",
     },
