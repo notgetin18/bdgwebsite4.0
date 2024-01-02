@@ -1,7 +1,6 @@
 import { AppDispatch } from '@/redux/store';
-import { fetchUserDetails, selectUser } from '@/redux/userDetailsSlice';
-import React, { useEffect, useState } from 'react'
-import { FaEdit } from 'react-icons/fa';
+import { selectUser } from '@/redux/userDetailsSlice';
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { VscVerifiedFilled } from 'react-icons/vsc';
 import { MdScheduleSend } from 'react-icons/md';
@@ -11,17 +10,10 @@ import { AesDecrypt } from '@/components/helperFunctions';
 
 const ProfileInfo = ({ onEditDetailsClick }: any) => {
     const user = useSelector(selectUser);
-    const dispatch: AppDispatch = useDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            dispatch(fetchUserDetails());
-        };
-        fetchData();
-        // console.log('user details fetched', user)
-    }, [dispatch]);
+
 
     const verifyEmail = () => {
 
@@ -48,7 +40,6 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
                     })
                 })
                 .catch(async (errorInVerifyEmail) => {
-                    // log(errorInVerifyEmail.payload);
                     const decryptedData = await AesDecrypt(errorInVerifyEmail.payload)
                     const finalResult = JSON.parse(decryptedData);
                     Swal.fire({
@@ -71,17 +62,17 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
             <div className="w-full p-4 text-white flex flex-col">
                 <div className="mb-2 flex justify-between rounded-b-lg">
                     <span className="font-bold">Name</span>
-                    <span>{user.data.name}</span>
+                    <span>{user?.data?.name}</span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Mobile Number</span>
-                    <span>{user.data.mobile_number}</span>
+                    <span>{user?.data?.mobile_number}</span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Date of Birth</span>
-                    <span>{new Date(user.data.dateOfBirth).toLocaleDateString("en-IN", {
+                    <span>{new Date(user?.data?.dateOfBirth).toLocaleDateString("en-IN", {
                         day: "2-digit",
                         month: "short",
                         year: "numeric",
@@ -90,12 +81,12 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Email ID</span>
-                    <span className='flex items-center'>{user.data.email}<span className='pl-2'>{user?.data?.isEmailVerified ? <VscVerifiedFilled className="cursor-pointer" color={'green'} size={24} /> : <MdScheduleSend onClick={verifyEmail} className="cursor-pointer" color={'yellow'} size={24} />}</span></span>
+                    <span className='flex items-center'>{user?.data?.email}<span className='pl-2'>{user?.data?.isEmailVerified ? <VscVerifiedFilled className="cursor-pointer" color={'green'} size={24} /> : <MdScheduleSend onClick={verifyEmail} className="cursor-pointer" color={'yellow'} size={24} />}</span></span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 <div className="mb-2 flex justify-between">
                     <span className="font-bold">Gender</span>
-                    <span>{user.data.gender.toUpperCase()}</span>
+                    <span>{user?.data?.gender?.toUpperCase()}</span>
                 </div>
                 <hr className="border-gray-500 my-1" />
                 {/* <div className="flex justify-between">

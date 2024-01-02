@@ -34,9 +34,11 @@ import Modal from "../modals/modal";
 import ModalCoupon from "../modals/modalcoupon";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { selectUser } from "@/redux/userDetailsSlice";
 
 const BuySell = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const [isgold, setIsGold] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState("buy");
   const [activeTabPurchase, setActiveTabPurchase] = useState("rupees");
@@ -83,17 +85,19 @@ const BuySell = () => {
 
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
-  console.table({
-    orderType: purchaseType.toUpperCase(),
-    item: metalType.toUpperCase(),
-    // unit: "AMOUNT",
-    gram: metalQuantity,
-    amount: totalAmount,
-    // gst_number: props.gstNum,
-    // currentMatelPrice: 33.22,
-    currentMatelPrice: metalPricePerGram,
-    fromApp: false,
-  });
+
+  console.log("user", user);
+  // console.table({
+  //   orderType: purchaseType.toUpperCase(),
+  //   item: metalType.toUpperCase(),
+  //   // unit: "AMOUNT",
+  //   gram: metalQuantity,
+  //   amount: totalAmount,
+  //   // gst_number: props.gstNum,
+  //   // currentMatelPrice: 33.22,
+  //   currentMatelPrice: metalPricePerGram,
+  //   fromApp: false,
+  // })
 
   const previewModal = async () => {
     // Notiflix.Loading.custom({svgSize:'180px',customSvgCode: '<object type="image/svg+xml" data="/svg/pageloader.svg">svg-animation</object>'});
@@ -486,7 +490,7 @@ const BuySell = () => {
               </div>
             </div>
             {purchaseType === "sell" && (
-              <div className="bg-themeLight001 p-3 mx-6 mt-4 rounded-lg border-1 grid grid-cols-3 gap-1 sm:gap-4 items-center justify-between place-items-center sm:place-content-between">
+              <div className="bg-themeLight001 p-0 mx-4 mt-4 rounded-lg border-1 grid grid-cols-3 gap-1 sm:gap-4 items-center justify-between place-items-center sm:place-content-between">
                 <div className="col-span-1">
                   <img src="/lottie/New Web Vault.gif" className="h-20" />
                 </div>
@@ -497,11 +501,28 @@ const BuySell = () => {
                     ) : (
                       <img src="/Silverbar.png" className="h-6 sm:h-6" />
                     )}
-                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
+                    <p className="text-white text-sm sm:text-lg">
+                      {metalType === "gold"
+                        ? `${ParseFloat(user.data.user_vaults.gold, 2)}`
+                        : `${ParseFloat(user.data.user_vaults.silver, 2)}`}{" "}
+                      gm
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="w-10 " />
-                    <p className="text-white text-sm sm:text-lg">₹ 3000</p>
+                    <p className="text-white text-sm sm:text-lg">
+                      ₹{" "}
+                      {metalType === "gold"
+                        ? `${ParseFloat(
+                            ParseFloat(user.data.user_vaults.gold, 2) *
+                              metalPricePerGram,
+                            2
+                          )}`
+                        : `${ParseFloat(
+                            ParseFloat(user.data.user_vaults.silver, 2),
+                            2
+                          )}`}{" "}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -509,7 +530,7 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-3/4">
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
+                  className={`text-center border-2 text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
                     activeTabPurchase === "rupees"
                       ? "bg-transparent text-black bg-themeBlue active extrabold"
                       : "text-white"
@@ -519,10 +540,10 @@ const BuySell = () => {
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
+                  className={`text-center border-2  text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
                     activeTabPurchase === "grams"
-                      ? "bg-transparent text-black bg-themeBlue active extrabold"
-                      : "text-white "
+                      ? "bg-transparent text-black  bg-themeBlue active extrabold"
+                      : "text-white"
                   }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >

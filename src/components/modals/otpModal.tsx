@@ -5,24 +5,25 @@ import Swal from "sweetalert2";
 import { AesDecrypt, AesEncrypt } from "../helperFunctions";
 import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/navigation";
-import { setIsLoggedIn, setShowOTPmodal } from "@/redux/authSlice";
+import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SetProfileForNewUser from "../setProfile";
-import { RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { fetchUserDetails } from "@/redux/userDetailsSlice";
 
 export default function OtpModal() {
-  const [userProfile, setUserProfile] = useState(false);
   const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
   const [otp, setOtp] = useState("");
   const router = useRouter();
-  const dispatch = useDispatch();
   const [submitting, setSubmitting] = useState(false);
   const [otpError, setOtpError] = useState("");
   const showProfileForm = useSelector(
     (state: RootState) => state.auth.showProfileForm
   );
+  const dispatch: AppDispatch = useDispatch();
+
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -57,30 +58,19 @@ export default function OtpModal() {
         );
         const decryptedData = await AesDecrypt(response.data.payload);
         const result = JSON.parse(decryptedData);
-
         if (result.status == true) {
-          if (result.data.isNewUser == false) {
-            localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            // localStorage.setItem("isLogIn", true);
-            // dispatch(doShowLoginAside(false));
-            // dispatch(logInUser(true));
-            // dispatch(profileFilled(true));
-            // if (props.redirectData) {
-            // props.redirectData({ redirect: "handleClick", data: "SELL" });
-            // }
-            // props.setToggle(0);
-            // props.onHide();
-            // log("result?.data : ", result?.data);
-            dispatch(setIsLoggedIn(true));
-            dispatch(setShowOTPmodal(false));
-            router.push("/");
-          } else {
-            localStorage.setItem("token", result?.data?.otpVarifiedToken);
-            // props.setToggle(2);
+          // console.log('result', result);
+          dispatch(fetchUserDetails());
+          
+          dispatch(setIsLoggedIn(true));
+          if (result.data.isNewUser) {
+            dispatch(setShowProfileForm(true));
           }
+          localStorage.setItem("token", result?.data?.otpVarifiedToken);
+          dispatch(setShowOTPmodal(false));
+          router.push("/");
         } else {
           setOtp("");
-          // log("🚀 ~ file: otpScreen.js:112 ~ handleSubmit ~ setOtp:", setOtp)
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -89,7 +79,6 @@ export default function OtpModal() {
         }
         setSubmitting(false);
       } catch (error: any) {
-        // log('asdasd');
         const decryptedData = await AesDecrypt(error?.response?.data?.payload);
         const result = JSON.parse(decryptedData);
         Swal.fire({
@@ -122,14 +111,6 @@ export default function OtpModal() {
         >
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
-
-        {showProfileForm && (
-          <SetProfileForNewUser
-            isOpen={showProfileForm}
-            onClose={() => setUserProfile(false)}
-          />
-        )}
-
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
@@ -197,6 +178,13 @@ export default function OtpModal() {
                         </button>
                       </div>
                     </div>
+                    {/* {isNewUser && (
+                      <SetProfileForNewUser
+                        isOpen={isNewUser}  // Use isNewUser state to control visibility
+                        onClose={() => setIsNewUser(false)}  // Close the modal by updating state
+                      />
+                    )} */}
+
                   </div>
                 </div>
                 <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">

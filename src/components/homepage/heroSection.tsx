@@ -10,19 +10,26 @@ import { AesDecrypt } from "../helperFunctions";
 import {
   setShowOTPmodal,
   setShowProfileForm,
-  setUserExists,
+  profileFilled,
 } from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
+import { useRouter } from 'next/navigation'
+import SetProfileForNewUser from "../setProfile";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
-  const userExists = useSelector((state: RootState) => state.auth.userExists);
+  const router = useRouter();
+  const profileFilledd = useSelector((state: RootState) => state.auth.profileFilled);
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
+  const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
 
-  console.log("otpModal =-====>  ", otpModal);
-  console.log("userExists =-====>  ", userExists);
+  console.log("showProfileForm =-====>  ", showProfileForm);
+
+const onClose = () => {
+  dispatch(setShowProfileForm(false));
+};
 
   useEffect(() => {
     const checkUserIsNew = async () => {
@@ -46,15 +53,12 @@ const HeroSection = () => {
           const userdata = JSON.parse(decryptedData).data;
           if (userdata.isBasicDetailsCompleted) {
             dispatch(setShowOTPmodal(false));
-            dispatch(setUserExists(true));
+            dispatch(profileFilled(true));
           } else {
             dispatch(setShowProfileForm(false));
           }
         } catch (errorWhileCheckingIsUserNew) {
-          console.log(
-            "errorWhileCheckingIsUserNew:",
-            errorWhileCheckingIsUserNew
-          );
+          alert(errorWhileCheckingIsUserNew);
         }
       }
     };
@@ -62,7 +66,7 @@ const HeroSection = () => {
     checkUserIsNew();
   }, [dispatch]);
 
-  useEffect(() => {}, [otpModal]);
+  useEffect(() => { }, [otpModal]);
 
   return (
     <div className="bg-theme py-10">
@@ -164,6 +168,9 @@ const HeroSection = () => {
               <BuySell />
             </motion.div>
           </div>
+          {showProfileForm && (
+            <SetProfileForNewUser isOpen={showProfileForm} onClose={onClose} />
+          )}
         </div>
       </motion.div>
     </div>
