@@ -711,7 +711,7 @@ a {
 
 .delete {
   background: rgba(255, 87, 87, 0.1);
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 8px 8px;
   font-size: 16px;
   line-height: 150%;
   cursor: pointer;
@@ -720,7 +720,7 @@ a {
 
 .edit {
   background: rgba(253, 232, 163, 0.1);
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 8px 8px;
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
