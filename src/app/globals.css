@@ -54,7 +54,7 @@ body::-webkit-scrollbar {
   background-color: transparent;
 }
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(red, green);
+  background: linear-gradient(rgb(71, 71, 71), rgb(227, 224, 224));
   border-radius: 10px;
 }
 

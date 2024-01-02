@@ -88,7 +88,7 @@ const HeroSection = () => {
                   Start Your Savings
                 </span>
                 <br />
-                <span className="">
+                <span className=" font-thin">
                   {" "}
                   With Just <span className="text-gold01 extrabold">₹</span> 10
                 </span>
@@ -105,7 +105,7 @@ const HeroSection = () => {
                   </p>
                 </div>
 
-                <p className="text-white leading-8  mb-4 mt-6 text-xl pr-28">
+                <p className="text-white leading-8  mb-4 mt-6 text-lg pr-28">
                   We at Bright DiGi Gold invite you to embark on a journey of
                   effortless digital savings. In just a few clicks make your
                   savings grow in Digital Gold and Silver.  Your gateway to
