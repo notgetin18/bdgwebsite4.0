@@ -33,25 +33,25 @@ const HeroAbout = () => {
               Home
             </motion.h1>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center px-4 lg:px-52">
               <motion.div variants={fadeIn("left", "spring", 0.2, 1)}>
                 <img
                   className="z-20 relative"
-                  src="/aboutbanner10.png"
+                  src="/Login Screen.png"
                   alt="Your Company"
                 />
               </motion.div>
               <motion.div variants={textVariant(1.1)}>
                 <img
                   className="-mt-28 z-20 relative"
-                  src="/aboutbanner20.png"
+                  src="/Home Screen.png"
                   alt="Your Company"
                 />
               </motion.div>
               <motion.div variants={fadeIn("right", "spring", 0.2, 1)}>
                 <img
                   className="z-20 relative"
-                  src="/aboutbanner30.png"
+                  src="/Coin Screen.png"
                   alt="Your Company"
                 />
               </motion.div>

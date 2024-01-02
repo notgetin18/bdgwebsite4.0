@@ -14,7 +14,6 @@ const Coins = () => {
   const [activeTab, setActiveTab] = useState("ALL");
   const user = useSelector(selectUser);
 
-
   const getAllProducts = async (params: any) => {
     try {
       let url = `/public/products?limit=50&page=0`;
@@ -45,16 +44,12 @@ const Coins = () => {
     getAllProducts(tab);
   };
 
- 
+  const [state, setstate] = useState(false);
 
-  const [state, setstate] = useState(false)
- 
-
-  console.log("state", state)
+  console.log("state", state);
 
   return (
     <div className="container mx-auto">
-      
       <div className="flex justify-center items-center">
         <img
           src={"/lottie/product banner New.jpg"}
@@ -71,8 +66,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("ALL");
                 }}
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
-                  }`}
+                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
+                  activeTab === "ALL" ? "opacity-100 extrabold" : "opacity-50"
+                }`}
               >
                 All
               </div>
@@ -81,8 +77,9 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 h-5 cursor-pointer ${
+                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
@@ -91,8 +88,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("GOLD");
                 }}
-                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 cursor-pointer text-lg border-r-2 border-slate-400 pr-4 ${
+                  activeTab === "GOLD" ? "opacity-100" : "opacity-50"
+                }`}
               >
                 Gold
               </div>
@@ -101,8 +99,9 @@ const Coins = () => {
                   "https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"
                 }
                 alt="digital gold bar"
-                className={`ml-2 h-5 cursor-pointer ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 h-5 cursor-pointer ${
+                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                }`}
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
@@ -111,8 +110,9 @@ const Coins = () => {
                 onClick={() => {
                   handleTabClick("SILVER");
                 }}
-                className={`ml-2 cursor-pointer text-lg ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
-                  }`}
+                className={`ml-2 cursor-pointer text-lg ${
+                  activeTab === "SILVER" ? "opacity-100" : "opacity-50"
+                }`}
               >
                 Silver
               </div>
@@ -124,14 +124,18 @@ const Coins = () => {
             <img src={"Goldbarbanner.png"} className="h-5" alt="vault" />
             <div className="text-white ml-2 pr-4 flex">
               <p className="text-yellow-300 font-extrabold mr-2">Gold :</p>
-              <p className="text-yellow-300">{ParseFloat(user.data.user_vaults.gold, 2)} GM</p>
+              <p className="text-yellow-300">
+                {ParseFloat(user.data.user_vaults.gold, 2)} GM
+              </p>
             </div>
           </div>
           <div className="flex items-center">
             <img src={"/SilverBar.png"} className="h-5 sm:ml-4" alt="vault" />
             <div className="ml-2 flex">
               <p className="text-slate-200 font-extrabold mr-2">Silver :</p>
-              <p className="text-slate-200 font-semibold">{ParseFloat(user.data.user_vaults.silver, 2)} GM</p>
+              <p className="text-slate-200 font-semibold">
+                {ParseFloat(user.data.user_vaults.silver, 2)} GM
+              </p>
             </div>
           </div>
         </div>
@@ -143,7 +147,7 @@ const Coins = () => {
       >
         <motion.div
           variants={fadeIn("right", "spring", 0.25, 0.25)}
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 xl:gap-16 mt-6"
         >
           {ProductList.map((item, index) => (
             <div
@@ -154,10 +158,11 @@ const Coins = () => {
                 style={{
                   backgroundSize: "cover",
                   backgroundPosition: "bottom",
-                  backgroundImage: `url(${item.iteamtype.toLowerCase() === "gold"
-                    ? "/images/goldpart.png"
-                    : "/images/silverpart.png"
-                    })`,
+                  backgroundImage: `url(${
+                    item.iteamtype.toLowerCase() === "gold"
+                      ? "/images/goldpart.png"
+                      : "/images/silverpart.png"
+                  })`,
                 }}
                 className=""
               >

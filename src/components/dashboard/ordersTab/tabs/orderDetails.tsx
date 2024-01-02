@@ -4,7 +4,11 @@ import Link from "next/link";
 import React from "react";
 
 const OrderDetails = (props: any) => {
+<<<<<<< HEAD
+  console.log("props", props);
+=======
   // console.log('props', props);
+>>>>>>> 6e6e07e0493e4c666c28ce6122cb2dde299d7e6c
   return (
     <>
       <div className='coins_background rounded-lg shadow-black shadow-xl p-3'>
@@ -52,6 +56,13 @@ const OrderDetails = (props: any) => {
 
 
       <div>
+<<<<<<< HEAD
+        <p className="text-xl font-lg">Transaction Status</p>
+        <div className="grid grid-cols-3 justify-between pb-3">
+          <div className="flex items-center col-span-2">
+            <div>
+              {props?.orderDetails?.status === "SUCCESS" ||
+=======
         <p className="text-sm sm:text-base">
           {new Date(props.orderDetails?.createdAt).toLocaleDateString(
             "en-IN",
@@ -78,6 +89,7 @@ const OrderDetails = (props: any) => {
         <div className="flex items-center col-span-2">
           <div className="">
             {props?.orderDetails?.status === "SUCCESS" ||
+>>>>>>> 6e6e07e0493e4c666c28ce6122cb2dde299d7e6c
               props?.orderDetails?.status === "COMPLETED" ? (
               <img
                 src="https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png"

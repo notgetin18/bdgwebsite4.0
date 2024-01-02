@@ -2,7 +2,6 @@
 import { funcForDecrypt } from "@/components/helperFunctions";
 import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
 
 const Section = ({ sectionType, faqData }: any) => {
@@ -74,9 +73,7 @@ const Section = ({ sectionType, faqData }: any) => {
 
   return (
     <div>
-      <h3 className="py-12 pb-6 text-gold01 text-center text-2xl">
-        {sectionType}
-      </h3>
+      <h3 className="py-6 text-gold01 text-center text-2xl">{sectionType}</h3>
       <dl className="space-y-2 divide-y divide-gray-900/10">
         {/* Assuming you have a way to determine whether the section is open or closed */}
         {renderSection()}
@@ -104,8 +101,84 @@ const Faq = () => {
 
   return (
     <div>
-      <div className="col-span-2 p-4  text-white">
-        <p className="text-white text-3xl text-center">FAQs</p>
+      <div className="mx-auto px-4 sm:px-6 lg:px-16 py-8 text-white">
+        <p className="text-white text-5xl extrabold text-center">FAQs</p>
+
+        <div className="grid grid-cols-4 lg:grid-cols-8 gap-x-2 gap-y-5 sm:gap-x-5 mt-6 place-items-center">
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq1.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">BDG</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq2.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">BUY</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq3.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">SELL</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq4.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">DELIVERY</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq5.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">GIFT</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq6.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">RNE</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq7.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">KYC</p>
+            </a>
+          </div>
+          <div className="w-full sm:w-auto">
+            <a
+              href=""
+              className="rounded-md bg-themeLight block sm:inline-block px-2 sm:px-6 py-1 sm:py-2 text-center shadow-xl text-white hover:bg-slate-800"
+            >
+              <img src="/faq8.png" className="h-12 mx-auto" />
+              <p className="text-xxs  sm:text-sm mt-1">DIGITAL GOLD</p>
+            </a>
+          </div>
+        </div>
+
         {sectionTypes.map((sectionType) => (
           <Section
             key={sectionType}
