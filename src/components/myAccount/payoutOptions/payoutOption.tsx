@@ -3,8 +3,9 @@ import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import React, { FC, Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import BankVerification from "./addedBanksOrUPI";
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition } from "react-transition-group";
 import AddNewBank from "./addNewBank";
+import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
 
 interface PayoutOptionTabProps {
   onCompleteKYC: () => void;
@@ -16,29 +17,36 @@ const PayoutOptionTab: FC<PayoutOptionTabProps> = ({ onCompleteKYC }) => {
 
   const toggleBankVerificationHandler = () => {
     setToggleBankVerification((prevToggle) => !prevToggle);
-  }
+  };
 
   return (
     <Fragment>
       {user.data.isKycDone ? (
-        <div className={`text-white coins_backgroun m-2 rounded ${toggleBankVerification ? 'open' : ''}`}>
-          <div onClick={toggleBankVerificationHandler} className="coins_background m-3 p-2 flex justify-between rounded-md cursor-pointer">
-            <div className="text-3xl">ADD BANK</div>
+        <div
+          className={`text-white coins_backgroun py-3 rounded ${
+            toggleBankVerification ? "open" : ""
+          }`}
+        >
+          <div
+            onClick={toggleBankVerificationHandler}
+            className="mx-3 p-2 flex justify-between items-center rounded bg-themeLight px-3 py-1"
+          >
+            <div className="text-2xl">ADD BANK</div>
             <div onClick={toggleBankVerificationHandler}>
               {toggleBankVerification ? (
-                <ArrowDownIcon
-                  className="h-8 w-8"
+                <FaChevronCircleUp
+                  className="h-6 w-6"
                   aria-hidden="true"
-                  onClick={(e) => {
+                  onClick={(e: any) => {
                     e.stopPropagation();
                     toggleBankVerificationHandler();
                   }}
                 />
               ) : (
-                <ArrowUpIcon
-                  className="h-8 w-8"
+                <FaChevronCircleDown
+                  className="h-6 w-6"
                   aria-hidden="true"
-                  onClick={(e) => {
+                  onClick={(e: any) => {
                     e.stopPropagation();
                     toggleBankVerificationHandler();
                   }}
@@ -53,20 +61,23 @@ const PayoutOptionTab: FC<PayoutOptionTabProps> = ({ onCompleteKYC }) => {
             unmountOnExit
           >
             <div>
-              <AddNewBank toggleBankVerificationHandler={toggleBankVerificationHandler} />
+              <AddNewBank
+                toggleBankVerificationHandler={toggleBankVerificationHandler}
+              />
             </div>
           </CSSTransition>
           <BankVerification toggled={toggleBankVerification} />
         </div>
       ) : (
         <div className="w-full h-auto coins_background rounded flex flex-col items-center justify-center">
-          <p className="text-white text-center text-xl">Please Complete Your KYC First</p>
+          <p className="text-white text-center text-xl">
+            Please Complete Your KYC First
+          </p>
           <button
             onClick={onCompleteKYC}
-            className="border-2 border-yellow-400 rounded px-2 py-2 mt-4 mb-4">
-            <div className="text-yellow-400">
-              Complete KYC
-            </div>
+            className="border-2 border-yellow-400 rounded px-2 py-2 mt-4 mb-4"
+          >
+            <div className="text-yellow-400">Complete KYC</div>
           </button>
         </div>
       )}

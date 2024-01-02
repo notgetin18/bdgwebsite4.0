@@ -1,7 +1,7 @@
-import ProfileImage from './profileImage';
-import EditProfile from './editProfile';
-import ProfileInfo from './profileInfo';
-import { useState } from 'react';
+import ProfileImage from "./profileImage";
+import EditProfile from "./editProfile";
+import ProfileInfo from "./profileInfo";
+import { useState } from "react";
 
 const ProfileTab = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -20,10 +20,13 @@ const ProfileTab = () => {
 
   return (
     <>
-      <div className="coins_background rounded-lg w-full">
+      <div className="coins_background rounded-lg w-full pb-4">
         <ProfileImage />
         {isEditing ? (
-          <EditProfile onSaveDetails={handleSaveDetails} onCancel={handleCancelEdit} />
+          <EditProfile
+            onSaveDetails={handleSaveDetails}
+            onCancel={handleCancelEdit}
+          />
         ) : (
           <ProfileInfo onEditDetailsClick={handleEditDetailsClick} />
         )}

@@ -1,4 +1,11 @@
-type InputType = "text" | "number" | "email" | "password" | "date" | "textarea" | "gender";
+type InputType =
+  | "text"
+  | "number"
+  | "email"
+  | "password"
+  | "date"
+  | "textarea"
+  | "gender";
 
 interface InputProps {
   type?: InputType;
@@ -50,9 +57,15 @@ const ProfileInput = ({
             <option value="" disabled hidden>
               Select Gender
             </option>
-            <option value="male" className="text-black bg-slate-500 w-1/4">Male</option>
-            <option value="female" className="text-black bg-slate-500">Female</option>
-            <option value="other" className="text-black bg-slate-500">Other</option>
+            <option value="male" className="text-black bg-slate-500 w-1/4">
+              Male
+            </option>
+            <option value="female" className="text-black bg-slate-500">
+              Female
+            </option>
+            <option value="other" className="text-black bg-slate-500">
+              Other
+            </option>
           </select>
         ) : (
           <input
@@ -81,7 +94,7 @@ const ProfileInput = ({
 const styles = {
   p0: "mb-4",
   p1: "block text-sm mb-0 text-white ",
-  p2: "mt-3 block w-full text-white rounded bg-theme py-2 focus:outline-none  border-009 bg-transparent pl-0 focus:ring-0 focus:border-b",
+  p2: "mt-3 block w-full sm:w-1/2 text-white rounded bg-theme px-3 py-2 focus:outline-none  border-1  focus:ring-0 focus:border-b",
   p3: "text-red-500 text-sm",
   p4: "mt-0 text-black",
 };
