@@ -65,10 +65,6 @@ export default function OtpModal() {
           // console.log('result', result);
           localStorage.setItem("token", result?.data?.otpVarifiedToken);
           dispatch(fetchUserDetails());
-<<<<<<< HEAD
-
-=======
->>>>>>> f80a769b2d904ed971b76b98cc0a69429616adba
           dispatch(setIsLoggedIn(true));
           if (result.data.isNewUser) {
             dispatch(setShowProfileForm(true));
