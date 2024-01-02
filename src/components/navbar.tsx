@@ -13,11 +13,16 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+<<<<<<< HEAD
 import {
   setIsLoggedIn,
   setShowOTPmodal,
   setShowProfileForm,
 } from "@/redux/authSlice";
+=======
+import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
+import { fetchUserDetails, resetUserDetails } from "@/redux/userDetailsSlice";
+>>>>>>> f80a769b2d904ed971b76b98cc0a69429616adba
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -42,6 +47,7 @@ const Navbar = () => {
     dispatch(setShowOTPmodal(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setShowProfileForm(false));
+    dispatch(resetUserDetails());
   };
 
   // logoutProfile();

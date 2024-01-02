@@ -1,5 +1,5 @@
 // userSlice.ts
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from './store';
 import { funcForDecrypt } from '@/components/helperFunctions';
 import { UserState } from '@/types';
@@ -59,7 +59,6 @@ export const fetchUserDetails = createAsyncThunk(
     'user/fetchUserDetails',
     async (_, { rejectWithValue }) => {
         try {
-            // Make the API call to fetch user details
             const token = localStorage.getItem('token');
             const configHeaders = { headers: { authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } };
 
@@ -73,19 +72,18 @@ export const fetchUserDetails = createAsyncThunk(
             const decryptedData = await funcForDecrypt(data.payload);
             const userDetails: UserState = JSON.parse(decryptedData);
 
-            // Check if user details are nested under 'data'
-            const finalUserDetails = data.data ? data.data : userDetails;
+            const finalUserDetails =  userDetails;
 
             return { userDetails: finalUserDetails } as FetchUserDetailsResponse;
         } catch (error: any) {
             console.error('Error fetching user details:', error);
-            // Use rejectWithValue to pass the error to the reducer
             return rejectWithValue(error.message);
         }
     }
 );
 
-// Create a user slice
+export const resetUserDetails = createAction('user/resetUserDetails');
+
 const userDetailsSlice = createSlice({
     name: 'user',
     initialState,
@@ -93,11 +91,12 @@ const userDetailsSlice = createSlice({
         setUserDetails: (state, action: PayloadAction<UserState>) => {
             return { ...state, ...action.payload };
         },
+        resetUserDetails: (state) => {
+            return { ...initialState };
+        },
     },
     extraReducers: (builder) => {
-        // Handle the fetchUserDetails async thunk actions
         builder.addCase(fetchUserDetails.fulfilled, (state, action) => {
-            // Payload of the action is { userDetails: UserState }
             return { ...state, ...action.payload.userDetails };
         });
     },
@@ -106,5 +105,6 @@ const userDetailsSlice = createSlice({
 export const { setUserDetails } = userDetailsSlice.actions;
 export default userDetailsSlice.reducer;
 export const selectUser = (state: RootState) => state.user;
+
 
 

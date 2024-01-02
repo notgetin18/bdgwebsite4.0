@@ -22,6 +22,10 @@ const nextConfig = {
     // baseUrl: "https://bdgapi.testingphases.in",
     baseUrl: "https://api.brightdigigold.com",
     // baseUrl: "https://api.brightdigigold.com",
+<<<<<<< HEAD
+=======
+    baseUrl: "https://api.brightdigigold.com",
+>>>>>>> f80a769b2d904ed971b76b98cc0a69429616adba
     // baseUrl: "https://devapi.brightdigigold.com",
   },
   reactStrictMode: true,

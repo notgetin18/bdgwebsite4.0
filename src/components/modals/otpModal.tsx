@@ -29,7 +29,7 @@ export default function OtpModal() {
   const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = async () => {
-    const mobile_number = localStorage.getItem("mobile_number");
+    // const mobile_number = localStorage.getItem("mobile_number");
     // setShowMobileNumber(mobile_number);
     if (otp.length < 6) {
       setOtpError("Please Fill the OTP");
@@ -61,15 +61,18 @@ export default function OtpModal() {
         );
         const decryptedData = await AesDecrypt(response.data.payload);
         const result = JSON.parse(decryptedData);
-        if (result.status == true) {
+        if (result.status === true) {
           // console.log('result', result);
+          localStorage.setItem("token", result?.data?.otpVarifiedToken);
           dispatch(fetchUserDetails());
+<<<<<<< HEAD
 
+=======
+>>>>>>> f80a769b2d904ed971b76b98cc0a69429616adba
           dispatch(setIsLoggedIn(true));
           if (result.data.isNewUser) {
             dispatch(setShowProfileForm(true));
           }
-          localStorage.setItem("token", result?.data?.otpVarifiedToken);
           dispatch(setShowOTPmodal(false));
           router.push("/");
         } else {

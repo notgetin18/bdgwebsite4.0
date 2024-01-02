@@ -85,7 +85,11 @@ const BuySell = () => {
 
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
+  const goldVault = user.data.user_vaults.gold
+  const SilverVault = user.data.user_vaults.silver
 
+
+  console.log('user', user.data.user_vaults.gold)
   console.log("user", user);
   // console.table({
   //   orderType: purchaseType.toUpperCase(),
@@ -152,6 +156,11 @@ const BuySell = () => {
         setTransactionId(JSON.parse(decryptedData).data.transactionCache._id);
         if (JSON.parse(decryptedData).statusCode == 200) {
           // Notiflix.Loading.remove();
+          // if (purchaseType.toUpperCase() == "BUY") {
+          setModalOpen(true)
+          // } else {
+          // setSellModalShow(true);
+          // }
           if (purchaseType.toUpperCase() == "BUY") {
             setModalOpen(true);
           } else {
@@ -167,6 +176,7 @@ const BuySell = () => {
         let response = JSON.parse(decryptedData);
         console.log("decryptedData", response);
         if (response.messageCode == "TECHNICAL_ERROR") {
+          console.log('response.messageCode 128', response.messageCode)
           console.log("response.messageCode 128", response.messageCode);
           // updateMetalPrice();
           Swal.fire({
@@ -175,6 +185,8 @@ const BuySell = () => {
             text: "Session Expired",
           });
         } else if (response.messageCode == "KYC_PENDING") {
+          // setKycError(response.message);
+        } else if (response.messageCode == "SESSION_EXPIRED") {
           console.log("response.messageCode 135", response.messageCode);
           // setKycError(response.message);
         } else if (response.messageCode == "SESSION_EXPIRED") {
@@ -212,10 +224,10 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  const toggleCoupon = () => {
-    setShowCoupon(!showCoupon);
-    dispatch(setCouponError(""));
-  };
+  // const toggleCoupon = () => {
+  //   setShowCoupon(!showCoupon);
+  //   dispatch(setCouponError(""));
+  // };
 
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
@@ -269,7 +281,8 @@ const BuySell = () => {
       }
     }
   };
-  const handleClick = (e: any) => {
+
+  const handleBuyClick = (e: any) => {
     if (!enteredAmount) {
       setValidationError("Please enter amount");
       return;
@@ -279,6 +292,19 @@ const BuySell = () => {
     }
     setValidationError("");
     previewModal();
+    // setModalOpen(true);
+  };
+
+  const handleSellClick = (e: any) => {
+    if (!enteredAmount) {
+      setValidationError("Please enter amount");
+      return;
+    } else if (enteredAmount < 100) {
+      setValidationError("Minimum Sell amount is Rs.100");
+      return;
+    }
+    setValidationError("");
+    previewModal()
     // setModalOpen(true);
   };
 
@@ -356,11 +382,10 @@ const BuySell = () => {
           <div className="tab-bg  rounded-b-lg relative">
             <div className="grid grid-cols-2">
               <div
-                className={`text-center py-3 rounded font-semibold cursor-pointer ${
-                  activeTab === "buy"
+                className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
                     ? "bg-themeLight text-white active"
                     : "bg-themeLight01 text-sky-600"
-                }`}
+                  }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
                 }}
@@ -368,11 +393,10 @@ const BuySell = () => {
                 BUY
               </div>
               <div
-                className={`text-center py-3 rounded cursor-pointer ${
-                  activeTab === "sell"
+                className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
                     ? "bg-themeLight text-white active"
                     : "bg-themeLight01 text-sky-600"
-                }`}
+                  }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
                 SELL
@@ -436,11 +460,10 @@ const BuySell = () => {
                   <p className="text-xxs sm:text-xs font-base pl-6 flex">
                     {isgold ? (
                       <div
-                        className={`${
-                          goldData.percentage >= 0
+                        className={`${goldData.percentage >= 0
                             ? "text-green-500"
                             : "text-red-500"
-                        }`}
+                          }`}
                       >
                         {goldData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block text-green-500" />
@@ -451,11 +474,10 @@ const BuySell = () => {
                       </div>
                     ) : (
                       <div
-                        className={`${
-                          silverData.percentage >= 0
+                        className={`${silverData.percentage >= 0
                             ? "text-green-500"
                             : "text-red-500"
-                        }`}
+                          }`}
                       >
                         {silverData.percentage >= 0 ? (
                           <ArrowUpIcon className="h-4 inline-block" />
@@ -501,28 +523,14 @@ const BuySell = () => {
                     ) : (
                       <img src="/Silverbar.png" className="h-6 sm:h-6" />
                     )}
-                    <p className="text-white text-sm sm:text-lg">
-                      {metalType === "gold"
-                        ? `${ParseFloat(user.data.user_vaults.gold, 2)}`
-                        : `${ParseFloat(user.data.user_vaults.silver, 2)}`}{" "}
-                      gm
-                    </p>
+                    <p className="text-white text-sm sm:text-lg">{metalType === 'gold' ? `${ParseFloat(user?.data?.user_vaults?.gold, 4)}` : `${ParseFloat(user?.data?.user_vaults?.silver, 4)}`} gm</p>
+
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="w-10 " />
                     <p className="text-white text-sm sm:text-lg">
                       ₹{" "}
-                      {metalType === "gold"
-                        ? `${ParseFloat(
-                            ParseFloat(user.data.user_vaults.gold, 2) *
-                              metalPricePerGram,
-                            2
-                          )}`
-                        : `${ParseFloat(
-                            ParseFloat(user.data.user_vaults.silver, 2),
-                            2
-                          )}`}{" "}
-                    </p>
+                      {metalType === "gold" ? `${ParseFloat((user?.data?.user_vaults?.gold) * (metalPricePerGram), 2)}` : `${ParseFloat((user?.data?.user_vaults?.gold) * (metalPricePerGram), 2)}`} </p>
                   </div>
                 </div>
               </div>
@@ -530,21 +538,19 @@ const BuySell = () => {
             <div className="p-6 z-20">
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-3/4">
                 <div
-                  className={`text-center border-2 text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${
-                    activeTabPurchase === "rupees"
+                  className={`text-center border-2 text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${activeTabPurchase === "rupees"
                       ? "bg-transparent text-black bg-themeBlue active extrabold"
                       : "text-white"
-                  }`}
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
                   {purchaseType === "buy" ? " In Rupees" : " In Rupees"}
                 </div>
                 <div
-                  className={`text-center border-2  text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${
-                    activeTabPurchase === "grams"
+                  className={`text-center border-2  text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTabPurchase === "grams"
                       ? "bg-transparent text-black  bg-themeBlue active extrabold"
                       : "text-white"
-                  }`}
+                    }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
                   {purchaseType === "buy" ? "In Grams" : "In grams"}
@@ -595,8 +601,8 @@ const BuySell = () => {
                           ? ""
                           : metalQuantity
                         : totalAmount === 0
-                        ? ""
-                        : totalAmount
+                          ? ""
+                          : totalAmount
                     }
                     readOnly
                   />
@@ -661,13 +667,19 @@ const BuySell = () => {
                 </div>
               )}
               <div className="mt-12">
-                <button
-                  onClick={handleClick}
-                  className="w-full bg-themeBlue font-extrabold rounded-lg py-2 uppercase"
+                {purchaseType === "buy" && <button
+                  onClick={handleBuyClick}
+                  className="w-full bg-themeBlue rounded-lg py-2"
                 >
-                  {/* <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" /> */}
-                  {purchaseType === "buy" ? "Start Savings " : "Sell Now"}
-                </button>
+                  <p>Start Saving</p>
+                </button>}
+                {purchaseType === "sell" && <button
+                  onClick={handleSellClick}
+                  className="w-full bg-themeBlue rounded-lg py-2"
+                >
+                  <p>Sell Now</p>
+                </button>}
+
                 {isModalOpen && (
                   <Modal
                     transactionId={transactionId}
@@ -676,12 +688,7 @@ const BuySell = () => {
                   />
                 )}
 
-                {isModalCouponOpen && (
-                  <ModalCoupon
-                    isOpen={isModalCouponOpen}
-                    onClose={closeModal}
-                  />
-                )}
+
               </div>
             </div>
           </div>
