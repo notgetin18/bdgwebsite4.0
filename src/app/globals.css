@@ -215,7 +215,12 @@ input[type="number"] {
   transition: 0.5s;
   border-radius: 50%;
 }
-
+.aniFab {
+  transform: scale(1) !important;
+}
+.aniFab:hover {
+  transform: scale(1.25);
+}
 input:checked + .slider {
   background-color: #c0c0c0; /* Change background color to Silver when checked */
 }

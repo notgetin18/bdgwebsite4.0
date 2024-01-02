@@ -4,9 +4,9 @@ import {
   Info,
   Mission,
   Motive,
-  Review,
   Succession,
 } from "@/components";
+import Review from "@/components/about/reviewAbout";
 import React from "react";
 
 const About = () => {
