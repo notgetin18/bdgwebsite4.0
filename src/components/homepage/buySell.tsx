@@ -64,7 +64,7 @@ const BuySell = () => {
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
 
-  console.log('user', user)
+  console.log('user', user.data.user_vaults.gold)
   // console.table({
   //   orderType: purchaseType.toUpperCase(),
   //   item: metalType.toUpperCase(),
@@ -131,11 +131,11 @@ const BuySell = () => {
         setTransactionId(JSON.parse(decryptedData).data.transactionCache._id);
         if (JSON.parse(decryptedData).statusCode == 200) {
           // Notiflix.Loading.remove();
-          if (purchaseType.toUpperCase() == "BUY") {
-            setModalOpen(true)
-          } else {
-            // setSellModalShow(true);
-          }
+          // if (purchaseType.toUpperCase() == "BUY") {
+          setModalOpen(true)
+          // } else {
+          // setSellModalShow(true);
+          // }
         }
       })
       .catch(async (errInPreview) => {
@@ -147,18 +147,14 @@ const BuySell = () => {
         console.log('decryptedData', response)
         if (response.messageCode == "TECHNICAL_ERROR") {
           console.log('response.messageCode 128', response.messageCode)
-          // updateMetalPrice();
           Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Session Expired",
           });
         } else if (response.messageCode == "KYC_PENDING") {
-          console.log('response.messageCode 135', response.messageCode)
           // setKycError(response.message);
         } else if (response.messageCode == "SESSION_EXPIRED") {
-          console.log('response.messageCode 138', response.messageCode)
-          // updateMetalPrice();
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -191,10 +187,10 @@ const BuySell = () => {
     dispatch(clearCoupon());
   };
 
-  const toggleCoupon = () => {
-    setShowCoupon(!showCoupon);
-    dispatch(setCouponError(""));
-  };
+  // const toggleCoupon = () => {
+  //   setShowCoupon(!showCoupon);
+  //   dispatch(setCouponError(""));
+  // };
 
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
@@ -248,12 +244,26 @@ const BuySell = () => {
       }
     }
   };
-  const handleClick = (e: any) => {
+
+  const handleBuyClick = (e: any) => {
     if (!enteredAmount) {
       setValidationError("Please enter amount");
       return;
     } else if (totalAmount !== undefined && totalAmount < 10) {
       setValidationError("Minimum Purchase amount is Rs.10");
+      return;
+    }
+    setValidationError("");
+    previewModal()
+    // setModalOpen(true);
+  };
+
+  const handleSellClick = (e: any) => {
+    if (!enteredAmount) {
+      setValidationError("Please enter amount");
+      return;
+    } else if (enteredAmount < 100) {
+      setValidationError("Minimum Sell amount is Rs.100");
       return;
     }
     setValidationError("");
@@ -476,7 +486,7 @@ const BuySell = () => {
                     ) : (
                       <img src="/Silverbar.png" className="h-6 sm:h-6" />
                     )}
-                    <p className="text-white text-sm sm:text-lg">{metalType === 'gold' ? `${ParseFloat(user.data.user_vaults.gold, 2)}` : `${ParseFloat(user.data.user_vaults.silver, 2)}`} gm</p>
+                    <p className="text-white text-sm sm:text-lg">{metalType === 'gold' ? `${ParseFloat(user.data.user_vaults.gold, 2)}` : `${ParseFloat(user.data.user_vaults.silver, 2)}`} gmmm</p>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="w-10 " />
@@ -619,13 +629,18 @@ const BuySell = () => {
                 </div>
               )}
               <div className="mt-12">
-                <button
-                  onClick={handleClick}
+                {purchaseType === "buy" && <button
+                  onClick={handleBuyClick}
                   className="w-full bg-themeBlue rounded-lg py-2"
                 >
-                  {/* <ChevronLeftIcon className="h-6 rounded-full border-2 border-black inline-block float-left ml-4" /> */}
-                  {purchaseType === "buy" ? "Start Saving " : "Sell Now"}
-                </button>
+                  <p>Start Saving</p>
+                </button>}
+                {purchaseType === "sell" && <button
+                  onClick={handleSellClick}
+                  className="w-full bg-themeBlue rounded-lg py-2"
+                >
+                  <p>Sell Now</p>
+                </button>}
                 {isModalOpen && (
                   <Modal transactionId={transactionId} isOpen={isModalOpen} onClose={closeModal} />
                 )}

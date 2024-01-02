@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
+import { fetchUserDetails, resetUserDetails } from "@/redux/userDetailsSlice";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -38,6 +39,7 @@ const Navbar = () => {
     dispatch(setShowOTPmodal(false));
     dispatch(setIsLoggedIn(false));
     dispatch(setShowProfileForm(false));
+    dispatch(resetUserDetails());
   };
 
   // logoutProfile()

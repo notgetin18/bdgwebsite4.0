@@ -27,9 +27,9 @@ const HeroSection = () => {
 
   console.log("showProfileForm =-====>  ", showProfileForm);
 
-const onClose = () => {
-  dispatch(setShowProfileForm(false));
-};
+  const onClose = () => {
+    dispatch(setShowProfileForm(false));
+  };
 
   useEffect(() => {
     const checkUserIsNew = async () => {
@@ -89,7 +89,8 @@ const onClose = () => {
                 className="text-6xl text-white font-semibold leading-tight mb-12 "
               >
                 <span className="text-themeBlueLight extrabold">
-                  Start Your Savings
+                  {/* Start Your Savings */}
+                  let me complete first ????
                 </span>
                 <br />
                 <span className="">
