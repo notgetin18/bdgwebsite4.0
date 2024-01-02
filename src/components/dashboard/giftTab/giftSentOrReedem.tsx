@@ -182,7 +182,7 @@ const Redeem = () => {
         </p>
         <dl className="mt-10 space-y-2">
           <div className=" ">
-            <div className="grid grid-cols-2 items-center justify-between">
+            <div className="grid grid-cols-3 items-center justify-between">
               <div className="">
                 <label className="text-white m-3">Metal</label>
                 <select
@@ -218,7 +218,7 @@ const Redeem = () => {
                 <div className="flex items-center justify-end ">
                   {page > 1 && (
                     <div
-                      className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer"
+                      className="m-2 px-2 text-center text-white rounded bg-themeLight cursor-pointer"
                       onClick={prevPageHandler}
                     >
                       Prev
@@ -226,7 +226,7 @@ const Redeem = () => {
                   )}
                   <div className="">
                     <select
-                      className="cursor-pointer px-2 text-white rounded border-2 border-yellow-400 bg-transparent"
+                      className="cursor-pointer px-2 text-white rounded bg-themeLight"
                       onChange={updatePage}
                       value={page}
                     >
@@ -243,7 +243,7 @@ const Redeem = () => {
                   </div>
                   {page < totalPage && (
                     <div
-                      className="m-2 px-2 text-center text-white bg-transparent rounded border-2 border-yellow-400 cursor-pointer"
+                      className="m-2 px-2 text-center text-white  rounded bg-themeLight cursor-pointer"
                       onClick={nextPageHandler}
                     >
                       Next
@@ -300,35 +300,35 @@ const Redeem = () => {
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "CANCELLED" && (
-                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent text-gold01 border-2 cursor-pointer p-3">
                             Cancelled
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "REDEEM" && (
-                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
                             Redeemed
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "EXPIRED" && (
-                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
                             Expired
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "SEND" && (
-                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
                             Redeemed
                           </div>
                         )}
 
                       {userRewards.rewardsType == "REFERANDEARN" &&
                         userRewards.status == "REDEEM" && (
-                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
                             Redeemed
                           </div>
                         )}
@@ -336,7 +336,7 @@ const Redeem = () => {
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "SENT" && (
                           <div
-                            className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3"
+                            className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3"
                             onClick={() =>
                               rewardAction(
                                 "cancel",

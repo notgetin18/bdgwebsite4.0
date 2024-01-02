@@ -395,130 +395,132 @@ const OrdersTabs = () => {
                   }
                 >
                   <div className="grid grid-cols-6 gap-1">
-                    <div className="flex items-center justify-between col-span-1">
-                      {/* gold coin image */}
-                      {item?.orderType === "PRODUCT" &&
-                        item?.itemType === "GOLD" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://cdn4.vectorstock.com/i/1000x1000/23/78/gold-coin-vector-2272378.jpg"
-                          />
-                        )}
-                      {/* silver coin image */}
-                      {item?.orderType === "PRODUCT" &&
-                        item?.itemType === "SILVER" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://cf-cdn.pcjeweller.com/public/uploads/catalog/product/custom/s/SCGL00050-1__654735669.jpg"
-                          />
-                        )}
-                      {/* digital gold BUY image */}
-                      {item?.orderType === "BUY" &&
-                        item?.itemType === "GOLD" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://www.blog1.trymintly.com/wp-content/uploads/2022/08/Digital-Gold-1.jpg"
-                          />
-                        )}
-                      {/* digital gold SELL image */}
-                      {item?.orderType === "SELL" &&
-                        item?.itemType === "GOLD" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://cdn4.vectorstock.com/i/1000x1000/23/78/gold-coin-vector-2272378.jpg"
-                          />
-                        )}
-                      {/* digital silver BUY  image */}
-                      {item?.orderType === "BUY" &&
-                        item?.itemType === "SILVER" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://imgnew.outlookindia.com/uploadimage/library/16_9/16_9_2/IMAGE_1674541554.webp"
-                          />
-                        )}
-                      {/* digital silver SELL  image */}
-                      {item?.orderType === "SELL" &&
-                        item?.itemType === "SILVER" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://imgnew.outlookindia.com/uploadimage/library/16_9/16_9_2/IMAGE_1674541554.webp"
-                          />
-                        )}
-                      {/*reward digital silver  image */}
-                      {item?.orderType === "REWARD" &&
-                        item?.itemType === "SILVER" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://img.freepik.com/premium-vector/achievement-trophy-flat-vector-illustration-banner_128772-725.jpg"
-                          />
-                        )}
-                      {/*reward digital gold  image */}
-                      {item?.orderType === "REWARD" &&
-                        item?.itemType === "GOLD" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="https://img.freepik.com/premium-vector/achievement-trophy-flat-vector-illustration-banner_128772-725.jpg"
-                          />
-                        )}
-                      {/*GIFT  image */}
-                      {item?.orderType === "GIFT" && (
-                        <img
-                          alt="gold-logo"
-                          className="h-6"
-                          src="https://cityfurnish.com/blog/wp-content/uploads/2023/07/wrapped-gift-box-with-shiny-gold-decoration-generated-by-ai-min-1200x900.jpg"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col justify-start items-center col-span-2">
-                      <div className="flex flex-row">
-                        {item?.orderType !== "REWARD" && (
-                          <span className="">
-                            {formatString(item?.itemType)}
-                          </span>
-                        )}
-                        <span className="">
-                          {item?.orderType === "PRODUCT" && (
-                            <p>Coin Purchase</p>
+                    <div className="col-span-3 grid grid-cols-3 gap-3 items-center">
+                      <div className="flex items-center justify-between col-span-1">
+                        {/* gold coin image */}
+                        {item?.orderType === "PRODUCT" &&
+                          item?.itemType === "GOLD" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/coin1.png"
+                            />
                           )}
-                          {item?.orderType === "REWARD" &&
-                            "Promotional " + formatString(item?.itemType)}
-                          {item?.orderType === "BUY" && <p>Purchase</p>}
-                          {item?.orderType === "SELL" && <p>Sold</p>}
-                          {item?.orderType === "GIFT" &&
-                            item?.rewardsType === "SEND" && <p>Gift Sent</p>}
-                          {item?.orderType === "GIFT" &&
-                            item?.rewardsType === "RECEIVED" && (
-                              <p>Gift Received</p>
-                            )}
-                        </span>
+                        {/* silver coin image */}
+                        {item?.orderType === "PRODUCT" &&
+                          item?.itemType === "SILVER" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/Rectangle.png"
+                            />
+                          )}
+                        {/* digital gold BUY image */}
+                        {item?.orderType === "BUY" &&
+                          item?.itemType === "GOLD" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/Goldbarbanner.png"
+                            />
+                          )}
+                        {/* digital gold SELL image */}
+                        {item?.orderType === "SELL" &&
+                          item?.itemType === "GOLD" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/note.png"
+                            />
+                          )}
+                        {/* digital silver BUY  image */}
+                        {item?.orderType === "BUY" &&
+                          item?.itemType === "SILVER" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/Silverbar.png"
+                            />
+                          )}
+                        {/* digital silver SELL  image */}
+                        {item?.orderType === "SELL" &&
+                          item?.itemType === "SILVER" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/note.png"
+                            />
+                          )}
+                        {/*reward digital silver  image */}
+                        {item?.orderType === "REWARD" &&
+                          item?.itemType === "SILVER" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/Silverbar.png"
+                            />
+                          )}
+                        {/*reward digital gold  image */}
+                        {item?.orderType === "REWARD" &&
+                          item?.itemType === "GOLD" && (
+                            <img
+                              alt="gold-logo"
+                              className="h-6"
+                              src="/Goldbarbanner.png"
+                            />
+                          )}
+                        {/*GIFT  image */}
+                        {item?.orderType === "GIFT" && (
+                          <img
+                            alt="gold-logo"
+                            className="h-6"
+                            src="/Goldbarbanner.png"
+                          />
+                        )}
                       </div>
-                      <div>{item?.gram} gm</div>
-                      <div className="flex">
-                        <span
-                          className={`text-xs rounded-lg  py-1  ${
-                            item?.status === "SUCCESS" ||
-                            item?.status === "COMPLETED"
-                              ? "text-green-500"
-                              : item?.status === "PENDING"
-                              ? "text-yellow-500"
-                              : item?.status === "FAILED"
-                              ? "text-red-500"
-                              : "" // Default color or add another color class
-                          }`}
-                        >
-                          {item?.status}
-                        </span>
+                      <div className="flex flex-col justify-start items-center col-span-2">
+                        <div className="flex flex-row">
+                          {item?.orderType !== "REWARD" && (
+                            <span className="">
+                              {formatString(item?.itemType)}
+                            </span>
+                          )}
+                          <span className="">
+                            {item?.orderType === "PRODUCT" && (
+                              <p>Coin Purchase</p>
+                            )}
+                            {item?.orderType === "REWARD" &&
+                              "Promotional " + formatString(item?.itemType)}
+                            {item?.orderType === "BUY" && <p>Purchase</p>}
+                            {item?.orderType === "SELL" && <p>Sold</p>}
+                            {item?.orderType === "GIFT" &&
+                              item?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                            {item?.orderType === "GIFT" &&
+                              item?.rewardsType === "RECEIVED" && (
+                                <p>Gift Received</p>
+                              )}
+                          </span>
+                        </div>
+                        <div>{item?.gram} gm</div>
+                        <div className="flex">
+                          <span
+                            className={`text-xs rounded-lg  py-1  ${
+                              item?.status === "SUCCESS" ||
+                              item?.status === "COMPLETED"
+                                ? "text-green-500"
+                                : item?.status === "PENDING"
+                                ? "text-yellow-500"
+                                : item?.status === "FAILED"
+                                ? "text-red-500"
+                                : "" // Default color or add another color class
+                            }`}
+                          >
+                            {item?.status}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="col-span-2 grid place-items-center">
+                    <div className="col-span-3 grid place-items-end">
                       <div>
                         {item?.totalAmount !== 0 && (
                           <p className="text-white font-extrabold text-base sm:text-xl">
@@ -548,16 +550,16 @@ const OrdersTabs = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="flex justify-end items-center col-span-1">
+                    {/* <div className="flex justify-end items-center col-span-1">
                       <ArrowRightIcon className="h-5" />
-                    </div>
+                    </div> */}
                   </div>
                 </Tab>
               ))}
             </Tab.List>
             <div className="grid grid-cols-3 justify-between items-center bg-themeLight p-4 rounded-xl text-white">
               <p>Current Page</p>
-              <div className="flex justify-end sm:justify-center col-span-2">
+              <div className="flex justify-end sm:justify-center col-span-2 sm:col-span-1">
                 <select
                   className="cursor-pointer text-white focus:outline-none bg-themeLight px-4 py-1 rounded"
                   onChange={updatePage}
@@ -570,7 +572,7 @@ const OrdersTabs = () => {
                   ))}
                 </select>
               </div>
-              <div className="flex justify-center sm:justify-end col-span-3 mt-2 sm:mt-0">
+              <div className="flex justify-center sm:justify-end col-span-3 sm:col-span-1 mt-2 sm:mt-0">
                 {page > 1 && (
                   <button
                     className="bg-themeLight px-2 py-1 rounded mr-2"
