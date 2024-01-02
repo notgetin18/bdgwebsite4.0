@@ -285,16 +285,33 @@ const page = ({ params }: any) => {
             </div>
             <div className="mt-6">
               <div className="mt-4">
-                <p>Weight : {productsDetailById.weight}</p>
+                <p>
+                  <span className=" w-32 inline-block">Weight</span> :
+                  <span className="pl-2"></span>
+                  {productsDetailById.weight}
+                </p>
               </div>
               <div className="mt-4">
-                <p>Metal Purity : {productsDetailById.purity}</p>
+                <p>
+                  <span className=" w-32 inline-block">Metal Purity</span> :
+                  <span className="pl-2"></span>
+                  {productsDetailById.purity}
+                </p>
               </div>
               <div className="mt-4">
-                <p>Dimension : {productsDetailById.dimension}</p>
+                <p>
+                  {" "}
+                  <span className=" w-32 inline-block">Dimension </span> :
+                  <span className="pl-2"></span>
+                  {productsDetailById.dimension}
+                </p>
               </div>
               <div className="mt-4">
-                <p>Quality : {productsDetailById.quality}</p>
+                <p>
+                  <span className="w-32 inline-block">Quality </span> :
+                  <span className="pl-2"></span>
+                  {productsDetailById.quality}
+                </p>
               </div>
             </div>
           </div>
