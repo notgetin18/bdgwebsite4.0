@@ -13,7 +13,11 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
+import {
+  setIsLoggedIn,
+  setShowOTPmodal,
+  setShowProfileForm,
+} from "@/redux/authSlice";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -40,7 +44,7 @@ const Navbar = () => {
     dispatch(setShowProfileForm(false));
   };
 
-  // logoutProfile()
+  // logoutProfile();
 
   const handleLoginClick = () => {
     setLoginOpen(!isLoginOpen);

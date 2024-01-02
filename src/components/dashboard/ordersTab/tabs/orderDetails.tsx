@@ -4,17 +4,13 @@ import Link from "next/link";
 import React from "react";
 
 const OrderDetails = (props: any) => {
-<<<<<<< HEAD
-  console.log("props", props);
-=======
   // console.log('props', props);
->>>>>>> 6e6e07e0493e4c666c28ce6122cb2dde299d7e6c
   return (
     <>
-      <div className='coins_background rounded-lg shadow-black shadow-xl p-3'>
+      <div className="coins_background rounded-lg shadow-black shadow-xl p-3">
         <div>
           {props?.orderDetails?.status === "SUCCESS" ||
-            props?.orderDetails?.status === "COMPLETED" ? (
+          props?.orderDetails?.status === "COMPLETED" ? (
             <img
               src="https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png"
               alt=""
@@ -38,9 +34,7 @@ const OrderDetails = (props: any) => {
           )}
         </div>
         <p className="px-2 col-span-1 text-sm sm:text-base">
-          {props?.orderDetails?.orderType === "PRODUCT" && (
-            <p>Coin Purchase</p>
-          )}
+          {props?.orderDetails?.orderType === "PRODUCT" && <p>Coin Purchase</p>}
           {props?.orderDetails?.orderType === "REWARD" &&
             "Promotional " + formatString(props?.orderDetails?.itemType)}
           {props?.orderDetails?.orderType === "BUY" && <p>Purchase</p>}
@@ -54,43 +48,27 @@ const OrderDetails = (props: any) => {
         </p>
       </div>
 
-
       <div>
-<<<<<<< HEAD
-        <p className="text-xl font-lg">Transaction Status</p>
-        <div className="grid grid-cols-3 justify-between pb-3">
-          <div className="flex items-center col-span-2">
-            <div>
-              {props?.orderDetails?.status === "SUCCESS" ||
-=======
         <p className="text-sm sm:text-base">
-          {new Date(props.orderDetails?.createdAt).toLocaleDateString(
-            "en-IN",
-            {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            }
-          )}
+          {new Date(props.orderDetails?.createdAt).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })}
         </p>
         <p className="text-sm sm:text-base">
-          {new Date(props.orderDetails?.createdAt).toLocaleTimeString(
-            "en-IN",
-            {
-              hour: "numeric",
-              minute: "numeric",
-            }
-          )}
+          {new Date(props.orderDetails?.createdAt).toLocaleTimeString("en-IN", {
+            hour: "numeric",
+            minute: "numeric",
+          })}
         </p>
       </div>
 
-
-      <div className="grid grid-cols-3 pb-3">
+      <div className="grid grid-cols-3  justify-between pb-3">
         <div className="flex items-center col-span-2">
           <div className="">
             {props?.orderDetails?.status === "SUCCESS" ||
->>>>>>> 6e6e07e0493e4c666c28ce6122cb2dde299d7e6c
-              props?.orderDetails?.status === "COMPLETED" ? (
+            props?.orderDetails?.status === "COMPLETED" ? (
               <img
                 src="https://www.kablooe.com/wp-content/uploads/2019/08/check_mark.png"
                 alt=""
@@ -118,8 +96,8 @@ const OrderDetails = (props: any) => {
               formatString(props?.orderDetails?.itemType) + " Coin Purchase"}
             {props?.orderDetails?.orderType === "REWARD" &&
               "Promotional " +
-              formatString(props?.orderDetails?.itemType) +
-              " Received"}
+                formatString(props?.orderDetails?.itemType) +
+                " Received"}
             {props?.orderDetails?.orderType === "BUY" &&
               formatString(props?.orderDetails?.itemType) + " Purchase"}
             {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
@@ -129,7 +107,7 @@ const OrderDetails = (props: any) => {
             {props?.orderDetails?.orderType === "GIFT" &&
               props?.orderDetails?.rewardsType === "RECEIVED" &&
               formatString(`${props?.orderDetails?.itemType}`) +
-              " Gift Received"}
+                " Gift Received"}
           </p>
         </div>
         <div>
@@ -154,7 +132,6 @@ const OrderDetails = (props: any) => {
           </p>
         </div>
       </div>
-
 
       <div className="flex justify-between ">
         <div>Order Id</div>

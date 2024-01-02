@@ -262,26 +262,79 @@ const Redeem = () => {
               </div>
             </div>
           )}
-          {userRewards.map((userRewards) => {
-            return (
-              <div className="text-white border-2 border-blue-400 rounded-md m-4">
-                <div className="m-3 flex flex-row items-center justify-between">
-                  <div>
-                    <div className="text-yellow-500">
-                      {userRewards?.itemType}
+          <div className=" grid grid-cols-2 gap-2">
+            {userRewards.map((userRewards) => {
+              return (
+                <div className="text-white bg-themeLight rounded-md m-4">
+                  <div className="m-3 flex flex-row items-center justify-between">
+                    <div>
+                      <div className="text-yellow-500">
+                        {userRewards?.itemType}
+                      </div>
+                      <div>{userRewards?.description}</div>
                     </div>
-                    <div>{userRewards?.description}</div>
-                  </div>
-                  <div className="ml-8">
-                    {userRewards.status == "PENDING" && (
-                      <div className="d-flex flex">
-                        <div
-                          className="border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3"
-                          onClick={() => redeemReward(userRewards._id)}
-                        >
-                          Redeem
+                    <div className="ml-8">
+                      {userRewards.status == "PENDING" && (
+                        <div className="d-flex flex">
+                          <div
+                            className="border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3"
+                            onClick={() => redeemReward(userRewards._id)}
+                          >
+                            Redeem
+                          </div>
+                          {userRewards.rewardsType == "GIFTING" && (
+                            <div
+                              className="border-yellow-500 rounded-lg bg-themeLight border-2 cursor-pointer p-3"
+                              onClick={() =>
+                                rewardAction(
+                                  "cancel",
+                                  userRewards.user_gifting_id
+                                )
+                              }
+                            >
+                              Cancel
+                            </div>
+                          )}
                         </div>
-                        {userRewards.rewardsType == "GIFTING" && (
+                      )}
+
+                      {userRewards.rewardsType == "GIFTING" &&
+                        userRewards.status == "CANCELLED" && (
+                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                            Cancelled
+                          </div>
+                        )}
+
+                      {userRewards.rewardsType == "GIFTING" &&
+                        userRewards.status == "REDEEM" && (
+                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                            Redeemed
+                          </div>
+                        )}
+
+                      {userRewards.rewardsType == "GIFTING" &&
+                        userRewards.status == "EXPIRED" && (
+                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                            Expired
+                          </div>
+                        )}
+
+                      {userRewards.rewardsType == "GIFTING" &&
+                        userRewards.status == "SEND" && (
+                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                            Redeemed
+                          </div>
+                        )}
+
+                      {userRewards.rewardsType == "REFERANDEARN" &&
+                        userRewards.status == "REDEEM" && (
+                          <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
+                            Redeemed
+                          </div>
+                        )}
+
+                      {userRewards.rewardsType == "GIFTING" &&
+                        userRewards.status == "SENT" && (
                           <div
                             className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3"
                             onClick={() =>
@@ -294,60 +347,12 @@ const Redeem = () => {
                             Cancel
                           </div>
                         )}
-                      </div>
-                    )}
-
-                    {userRewards.rewardsType == "GIFTING" &&
-                      userRewards.status == "CANCELLED" && (
-                        <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
-                          Cancelled
-                        </div>
-                      )}
-
-                    {userRewards.rewardsType == "GIFTING" &&
-                      userRewards.status == "REDEEM" && (
-                        <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
-                          Redeemed
-                        </div>
-                      )}
-
-                    {userRewards.rewardsType == "GIFTING" &&
-                      userRewards.status == "EXPIRED" && (
-                        <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
-                          Expired
-                        </div>
-                      )}
-
-                    {userRewards.rewardsType == "GIFTING" &&
-                      userRewards.status == "SEND" && (
-                        <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
-                          Redeemed
-                        </div>
-                      )}
-
-                    {userRewards.rewardsType == "REFERANDEARN" &&
-                      userRewards.status == "REDEEM" && (
-                        <div className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3">
-                          Redeemed
-                        </div>
-                      )}
-
-                    {userRewards.rewardsType == "GIFTING" &&
-                      userRewards.status == "SENT" && (
-                        <div
-                          className="border-yellow-500 rounded-lg bg-slate-500 border-2 cursor-pointer p-3"
-                          onClick={() =>
-                            rewardAction("cancel", userRewards.user_gifting_id)
-                          }
-                        >
-                          Cancel
-                        </div>
-                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </dl>
       </div>
     </div>

@@ -5,7 +5,11 @@ import Swal from "sweetalert2";
 import { AesDecrypt, AesEncrypt } from "../helperFunctions";
 import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/navigation";
-import { setIsLoggedIn, setShowOTPmodal, setShowProfileForm } from "@/redux/authSlice";
+import {
+  setIsLoggedIn,
+  setShowOTPmodal,
+  setShowProfileForm,
+} from "@/redux/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import SetProfileForNewUser from "../setProfile";
 import { AppDispatch, RootState } from "@/redux/store";
@@ -23,7 +27,6 @@ export default function OtpModal() {
     (state: RootState) => state.auth.showProfileForm
   );
   const dispatch: AppDispatch = useDispatch();
-
 
   const handleSubmit = async () => {
     const mobile_number = localStorage.getItem("mobile_number");
@@ -61,7 +64,7 @@ export default function OtpModal() {
         if (result.status == true) {
           // console.log('result', result);
           dispatch(fetchUserDetails());
-          
+
           dispatch(setIsLoggedIn(true));
           if (result.data.isNewUser) {
             dispatch(setShowProfileForm(true));
@@ -184,14 +187,16 @@ export default function OtpModal() {
                         onClose={() => setIsNewUser(false)}  // Close the modal by updating state
                       />
                     )} */}
-
                   </div>
                 </div>
                 <div className="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="mt-3 inline-flex absolute top-5 right-5 w-full justify-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setOpen(false)}
+                    className="mt-3 inline-flex absolute top-5 right-5 w-full justify-center rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
+                    onClick={() => {
+                      setOpen(false);
+                      dispatch(setShowOTPmodal(false));
+                    }}
                     ref={cancelButtonRef}
                   >
                     <XMarkIcon className="h-5" />
