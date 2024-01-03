@@ -4,7 +4,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Timer from "../globalTimer";
-import { ParseFloat } from "../helperFunctions";
 import { applyCoupon, clearCoupon, isCouponApplied } from "@/redux/couponSlice";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useCoupons } from "@/customHooks/coupons";
@@ -89,6 +88,7 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                   <Link href="#">
                     <img src="/coupon 899.png" />
                   </Link> */}
+                  <Timer />
                   {coupons?.map((coupon: any) => (
                     <div key={coupon._id}>
                       {/* <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" /> */}
