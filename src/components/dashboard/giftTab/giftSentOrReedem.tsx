@@ -12,7 +12,7 @@ const Redeem = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [itemList, setItemList] = useState<any[]>([]);
   const [size, setSize] = useState(5);
-  console.log("i am from Reedem");
+  // console.log("i am from Reedem");
 
   const redeemReward = async (id: any) => {
     Swal.fire({
@@ -77,6 +77,7 @@ const Redeem = () => {
     setPage(page + 1);
     getRewards(metal, status, page + 1, size);
   };
+
   const prevPageHandler = () => {
     if (page > 1) {
       setPage(page - 1);
