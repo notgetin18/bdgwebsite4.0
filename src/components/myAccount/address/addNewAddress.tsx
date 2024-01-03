@@ -264,7 +264,7 @@ const AddNewAddress = ({ onCancel, onAddressListUpdate }: any) => {
                   className="text-red-600"
                 />
               </div>
-              <div className="justify-center items-center">
+              <div className="flex justify-center items-center">
                 <button
                   className="bg-themeBlue font-semibold rounded px-2 py-2 mt-4"
                   type="submit"

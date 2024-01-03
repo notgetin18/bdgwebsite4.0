@@ -160,12 +160,14 @@ const AddressTab = () => {
               </div>
             </div>
           ))}
-          <button
-            className="px-2 py-2 bg-themeBlue font-semibold rounded"
-            onClick={openAddNewAddress}
-          >
-            Add New Address
-          </button>
+          <div className=" flex justify-center">
+            <button
+              className="px-2 py-2 bg-themeBlue font-semibold rounded"
+              onClick={openAddNewAddress}
+            >
+              Add New Address
+            </button>
+          </div>
         </>
       )}
     </div>

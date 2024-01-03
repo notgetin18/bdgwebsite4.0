@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { FaEdit } from "react-icons/fa";
+import { CameraIcon } from "@heroicons/react/20/solid";
 
 const ProfileImage = () => {
   const user = useSelector(selectUser);
@@ -60,20 +61,20 @@ const ProfileImage = () => {
     fetchData();
   }, [dispatch, handleProfileImageChange]);
   return (
-    <div className="coins_background rounded-t-lg w-full flex flex-col items-center justify-center relative">
-      <div className=" relative">
+    <div className="rounded-t-lg w-full relative">
+      <div className="relative">
         <Image
           src={user.data.profile_image}
           alt="profile image"
-          width={100}
-          height={100}
-          className="my-4 rounded-full h-24 w-24 flex items-center justify-center"
+          width={150}
+          height={150}
+          className="my-4 rounded-full h-40 w-40 flex items-center justify-center"
         />
         <label
           htmlFor="file"
-          className="absolute bottom-4 right-2 text-themeBlueLight focus:outline-none p-2 bg-theme rounded-full"
+          className="absolute bottom-0 left-28 shadow shadow-gray-200 text-themeBlueLight focus:outline-none p-2 bg-theme rounded-full"
         >
-          <FaEdit className="cursor-pointer" size={16} />
+          <CameraIcon className="cursor-pointer h-6" />
         </label>
       </div>
       {/* Edit icon */}

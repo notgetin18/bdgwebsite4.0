@@ -8,12 +8,12 @@ const OrderDetails = (props: any) => {
   return (
     <>
       <div className="coins_background rounded-lg shadow-black shadow-xl p-3 mb-3">
-        <p>Transaction Staus</p>
+        <p className="text-xl">Transaction Status</p>
         <div className="grid grid-cols-3  justify-between pb-3">
           <div className="flex items-center col-span-2">
             <div>
               {props?.orderDetails?.status === "SUCCESS" ||
-                props?.orderDetails?.status === "COMPLETED" ? (
+              props?.orderDetails?.status === "COMPLETED" ? (
                 <img src="/check.png" alt="" className="" width={40} />
               ) : props?.orderDetails?.status === "PENDING" ? (
                 <img src="/question-mark.png" alt="" className="" width={30} />
@@ -27,7 +27,7 @@ const OrderDetails = (props: any) => {
               )}
               {props?.orderDetails?.orderType === "REWARD" &&
                 "Promotional " + formatString(props?.orderDetails?.itemType)}
-              {props?.orderDetails?.orderType === "BUY" &&  <p>Purchase</p>}
+              {props?.orderDetails?.orderType === "BUY" && <p>Purchase</p>}
               {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
               {props?.orderDetails?.orderType === "GIFT" &&
                 props?.orderDetails?.rewardsType === "SEND" && <p>Gift Sent</p>}
@@ -64,31 +64,38 @@ const OrderDetails = (props: any) => {
             <div className="flex items-center col-span-2">
               <div className="">
                 {props?.orderDetails?.status === "SUCCESS" ||
-                  props?.orderDetails?.status === "COMPLETED" ? (
+                props?.orderDetails?.status === "COMPLETED" ? (
                   <img src="/check.png" alt="" className="" width={40} />
                 ) : props?.orderDetails?.status === "PENDING" ? (
-                  <img src="/question-mark.png" alt="" className="" width={30} />
+                  <img
+                    src="/question-mark.png"
+                    alt=""
+                    className=""
+                    width={30}
+                  />
                 ) : (
                   <img src="" alt="/close.png" className="" width={40} />
                 )}
               </div>
               <p className="px-2 col-span-1 text-sm sm:text-base">
                 {props?.orderDetails?.orderType === "PRODUCT" &&
-                  formatString(props?.orderDetails?.itemType) + " Coin Purchase"}
+                  formatString(props?.orderDetails?.itemType) +
+                    " Coin Purchase"}
                 {props?.orderDetails?.orderType === "REWARD" &&
                   "Promotional " +
-                  formatString(props?.orderDetails?.itemType) +
-                  " Received"}
+                    formatString(props?.orderDetails?.itemType) +
+                    " Received"}
                 {props?.orderDetails?.orderType === "BUY" &&
                   formatString(props?.orderDetails?.itemType) + " Purchase"}
                 {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
                 {props?.orderDetails?.orderType === "GIFT" &&
                   props?.orderDetails?.rewardsType === "SEND" &&
-                  formatString(`${props?.orderDetails?.itemType}`) + " Gift Sent"}
+                  formatString(`${props?.orderDetails?.itemType}`) +
+                    " Gift Sent"}
                 {props?.orderDetails?.orderType === "GIFT" &&
                   props?.orderDetails?.rewardsType === "RECEIVED" &&
                   formatString(`${props?.orderDetails?.itemType}`) +
-                  " Gift Received"}
+                    " Gift Received"}
               </p>
             </div>
             <div className=" text-right">

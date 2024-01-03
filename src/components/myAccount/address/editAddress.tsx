@@ -257,7 +257,7 @@ const EditAddress = ({ onCancel, ToEditAddress, onAddressListUpdate }: any) => {
                 className="text-red-600"
               />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex justify-center">
               <button
                 className="bg-themeBlue font-semibold rounded px-2 py-2"
                 type="submit"

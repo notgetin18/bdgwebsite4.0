@@ -141,7 +141,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
               e.preventDefault();
             }}
           >
-            <div className="">
+            <div className="mt-2">
               <label>Bank Name</label>
               <br />
               <select
@@ -186,7 +186,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
               )}
             </div>
             {otherBankName && (
-              <div className="">
+              <div className="mt-2">
                 <label>Bank Name</label>
                 <br />
                 <input
@@ -209,7 +209,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
                 />
               </div>
             )}
-            <div className="">
+            <div className="mt-2">
               <label>Account Holder’s Name</label>
               <br />
               <input
@@ -232,7 +232,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
                 component="div"
               />
             </div>
-            <div className="">
+            <div className="mt-2">
               <label>Account Number</label>
               <br />
               <input
@@ -255,7 +255,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
                 component="div"
               />
             </div>
-            <div className="">
+            <div className="mt-2">
               <label>IFSC</label>
               <br />
               <input
@@ -280,17 +280,16 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
               />
             </div>
 
-            <div className="mt-2">
+            <div className="flex justify-center mt-3">
               <button
                 type="submit"
                 onClick={() => {
                   handleSubmit();
                 }}
                 disabled={isSubmitting}
+                className="px-3 py-1 rounded bg-themeBlue font-semibold text-black"
               >
-                <div className="px-3 py-1 rounded bg-themeBlue font-semibold text-black">
-                  Verify
-                </div>
+                Verify
               </button>
             </div>
           </form>

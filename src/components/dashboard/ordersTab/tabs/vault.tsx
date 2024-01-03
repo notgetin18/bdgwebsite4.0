@@ -30,18 +30,28 @@ const Vault = () => {
     <div className="w-full">
       <div className=" grid sm:grid-cols-2 gap-6">
         <div className="p-4 border-1 rounded-lg bg-themeLight grid grid-cols-2 gap-3 text-white">
-          <p>Gold</p>
-          <p></p>
-          <p>Weight</p>
-          <p className="text-right">Gifted Weight</p>
+          <p>
+            <img src="/Goldbarbanner.png" className="h-5 inline-block mr-2" />{" "}
+            Gold Weight
+          </p>
+          <p className="text-right">
+            {" "}
+            <img src="/ban3.png" className="h-7 inline-block mr-1" /> Gifted
+            Weight
+          </p>
           <p className="text-green-500">{wallet?.gold}gm</p>
           <p className="text-green-500 text-right">{wallet?.holdGoldGram}gm</p>
         </div>
         <div className="p-4 border-1 rounded-lg bg-themeLight grid grid-cols-2 gap-3 text-white">
-          <p>Silver</p>
-          <p></p>
-          <p>Weight</p>
-          <p className="text-right">Gifted Weight</p>
+          <p>
+            {" "}
+            <img src="/Silverbar.png" className="h-5 inline-block mr-2" />{" "}
+            Silver Weight
+          </p>
+          <p className="text-right">
+            <img src="/ban3.png" className="h-7 inline-block mr-1" /> Gifted
+            Weight
+          </p>
           <p className="text-green-500">{wallet?.silver}gm</p>
           <p className="text-green-500 text-right">
             {wallet?.holdSilverGram}gm
