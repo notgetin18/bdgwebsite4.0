@@ -110,8 +110,11 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
                     <span>{user.data.gst_number || 'N/A'}</span>
                 </div> */}
       </div>
-      <div className="bg-themeBlue rounded text-center mx-3">
-        <button className="font-semibold py-2 " onClick={onEditDetailsClick}>
+      <div className="mx-3 flex justify-center">
+        <button
+          className="font-semibold py-2 bg-themeBlue rounded px-3 text-center inline-block"
+          onClick={onEditDetailsClick}
+        >
           Edit Details
         </button>
       </div>

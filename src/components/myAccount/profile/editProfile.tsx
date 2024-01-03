@@ -231,9 +231,9 @@ const EditProfile = ({ onSaveDetails, onCancel }: any) => {
                 placeholder="Enter GST Number"
                 formik={formik}
             /> */}
-      <div className="bg-themeBlue rounded mb-4 text-center">
+      <div className="flex justify-center">
         <button
-          className=" font-semibold px-2 py-2 "
+          className="font-semibold py-2 bg-themeBlue rounded px-3 text-center inline-block"
           onClick={() => {
             // verifyGst(formik.values.gst_number);
             formik.submitForm();
