@@ -41,7 +41,7 @@ const OrdersTabs = () => {
   const [open, setOpen] = useState(false);
   const refOne = useRef<HTMLDivElement>(null);
 
-  const OpenAccord = () => {
+  const OpenAccord = (item: any) => {
     setIsOpen(true);
   };
   // hide dropdown on ESC press
@@ -405,7 +405,7 @@ const OrdersTabs = () => {
               {dashboardData.map((item, key) => (
                 <Tab
                   key={key}
-                  onClick={() => OpenAccord()}
+                  onClick={() => OpenAccord(item)}
                   // onClick={() => handleClick(item)}
                   className={({ selected }) =>
                     classNames(
