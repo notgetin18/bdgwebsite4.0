@@ -22,6 +22,7 @@ const OrdersTabs = () => {
   const year = new Date().getFullYear();
   const [userDetails, setUserDetails] = useState("");
   const [status, setStatus] = useState("ALL");
+  const [isOpen, setIsOpen] = useState(false);
   const [metalValue, setMetalValue] = useState("ALL");
   const [transactionValue, setTransactionValue] = useState("ALL");
   const [page, setPage] = useState(1);
@@ -40,6 +41,9 @@ const OrdersTabs = () => {
   const [open, setOpen] = useState(false);
   const refOne = useRef<HTMLDivElement>(null);
 
+  const OpenAccord = () => {
+    setIsOpen(true);
+  };
   // hide dropdown on ESC press
   const hideOnEscape = (e: { key: string }) => {
     if (e.key === "Escape") {
@@ -225,7 +229,6 @@ const OrdersTabs = () => {
     );
   };
 
-
   const updatePage = (e: any) => {
     let moveTo = e.target.value;
     setPage(moveTo);
@@ -242,13 +245,12 @@ const OrdersTabs = () => {
       metalValue,
       transactionValue,
       moveTo,
-      size,
+      size
     );
   };
 
   const nextPageHandler = () => {
     setPage(page + 1);
-
 
     const formattedEndDate = range[0].endDate
       ? format(new Date(range[0].endDate), "yyyy-MM-dd")
@@ -263,7 +265,7 @@ const OrdersTabs = () => {
       metalValue,
       transactionValue,
       page + 1,
-      size,
+      size
     );
   };
 
@@ -283,7 +285,7 @@ const OrdersTabs = () => {
         metalValue,
         transactionValue,
         page + 1,
-        size,
+        size
       );
     }
   };
@@ -403,7 +405,8 @@ const OrdersTabs = () => {
               {dashboardData.map((item, key) => (
                 <Tab
                   key={key}
-                  onClick={() => handleClick(item)}
+                  onClick={() => OpenAccord()}
+                  // onClick={() => handleClick(item)}
                   className={({ selected }) =>
                     classNames(
                       "w-full rounded-lg py-2 text-sm font-medium leading-5 px-4 mb-2",
@@ -511,7 +514,9 @@ const OrdersTabs = () => {
                             )}
                             {item?.orderType === "REWARD" &&
                               "Promotional " + formatString(item?.itemType)}
-                            {item?.orderType === "BUY" && <p className="ml-1">Purchase</p>}
+                            {item?.orderType === "BUY" && (
+                              <p className="ml-1">Purchase</p>
+                            )}
                             {item?.orderType === "SELL" && <p>Sold</p>}
                             {item?.orderType === "GIFT" &&
                               item?.rewardsType === "SEND" && <p>Gift Sent</p>}
@@ -524,15 +529,16 @@ const OrdersTabs = () => {
                         <div>{item?.gram} gm</div>
                         <div className="flex">
                           <span
-                            className={`text-xs rounded-lg  py-1  ${item?.status === "SUCCESS" ||
+                            className={`text-xs rounded-lg  py-1  ${
+                              item?.status === "SUCCESS" ||
                               item?.status === "COMPLETED"
-                              ? "text-green-500"
-                              : item?.status === "PENDING"
+                                ? "text-green-500"
+                                : item?.status === "PENDING"
                                 ? "text-yellow-500"
                                 : item?.status === "FAILED"
-                                  ? "text-red-500"
-                                  : "" // Default color or add another color class
-                              }`}
+                                ? "text-red-500"
+                                : "" // Default color or add another color class
+                            }`}
                           >
                             {item?.status}
                           </span>
@@ -573,6 +579,12 @@ const OrdersTabs = () => {
                       <ArrowRightIcon className="h-5" />
                     </div> */}
                   </div>
+                  {/* <p>fg</p> */}
+                  {isOpen && (
+                    <div>
+                      <OrderDetails orderDetails={activeTab} />
+                    </div>
+                  )}
                 </Tab>
               ))}
             </Tab.List>
@@ -614,11 +626,11 @@ const OrdersTabs = () => {
               </div>
             </div>
           </div>
-          <Tab.Panels className="col-span-5 md:col-span-3">
+          {/* <Tab.Panels className="col-span-5 md:col-span-3">
             <div className="text-white">
               <OrderDetails orderDetails={activeTab} />
             </div>
-          </Tab.Panels>
+          </Tab.Panels> */}
         </div>
         <div className=" m-2 text-lg inline-block float-right">
           <Timer />
