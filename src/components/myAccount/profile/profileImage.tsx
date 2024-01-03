@@ -61,14 +61,21 @@ const ProfileImage = () => {
   }, [dispatch, handleProfileImageChange]);
   return (
     <div className="coins_background rounded-t-lg w-full flex flex-col items-center justify-center relative">
-      <Image
-        src={user.data.profile_image}
-        alt="profile image"
-        width={100}
-        height={100}
-        className="my-4 rounded-full h-24 w-24 flex items-center justify-center"
-      />
-
+      <div className=" relative">
+        <Image
+          src={user.data.profile_image}
+          alt="profile image"
+          width={100}
+          height={100}
+          className="my-4 rounded-full h-24 w-24 flex items-center justify-center"
+        />
+        <label
+          htmlFor="file"
+          className="absolute bottom-4 right-2 text-themeBlueLight focus:outline-none p-2 bg-theme rounded-full"
+        >
+          <FaEdit className="cursor-pointer" size={16} />
+        </label>
+      </div>
       {/* Edit icon */}
       <div className="absolute top-2 right-2 text-gray-400 hover:text-gray-200 focus:outline-none">
         <div className="relative">
@@ -81,12 +88,6 @@ const ProfileImage = () => {
             onChange={handleProfileImageChange}
             accept="image/*"
           />
-          <label
-            htmlFor="file"
-            className="absolute top-2 right-2 text-themeBlueLight focus:outline-none"
-          >
-            <FaEdit className="cursor-pointer" size={20} />
-          </label>
         </div>
       </div>
     </div>
