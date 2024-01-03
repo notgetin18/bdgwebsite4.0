@@ -1,7 +1,6 @@
 "use client";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Timer from "../globalTimer";
@@ -10,15 +9,12 @@ import { isCouponApplied } from "@/redux/couponSlice";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import { fetchAllUPI } from "@/api/DashboardServices";
 import SelectUpiModalForPayout from "./sellSelectUpiModal";
 
 export default function Modal({ isOpen, onClose, transactionId }: any) {
   console.log('transactionId', transactionId)
   // const [open, setOpen] = useState(true)
   const router = useRouter()
-  const goldData = useSelector((state: RootState) => state.gold);
-  const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
@@ -141,7 +137,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   }, [])
 
   const token = localStorage.getItem('token')
- 
+
 
   const buyReqApiHandler = async () => {
     const dataToBeDecrypt = {
@@ -230,6 +226,8 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
         initialFocus={cancelButtonRef}
         onClose={closeModal}
       >
+        {isModalOpen && <SelectUpiModalForPayout isOpen={isModalOpen} onClose={closeModalPayout} transactionId={transactionId} />}
+
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -253,7 +251,6 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              {isModalOpen && <SelectUpiModalForPayout isOpen={isModalOpen} onClose={closeModalPayout} transactionId={transactionId} />}
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <p>
                   {" "}

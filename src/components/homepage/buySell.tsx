@@ -568,7 +568,8 @@ const BuySell = () => {
                       handleEnteredAmountChange(e);
                     }}
                     step="0.0001"
-                    value={enteredAmount === 0 ? 0 : enteredAmount}
+                    // @ts-ignore
+                    value={enteredAmount === 0 ? null : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {
