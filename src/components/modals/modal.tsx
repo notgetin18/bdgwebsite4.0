@@ -227,7 +227,6 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
         onClose={closeModal}
       >
         {isModalOpen && <SelectUpiModalForPayout isOpen={isModalOpen} onClose={closeModalPayout} transactionId={transactionId} />}
-
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -258,7 +257,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                 </p>
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <p>
-                    Price Breakdown{" "}
+                    Buy Breakdown{" "}
                     {transactionType === "grams" ? actualAmount : enteredAmount}
                   </p>
                   <p>

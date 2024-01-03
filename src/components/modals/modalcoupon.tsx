@@ -1,13 +1,11 @@
 "use client";
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Timer from "../globalTimer";
 import { ParseFloat } from "../helperFunctions";
 import { applyCoupon, clearCoupon, isCouponApplied } from "@/redux/couponSlice";
-import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useCoupons } from "@/customHooks/coupons";
 
@@ -47,6 +45,7 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
     <img src="/lottie/Home Deliveryy.gif" className=" absolute z-50" />;
     setImgModel(true);
   };
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
