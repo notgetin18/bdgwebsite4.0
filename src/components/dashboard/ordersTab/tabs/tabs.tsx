@@ -84,7 +84,7 @@ const OrdersTabs = () => {
       });
   }, []);
 
-  console.log("userDetails", userDetails);
+  // console.log("userDetails", userDetails);
   const handleFilter = async (
     selectDate = "",
     fromDate = "",
@@ -225,46 +225,66 @@ const OrdersTabs = () => {
     );
   };
 
-  // console.log('range: ', range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : '', range[0].startDate ? format(new Date(range[0].startDate), "yyyy-MM-dd") : '')
 
   const updatePage = (e: any) => {
     let moveTo = e.target.value;
     setPage(moveTo);
-    range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : "",
-      range[0].startDate
-        ? format(new Date(range[0].startDate), "yyyy-MM-dd")
-        : "",
+    const formattedEndDate = range[0].endDate
+      ? format(new Date(range[0].endDate), "yyyy-MM-dd")
+      : "";
+    const formattedStartDate = range[0].startDate
+      ? format(new Date(range[0].startDate), "yyyy-MM-dd")
+      : "";
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
       status,
       metalValue,
       transactionValue,
       moveTo,
-      size;
+      size,
+    );
   };
 
   const nextPageHandler = () => {
     setPage(page + 1);
-    range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : "",
-      range[0].startDate
-        ? format(new Date(range[0].startDate), "yyyy-MM-dd")
-        : "",
+
+
+    const formattedEndDate = range[0].endDate
+      ? format(new Date(range[0].endDate), "yyyy-MM-dd")
+      : "";
+    const formattedStartDate = range[0].startDate
+      ? format(new Date(range[0].startDate), "yyyy-MM-dd")
+      : "";
+    handleFilter(
+      formattedEndDate,
+      formattedStartDate,
       status,
       metalValue,
       transactionValue,
       page + 1,
-      size;
+      size,
+    );
   };
+
   const prevPageHandler = () => {
     if (page > 1) {
       setPage(page - 1);
-      range[0].endDate ? format(new Date(range[0].endDate), "yyyy-MM-dd") : "",
-        range[0].startDate
-          ? format(new Date(range[0].startDate), "yyyy-MM-dd")
-          : "",
+      const formattedEndDate = range[0].endDate
+        ? format(new Date(range[0].endDate), "yyyy-MM-dd")
+        : "";
+      const formattedStartDate = range[0].startDate
+        ? format(new Date(range[0].startDate), "yyyy-MM-dd")
+        : "";
+      handleFilter(
+        formattedEndDate,
+        formattedStartDate,
         status,
         metalValue,
         transactionValue,
-        page - 1,
-        size;
+        page + 1,
+        size,
+      );
     }
   };
 
@@ -491,29 +511,28 @@ const OrdersTabs = () => {
                             )}
                             {item?.orderType === "REWARD" &&
                               "Promotional " + formatString(item?.itemType)}
-                            {item?.orderType === "BUY" && <p>Purchase</p>}
+                            {item?.orderType === "BUY" && <p className="ml-1">Purchase</p>}
                             {item?.orderType === "SELL" && <p>Sold</p>}
                             {item?.orderType === "GIFT" &&
                               item?.rewardsType === "SEND" && <p>Gift Sent</p>}
                             {item?.orderType === "GIFT" &&
                               item?.rewardsType === "RECEIVED" && (
-                                <p>Gift Received</p>
+                                <p className="ml-1">Gift Received</p>
                               )}
                           </span>
                         </div>
                         <div>{item?.gram} gm</div>
                         <div className="flex">
                           <span
-                            className={`text-xs rounded-lg  py-1  ${
-                              item?.status === "SUCCESS" ||
+                            className={`text-xs rounded-lg  py-1  ${item?.status === "SUCCESS" ||
                               item?.status === "COMPLETED"
-                                ? "text-green-500"
-                                : item?.status === "PENDING"
+                              ? "text-green-500"
+                              : item?.status === "PENDING"
                                 ? "text-yellow-500"
                                 : item?.status === "FAILED"
-                                ? "text-red-500"
-                                : "" // Default color or add another color class
-                            }`}
+                                  ? "text-red-500"
+                                  : "" // Default color or add another color class
+                              }`}
                           >
                             {item?.status}
                           </span>

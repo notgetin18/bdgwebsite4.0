@@ -1,13 +1,10 @@
 "use client";
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Timer from "../globalTimer";
-import { ParseFloat } from "../helperFunctions";
 import { applyCoupon, clearCoupon, isCouponApplied } from "@/redux/couponSlice";
-import Link from "next/link";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { useCoupons } from "@/customHooks/coupons";
 
@@ -47,6 +44,7 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
     <img src="/lottie/Home Deliveryy.gif" className=" absolute z-50" />;
     setImgModel(true);
   };
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
@@ -90,20 +88,31 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                   <Link href="#">
                     <img src="/coupon 899.png" />
                   </Link> */}
+                  <Timer />
                   {coupons?.map((coupon: any) => (
                     <div key={coupon._id}>
-                      <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" />
-                      {/* <p className="text-white">{coupon.description}</p> */}
-                      {/* <button
-                        className="bg-gray-400 rounded cursor-pointer text-white p-2"
+                      {/* <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" /> */}
+                      <p className="text-white">{coupon.description}.</p>
+                      <button
+                        className="bg-gray-400 mr-2 mb-3 rounded cursor-pointer text-white p-2"
                         onClick={() =>
                           handleApplyCoupon(coupon, enteredAmount)
                         }
                       >
                         Apply Coupon
-                      </button> */}
+                      </button>
+                      <button
+                        className="bg-gray-400 rounded cursor-pointer text-white p-2"
+                        onClick={() =>
+                          handleClearCoupon()
+                        }
+                      >
+                        Remove Coupon
+                      </button>
                     </div>
                   ))}
+
+
                   {error && <div className="text-red-500 text-sm">{error}</div>}
 
                 </div>

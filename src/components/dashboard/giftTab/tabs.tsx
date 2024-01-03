@@ -6,7 +6,6 @@ import {
   setMetalType,
   setTransactionType,
 } from "@/redux/giftSlice";
-import Image from "next/image";
 import {
   AesDecrypt,
   AesEncrypt,
@@ -50,7 +49,7 @@ const GiftTab = () => {
     (state: RootState) => state.gift.actualAmount
   );
 
-  console.log("i am from GiftTab");
+  // console.log("i am from GiftTab");
   // useEffect(() => {
   //   console.table({ activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount })
   // }, [activeTab, metalType, metalQuantity, transactionType, enteredAmount, actualAmount])

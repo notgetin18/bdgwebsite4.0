@@ -7,7 +7,6 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import UpiModal from "./addNewUpiId";
 import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
 

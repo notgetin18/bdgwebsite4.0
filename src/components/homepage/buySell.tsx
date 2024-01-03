@@ -32,6 +32,7 @@ import Modal from "../modals/modal";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { selectUser } from "@/redux/userDetailsSlice";
+import ModalCoupon from "../modals/modalcoupon";
 
 const BuySell = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ const BuySell = () => {
   const [activeTabPurchase, setActiveTabPurchase] = useState("rupees");
   const [validationError, setValidationError] = useState<string>("");
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isModalCouponOpen, setModalCouponOpen] = useState(false);
+  const [isModalCouponOpen, setModalCouponOpen] = useState<boolean>(false);
 
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
@@ -227,10 +228,10 @@ const BuySell = () => {
 
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
+    dispatch(setEnteredAmount(0));
     dispatch(setPurchaseType(tab));
     setValidationError("");
     dispatch(clearCoupon());
-    dispatch(setEnteredAmount(0));
   };
 
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
@@ -379,8 +380,8 @@ const BuySell = () => {
             <div className="grid grid-cols-2">
               <div
                 className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
                   }`}
                 onClick={() => {
                   handleTabBuyAndSell("buy");
@@ -390,8 +391,8 @@ const BuySell = () => {
               </div>
               <div
                 className={`text-center py-3 rounded cursor-pointer ${activeTab === "sell"
-                    ? "bg-themeLight text-white active"
-                    : "bg-themeLight01 text-sky-600"
+                  ? "bg-themeLight text-white active"
+                  : "bg-themeLight01 text-sky-600"
                   }`}
                 onClick={() => handleTabBuyAndSell("sell")}
               >
@@ -457,8 +458,8 @@ const BuySell = () => {
                     {isgold ? (
                       <div
                         className={`${goldData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
+                          ? "text-green-500"
+                          : "text-red-500"
                           }`}
                       >
                         {goldData.percentage >= 0 ? (
@@ -471,8 +472,8 @@ const BuySell = () => {
                     ) : (
                       <div
                         className={`${silverData.percentage >= 0
-                            ? "text-green-500"
-                            : "text-red-500"
+                          ? "text-green-500"
+                          : "text-red-500"
                           }`}
                       >
                         {silverData.percentage >= 0 ? (
@@ -535,8 +536,8 @@ const BuySell = () => {
               <div className="flex justify-around px-1 py-1 bg-themeLight rounded-full mx-auto w-3/4">
                 <div
                   className={`text-center border-2 text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tl-full rounded-bl-full font-semibold cursor-pointer ${activeTabPurchase === "rupees"
-                      ? "bg-transparent text-black bg-themeBlue active extrabold"
-                      : "text-white"
+                    ? "bg-transparent text-black bg-themeBlue active extrabold"
+                    : "text-white"
                     }`}
                   onClick={() => handleTabRupeesAndGrams("rupees")}
                 >
@@ -544,8 +545,8 @@ const BuySell = () => {
                 </div>
                 <div
                   className={`text-center border-2  text-xxs w-1/2 sm:text-sm px-2 sm:px-9 py-2 rounded-tr-full rounded-br-full font-semibold cursor-pointer ${activeTabPurchase === "grams"
-                      ? "bg-transparent text-black  bg-themeBlue active extrabold"
-                      : "text-white"
+                    ? "bg-transparent text-black  bg-themeBlue active extrabold"
+                    : "text-white"
                     }`}
                   onClick={() => handleTabRupeesAndGrams("grams")}
                 >
@@ -568,7 +569,8 @@ const BuySell = () => {
                       handleEnteredAmountChange(e);
                     }}
                     step="0.0001"
-                    value={enteredAmount === 0 ? 0 : enteredAmount}
+                    // @ts-ignore
+                    value={enteredAmount === 0 ? null : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {
@@ -683,6 +685,8 @@ const BuySell = () => {
                     onClose={closeModal}
                   />
                 )}
+
+                {isModalCouponOpen && (<ModalCoupon isOpen={isModalCouponOpen} onClose={closeModal} />)}
 
 
               </div>
