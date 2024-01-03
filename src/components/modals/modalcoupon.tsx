@@ -91,18 +91,28 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                   </Link> */}
                   {coupons?.map((coupon: any) => (
                     <div key={coupon._id}>
-                      <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" />
-                      {/* <p className="text-white">{coupon.description}</p> */}
-                      {/* <button
-                        className="bg-gray-400 rounded cursor-pointer text-white p-2"
+                      {/* <img className="cursor-pointer pb-6" onClick={() =>  handleApplyCoupon(coupon, enteredAmount)} src="/coupon 499.png" /> */}
+                      <p className="text-white">{coupon.description}.</p>
+                      <button
+                        className="bg-gray-400 mr-2 mb-3 rounded cursor-pointer text-white p-2"
                         onClick={() =>
                           handleApplyCoupon(coupon, enteredAmount)
                         }
                       >
                         Apply Coupon
-                      </button> */}
+                      </button>
+                      <button
+                        className="bg-gray-400 rounded cursor-pointer text-white p-2"
+                        onClick={() =>
+                          handleClearCoupon()
+                        }
+                      >
+                        Remove Coupon
+                      </button>
                     </div>
                   ))}
+
+
                   {error && <div className="text-red-500 text-sm">{error}</div>}
 
                 </div>
