@@ -10,6 +10,8 @@ import { isCouponApplied } from "@/redux/couponSlice";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { fetchAllUPI } from "@/api/DashboardServices";
+import SelectUpiModalForPayout from "./sellSelectUpiModal";
 
 export default function Modal({ isOpen, onClose, transactionId }: any) {
   console.log('transactionId', transactionId)
@@ -33,9 +35,20 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
   const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
   const isAnyCouponApplied: boolean = useSelector(isCouponApplied);
-  // const [token, setToken] = useState<string | null>(null);
   const [orderId, setOrderId] = useState("");
   const orderIdRef = useRef(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+
+
+  const openModalPayout = async () => {
+    setModalOpen(true);
+  };
+
+  const closeModalPayout = () => {
+    setModalOpen(false);
+  };
+
 
   useEffect(() => {
     console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
@@ -128,11 +141,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   }, [])
 
   const token = localStorage.getItem('token')
-  // useEffect(() => {
-  //   setToken(token);
-  // }, [props.show])
-
-  // console.log("000000000000000000000000000000000" , appliedCouponCode ? appliedCouponCode : '',)
+ 
 
   const buyReqApiHandler = async () => {
     const dataToBeDecrypt = {
@@ -204,87 +213,14 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
     gram: metalQuantity,
     amount: enteredAmount,
     order_preview_id: transactionId,
-    amountWithoutTax:  enteredAmount,
+    amountWithoutTax: enteredAmount,
     totalAmount: enteredAmount,
     // paymentMode : upiId,
     itemMode: "DIGITAL",
     fromApp: false,
   })
 
-  const sellReqApiHandler = async () => {
-    const dataToBeDecrypt = {
-      purpose: purchaseType.toUpperCase() == 'gold' ? "SELL_GOLD" : "SELL_SILVER",
-      unit: "GRAMS",
-      gram: metalQuantity,
-      amount: actualAmount,
-      order_preview_id: transactionId,
-      amountWithoutTax:  actualAmount,
-      totalAmount: actualAmount,
-      // paymentMode : upiId,
-      itemMode: "DIGITAL",
-      fromApp: false,
 
-
-      // orderType: purchaseType.toUpperCase(),
-      // item: metalType.toUpperCase(),
-      // unit: "AMOUNT",
-      // gram: metalQuantity,
-      // amount: totalAmount,
-      // order_preview_id: transactionId,
-      // amountWithoutTax: actualAmount,
-      // tax: "3",
-      // totalAmount: totalAmount,
-      // couponCode: appliedCouponCode ? appliedCouponCode : '',
-      // itemMode: "DIGITAL",
-      // gst_number: '',
-      // fromApp: false,
-      // payment_mode: 'cashfree'
-    };
-
-    const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
-
-    const payloadToSend = {
-      payload: resAfterEncryptData,
-    };
-    const configHeaders = {
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    };
-    axios
-      .post(
-        `${process.env.baseUrl}/user/sale/order/request`,
-        payloadToSend,
-        configHeaders
-      )
-      .then(async (resAfterSellReq) => {
-        const decryptedData = await funcForDecrypt(
-          resAfterSellReq.data.payload
-        );
-
-        if (JSON.parse(decryptedData).status) {
-          Swal.fire(
-            "Success",
-            `${JSON.parse(decryptedData).message}`,
-            "success"
-          );
-          // closeTheModal();
-        }
-        // setPreviewData(JSON.parse(decryptedData).data);
-      })
-      .catch(async (errInBuyReq) => {
-        const decryptedData = await funcForDecrypt(
-          errInBuyReq.response.data.payload
-        );
-        let decryptPayload = JSON.parse(decryptedData);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: decryptPayload.message,
-        });
-      });
-  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -317,6 +253,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
+              {isModalOpen && <SelectUpiModalForPayout isOpen={isModalOpen} onClose={closeModalPayout} transactionId={transactionId} />}
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <p>
                   {" "}
@@ -356,8 +293,6 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                   </p>
                 </div>
                 <div className="bg-gray-50 px-4 m-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-
-
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
@@ -367,14 +302,22 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                     Cancel
                   </button>
 
-                  <button
+                  {purchaseType === 'buy' && <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     ref={cancelButtonRef}
                     onClick={() => buyReqApiHandler()}
                   >
                     procced
-                  </button>
+                  </button>}
+                  {purchaseType === 'sell' && <button
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    ref={cancelButtonRef}
+                    onClick={() => openModalPayout()}
+                  >
+                    NEXT
+                  </button>}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
