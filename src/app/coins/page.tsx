@@ -126,7 +126,7 @@ const Coins = () => {
               <div className="text-white ml-2 pr-4 flex">
                 <p className="text-yellow-300 font-extrabold mr-2">Gold :</p>
                 <p className="text-yellow-300">
-                  {ParseFloat(user.data.user_vaults.gold, 2)} GM
+                  {ParseFloat(user.data.user_vaults.gold, 4)} GM
                 </p>
               </div>
             </div>
@@ -135,7 +135,7 @@ const Coins = () => {
               <div className="ml-2 flex">
                 <p className="text-slate-200 font-extrabold mr-2">Silver :</p>
                 <p className="text-slate-200 font-semibold">
-                  {ParseFloat(user.data.user_vaults.silver, 2)} GM
+                  {ParseFloat(user.data.user_vaults.silver, 4)} GM
                 </p>
               </div>
             </div>

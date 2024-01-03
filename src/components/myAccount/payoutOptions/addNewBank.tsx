@@ -15,6 +15,8 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
   const [bankList, setBankList] = useState<any[]>([]);
   const [checkingBankStatus, setCheckingBankStatus] = useState<boolean>();
   const [otherBankName, setOtherBankName] = useState<boolean>(false);
+  const [bankName, setBankName] = useState()
+
 
   const fetchAllBankName = async () => {
     fetch(`${process.env.baseUrl}/public/bank/list`, {
@@ -24,7 +26,9 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
       .then(async (data) => {
         const decryptedData = await funcForDecrypt(data.payload);
         let decryptedDataList = JSON.parse(decryptedData).data;
+        // setBankName(decryptedBankName)
         setBankList(decryptedDataList);
+        console.log('decryptedDataList', decryptedDataList)
       })
       .catch((error) => alert(error));
   };
@@ -147,7 +151,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
               <select
                 className="mt-3 block w-full text-white rounded bg-theme px-3 py-2 focus:outline-none  border-1  pl-0 focus:ring-0 focus:border-b"
                 name="bankName"
-                value=""
+                value={bankName}
                 onChange={(data) => {
                   // log('data', data.target.value);
                   setFieldValue("bankName", data.target.value);
@@ -169,6 +173,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
                         className="text-black"
                         key={item._id}
                         value={item.name}
+                      // onChange={setBankName(item.name)}
                       >
                         {item.name}
                       </option>
@@ -194,7 +199,7 @@ const AddNewBank = ({ toggleBankVerificationHandler }: any) => {
                   name="bankName"
                   type="text"
                   placeholder="Enter Bank Name"
-                  value={values.bankName}
+                  value={values.bankName === 'Others' ? '' : values.bankName}
                   onChange={(event) => {
                     const { name, value } = event.target;
                     const updatedValue = value.replace(/[^a-zA-Z\s]/g, "");

@@ -148,21 +148,11 @@ const BuySell = () => {
         const decryptedData = await funcForDecrypt(
           resAfterPreview.data.payload
         );
-        // log("preview", JSON.parse(decryptedData).data);
         setPreviewData(JSON.parse(decryptedData).data.preview);
         setTransactionId(JSON.parse(decryptedData).data.transactionCache._id);
         if (JSON.parse(decryptedData).statusCode == 200) {
           // Notiflix.Loading.remove();
-          // if (purchaseType.toUpperCase() == "BUY") {
           setModalOpen(true)
-          // } else {
-          // setSellModalShow(true);
-          // }
-          if (purchaseType.toUpperCase() == "BUY") {
-            setModalOpen(true);
-          } else {
-            // setSellModalShow(true);
-          }
         }
       })
       .catch(async (errInPreview) => {
@@ -677,7 +667,6 @@ const BuySell = () => {
                 >
                   <p>Sell Now</p>
                 </button>}
-
                 {isModalOpen && (
                   <Modal
                     transactionId={transactionId}
@@ -685,10 +674,7 @@ const BuySell = () => {
                     onClose={closeModal}
                   />
                 )}
-
                 {isModalCouponOpen && (<ModalCoupon isOpen={isModalCouponOpen} onClose={closeModal} />)}
-
-
               </div>
             </div>
           </div>

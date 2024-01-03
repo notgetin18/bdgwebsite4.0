@@ -99,26 +99,23 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
     const token = localStorage.getItem('token')
 
 
-    // console.table({
-    //     purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
-    //     unit: "GRAMS",
-    //     gram: metalQuantity,
-    //     amount: enteredAmount,
-    //     order_preview_id: transactionId,
-    //     amountWithoutTax: enteredAmount,
-    //     totalAmount: enteredAmount,
-    //     paymentMode : upiId,
-    //     itemMode: "DIGITAL",
-    //     fromApp: false,
-    // })
+    console.table({
+        purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
+        unit: "AMOUNT",
+        gram: metalQuantity,
+        amount: enteredAmount,
+        order_preview_id: transactionId,
+        amountWithoutTax: enteredAmount,
+        totalAmount: enteredAmount,
+        paymentMode: upiId,
+        itemMode: "DIGITAL",
+        fromApp: false,
+    })
 
     const sellReqApiHandler = async () => {
-        // const upiId = "9660637657@paytm"
-
-        // console.log('method called');
         const dataToBeDecrypt = {
             purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
-            unit: "GRAMS",
+            unit: "AMOUNT",
             gram: metalQuantity,
             amount: actualAmount,
             order_preview_id: transactionId,
@@ -158,7 +155,7 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                         "success"
                     );
                     closeModal();
-                    
+
                 }
                 // setPreviewData(JSON.parse(decryptedData).data);
             })
@@ -217,14 +214,15 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                                 <div className="flex justify-content-between coins_backgroun align-items-center">
                                                     <div>
                                                         <input
-                                                            className="coins_backgroun"
+                                                            className="coins_backgroun "
                                                             type="radio"
                                                             onChange={selectUpiHandler}
                                                             id="html"
                                                             name="fav_language"
                                                             value={_id}
-                                                        /></div>
-                                                    <div className='text-gray-400' id={_id}>
+                                                        />
+                                                    </div>
+                                                    <div className='text-gray-400 pl-4' id={_id}>
                                                         {AesDecrypt(value)}
                                                     </div>
                                                 </div>
@@ -238,10 +236,10 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                         return (
                                             <>
                                                 {item.documentType === "BANKACCOUNT" ? (
-                                                    <div className=''>
+                                                    <div className='text-white'>
                                                         <input type="radio" onChange={selectUpiHandler} id="html" name="fav_language" value={item._id} />
                                                         <div className=''>
-                                                            <div className=''>
+                                                            <div className='flex justify-between py-2'>
                                                                 <div className=''>
                                                                     Account Holder Name
                                                                 </div>
@@ -249,7 +247,8 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                                                     {AesDecrypt(item.bankData.accountName)}
                                                                 </div>
                                                             </div>
-                                                            <div className=''>
+                                                            <hr className="border-gray-500" />
+                                                            <div className='flex justify-between py-2'>
                                                                 <div className=''>
                                                                     Account Number
                                                                 </div>
@@ -257,7 +256,8 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                                                     {AesDecrypt(item.bankData.accountNumber)}
                                                                 </div>
                                                             </div>
-                                                            <div className=''>
+                                                            <hr className="border-gray-500" />
+                                                            <div className='flex justify-between py-2'>
                                                                 <div className=''>
                                                                     Bank Name
                                                                 </div>
@@ -265,7 +265,8 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                                                     {AesDecrypt(item.bankData.bankName)}
                                                                 </div>
                                                             </div>
-                                                            <div className=''>
+                                                            <hr className="border-gray-500" />
+                                                            <div className='flex justify-between py-2'>
                                                                 <div className=''>
                                                                     Bank IFSC
                                                                 </div>
@@ -273,6 +274,7 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                                                     {AesDecrypt(item.bankData.ifsc)}
                                                                 </div>
                                                             </div>
+                                                            <hr className="border-gray-500" />
                                                         </div>
                                                     </div>
                                                 ) : (
