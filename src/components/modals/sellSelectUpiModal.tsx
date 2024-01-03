@@ -43,7 +43,7 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
     const fetchBankAndUPIDetails = async () => {
         try {
             const { UpiList, BankList, decryptedDataList } = await fetchAllUPI();
-            console.log(UpiList, BankList, decryptedDataList);
+            console.log("------------->", UpiList, BankList, decryptedDataList);
             setAllUpiList(UpiList);
             setUpiList(upiList);
             setAllBankList(decryptedDataList);
@@ -52,14 +52,17 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
         }
     };
 
-    const showSellUpiList = async () => {
-        setIsShowUpi(true);
-    };
+    // const showSellUpiList = async () => {
+    //     setIsShowUpi(true);
+    // };
 
 
     useEffect(() => {
         fetchBankAndUPIDetails();
     }, [])
+
+    console.table({ upiList, allBankList, allUpiList })
+    console.log('allUpiList', allUpiList)
 
 
     useEffect(() => {
@@ -96,23 +99,23 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
     const token = localStorage.getItem('token')
 
 
-    console.table({
-        purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
-        unit: "GRAMS",
-        gram: metalQuantity,
-        amount: enteredAmount,
-        order_preview_id: transactionId,
-        amountWithoutTax: enteredAmount,
-        totalAmount: enteredAmount,
-        // paymentMode : upiId,
-        itemMode: "DIGITAL",
-        fromApp: false,
-    })
+    // console.table({
+    //     purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
+    //     unit: "GRAMS",
+    //     gram: metalQuantity,
+    //     amount: enteredAmount,
+    //     order_preview_id: transactionId,
+    //     amountWithoutTax: enteredAmount,
+    //     totalAmount: enteredAmount,
+    //     paymentMode : upiId,
+    //     itemMode: "DIGITAL",
+    //     fromApp: false,
+    // })
 
     const sellReqApiHandler = async () => {
-        const upiId = "9660637657@paytm"
+        // const upiId = "9660637657@paytm"
 
-        console.log('method called');
+        // console.log('method called');
         const dataToBeDecrypt = {
             purpose: purchaseType === 'sell' && metalType === 'gold' ? 'SELL_GOLD' : 'SELL_SILVER',
             unit: "GRAMS",
@@ -124,22 +127,6 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
             paymentMode: upiId,
             itemMode: "DIGITAL",
             fromApp: false,
-
-
-            // orderType: purchaseType.toUpperCase(),
-            // item: metalType.toUpperCase(),
-            // unit: "AMOUNT",
-            // gram: metalQuantity,
-            // amount: totalAmount,
-            // order_preview_id: transactionId,
-            // amountWithoutTax: actualAmount,
-            // tax: "3",
-            // totalAmount: totalAmount,
-            // couponCode: appliedCouponCode ? appliedCouponCode : '',
-            // itemMode: "DIGITAL",
-            // gst_number: '',
-            // fromApp: false,
-            // payment_mode: 'cashfree'
         };
 
         const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
@@ -170,7 +157,8 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                         `${JSON.parse(decryptedData).message}`,
                         "success"
                     );
-                    // closeTheModal();
+                    closeModal();
+                    
                 }
                 // setPreviewData(JSON.parse(decryptedData).data);
             })
@@ -218,37 +206,38 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg coins_backgroun px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                 <p>
                                     <Timer />
                                 </p>
                                 <div>
-                                    {upiList?.map(({ item, key }: any) => {
+                                    {allUpiList.map(({ value, _id }: any, key: number) => {
                                         return (
-                                            <>
-                                                {item?.documentType == "UPI" ? (
-                                                    <>
-                                                        <div className=''>
-                                                            <div className="d-flex justify-content-between align-items-center">
-                                                                <input type="radio" onChange={selectUpiHandler} id="html" name="fav_language" value={item._id} />
-                                                                <div className='' id={item._id}>
-                                                                    {AesDecrypt(item.value)}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    ""
-                                                )}
-                                            </>
+                                            <div key={key} className='coins_backgroun'>
+                                                <div className="flex justify-content-between coins_backgroun align-items-center">
+                                                    <div>
+                                                        <input
+                                                            className="coins_backgroun"
+                                                            type="radio"
+                                                            onChange={selectUpiHandler}
+                                                            id="html"
+                                                            name="fav_language"
+                                                            value={_id}
+                                                        /></div>
+                                                    <div className='text-gray-400' id={_id}>
+                                                        {AesDecrypt(value)}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         );
                                     })}
+
 
 
                                     {allBankList?.map((item, key) => {
                                         return (
                                             <>
-                                                {item.documentType == "BANKACCOUNT" ? (
+                                                {item.documentType === "BANKACCOUNT" ? (
                                                     <div className=''>
                                                         <input type="radio" onChange={selectUpiHandler} id="html" name="fav_language" value={item._id} />
                                                         <div className=''>
@@ -294,12 +283,12 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                     })}
                                 </div>
 
-                                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                <div className=" px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                 </div>
-                                <div className="bg-gray-50 px-4 m-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                <div className="coins_backgroun px-4 m-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
                                         type="button"
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                        className="mt-3 inline-flex w-full justify-center rounded-md ml-2 bg-themeBlue px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
                                         ref={cancelButtonRef}
                                         onClick={() => closeModal()}
                                     >
@@ -307,7 +296,7 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
                                     </button>
                                     {purchaseType === 'sell' && <button
                                         type="button"
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-themeBlue px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         ref={cancelButtonRef}
                                         onClick={() => sellReqApiHandler()}
                                     >

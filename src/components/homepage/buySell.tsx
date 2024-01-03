@@ -228,10 +228,10 @@ const BuySell = () => {
 
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
+    dispatch(setEnteredAmount(0));
     dispatch(setPurchaseType(tab));
     setValidationError("");
     dispatch(clearCoupon());
-    dispatch(setEnteredAmount(0));
   };
 
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
