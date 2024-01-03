@@ -8,6 +8,7 @@ const OrderDetails = (props: any) => {
   return (
     <>
       <div className="coins_background rounded-lg shadow-black shadow-xl p-3 mb-3">
+        <p>Transaction Staus</p>
         <div className="grid grid-cols-3  justify-between pb-3">
           <div className="flex items-center col-span-2">
             <div>
@@ -26,7 +27,7 @@ const OrderDetails = (props: any) => {
               )}
               {props?.orderDetails?.orderType === "REWARD" &&
                 "Promotional " + formatString(props?.orderDetails?.itemType)}
-              {props?.orderDetails?.orderType === "BUY" && <p>Purchase</p>}
+              {props?.orderDetails?.orderType === "BUY" &&  <p>Purchase</p>}
               {props?.orderDetails?.orderType === "SELL" && <p>Sold</p>}
               {props?.orderDetails?.orderType === "GIFT" &&
                 props?.orderDetails?.rewardsType === "SEND" && <p>Gift Sent</p>}
