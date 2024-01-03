@@ -7,7 +7,6 @@ import {
   funcForDecrypt,
 } from "@/components/helperFunctions";
 import { Tab } from "@headlessui/react";
-import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 import { addDays, format, startOfMonth, startOfYear, subYears } from "date-fns";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -580,11 +579,7 @@ const OrdersTabs = () => {
                     </div> */}
                   </div>
                   {/* <p>fg</p> */}
-                  {isOpen && (
-                    <div>
-                      <OrderDetails orderDetails={activeTab} />
-                    </div>
-                  )}
+                  {isOpen && <OrderDetails orderDetails={activeTab} />}
                 </Tab>
               ))}
             </Tab.List>
