@@ -32,13 +32,13 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
     const [allUpiList, setAllUpiList] = useState([]);
     const [allBankList, setAllBankList] = useState<any[]>([]);
     const orderIdRef = useRef(null);
-  const [upiId, setUpiId] = useState("");
+    const [upiId, setUpiId] = useState("");
 
 
     const selectUpiHandler = (e: any) => {
         // log("selectUpiHandler e.target.value : ", e.target.value);
         setUpiId(e.target.value);
-      }
+    }
 
     const fetchBankAndUPIDetails = async () => {
         try {
