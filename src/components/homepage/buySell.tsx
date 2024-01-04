@@ -161,11 +161,7 @@ const BuySell = () => {
           errInPreview.response.data.payload
         );
         let response = JSON.parse(decryptedData);
-        console.log("decryptedData", response);
         if (response.messageCode == "TECHNICAL_ERROR") {
-          console.log('response.messageCode 128', response.messageCode)
-          console.log("response.messageCode 128", response.messageCode);
-          // updateMetalPrice();
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -178,7 +174,6 @@ const BuySell = () => {
           // setKycError(response.message);
         } else if (response.messageCode == "SESSION_EXPIRED") {
           console.log("response.messageCode 138", response.messageCode);
-          // updateMetalPrice();
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -404,11 +399,6 @@ const BuySell = () => {
                 </div>
                 <div>
                   <p className="text-white text-sm pl-6 mt-6 relative">
-                    {/* <Lottie
-                      animationData={live}
-                      className="h-6 absolute"
-                      loop={true}
-                    /> */}
                     <img
                       src="/lottie/Animation - 1700632554663.gif"
                       className="h-8 inline-block"
@@ -610,7 +600,7 @@ const BuySell = () => {
               </div>
               {transactionType === "rupees" ? (
                 <QuickBuySellButtons
-                  amounts={[50, 100, 500, 1000]}
+                  amounts={[100, 200, 500, 1000]}
                   unit="rupees"
                 />
               ) : (

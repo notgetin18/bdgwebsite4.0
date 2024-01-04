@@ -8,7 +8,7 @@ import {
 } from "@/components/helperFunctions";
 import { Tab } from "@headlessui/react";
 import axios from "axios";
-import { addDays, format, startOfMonth, startOfYear, subYears } from "date-fns";
+import { addDays, format, } from "date-fns";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import OrderDetails from "./orderDetails";
 import { DateRangePicker } from "react-date-range";
@@ -18,7 +18,6 @@ import { FaCalendarAlt } from "react-icons/fa";
 import Vault from "./vault";
 
 const OrdersTabs = () => {
-  const year = new Date().getFullYear();
   const [userDetails, setUserDetails] = useState("");
   const [status, setStatus] = useState("ALL");
   const [isOpen, setIsOpen] = useState(false);
@@ -283,7 +282,7 @@ const OrdersTabs = () => {
         status,
         metalValue,
         transactionValue,
-        page + 1,
+        page - 1,
         size
       );
     }
@@ -516,7 +515,7 @@ const OrdersTabs = () => {
                             {item?.orderType === "BUY" && (
                               <p className="ml-1">Purchase</p>
                             )}
-                            {item?.orderType === "SELL" && <p>Sold</p>}
+                            {item?.orderType === "SELL" && <p className="ml-1">Sold</p>}
                             {item?.orderType === "GIFT" &&
                               item?.rewardsType === "SEND" && <p>Gift Sent</p>}
                             {item?.orderType === "GIFT" &&

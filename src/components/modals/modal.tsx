@@ -35,6 +35,8 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   const orderIdRef = useRef(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const time = <Timer />
+  console.log('time', time)
 
 
   const openModalPayout = async () => {
@@ -238,14 +240,13 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+              <Dialog.Panel className="text-white relative transform overflow-hidden rounded-lg coins_backgroun px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <p>
-                  {" "}
-                  <Timer />{" "}
+                  <Timer />
                 </p>
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div className="coins_backgroun px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <p>
-                    Buy Breakdown{" "}
+                    {purchaseType === "buy" ? "Buy" : "Sell"}  Breakdown{" "}
                     {transactionType === "grams" ? actualAmount : enteredAmount}
                   </p>
                   <p>
@@ -253,10 +254,10 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                     {metalType === "gold" ? "Gold" : "Silver"} Weight :{" "}
                     {metalQuantity}{" "}
                   </p>
-                  <p>
+                  {purchaseType === "buy" && <p className="justify-between items-center">
                     {metalType === "gold" ? "Gold" : "Silver"} Value :{" "}
                     {actualAmount}{" "}
-                  </p>
+                  </p>}
                   {metalType === "gold" && purchaseType === "buy" && (
                     <p>Promotional Silver : {metalQuantity} </p>
                   )}
@@ -276,10 +277,10 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                     {transactionType === "grams" ? actualAmount : enteredAmount}
                   </p>
                 </div>
-                <div className="bg-gray-50 px-4 m-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="text-yellow-400 px-4 m-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 ml-2 inline-flex w-full justify-center rounded-md coins_backgroun px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300  hover:bg-themeBlue sm:mt-0 sm:w-auto"
                     ref={cancelButtonRef}
                     onClick={() => closeModal()}
                   >
@@ -288,7 +289,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
 
                   {purchaseType === 'buy' && <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 text-yellow-400  inline-flex w-full justify-center rounded-md coins_backgroun px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-themeBlue sm:mt-0 sm:w-auto"
                     ref={cancelButtonRef}
                     onClick={() => buyReqApiHandler()}
                   >
@@ -296,7 +297,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                   </button>}
                   {purchaseType === 'sell' && <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 inline-flex w-full ml-2 justify-center rounded-md coins_backgroun px-3 py-2 text-sm font-semibold text-yellow-400 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                     ref={cancelButtonRef}
                     onClick={() => openModalPayout()}
                   >

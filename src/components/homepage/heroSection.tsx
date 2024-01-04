@@ -89,8 +89,7 @@ const HeroSection = () => {
                 className="text-6xl text-white font-semibold leading-tight mb-12 "
               >
                 <span className="text-themeBlueLight extrabold">
-                  {/* Start Your Savings */}
-                  let me complete first ????
+                  Start Your Savings
                 </span>
                 <br />
                 <span className=" font-thin">

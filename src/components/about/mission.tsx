@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import Lottie from "lottie-react";
-import vision from "../../../public/lottie/vision.json";
-import mission from "../../../public/lottie/mission.json";
+
 import { motion } from "framer-motion";
 import { fadeIn, staggerContainer } from "../../utils/motion";
 
@@ -36,11 +35,6 @@ const Mission = () => {
               variants={fadeIn("right", "spring", 1.25, 1.25)}
               className=" col-span-2 sm:col-span-1 rounded-2xl bg-themeBlue"
             >
-              {/* <Lottie
-                animationData={mission}
-                className="h-60 left-1/3 -top-10 absolute"
-                loop={true}
-              /> */}
               <img src="/lottie/Vision.gif" className="mx-auto h-72" />
             </motion.div>
             <h1 className="col-span-2 text-5xl text-gold01 text-center extrabold leading-tight mb-0 sm:mb-6">
@@ -50,11 +44,6 @@ const Mission = () => {
               variants={fadeIn("left", "spring", 1.25, 1.25)}
               className="col-span-2 sm:col-span-1 rounded-2xl bg-themeBlue"
             >
-              {/* <Lottie
-                animationData={mission}
-                className="h-60 left-1/3 -top-6 absolute"
-                loop={true}
-              /> */}
               <img src="/lottie/Vision.gif" className="mx-auto h-72" />
             </motion.div>
             <p className="col-span-2 sm:col-span-1 text-white text-left leading-8  mb-4 mt-6 text-2xl">
