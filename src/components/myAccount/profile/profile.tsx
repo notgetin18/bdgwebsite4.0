@@ -1,4 +1,3 @@
-import ProfileImage from "./profileImage";
 import EditProfile from "./editProfile";
 import ProfileInfo from "./profileInfo";
 import { useState } from "react";

@@ -1,7 +1,6 @@
-import { AppDispatch } from "@/redux/store";
 import { selectUser } from "@/redux/userDetailsSlice";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { MdScheduleSend } from "react-icons/md";
 import Swal from "sweetalert2";
@@ -77,7 +76,7 @@ const ProfileInfo = ({ onEditDetailsClick }: any) => {
           </span>
         </div>
         <hr className="border-gray-500 my-1" />
-        <div className="mb-2 grid grid-cols-2">
+        <div className="mb-2 grid grid-cols-2 items-center">
           <span className="font-bold">Email ID</span>
           <span className="sm:flex items-center break-words justify-end">
             {user?.data?.email}

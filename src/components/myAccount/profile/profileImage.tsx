@@ -60,11 +60,13 @@ const ProfileImage = () => {
 
     fetchData();
   }, [dispatch, handleProfileImageChange]);
+
+  
   return (
     <div className="rounded-t-lg w-full relative">
       <div className="relative">
         <Image
-          src={user.data.profile_image}
+          src={user?.data?.profile_image}
           alt="profile image"
           width={150}
           height={150}

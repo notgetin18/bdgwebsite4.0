@@ -1,12 +1,14 @@
 "use client";
+import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import { classNames } from "@/components";
 import KycTab from "../kyc/kyc";
 import PayoutOptionTab from "../payoutOptions/payoutOption";
 import ProfileTab from "../profile/profile";
 import AddressTab from "../address/address";
-import { useState } from "react";
 import ProfileImage from "../profile/profileImage";
+import { selectUser } from "@/redux/userDetailsSlice";
+import { useSelector } from "react-redux";
 
 const data = [
   { id: 1, name: "PROFILE", img: "/24K guaranteed .png" },
@@ -17,6 +19,8 @@ const data = [
 
 const MyAccountTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const user = useSelector(selectUser);
+
 
   const handleCompleteKYC = () => {
     setSelectedIndex(1);
@@ -24,13 +28,13 @@ const MyAccountTabs = () => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center  mb-16">
-        <div className="flex sm:block justify-center">
+      <div className="mb-12 grid grid-cols-2 justify-center items-center">
+        <div className="">
           <ProfileImage />
         </div>
         <div>
           <p className="text-2xl text-white ml-0 sm:ml-4 text-center">
-            Welcome,Mr Amit
+            {user?.data?.name}
           </p>
         </div>
       </div>
