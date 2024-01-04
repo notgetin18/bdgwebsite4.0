@@ -25,7 +25,7 @@ const Navbar = () => {
   const router = useRouter();
   // const userExists = useSelector((state: RootState) => state.auth.userExists);
   const isloggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  const [isLoginOpen, setLoginOpen] = useState(false);
+  const [openLoginAside, setOpenLoginAside] = useState(false);
   const dispatch = useDispatch();
 
   const handleDropdownToggle = (isOpen: boolean | ((prevState: boolean) => boolean)) => { setDropdownOpen(isOpen) };
@@ -45,17 +45,17 @@ const Navbar = () => {
   // logoutProfile();
 
   const handleLoginClick = () => {
-    setLoginOpen(!isLoginOpen);
+    setOpenLoginAside(!openLoginAside);
   };
 
   return (
     <Disclosure as="nav" className="bg-header">
       {({ open, close }) => (
         <>
-          {isLoginOpen && (
+          {openLoginAside && (
             <LoginAside
-              isOpen={isLoginOpen}
-              onClose={() => setLoginOpen(false)}
+              isOpen={openLoginAside}
+              onClose={() => setOpenLoginAside(false)}
             />
           )}
           <div className="mx-auto px-2 sm:px-6 lg:px-16 py-2 z-10">
@@ -151,15 +151,18 @@ const Navbar = () => {
                 </div>
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="relative flex focus:outline-none">
+                    <Menu.Button onClick={() => { close() }} className="relative flex focus:outline-none">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
                       <Link
                         className="block lg:hidden text-gray-300 hover:bg-gray-800 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
-                        onClick={() => { close() }}
                       >
-                        <UserCircleIcon className="h-8" />
+                        <UserCircleIcon onClick={() => {
+                          console.log('click clicked')
+                          close();
+                          setDropdownOpen(false)
+                        }} className="h-8" />
                       </Link>
                     </Menu.Button>
                   </div>
