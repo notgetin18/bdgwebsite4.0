@@ -1,9 +1,14 @@
 import { selectUser } from "@/redux/userDetailsSlice";
 import React, { useState, Fragment, useEffect } from "react";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { AesDecrypt, AesEncrypt, funForAesEncrypt, funcForDecrypt } from "@/components/helperFunctions";
+import {
+  AesDecrypt,
+  AesEncrypt,
+  funForAesEncrypt,
+  funcForDecrypt,
+} from "@/components/helperFunctions";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loader from "@/utils/loader";
@@ -13,23 +18,24 @@ const KycTab = () => {
   const user = useSelector(selectUser);
   const [showDetails, setShowDetails] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [panNumber, setPanNumber] = useState<String>()
-
+  const [panNumber, setPanNumber] = useState<String>();
 
   const handleToggleDetails = () => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
   const KycData = async () => {
-    const decryptedPan: string = await funcForDecrypt(user?.data?.kyc?.panNumber);
+    const decryptedPan: string = await funcForDecrypt(
+      user?.data?.kyc?.panNumber
+    );
     setPanNumber(decryptedPan);
-  }
+  };
 
   useEffect(() => {
-    KycData()
-  }, [])
+    KycData();
+  }, []);
 
-  console.log('user', user.data);
+  console.log("user", user.data);
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +48,11 @@ const KycTab = () => {
       // Validation of PAN number
       if (values.pancard_number === "") {
         errors.pancard_number = "Please Enter PAN Number";
-      } else if (!/^[A-Za-z]{5}\d{4}[A-Za-z]{1}$/.test(values.pancard_number.toUpperCase())) {
+      } else if (
+        !/^[A-Za-z]{5}\d{4}[A-Za-z]{1}$/.test(
+          values.pancard_number.toUpperCase()
+        )
+      ) {
         errors.pancard_number =
           "First 5 characters must be alphabets, Next 4 characters must be numbers, and the last 1 character must be an alphabet";
       }
@@ -50,7 +60,7 @@ const KycTab = () => {
     },
 
     onSubmit: async (values, { resetForm }) => {
-      console.log('values 40', values);
+      console.log("values 40", values);
 
       // if(!panCardImage){
       //     Swal.fire({
@@ -68,130 +78,165 @@ const KycTab = () => {
       try {
         let dataToBeEncryptPayload = {
           documentType: "PANCARD",
-          value: values.pancard_number.toUpperCase()
-        }
-        const resAfterEncryptData = await funForAesEncrypt(dataToBeEncryptPayload)
+          value: values.pancard_number.toUpperCase(),
+        };
+        const resAfterEncryptData = await funForAesEncrypt(
+          dataToBeEncryptPayload
+        );
 
         const payloadToSend = {
           payload: resAfterEncryptData,
-        }
+        };
         const formData = new FormData();
-        formData.append("documentType", 'PANCARD');
+        formData.append("documentType", "PANCARD");
         // formData.append("frontImage", panCardImage);
         formData.append("value", values.pancard_number);
         formData.append("payload", payloadToSend.payload);
 
-        const token = localStorage.getItem('token')
-        const configHeaders = { headers: { authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
-        const response = await axios.post(`${process.env.baseUrl}/user/kyc/verify`, formData, configHeaders);
+        const token = localStorage.getItem("token");
+        const configHeaders = {
+          headers: {
+            authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        };
+        const response = await axios.post(
+          `${process.env.baseUrl}/user/kyc/verify`,
+          formData,
+          configHeaders
+        );
 
-        const decryptedData = await AesDecrypt(response.data.payload)
+        const decryptedData = await AesDecrypt(response.data.payload);
 
-        const finalResult = JSON.parse(decryptedData)
+        const finalResult = JSON.parse(decryptedData);
         if (finalResult.status) {
           // setCheckingPanStatus(true);
           // updateUserData();
           Swal.fire({
             position: "center",
-            icon: 'success',
+            icon: "success",
             title: finalResult.message,
             showConfirmButton: false,
-            timer: 3000
-          })
+            timer: 3000,
+          });
         }
-        resetForm()
+        resetForm();
       } catch (error: any) {
         console.error(error);
-        const decryptedData = await AesDecrypt(error.response.data.payload)
-        const finalResult = JSON.parse(decryptedData)
+        const decryptedData = await AesDecrypt(error.response.data.payload);
+        const finalResult = JSON.parse(decryptedData);
         Swal.fire({
           position: "center",
-          icon: 'error',
-          title: 'Oops...',
+          icon: "error",
+          title: "Oops...",
           text: finalResult.message,
           showConfirmButton: false,
-          timer: 3000
-        })
-        resetForm()
+          timer: 3000,
+        });
+        resetForm();
       } finally {
         setIsSubmitting(false);
-        resetForm()
+        resetForm();
       }
-    }
-  },
-  )
+    },
+  });
 
   return (
     <Fragment>
-      {
-        user.data.isKycDone ?
-          (<div>
-            <div id="rectangle">
-              <img
-                className="A"
-                src="http://freevectorlogo.net/wp-content/uploads/2012/12/emblem-of-india-logo-vector-400x400.png"
-                width="50px"
-                height="50px"
-                alt="Emblem of India"
-              />
-              <h1 className="h11">भारत सरकार</h1>
+      {user.data.isKycDone ? (
+        <div>
+          <div className=" w-full sm:w-2/3 lg:w-1/2 xl:w-2/5 mx-auto py-6 px-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg">
+            {/* <img
+              className="A"
+              src="http://freevectorlogo.net/wp-content/uploads/2012/12/emblem-of-india-logo-vector-400x400.png"
+              width="50px"
+              height="50px"
+              alt="Emblem of India"
+            /> */}
+            {/* <h1 className="h11">भारत सरकार</h1>
               <h4 className="h44">Gov of India</h4>
               <h2 className="h22">आयकर विभाग</h2>
-              <h3 className="h33">Income Tax Department</h3>
-              <div className="grid grid-cols-2 justify-between mt-10 ml-2">
-                <div className="">
-                  <div>PAN </div>
-                  <div>{showDetails ? <strong>{panNumber}</strong> : <strong>XXXXXXXXXX</strong>}</div>
-                </div>
-                <div>
-                  <div className="flex flex-row justify-end mr-2 items-center" onClick={handleToggleDetails}>
-                    <div className="mr-1 cursor-pointer">{showDetails ? <FaEyeSlash size={24} /> : <FaEye size={24} />}</div>
-                    <div>Show PAN Details</div>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 justify-between mt-10 ml-2">
-                <div>{showDetails ? <strong>{user.data.name}</strong> : <strong>XXXXXXXXXXX</strong>}</div>
-                <div className="flex justify-end">
-                  <div className="mr-2">{showDetails ? <strong>{user?.data?.dateOfBirth?.toLocaleLowerCase()}</strong> : <strong>xx-xx-xxxx</strong>}</div>
-                </div>
-              </div>
-            </div>
-          </div>) :
-          (
-            <div>
-              <div className="coins_background rounded-lg w-full mt-9">
-                <div className="">
-                  <ProfileInput
-                    type="text"
-                    label="ENTER YOUR PAN NUMBER"
-                    name="pancard_number"
-                    formik={formik}
-                  />
-                </div>
-                <button
-                  onClick={() => {
-                    formik.submitForm()
-                  }}
-                  className="relative w-full border-2 text-yellow-400 border-yellow-400 rounded-lg py-2"
-                >
-                  {isSubmitting && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Loader />
-                    </div>
+              <h3 className="h33">Income Tax Department</h3> */}
+            <div className="grid grid-cols-2 justify-between ml-2 text-xs sm:text-base">
+              <div className="">
+                <p>PAN </p>
+                <p>
+                  {showDetails ? (
+                    <strong className=" extrabold text-sm">{panNumber}</strong>
+                  ) : (
+                    <strong>XXXXXXXXXX</strong>
                   )}
-                  <strong className={`${isSubmitting ? 'invisible' : 'visible'}`}>
-                    VERIFY
-                  </strong>
-                </button>
+                </p>
+              </div>
+              <div>
+                <div
+                  className="flex flex-row justify-end mr-2 items-center"
+                  onClick={handleToggleDetails}
+                >
+                  <p className="mr-1 cursor-pointer">
+                    {showDetails ? (
+                      <FaEyeSlash size={24} />
+                    ) : (
+                      <FaEye size={24} />
+                    )}
+                  </p>
+                  <div>Show PAN Details</div>
+                </div>
               </div>
             </div>
-          )
-      }
-    </Fragment >
+            <div className="grid grid-cols-2 justify-between mt-10 ml-2 text-xs sm:text-base">
+              <p>
+                {showDetails ? (
+                  <strong className="extrabold">{user.data.name}</strong>
+                ) : (
+                  <strong>XXXXXXXXXXX</strong>
+                )}
+              </p>
+              <div className="flex justify-end">
+                <p className=" text-right">
+                  {showDetails ? (
+                    <strong className="extrabold">
+                      {user?.data?.dateOfBirth?.toLocaleLowerCase()}
+                    </strong>
+                  ) : (
+                    <strong>xx-xx-xxxx</strong>
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="coins_background rounded-lg w-full mt-9">
+            <div className="">
+              <ProfileInput
+                type="text"
+                label="ENTER YOUR PAN NUMBER"
+                name="pancard_number"
+                formik={formik}
+              />
+            </div>
+            <button
+              onClick={() => {
+                formik.submitForm();
+              }}
+              className="relative w-full border-2 text-yellow-400 border-yellow-400 rounded-lg py-2"
+            >
+              {isSubmitting && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Loader />
+                </div>
+              )}
+              <strong className={`${isSubmitting ? "invisible" : "visible"}`}>
+                VERIFY
+              </strong>
+            </button>
+          </div>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
 export default KycTab;
-
-

@@ -598,8 +598,9 @@ input.inputBox {
 
 /* pan card css */
 #rectangle {
-  width: 500px;
-  height: 250px;
+  width: 100%;
+  height: auto;
+
   border-radius: 10px;
   background: -moz-linear-gradient(
     212deg,
@@ -636,10 +637,6 @@ input.inputBox {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A18B9F', endColorstr='#99DAFF',GradientType=1 ); /* ie6-9 */
   /* position: absolute; */
   margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 }
 
 .center-div {

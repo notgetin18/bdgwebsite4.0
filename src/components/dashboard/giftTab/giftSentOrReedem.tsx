@@ -182,15 +182,15 @@ const Redeem = () => {
           GIFTING HISTORY
         </p>
         <dl className="mt-10 space-y-2">
-          <div className=" ">
-            <div className="grid grid-cols-3 items-center justify-between">
-              <div className="">
+          <div className="w-full ">
+            <div className="grid grid-cols-8 gap-2 items-center justify-between w-full">
+              <div className="w-full col-span-4 md:col-span-3">
                 <label className="text-white m-3">Metal</label>
                 <select
                   name="metal"
                   id="metal"
                   onChange={handleMetalChange}
-                  className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-32 focus:outline-none"
+                  className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-full md:w-32 focus:outline-none"
                 >
                   <option value="ALL" selected={true}>
                     All
@@ -199,13 +199,13 @@ const Redeem = () => {
                   <option value="SILVER">SILVER</option>
                 </select>
               </div>
-              <div className="">
-                <label className="text-white m-4">Status</label>
+              <div className="w-full col-span-4 md:col-span-3">
+                <label className="text-white m-3">Status</label>
                 <select
                   name="status"
                   id="status"
                   onChange={handleStatusChange}
-                  className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-32 focus:outline-none"
+                  className="cursor-pointer text-white rounded bg-themeLight px-3 py-2 w-full md:w-32 focus:outline-none"
                 >
                   <option value="ALL" selected={true}>
                     All
@@ -216,7 +216,7 @@ const Redeem = () => {
                 </select>
               </div>
               {itemList.length > 0 && (
-                <div className="flex items-center justify-end ">
+                <div className="flex items-center justify-center md:justify-end col-span-8 md:col-span-2">
                   {page > 1 && (
                     <div
                       className="m-2 px-2 text-center text-white rounded bg-themeLight cursor-pointer"
@@ -263,12 +263,12 @@ const Redeem = () => {
               </div>
             </div>
           )}
-          <div className=" grid grid-cols-2 gap-2">
+          <div className=" grid lg:grid-cols-2 gap-2">
             {userRewards.map((userRewards) => {
               return (
-                <div className="text-white bg-themeLight rounded-md m-4">
-                  <div className="m-3 flex flex-row items-center justify-between">
-                    <div>
+                <div className="text-white bg-themeLight rounded-md my-2">
+                  <div className="m-3 flex flex-col gap-4 sm:gap-2 sm:flex-row items-center justify-between">
+                    <div className="w-full text-left">
                       <div className="text-yellow-500">
                         {userRewards?.itemType}
                       </div>
@@ -278,14 +278,14 @@ const Redeem = () => {
                       {userRewards.status == "PENDING" && (
                         <div className="d-flex flex">
                           <div
-                            className="border-yellow-500 rounded-lg border-2 cursor-pointer p-3 mr-3"
+                            className="border-yellow-500 rounded-lg border-2 cursor-pointer px-3 py-1 mr-3"
                             onClick={() => redeemReward(userRewards._id)}
                           >
                             Redeem
                           </div>
                           {userRewards.rewardsType == "GIFTING" && (
                             <div
-                              className="border-yellow-500 rounded-lg bg-themeLight border-2 cursor-pointer p-3"
+                              className="border-yellow-500 rounded-lg bg-themeLight border-2 cursor-pointer px-3 py-1"
                               onClick={() =>
                                 rewardAction(
                                   "cancel",
@@ -301,35 +301,35 @@ const Redeem = () => {
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "CANCELLED" && (
-                          <div className="border-yellow-500 rounded-lg bg-transparent text-gold01 border-2 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent text-gold01 border-2 cursor-pointer px-3 py-1">
                             Cancelled
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "REDEEM" && (
-                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer px-3 py-1">
                             Redeemed
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "EXPIRED" && (
-                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer px-3 py-1">
                             Expired
                           </div>
                         )}
 
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "SEND" && (
-                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer px-3 py-1">
                             Redeemed
                           </div>
                         )}
 
                       {userRewards.rewardsType == "REFERANDEARN" &&
                         userRewards.status == "REDEEM" && (
-                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3">
+                          <div className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer px-3 py-1">
                             Redeemed
                           </div>
                         )}
@@ -337,7 +337,7 @@ const Redeem = () => {
                       {userRewards.rewardsType == "GIFTING" &&
                         userRewards.status == "SENT" && (
                           <div
-                            className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer p-3"
+                            className="border-yellow-500 rounded-lg bg-transparent border-2 text-gold01 cursor-pointer px-3 py-1"
                             onClick={() =>
                               rewardAction(
                                 "cancel",
