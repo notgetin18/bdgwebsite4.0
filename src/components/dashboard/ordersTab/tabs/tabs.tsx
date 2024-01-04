@@ -16,6 +16,11 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { FaCalendarAlt } from "react-icons/fa";
 import Vault from "./vault";
+import { faqs } from "@/constants";
+import { Disclosure } from "@headlessui/react";
+import { FaChevronCircleDown, FaChevronCircleUp } from "react-icons/fa";
+import Link from "next/link";
+import { ArrowDownIcon } from "@heroicons/react/20/solid";
 
 const OrdersTabs = () => {
   const [userDetails, setUserDetails] = useState("");
@@ -40,7 +45,7 @@ const OrdersTabs = () => {
   const refOne = useRef<HTMLDivElement>(null);
 
   const OpenAccord = (item: any) => {
-    setIsOpen(true);
+    setIsOpen(!isOpen);
   };
   // hide dropdown on ESC press
   const hideOnEscape = (e: { key: string }) => {
@@ -143,7 +148,7 @@ const OrdersTabs = () => {
       })
       .catch((error) => console.error("errordata", error));
   };
-  // console.log('dashboardData =========> ', dashboardData)
+  console.log('dashboardData =========> ', dashboardData)
   const handleClick = (item: any) => {
     setActiveTab(item);
   };
@@ -399,189 +404,534 @@ const OrdersTabs = () => {
       <Tab.Group defaultIndex={0}>
         <div className="grid grid-cols-5 gap-6 mt-8">
           <div className="col-span-5 md:col-span-2 ">
-            <Tab.List className="rounded-xl p-1 ">
-              {dashboardData.map((item, key) => (
-                <Tab
-                  key={key}
-                  onClick={() => OpenAccord(item)}
-                  // onClick={() => handleClick(item)}
-                  className={({ selected }) =>
-                    classNames(
-                      "w-full rounded-lg py-2 text-sm font-medium leading-5 px-4 mb-2",
-                      "focus:outline-none",
-                      selected
-                        ? "coins_background bg-themeLight  text-white shadow"
-                        : "text-blue-100 hover:bg-white/[0.12] hover:text-white bg-themeLight"
-                    )
-                  }
-                >
-                  <div className="grid grid-cols-6 gap-1">
-                    <div className="col-span-3 grid grid-cols-3 gap-3 items-center">
-                      <div className="flex items-center justify-between col-span-1">
-                        {/* gold coin image */}
-                        {item?.orderType === "PRODUCT" &&
-                          item?.itemType === "GOLD" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/coin1.png"
-                            />
-                          )}
-                        {/* silver coin image */}
-                        {item?.orderType === "PRODUCT" &&
-                          item?.itemType === "SILVER" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/Rectangle.png"
-                            />
-                          )}
-                        {/* digital gold BUY image */}
-                        {item?.orderType === "BUY" &&
-                          item?.itemType === "GOLD" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/Goldbarbanner.png"
-                            />
-                          )}
-                        {/* digital gold SELL image */}
-                        {item?.orderType === "SELL" &&
-                          item?.itemType === "GOLD" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/note.png"
-                            />
-                          )}
-                        {/* digital silver BUY  image */}
-                        {item?.orderType === "BUY" &&
-                          item?.itemType === "SILVER" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/Silverbar.png"
-                            />
-                          )}
-                        {/* digital silver SELL  image */}
-                        {item?.orderType === "SELL" &&
-                          item?.itemType === "SILVER" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/note.png"
-                            />
-                          )}
-                        {/*reward digital silver  image */}
-                        {item?.orderType === "REWARD" &&
-                          item?.itemType === "SILVER" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/Silverbar.png"
-                            />
-                          )}
-                        {/*reward digital gold  image */}
-                        {item?.orderType === "REWARD" &&
-                          item?.itemType === "GOLD" && (
-                            <img
-                              alt="gold-logo"
-                              className="h-6"
-                              src="/Goldbarbanner.png"
-                            />
-                          )}
-                        {/*GIFT  image */}
-                        {item?.orderType === "GIFT" && (
-                          <img
-                            alt="gold-logo"
-                            className="h-6"
-                            src="/Goldbarbanner.png"
-                          />
-                        )}
-                      </div>
-                      <div className="flex flex-col justify-start items-center col-span-2">
-                        <div className="flex flex-row">
-                          {item?.orderType !== "REWARD" && (
-                            <span className="">
-                              {formatString(item?.itemType)}
-                            </span>
-                          )}
-                          <span className="">
-                            {item?.orderType === "PRODUCT" && (
-                              <p>Coin Purchase</p>
-                            )}
-                            {item?.orderType === "REWARD" &&
-                              "Promotional " + formatString(item?.itemType)}
-                            {item?.orderType === "BUY" && (
-                              <p className="ml-1">Purchase</p>
-                            )}
-                            {item?.orderType === "SELL" && <p className="ml-1">Sold</p>}
-                            {item?.orderType === "GIFT" &&
-                              item?.rewardsType === "SEND" && <p>Gift Sent</p>}
-                            {item?.orderType === "GIFT" &&
-                              item?.rewardsType === "RECEIVED" && (
-                                <p className="ml-1">Gift Received</p>
-                              )}
-                          </span>
-                        </div>
-                        <div>{item?.gram} gm</div>
-                        <div className="flex">
-                          <span
-                            className={`text-xs rounded-lg  py-1  ${
-                              item?.status === "SUCCESS" ||
-                              item?.status === "COMPLETED"
-                                ? "text-green-500"
-                                : item?.status === "PENDING"
-                                ? "text-yellow-500"
-                                : item?.status === "FAILED"
-                                ? "text-red-500"
-                                : "" // Default color or add another color class
-                            }`}
-                          >
-                            {item?.status}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-3 grid place-items-end">
-                      <div>
-                        {item?.totalAmount !== 0 && (
-                          <p className="text-white font-extrabold text-base sm:text-xl">
-                            ₹{item?.totalAmount}
-                          </p>
-                        )}
+            {dashboardData.map((item, key) => (
+              <Disclosure as="div" key={key} className="pt-6 ">
+                {({ open }) => (
+                  <>
+                    <dt>
+                      {open ? (
+                        <Disclosure.Button className="faq-back flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-t-2xl px-4 py-4">
+                          <span className="text-base font-semibold leading-7 ">
+                            {/* {faq.question} */}
+                            <div className="grid grid-cols-6 gap-1">
+                              <div className="col-span-3 grid grid-cols-3 gap-3 items-center">
+                                <div className="flex items-center justify-between col-span-1">
+                                  {/* gold coin image */}
+                                  {item?.orderType === "PRODUCT" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/coin1.png"
+                                      />
+                                    )}
+                                  {/* silver coin image */}
+                                  {item?.orderType === "PRODUCT" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Rectangle.png"
+                                      />
+                                    )}
+                                  {/* digital gold BUY image */}
+                                  {item?.orderType === "BUY" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Goldbarbanner.png"
+                                      />
+                                    )}
+                                  {/* digital gold SELL image */}
+                                  {item?.orderType === "SELL" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/note.png"
+                                      />
+                                    )}
+                                  {/* digital silver BUY  image */}
+                                  {item?.orderType === "BUY" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Silverbar.png"
+                                      />
+                                    )}
+                                  {/* digital silver SELL  image */}
+                                  {item?.orderType === "SELL" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/note.png"
+                                      />
+                                    )}
+                                  {/*reward digital silver  image */}
+                                  {item?.orderType === "REWARD" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Silverbar.png"
+                                      />
+                                    )}
+                                  {/*reward digital gold  image */}
+                                  {item?.orderType === "REWARD" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Goldbarbanner.png"
+                                      />
+                                    )}
+                                  {/*GIFT  image */}
+                                  {item?.orderType === "GIFT" && (
+                                    <img
+                                      alt="gold-logo"
+                                      className="h-6"
+                                      src="/Goldbarbanner.png"
+                                    />
+                                  )}
+                                </div>
+                                <div className="flex flex-col justify-start items-center col-span-2">
+                                  <div className="flex flex-row">
+                                    {item?.orderType !== "REWARD" && (
+                                      <span className="">
+                                        {formatString(item?.itemType)}
+                                      </span>
+                                    )}
+                                    <span className="">
+                                      {item?.orderType === "PRODUCT" && (
+                                        <p>Coin Purchase</p>
+                                      )}
+                                      {item?.orderType === "REWARD" &&
+                                        "Promotional " + formatString(item?.itemType)}
+                                      {item?.orderType === "BUY" && (
+                                        <p className="ml-1">Purchase</p>
+                                      )}
+                                      {item?.orderType === "SELL" && <p className="ml-1">Sold</p>}
+                                      {item?.orderType === "GIFT" &&
+                                        item?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                                      {item?.orderType === "GIFT" &&
+                                        item?.rewardsType === "RECEIVED" && (
+                                          <p className="ml-1">Gift Received</p>
+                                        )}
+                                    </span>
+                                  </div>
+                                  <div>{item?.gram} gm</div>
+                                  <div className="flex">
+                                    <span
+                                      className={`text-xs rounded-lg  py-1  ${item?.status === "SUCCESS" ||
+                                        item?.status === "COMPLETED"
+                                        ? "text-green-500"
+                                        : item?.status === "PENDING"
+                                          ? "text-yellow-500"
+                                          : item?.status === "FAILED"
+                                            ? "text-red-500"
+                                            : "" // Default color or add another color class
+                                        }`}
+                                    >
+                                      {item?.status}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-span-3 grid place-items-end">
+                                <div>
+                                  {item?.totalAmount !== 0 && (
+                                    <p className="text-white font-extrabold text-base sm:text-xl">
+                                      ₹{item?.totalAmount}
+                                    </p>
+                                  )}
 
-                        {/* <p className="text-white font-extrabold text-xl">₹{item?.totalAmount}</p> */}
-                        <p className="text-xs sm:text-base">
-                          {new Date(item?.createdAt).toLocaleDateString(
-                            "en-IN",
-                            {
-                              day: "2-digit",
-                              month: "short",
-                              year: "numeric",
-                            }
-                          )}
-                        </p>
-                        <p className="text-xs sm:text-base">
-                          {new Date(item?.createdAt).toLocaleTimeString(
-                            "en-IN",
-                            {
-                              hour: "numeric",
-                              minute: "numeric",
-                            }
-                          )}
-                        </p>
-                      </div>
-                    </div>
-                    {/* <div className="flex justify-end items-center col-span-1">
+                                  {/* <p className="text-white font-extrabold text-xl">₹{item?.totalAmount}</p> */}
+                                  <p className="text-xs sm:text-base">
+                                    {new Date(item?.createdAt).toLocaleDateString(
+                                      "en-IN",
+                                      {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                      }
+                                    )}
+                                  </p>
+                                  <p className="text-xs sm:text-base">
+                                    {new Date(item?.createdAt).toLocaleTimeString(
+                                      "en-IN",
+                                      {
+                                        hour: "numeric",
+                                        minute: "numeric",
+                                      }
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+                              {/* <div className="flex justify-end items-center col-span-1">
                       <ArrowRightIcon className="h-5" />
                     </div> */}
-                  </div>
-                  {/* <p>fg</p> */}
-                  {isOpen && <OrderDetails orderDetails={activeTab} />}
-                </Tab>
-              ))}
-            </Tab.List>
+                            </div>
+                          </span>
+                          <span className="ml-6 flex h-7 items-center ">
+                            {open ? (
+                              <FaChevronCircleUp
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <FaChevronCircleDown
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </span>
+                        </Disclosure.Button>
+                      ) : (
+                        <Disclosure.Button className="faq-back flex w-full relative text-sm sm:text-base items-start justify-between text-left text-white rounded-2xl px-4 py-4">
+                          <span className="text-base font-semibold leading-7 ">
+                            {/* {faq.question} */}
+                            <div className="grid grid-cols-6 gap-1">
+                              <div className="col-span-3 grid grid-cols-3 gap-3 items-center">
+                                <div className="flex items-center justify-between col-span-1">
+                                  {/* gold coin image */}
+                                  {item?.orderType === "PRODUCT" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/coin1.png"
+                                      />
+                                    )}
+                                  {/* silver coin image */}
+                                  {item?.orderType === "PRODUCT" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Rectangle.png"
+                                      />
+                                    )}
+                                  {/* digital gold BUY image */}
+                                  {item?.orderType === "BUY" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Goldbarbanner.png"
+                                      />
+                                    )}
+                                  {/* digital gold SELL image */}
+                                  {item?.orderType === "SELL" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/note.png"
+                                      />
+                                    )}
+                                  {/* digital silver BUY  image */}
+                                  {item?.orderType === "BUY" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Silverbar.png"
+                                      />
+                                    )}
+                                  {/* digital silver SELL  image */}
+                                  {item?.orderType === "SELL" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/note.png"
+                                      />
+                                    )}
+                                  {/*reward digital silver  image */}
+                                  {item?.orderType === "REWARD" &&
+                                    item?.itemType === "SILVER" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Silverbar.png"
+                                      />
+                                    )}
+                                  {/*reward digital gold  image */}
+                                  {item?.orderType === "REWARD" &&
+                                    item?.itemType === "GOLD" && (
+                                      <img
+                                        alt="gold-logo"
+                                        className="h-6"
+                                        src="/Goldbarbanner.png"
+                                      />
+                                    )}
+                                  {/*GIFT  image */}
+                                  {item?.orderType === "GIFT" && (
+                                    <img
+                                      alt="gold-logo"
+                                      className="h-6"
+                                      src="/Goldbarbanner.png"
+                                    />
+                                  )}
+                                </div>
+                                <div className="flex flex-col justify-start items-center col-span-2">
+                                  <div className="flex flex-row">
+                                    {item?.orderType !== "REWARD" && (
+                                      <span className="">
+                                        {formatString(item?.itemType)}
+                                      </span>
+                                    )}
+                                    <span className="">
+                                      {item?.orderType === "PRODUCT" && (
+                                        <p>Coin Purchase</p>
+                                      )}
+                                      {item?.orderType === "REWARD" &&
+                                        "Promotional " + formatString(item?.itemType)}
+                                      {item?.orderType === "BUY" && (
+                                        <p className="ml-1">Purchase</p>
+                                      )}
+                                      {item?.orderType === "SELL" && <p className="ml-1">Sold</p>}
+                                      {item?.orderType === "GIFT" &&
+                                        item?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                                      {item?.orderType === "GIFT" &&
+                                        item?.rewardsType === "RECEIVED" && (
+                                          <p className="ml-1">Gift Received</p>
+                                        )}
+                                    </span>
+                                  </div>
+                                  <div>{item?.gram} gm</div>
+                                  <div className="flex">
+                                    <span
+                                      className={`text-xs rounded-lg  py-1  ${item?.status === "SUCCESS" ||
+                                        item?.status === "COMPLETED"
+                                        ? "text-green-500"
+                                        : item?.status === "PENDING"
+                                          ? "text-yellow-500"
+                                          : item?.status === "FAILED"
+                                            ? "text-red-500"
+                                            : "" // Default color or add another color class
+                                        }`}
+                                    >
+                                      {item?.status}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-span-3 grid place-items-end">
+                                <div>
+                                  {item?.totalAmount !== 0 && (
+                                    <p className="text-white font-extrabold text-base sm:text-xl">
+                                      ₹{item?.totalAmount}
+                                    </p>
+                                  )}
+
+                                  {/* <p className="text-white font-extrabold text-xl">₹{item?.totalAmount}</p> */}
+                                  <p className="text-xs sm:text-base">
+                                    {new Date(item?.createdAt).toLocaleDateString(
+                                      "en-IN",
+                                      {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                      }
+                                    )}
+                                  </p>
+                                  <p className="text-xs sm:text-base">
+                                    {new Date(item?.createdAt).toLocaleTimeString(
+                                      "en-IN",
+                                      {
+                                        hour: "numeric",
+                                        minute: "numeric",
+                                      }
+                                    )}
+                                  </p>
+                                </div>
+                              </div>
+                              {/* <div className="flex justify-end items-center col-span-1">
+                      <ArrowRightIcon className="h-5" />
+                    </div> */}
+                            </div>
+                          </span>
+                          <span className="ml-6 flex h-7 items-center ">
+                            {open ? (
+                              <FaChevronCircleUp
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <FaChevronCircleDown
+                                className="h-6 w-6"
+                                aria-hidden="true"
+                              />
+                            )}
+                          </span>
+                        </Disclosure.Button>
+                      )}
+                    </dt>
+                    <Disclosure.Panel as="dd" className="">
+                      <p className="text-base leading-7 text-white rounded-b-2xl px-4 py-2 bg-themeBlue">
+                        {/* {answer} */}
+                        <div className="coins_background rounded-lg shadow-black shadow-xl p-3 mb-3">
+                          <p className="text-xl">Transaction Status</p>
+                          <div className="grid grid-cols-3  justify-between pb-3">
+                            <div className="flex items-center col-span-2">
+                              <div>
+                                {item?.status === "SUCCESS" ||
+                                  item?.status === "COMPLETED" ? (
+                                  <img src="/check.png" alt="" className="" width={40} />
+                                ) : item?.status === "PENDING" ? (
+                                  <img src="/question-mark.png" alt="" className="" width={30} />
+                                ) : (
+                                  <img src="/close.png" alt="" className="" width={40} />
+                                )}
+                              </div>
+                              <p className="px-2 col-span-1 text-sm sm:text-base">
+                                {item?.orderType === "PRODUCT" && (
+                                  <p>Coin Purchase</p>
+                                )}
+                                {item?.orderType === "REWARD" &&
+                                  "Promotional " + formatString(item?.itemType)}
+                                {item?.orderType === "BUY" && <p>Purchase</p>}
+                                {item?.orderType === "SELL" && <p>Sold</p>}
+                                {item?.orderType === "GIFT" &&
+                                  item?.rewardsType === "SEND" && <p>Gift Sent</p>}
+                                {item?.orderType === "GIFT" &&
+                                  item?.rewardsType === "RECEIVED" && (
+                                    <p>Gift Received</p>
+                                  )}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm sm:text-base">
+                                {new Date(item.createdAt).toLocaleDateString(
+                                  "en-IN",
+                                  {
+                                    day: "2-digit",
+                                    month: "short",
+                                    year: "numeric",
+                                  }
+                                )}
+                              </p>
+                              <p className="text-sm sm:text-base">
+                                {new Date(item.createdAt).toLocaleTimeString(
+                                  "en-IN",
+                                  {
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                  }
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="">
+                            <div className="grid grid-cols-3  justify-between pb-3">
+                              <div className="flex items-center col-span-2">
+                                <div className="">
+                                  {item?.status === "SUCCESS" ||
+                                    item?.status === "COMPLETED" ? (
+                                    <img src="/check.png" alt="" className="" width={40} />
+                                  ) : item?.status === "PENDING" ? (
+                                    <img
+                                      src="/question-mark.png"
+                                      alt=""
+                                      className=""
+                                      width={30}
+                                    />
+                                  ) : (
+                                    <img src="" alt="/close.png" className="" width={40} />
+                                  )}
+                                </div>
+                                <p className="px-2 col-span-1 text-sm sm:text-base">
+                                  {item?.orderType === "PRODUCT" &&
+                                    formatString(item?.itemType) +
+                                    " Coin Purchase"}
+                                  {item?.orderType === "REWARD" &&
+                                    "Promotional " +
+                                    formatString(item?.itemType) +
+                                    " Received"}
+                                  {item?.orderType === "BUY" &&
+                                    formatString(item?.itemType) + " Purchase"}
+                                  {item?.orderType === "SELL" && <p>Sold</p>}
+                                  {item?.orderType === "GIFT" &&
+                                    item?.rewardsType === "SEND" &&
+                                    formatString(`${item?.itemType}`) +
+                                    " Gift Sent"}
+                                  {item?.orderType === "GIFT" &&
+                                    item?.rewardsType === "RECEIVED" &&
+                                    formatString(`${item?.itemType}`) +
+                                    " Gift Received"}
+                                </p>
+                              </div>
+                              <div className=" text-right">
+                                <p className="text-sm sm:text-base">
+                                  {new Date(item.updatedAt).toLocaleDateString(
+                                    "en-IN",
+                                    {
+                                      day: "2-digit",
+                                      month: "short",
+                                      year: "numeric",
+                                    }
+                                  )}
+                                </p>
+                                <p className="text-sm sm:text-base">
+                                  {new Date(item.updatedAt).toLocaleTimeString(
+                                    "en-IN",
+                                    {
+                                      hour: "numeric",
+                                      minute: "numeric",
+                                    }
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex justify-between ">
+                              <div>Order Id</div>
+                              <p>{item?.order_id}</p>
+                            </div>
+                          </div>
+                          <div className="flex justify-center">
+                            {item?.status == "SUCCESS" &&
+                              item?.challanUrl && (
+                                <Link
+                                  target="_blank"
+                                  className=""
+                                  href={item?.challanUrl}
+                                >
+                                  <div className="text-center m-2 pb-3 flex justify-around">
+                                    <button className="border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex text-yellow-400">
+                                      Download Challan
+                                      <ArrowDownIcon className="h-5 ml-2 text-yellow-300" />
+                                    </button>
+                                  </div>
+                                </Link>
+                              )}
+                            {item?.status == "SUCCESS" &&
+                              item?.invoiceUrl && (
+                                <Link
+                                  target="_blank"
+                                  className=""
+                                  href={item?.invoiceUrl}
+                                >
+                                  <div className="text-center m-2 pb-3 flex justify-around">
+                                    <button className="border-2 border-yellow-500 py-2 px-4 rounded-2xl mt-4 flex text-yellow-400">
+                                      Download Invoice
+                                      <ArrowDownIcon className="h-5 ml-2 text-yellow-300" />
+                                    </button>
+                                  </div>
+                                </Link>
+                              )}
+                          </div>
+                        </div>
+                      </p>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            ))}
             <div className="grid grid-cols-3 justify-between items-center bg-themeLight p-4 rounded-xl text-white">
               <p>Current Page</p>
               <div className="flex justify-end sm:justify-center col-span-2 sm:col-span-1">

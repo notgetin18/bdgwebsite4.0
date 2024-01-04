@@ -25,7 +25,7 @@ const Vault = () => {
       })
       .catch((error) => console.error(error));
   };
-  console.log("wallet", wallet);
+  // console.log("wallet", wallet);
   return (
     <div className="w-full">
       <div className=" grid sm:grid-cols-2 gap-6">
