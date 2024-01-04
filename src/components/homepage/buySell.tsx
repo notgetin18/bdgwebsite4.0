@@ -52,10 +52,8 @@ const BuySell = () => {
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
   const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
-
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
-
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
 

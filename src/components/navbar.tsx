@@ -18,7 +18,7 @@ import {
   setShowOTPmodal,
   setShowProfileForm,
 } from "@/redux/authSlice";
-import { fetchUserDetails, resetUserDetails } from "@/redux/userDetailsSlice";
+import { resetUserDetails } from "@/redux/userDetailsSlice";
 
 const Navbar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -28,11 +28,7 @@ const Navbar = () => {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const handleDropdownToggle = (
-    isOpen: boolean | ((prevState: boolean) => boolean)
-  ) => {
-    setDropdownOpen(isOpen);
-  };
+  const handleDropdownToggle = (isOpen: boolean | ((prevState: boolean) => boolean)) => { setDropdownOpen(isOpen) };
 
   const logoutProfile = () => {
     // console.log("logged out");
@@ -161,6 +157,7 @@ const Navbar = () => {
                       <Link
                         className="block lg:hidden text-gray-300 hover:bg-gray-800 hover:text-white rounded-md px-3 py-2 text-md font-medium"
                         href="#"
+                        onClick={() => { close() }}
                       >
                         <UserCircleIcon className="h-8" />
                       </Link>
@@ -175,14 +172,14 @@ const Navbar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md coins_background py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      {isloggedIn && <Menu.Item>
                         {({ active }) => (
                           <Link
                             href="/myAccount"
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-6 py-2 text-sm text-gray-700"
+                              "block px-6 py-2 text-sm text-white"
                             )}
                           >
                             <div
@@ -193,22 +190,37 @@ const Navbar = () => {
                             Profile
                           </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>}
 
-                      <Menu.Item>
+                      {!isloggedIn && <Menu.Item>
+                        {({ active }) => (
+                          <Link
+                            href="/"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-6 py-2 text-white text-sm"
+                            )}
+                            onClick={() => { handleLoginClick() }}
+                          >
+                            Login/Sign Up
+                          </Link>
+                        )}
+                      </Menu.Item>}
+
+                      {isloggedIn && <Menu.Item>
                         {({ active }) => (
                           <Link
                             href="#"
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-6 py-2 text-sm text-gray-700"
+                              "block px-6 py-2 text-white text-sm"
                             )}
-                            onClick={logoutProfile}
+                            onClick={() => { logoutProfile() }}
                           >
                             Sign out
                           </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -244,7 +256,7 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    // console.log("clicking about");
+                    console.log("clicking about");
                   }}
                   className={styles.p1}
                 >
@@ -255,13 +267,14 @@ const Navbar = () => {
                 <div
                   onClick={() => {
                     close();
-                    // console.log("clicking contact");
+                    console.log("clicking about");
                   }}
                   className={styles.p1}
                 >
-                  Contact
+                  Contact Us
                 </div>
               </Link>
+
               <Link href="/dashboard">
                 <div
                   onClick={() => {
@@ -273,29 +286,6 @@ const Navbar = () => {
                   Dashboard
                 </div>
               </Link>
-              {isloggedIn ? (
-                <Link href="/myAccount">
-                  <div
-                    onClick={() => {
-                      close();
-                    }}
-                    className={styles.p1}
-                  >
-                    My Account
-                  </div>
-                </Link>
-              ) : (
-                <Link href="/">
-                  <div
-                    onClick={() => {
-                      close();
-                    }}
-                    className={styles.p1}
-                  >
-                    Login/Sign Up
-                  </div>
-                </Link>
-              )}
             </div>
           </Disclosure.Panel>
         </>

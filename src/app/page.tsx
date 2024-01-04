@@ -13,11 +13,12 @@ import {
   SuccessInvestment,
 } from "@/components";
 import DownloadApplication from "@/components/homepage/downloadApp";
-// import Image from "next/image";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default function Home() {
   return (
-    <main>
+    <Suspense fallback={<Loading />}>
       {/* <OfferSlider /> */}
       <HeroSection />
       <OfferSlider />
@@ -30,6 +31,6 @@ export default function Home() {
       <Blog />
       <Review />
       <Faq />
-    </main>
+    </Suspense>
   );
 }

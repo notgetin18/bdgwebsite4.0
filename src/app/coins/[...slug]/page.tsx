@@ -9,7 +9,6 @@ import { RootState } from "@/redux/store";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import Image from "next/image";
 import SimpleImageSlider from "react-simple-image-slider";
 
 const page = ({ params }: any) => {
@@ -115,12 +114,6 @@ const page = ({ params }: any) => {
           {/* Absolute positioning for out-of-stock image */}
           {!productsDetailById.inStock && (
             <div className="bg-red-600 absolute top-0 right-0 px-2  rounded-bl-lg">
-              {/* <Image
-                src={"https://www.highnotes.ca/cdn/shop/collections/out-of-stock_1200x1200.png?v=1652635518"}
-                alt="out of stock"
-                width={160}
-                height={160}
-              /> */}
               <p className="font-medium">Out Of Stock</p>
             </div>
           )}
@@ -178,10 +171,10 @@ const page = ({ params }: any) => {
                   ₹
                   {ParseFloat(
                     +productsDetailById.weight *
-                      quantity *
-                      (productsDetailById.iteamtype === "GOLD"
-                        ? goldData.totalPrice
-                        : silverData.totalPrice),
+                    quantity *
+                    (productsDetailById.iteamtype === "GOLD"
+                      ? goldData.totalPrice
+                      : silverData.totalPrice),
                     2
                   )}
                 </span>
