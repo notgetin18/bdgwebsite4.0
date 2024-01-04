@@ -48,10 +48,6 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
         fetchBankAndUPIDetails();
     }, [])
 
-    // console.table({ upiList, allBankList, allUpiList })
-    // console.log('allUpiList', allUpiList)
-
-
     useEffect(() => {
         console.table({
             purchaseType,
@@ -64,17 +60,7 @@ export default function SelectUpiModalForPayout({ isOpen, onClose, transactionId
             enteredAmount,
             metalQuantity,
         });
-    }, [
-        purchaseType,
-        actualAmount,
-        gst,
-        totalAmount,
-        metalType,
-        transactionType,
-        metalPricePerGram,
-        enteredAmount,
-        metalQuantity,
-    ]);
+    }, [purchaseType, metalType, transactionType, metalPricePerGram, enteredAmount,]);
     const cancelButtonRef = useRef(null);
 
     const closeModal = () => {

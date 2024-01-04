@@ -8,7 +8,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-
 import {
   setEnteredAmount,
   setMetalPrice,
@@ -17,7 +16,6 @@ import {
   setTransactionType,
 } from "@/redux/shopSlice";
 import {
-  applyCoupon,
   clearCoupon,
   isCouponApplied,
   setCouponError,
@@ -43,59 +41,30 @@ const BuySell = () => {
   const [validationError, setValidationError] = useState<string>("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [isModalCouponOpen, setModalCouponOpen] = useState<boolean>(false);
-
   const goldData = useSelector((state: RootState) => state.gold);
   const silverData = useSelector((state: RootState) => state.silver);
   const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
-  const transactionType = useSelector(
-    (state: RootState) => state.shop.transactionType
-  );
-  const purchaseType = useSelector(
-    (state: RootState) => state.shop.purchaseType
-  );
-  const enteredAmount = useSelector(
-    (state: RootState) => state.shop.enteredAmount
-  );
-  const actualAmount = useSelector(
-    (state: RootState) => state.shop.actualAmount
-  );
+  const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
+  const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
-  const metalQuantity = useSelector(
-    (state: RootState) => state.shop.metalQuantity
-  );
-  const selectedCoupon = useSelector(
-    (state: RootState) => state.coupon.selectedCoupon
-  );
-  const appliedCouponCode = useSelector(
-    (state: RootState) => state.coupon.appliedCouponCode
-  );
-  const error = useSelector((state: RootState) => state.coupon.error);
-  const extraGoldOfRuppess = useSelector(
-    (state: RootState) => state.coupon.extraGoldOfRuppess
-  );
-  const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
+
   const isAnyCouponApplied = useSelector(isCouponApplied);
-  const metalPricePerGram = useSelector(
-    (state: RootState) => state.shop.metalPrice
-  );
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
 
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
-  const goldVault = user.data.user_vaults.gold
-  const SilverVault = user.data.user_vaults.silver
 
-
-  // console.log('user', user.data.user_vaults.gold)
-  // console.log("user", user);
   console.table({
     orderType: purchaseType.toUpperCase(),
     item: metalType.toUpperCase(),
     unit: "AMOUNT",
     gram: metalQuantity,
     amount: totalAmount,
-    // gst_number: props.gstNum,
-    // currentMatelPrice: 33.22,
     currentMatelPrice: metalPricePerGram,
     fromApp: false,
   })
@@ -169,11 +138,14 @@ const BuySell = () => {
           });
         } else if (response.messageCode == "KYC_PENDING") {
           // setKycError(response.message);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: response.message,
+          });
         } else if (response.messageCode == "SESSION_EXPIRED") {
-          console.log("response.messageCode 135", response.messageCode);
           // setKycError(response.message);
         } else if (response.messageCode == "SESSION_EXPIRED") {
-          console.log("response.messageCode 138", response.messageCode);
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -265,6 +237,7 @@ const BuySell = () => {
   };
 
   const handleBuyClick = (e: any) => {
+    e.preventDefault();
     if (!enteredAmount) {
       setValidationError("Please enter amount");
       return;
@@ -274,10 +247,10 @@ const BuySell = () => {
     }
     setValidationError("");
     previewModal();
-    // setModalOpen(true);
   };
 
   const handleSellClick = (e: any) => {
+    e.preventDefault();
     if (!enteredAmount) {
       setValidationError("Please enter amount");
       return;
@@ -287,7 +260,6 @@ const BuySell = () => {
     }
     setValidationError("");
     previewModal()
-    // setModalOpen(true);
   };
 
   const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
@@ -328,34 +300,11 @@ const BuySell = () => {
   };
 
   useEffect(() => {
-    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold });
     console.table({
-      purchaseType,
-      actualAmount,
-      gst,
-      metalType,
-      transactionType,
-      metalPricePerGram,
-      totalAmount,
-      enteredAmount,
-      metalQuantity,
+      purchaseType, actualAmount, gst, metalType, transactionType,
+      metalPricePerGram, totalAmount, enteredAmount, metalQuantity,
     });
-  }, [
-    error,
-    appliedCouponCode,
-    extraGoldOfRuppess,
-    extraGold,
-    purchaseType,
-    actualAmount,
-    gst,
-    totalAmount,
-    metalType,
-    transactionType,
-    metalPricePerGram,
-    enteredAmount,
-    metalQuantity,
-    toggleMetal,
-  ]);
+  }, [activeTabPurchase, metalPricePerGram, activeTab, toggleMetal,]);
 
   return (
     <>

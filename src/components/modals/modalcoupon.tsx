@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -15,9 +15,31 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
   const error = useSelector((state: RootState) => state.coupon.error);
   const dispatch = useDispatch();
   const goldData = useSelector((state: RootState) => state.gold);
+  const silverData = useSelector((state: RootState) => state.silver);
+  const gst = useSelector((state: RootState) => state.shop.gst);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
   const transactionType = useSelector((state: RootState) => state.shop.transactionType);
+  const purchaseType = useSelector((state: RootState) => state.shop.purchaseType);
   const enteredAmount = useSelector((state: RootState) => state.shop.enteredAmount);
+  const actualAmount = useSelector((state: RootState) => state.shop.actualAmount);
+  const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
+  const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
+  const selectedCoupon = useSelector((state: RootState) => state.coupon.selectedCoupon);
+  const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
+  const extraGoldOfRuppess = useSelector((state: RootState) => state.coupon.extraGoldOfRuppess);
+  const extraGold = useSelector((state: RootState) => state.coupon.extraGold);
+  const isAnyCouponApplied = useSelector(isCouponApplied);
+  const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+
+
+  useEffect(() => {
+    // console.table({ error, appliedCouponCode, extraGoldOfRuppess, extraGold, selectedCoupon, isAnyCouponApplied });
+    console.table({
+      error, appliedCouponCode, extraGoldOfRuppess, extraGold, purchaseType, actualAmount,
+      gst, totalAmount, metalType, transactionType, metalPricePerGram, enteredAmount, metalQuantity,
+      selectedCoupon, isAnyCouponApplied
+    });
+  }, [appliedCouponCode, selectedCoupon, isAnyCouponApplied]);
 
 
   const handleApplyCoupon = (coupon: any, amount: any) => {
@@ -111,10 +133,7 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                       </button>
                     </div>
                   ))}
-
-
                   {error && <div className="text-red-500 text-sm">{error}</div>}
-
                 </div>
                 <div className=" px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
@@ -123,7 +142,6 @@ export default function ModalCoupon({ isOpen, onClose }: any) {
                     ref={cancelButtonRef}
                     onClick={() => closeModal()}
                   >
-                    {" "}
                     <XMarkIcon className="h-4" />
                   </button>
                 </div>
