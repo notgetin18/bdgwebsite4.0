@@ -31,7 +31,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { selectUser } from "@/redux/userDetailsSlice";
 import ModalCoupon from "../modals/modalcoupon";
-
 const BuySell = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -52,8 +51,10 @@ const BuySell = () => {
   const totalAmount = useSelector((state: RootState) => state.shop.totalAmount);
   const metalQuantity = useSelector((state: RootState) => state.shop.metalQuantity);
   const appliedCouponCode = useSelector((state: RootState) => state.coupon.appliedCouponCode);
+
   const isAnyCouponApplied = useSelector(isCouponApplied);
   const metalPricePerGram = useSelector((state: RootState) => state.shop.metalPrice);
+
   const [previewData, setPreviewData] = useState([]);
   const [transactionId, setTransactionId] = useState("");
 
@@ -66,7 +67,6 @@ const BuySell = () => {
     currentMatelPrice: metalPricePerGram,
     fromApp: false,
   })
-
   const previewModal = async () => {
     // Notiflix.Loading.custom({svgSize:'180px',customSvgCode: '<object type="image/svg+xml" data="/svg/pageloader.svg">svg-animation</object>'});
     const dataToBeDecrypt: {
@@ -87,17 +87,14 @@ const BuySell = () => {
       currentMatelPrice: metalPricePerGram,
       fromApp: false,
     };
-
     if (isAnyCouponApplied) {
       dataToBeDecrypt.couponCode = appliedCouponCode ? appliedCouponCode : "";
     }
-
     const resAfterEncryptData = await funForAesEncrypt(dataToBeDecrypt);
     const payloadToSend = {
       payload: resAfterEncryptData,
     };
     const token = localStorage.getItem("token");
-
     const configHeaders = {
       headers: {
         authorization: `Bearer ${token}`,
@@ -158,7 +155,6 @@ const BuySell = () => {
         }
       });
   };
-
   useEffect(() => {
     dispatch(setMetalType("gold"));
     dispatch(setEnteredAmount(0));
@@ -167,7 +163,6 @@ const BuySell = () => {
     dispatch(setTransactionType("rupees"));
     dispatch(clearCoupon());
   }, []);
-
   const toggleMetal = () => {
     setIsGold(!isgold);
     dispatch(setMetalType(!isgold ? "gold" : "silver"));
@@ -175,12 +170,10 @@ const BuySell = () => {
     setValidationError("");
     dispatch(clearCoupon());
   };
-
   // const toggleCoupon = () => {
   //   setShowCoupon(!showCoupon);
   //   dispatch(setCouponError(""));
   // };
-
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
     dispatch(setEnteredAmount(0));
@@ -188,20 +181,17 @@ const BuySell = () => {
     setValidationError("");
     dispatch(clearCoupon());
   };
-
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
     dispatch(setEnteredAmount(0));
     setValidationError("");
   };
-
   let goldPriceWithGST = ParseFloat(
     `${goldData.totalPrice * 0.03 + goldData.totalPrice}`,
     2
   );
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
-
   const handleEnteredAmountChange = (e: any) => {
     const enteredValue = ParseFloat(e.target.value, 4);
     if (!enteredAmount) {
@@ -222,7 +212,6 @@ const BuySell = () => {
         dispatch(setEnteredAmount(+enteredValue));
       }
     }
-
     if (activeTabPurchase === "grams") {
       // console.log("actualPurchasingInGm", actualPurchasingInGm);
       if (Number(e.target.value) > ParseFloat(actualPurchasingInGm, 4)) {
@@ -233,7 +222,6 @@ const BuySell = () => {
       }
     }
   };
-
   const handleBuyClick = (e: any) => {
     e.preventDefault();
     if (!enteredAmount) {
@@ -246,7 +234,6 @@ const BuySell = () => {
     setValidationError("");
     previewModal();
   };
-
   const handleSellClick = (e: any) => {
     e.preventDefault();
     if (!enteredAmount) {
@@ -259,7 +246,6 @@ const BuySell = () => {
     setValidationError("");
     previewModal()
   };
-
   const QuickBuySellButtons = ({ amounts, unit, onClickHandler }: any) => (
     <div className="mt-4 flex justify-between">
       {amounts.map((amount: any) => (
@@ -275,7 +261,6 @@ const BuySell = () => {
       ))}
     </div>
   );
-
   useEffect(() => {
     if (isgold && activeTab == "buy") {
       dispatch(setMetalPrice(goldData.totalPrice));
@@ -287,23 +272,19 @@ const BuySell = () => {
       dispatch(setMetalPrice(silverData.salePrice));
     }
   }, [isgold, activeTab, toggleMetal]);
-
   const openModal = () => {
     setModalCouponOpen(true);
   };
-
   const closeModal = () => {
     setModalOpen(false);
     setModalCouponOpen(false);
   };
-
   useEffect(() => {
     console.table({
       purchaseType, actualAmount, gst, metalType, transactionType,
       metalPricePerGram, totalAmount, enteredAmount, metalQuantity,
     });
   }, [activeTabPurchase, metalPricePerGram, activeTab, toggleMetal,]);
-
   return (
     <>
       <div>
@@ -411,7 +392,6 @@ const BuySell = () => {
                         {silverData.percentage} %
                       </div>
                     )}
-
                     <p className="text-7x sm:text-xs text-white ml-2 inline-block">
                       Since Yesterday
                     </p>
@@ -448,7 +428,6 @@ const BuySell = () => {
                       <img src="/Silverbar.png" className="h-6 sm:h-6" />
                     )}
                     <p className="text-white text-sm sm:text-lg">{metalType === 'gold' ? `${ParseFloat(user?.data?.user_vaults?.gold, 4)}` : `${ParseFloat(user?.data?.user_vaults?.silver, 4)}`} gm</p>
-
                   </div>
                   <div className="flex items-center gap-2 sm:gap-4">
                     <img src="/Green Rupees.png" className="w-10 " />
@@ -541,7 +520,6 @@ const BuySell = () => {
               ) : (
                 ""
               )}
-
               <div className="text-white text-md mt-4">
                 {purchaseType === "buy" ? "Quick Buy" : "Quick Sell"}
               </div>
@@ -553,7 +531,6 @@ const BuySell = () => {
               ) : (
                 <QuickBuySellButtons amounts={[0.1, 0.5, 1, 2]} unit="gm" />
               )}
-
               <p className="text-center text-xxs sm:text-xs flex justify-center items-center mt-6 text-gray-400">
                 Your Gold will be Stored in Safe & Secured Vault
                 <img
@@ -620,5 +597,4 @@ const BuySell = () => {
     </>
   );
 };
-
 export default BuySell;
