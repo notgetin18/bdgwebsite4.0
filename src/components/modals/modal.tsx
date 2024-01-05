@@ -35,10 +35,6 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
   const orderIdRef = useRef(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const time = <Timer />
-  console.log('time', time)
-
-
   const openModalPayout = async () => {
     setModalOpen(true);
   };

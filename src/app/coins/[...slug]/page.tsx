@@ -1,10 +1,13 @@
 "use client";
 import { api } from "@/api/DashboardServices";
+import CustomButton from "@/components/customButton";
 import {
   AesDecrypt,
   ParseFloat,
   funcForDecrypt,
 } from "@/components/helperFunctions";
+import BottomSidebar from "@/components/modals/bottomAsideCoin";
+import CoinModal from "@/components/modals/buyCoinModal";
 import { RootState } from "@/redux/store";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
@@ -21,6 +24,20 @@ const page = ({ params }: any) => {
   const [pincodeError, setPincodeError] = useState<string | null>(null);
   const [delivery, setDeliverey] = useState<boolean>(false);
   const [photo, setphoto] = useState<[]>([]);
+  const [openCoinModal, setOpenCoinModal] = useState<boolean>(false)
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  const openCoinModalHandler = () => {
+    setOpenCoinModal(true)
+  }
+  const closeCoinModalHandler = () => {
+    setOpenCoinModal(false)
+  }
+
 
   const getProductById = async () => {
     try {
@@ -109,6 +126,11 @@ const page = ({ params }: any) => {
 
   return (
     <div className="container py-16 text-white">
+      {openCoinModal && <CoinModal openModalOfCoin={openCoinModal}
+        closeModalOfCoin={closeCoinModalHandler} productsDetailById={productsDetailById} />}
+
+       <BottomSidebar productsDetailById={productsDetailById} isOpen={isSidebarOpen} onClose={handleToggleSidebar} />
+
       <div className="grid xl:grid-cols-5 gap-12">
         <div className="col-span-5 xl:col-span-2 relative">
           {/* Absolute positioning for out-of-stock image */}
@@ -151,11 +173,17 @@ const page = ({ params }: any) => {
             <div className="cursor-pointer bg-themeBlue text-black w-full block text-center py-3 rounded">
               Add to cart
             </div>
+            <CustomButton
+              title="Buy Now"
+              containerStyles="cursor-pointer bg-themeBlue text-black mt-4 w-full text-center py-3 rounded"
+              isDisabled={productsDetailById.inStock} // Disable the button when product  is out of stock
+              handleClick={() => { openCoinModalHandler() }}
+            />
             <button
-              className="cursor-pointer bg-themeBlue text-black mt-4 w-full text-center py-3 rounded"
-              disabled={productsDetailById.inStock} // Disable the button when `delivery` is false
+              onClick={handleToggleSidebar}
+              className="fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-700"
             >
-              Buy Now
+              Open Sidebar
             </button>
           </div>
         </div>
