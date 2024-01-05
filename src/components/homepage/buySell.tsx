@@ -287,9 +287,9 @@ const BuySell = () => {
   }, [activeTabPurchase, metalPricePerGram, activeTab, toggleMetal,]);
   return (
     <>
-      <div>
-        <div className="block xl:pl-24">
-          <div className="tab-bg  rounded-b-lg relative">
+      <div className="">
+        <div className="block xl:pl-24 ">
+          <div className="tab-bg  rounded-b-lg  relative">
             <div className="grid grid-cols-2">
               <div
                 className={`text-center py-3 rounded font-semibold cursor-pointer ${activeTab === "buy"
@@ -313,7 +313,7 @@ const BuySell = () => {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2 items-end">
-              <div className="w-full">
+              <div className="w-full ">
                 <div
                   className="toggle_button_spacing pl-4 mt-6"
                   onChange={toggleMetal}

@@ -68,7 +68,7 @@ const Coins = () => {
                 </div>
                 <img
                   src={
-                    "https://imagesbdg.sgp1.digitaloceanspaces.com/a0cd4a0a-0816-4029-aa0d-ad4c6792701a"
+                    "https://www.brightdigigold.com/images/gold-bars.svg"
                   }
                   alt="digital gold bar"
                   className={`ml-2 h-5 cursor-pointer ${activeTab === "GOLD" ? "opacity-100" : "opacity-50"
@@ -88,9 +88,9 @@ const Coins = () => {
                 </div>
                 <img
                   src={
-                    "https://imagesbdg.sgp1.digitaloceanspaces.com/78b932b1-cff6-4aa5-b0ea-17f264703802"
+                    "https://www.brightdigigold.com/images/silverBars.png"
                   }
-                  alt="digital gold bar"
+                  alt="digital silver bar"
                   className={`ml-2 h-5 cursor-pointer ${activeTab === "SILVER" ? "opacity-100" : "opacity-50"
                     }`}
                   onClick={() => {
