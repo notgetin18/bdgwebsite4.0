@@ -17,7 +17,6 @@ import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
 import { useRouter } from 'next/navigation'
 import SetProfileForNewUser from "../setProfile";
-import ProgressBar from "../progressBar";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const HeroSection = () => {
   const otpModal = useSelector((state: RootState) => state.auth.otpModal);
   const showProfileForm = useSelector((state: RootState) => state.auth.showProfileForm);
 
-  console.log("showProfileForm =-====>  ", showProfileForm);
+  // console.log("showProfileForm =-====>  ", showProfileForm);
 
   const onClose = () => {
     dispatch(setShowProfileForm(false));
@@ -72,7 +71,6 @@ const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
       {otpModal && <OtpModal />}
-      <ProgressBar />
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -132,11 +130,7 @@ const HeroSection = () => {
                     href="https://play.google.com/store/apps/details?id=com.brightdigigold.customer"
                     className="cursor-pointer"
                   >
-                    {/* <Lottie
-                      animationData={IOS}
-                      className="h-32 absolute -top-16 -left-2"
-                      loop={true}
-                    /> */}
+
                     <img
                       src="/lottie/google-play-button.png"
                       className="h-14"
