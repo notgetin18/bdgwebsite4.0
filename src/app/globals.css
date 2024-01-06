@@ -764,14 +764,27 @@ a {
 }
 
 .progress-bar-container {
+  position: relative;
   border-radius: 6px;
   width: 100%;
   height: 30px; /* Set the height of your progress bar container */
-  background-color: #e0e0e0; /* Set the background color of your progress bar container */
+  background-color: #c5c5c7; /* Set the background color of your progress bar container */
 }
 
 .progress-bar {
+  /* position: relative; */
   border-radius: 6px;
   height: 100%;
-  background-color: #C5C5C7; /* Set the background color of your progress bar */
+  background-color: #974c4c; /* Set the background color of your progress bar */
+}
+
+.inner-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px; /* Adjust padding as needed */
+  box-sizing: border-box;
 }

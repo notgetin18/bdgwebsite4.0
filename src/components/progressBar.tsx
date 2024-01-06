@@ -46,20 +46,19 @@ const ProgressBar: React.FC = () => {
 
     return (
         <div className="progress-bar-container">
-            <div
-                className="progress-bar"
-                style={{ width: calculateProgressBarWidth() }}
-            >
+            <div className="inner-content">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center">
                         <img
                             src="/lottie/Animation - 1700632554663.gif"
                             className="h-8 inline-block mr-2"
                         />
-                        <div className="text-black">₹{metalPricePerGram}</div>
+                        <div className="text-black text-lg font-bold">₹{metalPricePerGram}</div>
                     </div>
-                    <div className="text-black">Expire in {formatTime(time)}</div>
                 </div>
+                <div className="text-black text-lg font-bold">Expire in {formatTime(time)}</div>
+            </div>
+            <div className="progress-bar" style={{ width: calculateProgressBarWidth() }}>
             </div>
         </div>
     );
