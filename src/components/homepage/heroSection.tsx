@@ -17,6 +17,7 @@ import { RootState } from "@/redux/store";
 import OtpModal from "../modals/otpModal";
 import { useRouter } from 'next/navigation'
 import SetProfileForNewUser from "../setProfile";
+import ProgressBar from "../progressBar";
 
 const HeroSection = () => {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ const HeroSection = () => {
   return (
     <div className="bg-theme py-10">
       {otpModal && <OtpModal />}
+      <ProgressBar />
       <motion.div
         initial="hidden"
         whileInView="show"

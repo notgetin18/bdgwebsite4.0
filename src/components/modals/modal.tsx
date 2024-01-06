@@ -10,6 +10,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import SelectUpiModalForPayout from "./sellSelectUpiModal";
+import ProgressBar from "../progressBar";
 
 export default function Modal({ isOpen, onClose, transactionId }: any) {
   console.log('transactionId', transactionId)
@@ -238,7 +239,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
             >
               <Dialog.Panel className="text-white relative transform overflow-hidden rounded-lg coins_backgroun px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                 <p>
-                  <Timer />
+                  <ProgressBar />
                 </p>
                 <div className="coins_backgroun px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <p>

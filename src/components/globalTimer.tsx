@@ -11,6 +11,7 @@ const Timer: React.FC = () => {
   const dispatch = useDispatch();
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const metalType = useSelector((state: RootState) => state.shop.metalType);
+  
   const fetchDataOfMetals = useCallback(async () => {
     try {
       const response: any = await metalPrice(); // Assuming this returns a JSON string
