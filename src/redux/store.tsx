@@ -15,6 +15,7 @@ import authSlice from './authSlice';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['shop'],
 };
 
 const rootReducer = combineReducers({
@@ -42,7 +43,7 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<Promise<ReturnType>, RootState, unknown, Action<UserState>>;
-export type AppDispatch = typeof store.dispatch; 
+export type AppDispatch = typeof store.dispatch;
 
 export default store;
 

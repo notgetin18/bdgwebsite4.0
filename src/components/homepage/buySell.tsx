@@ -176,11 +176,15 @@ const BuySell = () => {
   // };
   const handleTabBuyAndSell = (tab: "buy" | "sell") => {
     setActiveTab(tab);
-    dispatch(setEnteredAmount(0));
+    dispatch(setEnteredAmount(0)); // Reset entered amount to 0 when tab changes
     dispatch(setPurchaseType(tab));
     setValidationError("");
     dispatch(clearCoupon());
+
+    // Add the following line to reset the state
+    setEnteredAmount(0);
   };
+
   const handleTabRupeesAndGrams = (tab: "rupees" | "grams") => {
     setActiveTabPurchase(tab);
     dispatch(setTransactionType(tab));
@@ -469,14 +473,17 @@ const BuySell = () => {
                     inputMode="numeric"
                     className="bg-transparent pl-12 text-lg py-1 focus:outline-none text-white"
                     placeholder={
-                      activeTabPurchase === "rupees" ? "0000" : "0.0000"
+                      enteredAmount === 0 ?
+                        (activeTabPurchase === "rupees" ? "0000" : "0.0000") :
+                        ''
                     }
                     onChange={(e) => {
                       handleEnteredAmountChange(e);
                     }}
                     step="0.0001"
                     // @ts-ignore
-                    value={enteredAmount === 0 ? null : enteredAmount}
+                    value={enteredAmount === 0 ? '' : enteredAmount}
+                    // value={enteredAmount && enteredAmount === 0 ? null : enteredAmount}
                     onKeyDown={(e) => {
                       // Prevent the input of a decimal point if purchase type is rupees
                       if (activeTabPurchase === "rupees" && e.key === ".") {
