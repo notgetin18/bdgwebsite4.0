@@ -53,10 +53,10 @@ const ProgressBar: React.FC = () => {
                             src="/lottie/Animation - 1700632554663.gif"
                             className="h-8 inline-block mr-2"
                         />
-                        <div className="text-black text-lg font-bold">₹{metalPricePerGram}</div>
+                        <div className="text-black text-md font-semibold">₹{metalPricePerGram}</div>
                     </div>
                 </div>
-                <div className="text-black text-lg font-bold">Expire in {formatTime(time)}</div>
+                <div className="text-black text-md  font-semibold">Expire in {formatTime(time)}</div>
             </div>
             <div className="progress-bar" style={{ width: calculateProgressBarWidth() }}>
             </div>

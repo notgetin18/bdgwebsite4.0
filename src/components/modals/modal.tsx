@@ -238,9 +238,7 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="text-white relative transform overflow-hidden rounded-lg coins_backgroun px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-                <p>
-                  <ProgressBar />
-                </p>
+
                 <div className="coins_backgroun px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <p>
                     {purchaseType === "buy" ? "Buy" : "Sell"}  Breakdown{" "}
@@ -301,6 +299,9 @@ export default function Modal({ isOpen, onClose, transactionId }: any) {
                     NEXT
                   </button>}
                 </div>
+                <p>
+                  <ProgressBar />
+                </p>
               </Dialog.Panel>
             </Transition.Child>
           </div>
