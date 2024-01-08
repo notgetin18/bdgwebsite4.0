@@ -1,5 +1,6 @@
 "use client";
 import { api } from "@/api/DashboardServices";
+import Loading from "@/app/loading";
 import CustomButton from "@/components/customButton";
 import {
   AesDecrypt,
@@ -26,6 +27,7 @@ const page = ({ params }: any) => {
   const [photo, setphoto] = useState<[]>([]);
   const [openCoinModal, setOpenCoinModal] = useState<boolean>(false)
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [maxCoinError, setMaxCoinError] = useState('')
 
   const handleToggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -58,10 +60,22 @@ const page = ({ params }: any) => {
   }, []);
 
   const increaseQty = () => {
+    const { coinHave } = productsDetailById;
+
     if (quantity <= 9) {
-      setQuantity(quantity + 1);
+      if (coinHave !== undefined && coinHave > quantity) {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+        setMaxCoinError('');
+      } else if (coinHave === undefined) {
+        setMaxCoinError(`Oops! This Coin Is Not Available. Please Try Again After Some Time.`);
+      } else {
+        setMaxCoinError(`You can only purchase ${quantity} coins.`);
+      }
+    } else {
+      setMaxCoinError(`You can only purchase ${quantity} coins of at a time`);
     }
   };
+
 
   const decreaseQty = () => {
     if (quantity > 1) {
@@ -119,13 +133,14 @@ const page = ({ params }: any) => {
   };
 
   if (!productsDetailById) {
-    return <div className="text-white">Loading...</div>;
+    return <Loading />;
   }
   // console.log('productsDetailById', productsDetailById)
+  const totalPrice = ParseFloat(+productsDetailById.weight * quantity * (productsDetailById.iteamtype === "GOLD" ? goldData.totalPrice : silverData.totalPrice), 2)
 
   return (
     <div className="container py-16 text-white">
-      {openCoinModal && <CoinModal productsDetailById={productsDetailById} openModalOfCoin={openCoinModal}
+      {openCoinModal && <CoinModal totalCoins={quantity} totalPrice={totalPrice} productsDetailById={productsDetailById} openModalOfCoin={openCoinModal}
         closeModalOfCoin={closeCoinModalHandler} />}
 
       <BottomSidebar productsDetailById={productsDetailById} isOpen={isSidebarOpen} onClose={handleToggleSidebar} />
@@ -195,21 +210,14 @@ const page = ({ params }: any) => {
               <div className="mb-2 text-base sm:text-lg">
                 Total Price{" "}
                 <span className="text-yellow-500">
-                  ₹
-                  {ParseFloat(
-                    +productsDetailById.weight *
-                    quantity *
-                    (productsDetailById.iteamtype === "GOLD"
-                      ? goldData.totalPrice
-                      : silverData.totalPrice),
-                    2
-                  )}
+                  ₹ {totalPrice}
                 </span>
                 <span className="text-yellow-500"> +3% GST</span>
               </div>
               <div className="text-base sm:text-lg">
                 Making Charge ₹{productsDetailById.makingcharges}
               </div>
+              {maxCoinError && <p className="text-red-600">{maxCoinError}</p>}
             </div>
             <div className="flex items-center rounded-lg bg-themeLight">
               <div onClick={decreaseQty} className={styles.p1}>

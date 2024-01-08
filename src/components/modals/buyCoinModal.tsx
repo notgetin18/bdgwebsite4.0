@@ -1,20 +1,26 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
-
 import CustomButton from '../customButton';
-import { FaChevronCircleDown } from 'react-icons/fa';
+import { FaChevronCircleDown, FaChevronCircleUp } from 'react-icons/fa';
 import { apiForWallet } from '@/api/DashboardServices';
 import { Wallet } from '@/types';
+import { ParseFloat } from '../helperFunctions';
 
 
-export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsDetailById }: any) {
+export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsDetailById, totalPrice, totalCoins }: any) {
     const [open, setOpen] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(true);
     const cancelButtonRef = useRef(null);
     const [wallet, setWallet] = useState<Wallet | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    let GST = ParseFloat(totalPrice * 0.03, 2)
+    let totalPriceWithMakingCharges = ParseFloat((totalPrice + (+productsDetailById.makingcharges) + GST), 2)
+    // console.log('total', totalPrice)
+    // console.log('GST', GST)
+    // console.log('totalPriceWithMakingCharges', totalPriceWithMakingCharges)
 
     useEffect(() => {
         fetchDataOfWallet();
@@ -35,6 +41,26 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
     const toggleAdditionalContent = () => {
         setShowAdditionalContent(!showAdditionalContent);
     };
+
+    const renderPriceBreakdownItem = ({ label, value }: any) => (
+        <>
+            <div className="mb-2 flex justify-between">
+                <span className={label === 'Coin Type' ? 'font-bold' : ''}>{label}</span>
+                <span className={label === 'Coin Type' ? 'font-bold' : ''}>{value}</span>
+            </div>
+            <hr
+                className="my-1 border-t border-gray-300"
+                style={{
+                    backgroundImage: 'linear-gradient(to right, #d2d6dc 50%, transparent 50%)',
+                    backgroundSize: '1.5rem 2px',
+                    backgroundRepeat: 'repeat-x',
+                    border: 'none',
+                    height: '1px',
+                }}
+            />
+        </>
+    );
+    
 
     console.log('productsDetailById', productsDetailById)
 
@@ -68,7 +94,7 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                 <div className="absolute top-4 right-4 border-2 border-yellow-400 rounded-2xl p-2">
                                     <XMarkIcon className="h-6 w-6 text-white text-lg cursor-pointer font-bold" onClick={() => { closeModalOfCoin(); setOpen(false); }} />
                                 </div>
-                                <div className="transition-height duration-500 ease-in-out overflow-hidden h-60">
+                                <div className="transition-height duration-500 ease-in-out overflow-hidden h-68">
                                     {showAdditionalContent ? (
                                         <div className={`px-4 ml-16 pb-4 pt-5 sm:p-6 sm:pb-4 transition-opacity ease-out delay-1000`}>
                                             {/* Content to be replaced */}
@@ -95,7 +121,6 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                                                             alt="digital gold bar"
                                                                             className={`px-2 py-2 h-12 cursor-pointer`}
                                                                         />)}
-
                                                                     </div>
                                                                     <div className='px-3'>
                                                                         <div className='text-lg font-bold text-black'>{productsDetailById.iteamtype}</div>
@@ -114,31 +139,52 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                         </div>
                                     ) : (
                                         <div className={`px-4 text-gray-300 pb-4 pt-5 sm:p-6 sm:pb-4 text-lg transition-opacity ease-in delay-1000`}>
-                                            <p>Break Up: 1993290</p>
-                                            <p>Laxmi ganesh silver coin</p>
-                                            <p>making charges</p>
-                                            <p>Gst</p>
-                                            <p>Total 1993290</p>
+                                            <div className='flex items-center'>
+                                                <div>{productsDetailById.iteamtype === 'GOLD' ? (<img
+                                                    src={
+                                                        "https://www.brightdigigold.com/images/gold-bars.svg"
+                                                    }
+                                                    alt="digital gold bar"
+                                                    className={`px-2 py-2 h-12 cursor-pointer`}
+                                                />) : (<img
+                                                    src={
+                                                        "https://www.brightdigigold.com/images/silverBars.png"
+                                                    }
+                                                    alt="digital gold bar"
+                                                    className={`px-2 py-2 h-12 cursor-pointer`}
+                                                />)}</div>
+                                                <div className='text-white text-lg font-bold'>Price Breakdown </div>
+                                            </div>
+                                            {renderPriceBreakdownItem({ label: 'Coin Type', value: productsDetailById.name })}
+                                            {renderPriceBreakdownItem({ label: 'Total Weight', value: `${productsDetailById.weight * totalCoins} gm` })}
+                                            {renderPriceBreakdownItem({ label: 'Coin Value', value: `₹ ${totalPrice}` })}
+                                            {renderPriceBreakdownItem({ label: 'Coin Quantity', value: `${totalCoins} gm` })}
+                                            {renderPriceBreakdownItem({ label: 'GST', value: `₹ ${GST}` })}
+                                            {renderPriceBreakdownItem({ label: 'Total', value: `₹ ${totalPriceWithMakingCharges}` })}
+                                            {renderPriceBreakdownItem({ label: 'Making Charges(Incl. 18% GST)', value: `₹ ${productsDetailById.makingcharges}` })}
                                         </div>
                                     )}
                                 </div>
                                 <div className="justify-between px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                    {/* Rest of your content */}
                                     <CustomButton
                                         btnType="button"
-                                        title='PROCEED'
+                                        title='PROCCED'
                                         containerStyles="mt-3 inline-flex w-full justify-center rounded-xl bg-themeBlue px-5 py-4 text-2xl font-bold text-black ring-1 ring-inset sm:mt-0 sm:w-auto"
                                     />
                                     <div>
-                                        <div className='text-white text-3xl font-bold'>₹ 1,99,488.23</div>
+                                        <div className='text-white text-3xl font-bold'>₹ {totalPriceWithMakingCharges}</div>
                                         <div className='text-yellow-400 flex items-center'>
-                                            <div className='mr-2 text-lg cursor-pointer' onClick={toggleAdditionalContent}>View Breakup</div>
+                                            <div className='mr-2 text-lg cursor-pointer' onClick={toggleAdditionalContent}>{showAdditionalContent ? "View BreakUp " : "Hide BreakUp"}</div>
                                             <div className=''>
-                                                <FaChevronCircleDown
+                                                {showAdditionalContent ? (<FaChevronCircleDown
                                                     className="h-5 w-5 cursor-pointer"
                                                     aria-hidden="true"
                                                     onClick={toggleAdditionalContent}
-                                                />
+                                                />) : (<FaChevronCircleUp
+                                                    className="h-5 w-5 cursor-pointer"
+                                                    aria-hidden="true"
+                                                    onClick={toggleAdditionalContent}
+                                                />)}
                                             </div>
                                         </div>
                                     </div>
