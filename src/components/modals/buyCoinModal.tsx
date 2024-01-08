@@ -1,19 +1,42 @@
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import CustomButton from '../customButton';
 import { FaChevronCircleDown } from 'react-icons/fa';
+import { apiForWallet } from '@/api/DashboardServices';
+import { Wallet } from '@/types';
 
 
 export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsDetailById }: any) {
     const [open, setOpen] = useState(true);
     const [showAdditionalContent, setShowAdditionalContent] = useState(true);
     const cancelButtonRef = useRef(null);
+    const [wallet, setWallet] = useState<Wallet | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        fetchDataOfWallet();
+    }, []);
+
+    const fetchDataOfWallet = async () => {
+        try {
+            setLoading(true);
+            const walletData = await apiForWallet();
+            setWallet(walletData);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            setError("Error fetching wallet data");
+        }
+    };
 
     const toggleAdditionalContent = () => {
         setShowAdditionalContent(!showAdditionalContent);
     };
+
+    console.log('productsDetailById', productsDetailById)
 
     return (
         <Transition.Root show={openModalOfCoin} as={Fragment}>
@@ -56,26 +79,31 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                                     </Dialog.Title>
                                                     <div className="mt-2 w-full coins_background border-2 border-yellow-400 rounded-xl sm:my-8 sm:w-full sm:max-w-lg lg:max-w-xl xl:max-w-2xl flex items-center justify-center">
                                                         <div className="text-sm w-full text-gray-100 p-2">
-                                                            <div className='text-lg w-full font-extrabold'>Available Vault Balance :</div>
-                                                            <div className='flex w-full justify-between'>
-                                                                <div className='text-lg flex flex-row font-extrabold'>Used Value :<span className='text-gray-400 ml-2'>0.0578 GM</span></div>
+                                                            <div className='text-lg font-extrabold flex w-full items-center justify-between'>Available Vault Balance :
                                                                 <div className='flex items-center bg-themeBlue rounded'>
                                                                     <div className='' >
-                                                                        <img
+                                                                        {productsDetailById.iteamtype === 'GOLD' ? (<img
                                                                             src={
                                                                                 "https://www.brightdigigold.com/images/gold-bars.svg"
                                                                             }
                                                                             alt="digital gold bar"
                                                                             className={`px-2 py-2 h-12 cursor-pointer`}
-                                                                        />
+                                                                        />) : (<img
+                                                                            src={
+                                                                                "https://www.brightdigigold.com/images/silverBars.png"
+                                                                            }
+                                                                            alt="digital gold bar"
+                                                                            className={`px-2 py-2 h-12 cursor-pointer`}
+                                                                        />)}
+
                                                                     </div>
                                                                     <div className='px-3'>
-                                                                        <div className='text-lg font-bold text-black'>Silver</div>
-                                                                        <div className='text-yellow-600 font-bold text-lg'>0.0045 GM</div>
+                                                                        <div className='text-lg font-bold text-black'>{productsDetailById.iteamtype}</div>
+                                                                        <div className='text-yellow-600 font-bold text-lg'>{productsDetailById.iteamtype === 'GOLD' ? `${wallet?.gold}` : `${wallet?.silver}`} GM</div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="flex items-center mb-4 text-lg font-semibold text-white ">
+                                                            <div className="flex items-center mb-4 mt-2 text-lg font-semibold text-white ">
                                                                 <label className="font-medium dark:text-gray-300">Convert From Vault</label>
                                                                 <input id="default-checkbox" type="checkbox" value="" className="w-5 h-5 cursor-pointer rounded-lg text-blue-600 bg-black ml-2 focus:bg-bg-theme dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                                             </div>

@@ -101,4 +101,27 @@ export const fetchAllUPI = async () => {
   }
 };
 
+export const apiForWallet = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${process.env.baseUrl}/user/vault`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const decryptedData = await funcForDecrypt(data.payload);
+    const userWallet = JSON.parse(decryptedData).data;
+    return userWallet;
+  } catch (error) {
+    console.error(error);
+    throw error; // You might want to handle or log the error accordingly
+  }
+};
 

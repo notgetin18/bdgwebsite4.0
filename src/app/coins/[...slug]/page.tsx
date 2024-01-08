@@ -49,8 +49,7 @@ const page = ({ params }: any) => {
         setphoto(productDetails.data.image);
       }
     } catch (error) {
-      console.error("Error fetching  data:", error);
-      throw error;
+      alert(error)
     }
   };
 
@@ -126,10 +125,10 @@ const page = ({ params }: any) => {
 
   return (
     <div className="container py-16 text-white">
-      {openCoinModal && <CoinModal openModalOfCoin={openCoinModal}
-        closeModalOfCoin={closeCoinModalHandler} productsDetailById={productsDetailById} />}
+      {openCoinModal && <CoinModal productsDetailById={productsDetailById} openModalOfCoin={openCoinModal}
+        closeModalOfCoin={closeCoinModalHandler} />}
 
-       <BottomSidebar productsDetailById={productsDetailById} isOpen={isSidebarOpen} onClose={handleToggleSidebar} />
+      <BottomSidebar productsDetailById={productsDetailById} isOpen={isSidebarOpen} onClose={handleToggleSidebar} />
 
       <div className="grid xl:grid-cols-5 gap-12">
         <div className="col-span-5 xl:col-span-2 relative">

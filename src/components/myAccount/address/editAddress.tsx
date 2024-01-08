@@ -166,7 +166,7 @@ const EditAddress = ({ onCancel, ToEditAddress, onAddressListUpdate }: any) => {
                 value={values.line1}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className="mt-2 block w-full text-white rounded bg-theme px-3 py-2 focus:outline-none  border-1  focus:ring-0 focus:border-b"
+                className="mt-2 block w-full text-white rounded bg-theme px-3 py-2 focus:outline-none focus:bg-black  border-1  focus:ring-0 focus:border-b"
               />
               <ErrorMessage
                 name="line1"

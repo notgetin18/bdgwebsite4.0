@@ -197,6 +197,8 @@ const BuySell = () => {
   );
   const actualPurchasingInGm = 200000 / goldPriceWithGST;
   const handleEnteredAmountChange = (e: any) => {
+    e.preventDefault()
+    e.target.blur();
     const enteredValue = ParseFloat(e.target.value, 4);
     if (!enteredAmount) {
       setValidationError("Please enter amount");
@@ -479,6 +481,13 @@ const BuySell = () => {
                     }
                     onChange={(e) => {
                       handleEnteredAmountChange(e);
+                    }}
+                    onFocus={(e: any) => {
+                      e.preventDefault()
+                      // e.target.blur()
+                    }}
+                    onScroll={(e: any) => {
+                      e.preventDefault()
                     }}
                     step="0.0001"
                     // @ts-ignore

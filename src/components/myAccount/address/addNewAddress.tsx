@@ -215,7 +215,7 @@ const AddNewAddress = ({ onCancel, onAddressListUpdate }: any) => {
                   className="text-red-600"
                 />
                 {commonError && (
-                  <div className="text-danger">{commonError}</div>
+                  <div className="text-red-600">{commonError}</div>
                 )}
               </div>
               <div className="pt-2">
