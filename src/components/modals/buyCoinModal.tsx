@@ -60,7 +60,7 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
             />
         </>
     );
-    
+
 
     console.log('productsDetailById', productsDetailById)
 
@@ -94,10 +94,9 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                 <div className="absolute top-4 right-4 border-2 border-yellow-400 rounded-2xl p-2">
                                     <XMarkIcon className="h-6 w-6 text-white text-lg cursor-pointer font-bold" onClick={() => { closeModalOfCoin(); setOpen(false); }} />
                                 </div>
-                                <div className="transition-height duration-500 ease-in-out overflow-hidden h-68">
+                                <div className="transition-height duration-500 ease-in-out overflow-hidden h-auto">
                                     {showAdditionalContent ? (
                                         <div className={`px-4 ml-16 pb-4 pt-5 sm:p-6 sm:pb-4 transition-opacity ease-out delay-1000`}>
-                                            {/* Content to be replaced */}
                                             <div className="sm:flex sm:items-start">
                                                 <div className="w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
                                                     <Dialog.Title as="h2" className="text-xl text-white font-semibold leading-6">
@@ -130,7 +129,13 @@ export default function CoinModal({ openModalOfCoin, closeModalOfCoin, productsD
                                                             </div>
                                                             <div className="flex items-center mb-4 mt-2 text-lg font-semibold text-white ">
                                                                 <label className="font-medium dark:text-gray-300">Convert From Vault</label>
-                                                                <input id="default-checkbox" type="checkbox" value="" className="w-5 h-5 cursor-pointer rounded-lg text-blue-600 bg-black ml-2 focus:bg-bg-theme dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                                <input
+                                                                    id="default-checkbox"
+                                                                    type="checkbox"
+                                                                    value=""
+                                                                    className={`w-5 h-5 cursor-pointer rounded-lg text-blue-600 bg-black ml-2 focus:bg-bg-theme dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 ${wallet?.gold === 0 || wallet?.silver === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                                    disabled={wallet?.gold === 0 || wallet?.silver === 0}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
